@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
+using MvcTaskManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,28 @@ namespace MvcTaskManager.Controllers
 
     public async Task<IActionResult> Get()
     {
-      List<tblLocation> tblRejectedStatuses = await db.Location.ToListAsync();
-      return Ok(tblRejectedStatuses);
+      //List<tblLocation> tblRejectedStatuses = await db.Location.ToListAsync();
+      //return Ok(tblRejectedStatuses);
+      List<tblLocation> departments = await db.Location.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<LocationViewModel> projectsViewModel = new List<LocationViewModel>();
+      foreach (var dept in departments)
+      {
+
+        projectsViewModel.Add(new LocationViewModel()
+        {
+          Location_id = dept.location_id,
+          Location_name = dept.location_name,
+          Created_at = dept.created_at,
+          Created_by = dept.created_by,
+          Updated_at = dept.updated_at,
+          Updated_by = dept.updated_by,
+          Is_active = dept.is_active
+
+        });
+      }
+      return Ok(projectsViewModel);
+    
+
     }
   }
 }
