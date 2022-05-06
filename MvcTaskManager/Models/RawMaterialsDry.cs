@@ -20,6 +20,7 @@ namespace MvcTaskManager.Models
     public string primary_unit { get; set; }
     public string conversion { get; set; }
     public string item_type { get; set; }
+    public bool is_active { get; set; }
 
   }
 }
