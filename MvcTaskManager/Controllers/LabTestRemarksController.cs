@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using System;
@@ -22,9 +23,9 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/LabTestRemarks")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-      List<LabTestRemarks> TbLLabTestRemarks = db.laboratory_test_remarks.ToList();
+      List<LabTestRemarks> TbLLabTestRemarks = await db.laboratory_test_remarks.ToListAsync();
       return Ok(TbLLabTestRemarks);
     }
 
@@ -32,11 +33,11 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/LabTestRemarks/searchbyid/{id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult GetByLabID(int LabTestRemarksID)
+    public async Task<IActionResult> GetByLabID(int LabTestRemarksID)
     {
       int LaboratoryIdentity = LabTestRemarksID;
 
-      LabTestRemarks tblLabTestRemark = db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LaboratoryIdentity).FirstOrDefault();
+      LabTestRemarks tblLabTestRemark = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LaboratoryIdentity).FirstOrDefaultAsync();
       if (tblLabTestRemark != null)
       {
         return Ok(tblLabTestRemark);
@@ -50,28 +51,28 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/LabTestRemarks")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public LabTestRemarks Post([FromBody] LabTestRemarks LabRemarks)
+    public async Task<LabTestRemarks> Post([FromBody] LabTestRemarks LabRemarks)
     {
       db.laboratory_test_remarks.Add(LabRemarks);
-      db.SaveChanges();
+      await db.SaveChangesAsync();
 
-      LabTestRemarks existingData = db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LabRemarks.lab_remarks_id).FirstOrDefault();
+      LabTestRemarks existingData = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LabRemarks.lab_remarks_id).FirstOrDefaultAsync();
       return LabRemarks;
     }
 
     [HttpPut]
     [Route("api/LabTestRemarks")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public LabTestRemarks Put([FromBody] LabTestRemarks labTestRemarksProc)
+    public async Task<LabTestRemarks> Put([FromBody] LabTestRemarks labTestRemarksProc)
     {
-      LabTestRemarks existingDataStatus = db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == labTestRemarksProc.lab_remarks_id).FirstOrDefault();
+      LabTestRemarks existingDataStatus = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == labTestRemarksProc.lab_remarks_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_remarks_description = labTestRemarksProc.lab_remarks_description;
         existingDataStatus.lab_test_remarks_active_status = labTestRemarksProc.lab_test_remarks_active_status;
         existingDataStatus.updated_at = labTestRemarksProc.updated_at;
         existingDataStatus.updated_by = labTestRemarksProc.updated_by;
-        db.SaveChanges();
+       await db.SaveChangesAsync();
         return existingDataStatus;
       }
       else
@@ -83,13 +84,13 @@ namespace MvcTaskManager.Controllers
     [HttpDelete]
     [Route("api/LabTestRemarks")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public int Delete(int ID)
+    public async Task<int> Delete(int ID)
     {
-      LabTestRemarks existingDataStatus = db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == ID).FirstOrDefault();
+      LabTestRemarks existingDataStatus = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == ID).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         db.laboratory_test_remarks.Remove(existingDataStatus);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return ID;
       }
       else

@@ -98,7 +98,7 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/umwebusers")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Get()
     {
       List<ApplicationUser> AspNetUsers = db.Users.ToList();
