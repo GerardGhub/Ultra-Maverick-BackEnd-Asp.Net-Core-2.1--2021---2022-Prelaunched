@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using MvcTaskManager.ServiceContracts;
@@ -54,13 +55,25 @@ namespace MvcTaskManager.Controllers
             }
         }
 
-        [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody]SignUpViewModel signUpViewModel)
-        {
-            var user = await _usersService.Register(signUpViewModel);
-            if (user == null)
-                return BadRequest(new { message = "Invalid Data" });
+    [HttpPost]
+    [Route("register")]
+    public async Task<IActionResult> Register([FromBody] SignUpViewModel signUpViewModel)
+    {
+      var EmailValidation = db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToList();
+
+      if (EmailValidation.Count > 0)
+      {
+        return BadRequest(new { message = "Email Already taken" });
+      }
+
+
+      var user = await _usersService.Register(signUpViewModel);
+
+      if (user == null)
+        return BadRequest(new { message = "Invalid Data" });
+
+     
+
 
             HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
             var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
@@ -80,7 +93,7 @@ namespace MvcTaskManager.Controllers
         [Route("api/getallemployees")]
         public async Task<IActionResult> GetAllEmployees()
         {
-            List<ApplicationUser> users = this.db.Users.ToList();
+            List<ApplicationUser> users = await this.db.Users.ToListAsync();
             List<ApplicationUser> employeeUsers = new List<ApplicationUser>();
 
             foreach (var item in users)
@@ -99,16 +112,11 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/umwebusers")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-      List<ApplicationUser> AspNetUsers = db.Users.ToList();
+      List<ApplicationUser> AspNetUsers = await db.Users.ToListAsync();
       return Ok(AspNetUsers);
     }
-
-
-
-
-
 
 
 

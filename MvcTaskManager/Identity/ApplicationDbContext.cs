@@ -51,6 +51,7 @@ namespace MvcTaskManager.Identity
     public DbSet<RawMaterialsDry> Raw_Materials_Dry { get; set; }
     public DbSet<MaterialRequestLogs> material_request_logs { get; set; }
     public DbSet<TypeofApprover> TypeofApprover { get; set; }
+    public DbSet<Position> Position { get; set; }
 
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -66,9 +66,9 @@ namespace MvcTaskManager.Services
         public async Task<ApplicationUser> Register(SignUpViewModel signUpViewModel)
         {
             ApplicationUser applicationUser = new ApplicationUser();
-            applicationUser.FirstName = signUpViewModel.PersonName.FirstName;
-            applicationUser.LastName = signUpViewModel.PersonName.LastName;
-            applicationUser.Email = signUpViewModel.Email;
+      applicationUser.FirstName = signUpViewModel.PersonName.FirstName;
+      applicationUser.LastName = signUpViewModel.PersonName.LastName;
+      applicationUser.Email = signUpViewModel.Email;
             applicationUser.PhoneNumber = signUpViewModel.Mobile;
             applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
             applicationUser.CountryID = signUpViewModel.CountryID;
@@ -102,18 +102,19 @@ namespace MvcTaskManager.Services
                         applicationUser.Token = tokenHandler.WriteToken(token);
 
                         //Skills
-                        foreach (var sk in signUpViewModel.Skills)
-                        {
-                            Skill skill = new Skill();
-                            skill.SkillName = sk.SkillName;
-                            skill.SkillLevel = sk.SkillLevel;
-                            skill.Id = applicationUser.Id;
-                            skill.ApplicationUser = null;
-                            this._db.Skills.Add(skill);
-                            this._db.SaveChanges();
-                        }
+                        //foreach (var sk in signUpViewModel.Skills)
+                        //{
+                        //    Skill skill = new Skill();
+                        //    skill.SkillName = sk.SkillName;
+                        //    skill.SkillLevel = sk.SkillLevel;
+                        //    skill.Id = applicationUser.Id;
+                        //    skill.ApplicationUser = null;
+                        //    this._db.Skills.Add(skill);
+                        //    this._db.SaveChanges();
+                        //}
+            this._db.SaveChanges();
 
-                        return applicationUser;
+            return applicationUser;
                     }
                     else
                     {

@@ -33,11 +33,11 @@ namespace MvcTaskManager.Controllers
       List<Department> departments =  await db.Department.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
-      List<DepartmentViewModel> projectsViewModel = new List<DepartmentViewModel>();
+      List<DepartmentViewModel> departmentViewModel = new List<DepartmentViewModel>();
       foreach (var dept in departments)
       {
         
-        projectsViewModel.Add(new DepartmentViewModel()
+        departmentViewModel.Add(new DepartmentViewModel()
         {
           Department_id = dept.department_id,
           Department_name = dept.department_name,
@@ -51,7 +51,7 @@ namespace MvcTaskManager.Controllers
           
         });
       }
-      return Ok(projectsViewModel);
+      return Ok(departmentViewModel);
 
 
     }
