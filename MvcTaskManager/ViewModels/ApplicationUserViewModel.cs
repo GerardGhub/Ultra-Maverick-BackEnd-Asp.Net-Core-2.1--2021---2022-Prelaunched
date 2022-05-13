@@ -10,8 +10,7 @@ namespace MvcTaskManager.ViewModels
   public class ApplicationUserViewModel
   {
 
-    ////[Required]
-    //public PersonFullName PersonName { get; set; }
+  
 
     public string Id { get; set; }
     [Required]
