@@ -27,23 +27,22 @@ namespace MvcTaskManager.Identity
         public int Unit_id { get; set; }
         public string Location { get; set; }
 
-        public string Type_of_approver { get; set; }
-   
+
         public string First_approver_name { get; set; }
    
-        public int First_approver_id { get; set; }
+        public int? First_approver_id { get; set; }
 
         public string Second_approver_name { get; set; }
 
-        public int Second_approver_id { get; set; }
+        public int? Second_approver_id { get; set; }
 
         public string Third_approver_name { get; set; }
 
-        public int Third_approver_id { get; set; }
+        public int? Third_approver_id { get; set; }
 
         public string Fourth_approver_name { get; set; }
   
-        public int Fourth_approver_id { get; set; }
+        public int? Fourth_approver_id { get; set; }
 
         public bool Is_active { get; set; }
         public bool Requestor { get; set; }

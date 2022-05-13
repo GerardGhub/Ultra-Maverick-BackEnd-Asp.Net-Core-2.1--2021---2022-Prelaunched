@@ -46,7 +46,7 @@ namespace MvcTaskManager.ViewModels
     [Required]
     public string Location { get; set; }
     [Required]
-    public string Type_of_approver { get; set; }
+ 
  
     public string First_approver_name { get; set; }
 

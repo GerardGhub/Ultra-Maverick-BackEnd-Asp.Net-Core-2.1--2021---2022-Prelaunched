@@ -82,7 +82,7 @@ namespace MvcTaskManager.Services
       applicationUser.Unit_id = signUpViewModel.MaterialRequest.Unit_id;
 
       applicationUser.Location = signUpViewModel.MaterialRequest.Location;
-      applicationUser.Type_of_approver = signUpViewModel.MaterialRequest.Type_of_approver;
+      //applicationUser.Type_of_approver = signUpViewModel.MaterialRequest.Type_of_approver;
       applicationUser.First_approver_name = signUpViewModel.MaterialRequest.First_approver_name;
       applicationUser.First_approver_id = (int)signUpViewModel.MaterialRequest.First_approver_id;
       applicationUser.Second_approver_name = signUpViewModel.MaterialRequest.Second_approver_name;

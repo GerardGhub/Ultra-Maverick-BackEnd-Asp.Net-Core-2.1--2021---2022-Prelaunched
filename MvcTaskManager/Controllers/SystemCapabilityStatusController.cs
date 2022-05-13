@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using System;
@@ -20,17 +21,13 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/SystemCapabilityStatus")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-    public IActionResult Get()
+    public async Task<ActionResult> Get()
     {
-      List<SystemCapabilityStatus> SystemStatus = db.system_capability_status.ToList();
+      List<SystemCapabilityStatus> SystemStatus = await db.system_capability_status.ToListAsync();
       return Ok(SystemStatus);
     }
 
-    //public IActionResult Index()
-    //{
-    //  return View();
-    //}
   }
 }

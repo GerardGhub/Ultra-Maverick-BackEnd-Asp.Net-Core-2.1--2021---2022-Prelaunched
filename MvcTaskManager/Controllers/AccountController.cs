@@ -66,15 +66,71 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "Username Already Taken" });
       }
 
-    
-        if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Second_approver_id)
+
+      //2nd Boolean
+      if (signUpViewModel.MaterialRequest.Requestor == true)
+      {
+
+        if (signUpViewModel.MaterialRequest.First_approver_id == null)
         {
+          this.checkstatistic = "0";
+
+        }
+        else
+        {
+          this.checkstatistic = "1";
+        }
+
+        if (signUpViewModel.MaterialRequest.Second_approver_id == null)
+        {
+          if (signUpViewModel.MaterialRequest.Third_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+        if (signUpViewModel.MaterialRequest.Third_approver_id == null)
+        {
+          if (signUpViewModel.MaterialRequest.Fourth_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+
+        if (checkstatistic == "2")
+        {
+          return BadRequest(new { message = "You must select an initial first approver" });
+        }
+
+
+        if (checkstatistic != "1")
+        {
+          return BadRequest(new { message = "You must select a approver" });
+        }
+      }
+
+
+
+
+      if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Second_approver_id)
+      {
+      if (signUpViewModel.MaterialRequest.First_approver_id != null)
+      {
+      return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+      }
+      }
+
+      else if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Third_approver_id)
+      {
         if (signUpViewModel.MaterialRequest.First_approver_id != null)
         {
-          return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+          return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
         }
-        }
-      
+      }
+
       else if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
       {
         if (signUpViewModel.MaterialRequest.First_approver_id != null)
@@ -90,21 +146,6 @@ namespace MvcTaskManager.Controllers
         }
       }
 
-      else if (signUpViewModel.MaterialRequest.Third_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
-      {
-        if (signUpViewModel.MaterialRequest.Third_approver_id != null)
-        {
-          return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
-        }
-      }
-      else if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Third_approver_id)
-      {
-        if (signUpViewModel.MaterialRequest.First_approver_id != null)
-        {
-          return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
-        }
-      }
-
       else if (signUpViewModel.MaterialRequest.Second_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
       {
         if (signUpViewModel.MaterialRequest.Second_approver_id != null)
@@ -113,89 +154,20 @@ namespace MvcTaskManager.Controllers
         }
       }
 
+      else if (signUpViewModel.MaterialRequest.Third_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
+      {
+        if (signUpViewModel.MaterialRequest.Third_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
+        }
+      }
+
+
+
+
       //  Boolean
       
-      if(signUpViewModel.MaterialRequest.Requestor == true)
-      {
-  
-        if (signUpViewModel.MaterialRequest.First_approver_id == null )
-        {
-          this.checkstatistic = "0";
-        
-        }
-        else
-        {
-          this.checkstatistic = "1";
-        }
-
-        //if (signUpViewModel.MaterialRequest.Second_approver_id == null)
-        //{
-        //  this.checkstatistic = "0";
-
-        //}
-        //else
-        //{
-        //  this.checkstatistic = "1";
-        //}
-
-
-        //if (signUpViewModel.MaterialRequest.Second_approver_id == null)
-        //{
-        //  this.checkstatistic = "0";
-
-        //}
-        //else
-        //{
-        //  this.checkstatistic = "1";
-        //}
-        //if (checkstatistic != "1")
-        //{
-        //  if (signUpViewModel.MaterialRequest.Second_approver_id == null)
-        //  {
-        //    this.checkstatistic = "0";
-
-        //  }
-        //  else
-        //  {
-        //    this.checkstatistic = "1";
-        //  }
-        //}
-
-        //if (checkstatistic != "1")
-        //{
-        //  if (signUpViewModel.MaterialRequest.Third_approver_id == null)
-        //  {
-        //    this.checkstatistic = "0";
-
-        //  }
-        //  else
-        //  {
-        //    this.checkstatistic = "1";
-        //  }
-        //}
-
-        //if (checkstatistic != "1")
-        //{
-        //  if (signUpViewModel.MaterialRequest.Fourth_approver_id == null)
-        //  {
-        //    this.checkstatistic = "0";
-
-        //  }
-        //  else
-        //  {
-        //    this.checkstatistic = "1";
-        //  }
-        //}
-
-        if (checkstatistic != "1")
-        {
-          return BadRequest(new { message = "You must select a approver" });
-        }
-
-
-
-
-      }
+    
 
 
         //Validating Null Value
@@ -346,7 +318,7 @@ namespace MvcTaskManager.Controllers
     {
       //List<ApplicationUser> AspNetUsers = await db.Users.ToListAsync();
       //return Ok(AspNetUsers);
-      string TypeofRequestor = "Approver";
+     
       List<ApplicationUser> departments = await db.Users.Where(temp => temp.Is_active.Equals(true) && temp.Approver.Equals(true)).ToListAsync();
 
 
@@ -381,7 +353,7 @@ namespace MvcTaskManager.Controllers
 
     }
 
-
+    //ApplicationUser
     [HttpPut]
     [Route("api/umwebusers_update")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -390,41 +362,146 @@ namespace MvcTaskManager.Controllers
       ApplicationUser existingDataStatus = await db.Users.Where(temp => temp.Id == labProc.Id).FirstOrDefaultAsync();
 
 
+
+      //2nd Boolean
+      if (labProc.Requestor == true)
+      {
+
+        if (labProc.First_approver_id == null )
+        {
+          this.checkstatistic = "0";
+
+        }
+        else
+        {
+          this.checkstatistic = "1";
+        }
+
+        if (labProc.Second_approver_id == null)
+        {
+          if (labProc.Third_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+        if (labProc.Third_approver_id == null)
+        {
+          if (labProc.Fourth_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+
+        if (checkstatistic == "2")
+        {
+          return null;
+          //return BadRequest(new { message = "You must select an initial first approver" });
+        }
+
+
+        if (checkstatistic != "1")
+        {
+          return null;
+          //return BadRequest(new { message = "You must select a approver" });
+        }
+      }
+
+
+
+
       if (labProc.First_approver_id == labProc.Second_approver_id)
       {
-        return null;
-        //return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+        if (labProc.First_approver_id != null && labProc.Second_approver_id != null)
+        {
+       
+          return null;
+          //return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+        }
       }
-      else if (labProc.First_approver_id == labProc.Fourth_approver_id)
-      {
-        //return BadRequest(new { message = "You already tagged a approver on section 1 and 4" });
-        return null;
-      }
-      else if (labProc.Third_approver_id == labProc.Fourth_approver_id)
-      {
-        //return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
-        return null;
-      }
+
       else if (labProc.First_approver_id == labProc.Third_approver_id)
       {
-        return null;
-        //return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
+        if (labProc.First_approver_id != null && labProc.Third_approver_id != null)
+        {
+          return null;
+          //return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
+        }
+      }
+
+      else if (labProc.First_approver_id == labProc.Fourth_approver_id)
+      {
+        if (labProc.First_approver_id != null && labProc.Fourth_approver_id != null)
+        {
+          return null;
+          //return BadRequest(new { message = "You already tagged a approver on section 1 and 4" });
+        }
       }
       else if (labProc.Second_approver_id == labProc.Third_approver_id)
       {
-        return null;
-        //return BadRequest(new { message = "You already tagged a approver on section 2 and 3" });
+        if (labProc.Second_approver_id != null && labProc.Third_approver_id != null)
+        {
+          return null;
+          //return BadRequest(new { message = "You already tagged a approver on section 2 and 3" });
+        }
       }
+
       else if (labProc.Second_approver_id == labProc.Fourth_approver_id)
       {
-        //return BadRequest(new { message = "You already tagged a approver on section 2 and 4" });
-        return null;
+        if (labProc.Second_approver_id != null && labProc.Fourth_approver_id != null)
+        {
+          return null;
+          //return BadRequest(new { message = "You already tagged a approver on section 2 and 4" });
+        }
       }
-      else
 
+      else if (labProc.Third_approver_id == labProc.Fourth_approver_id)
       {
+        if (labProc.Third_approver_id != null && labProc.Fourth_approver_id != null)
+        {
+          return null;
+          //return Ok("ddd");
+          //return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
+        }
+      }
 
-        if (existingDataStatus != null)
+
+
+
+      //  Boolean
+
+
+
+
+      //Validating Null Value
+      //1
+      if (labProc.First_approver_id == null)
+      {
+        labProc.First_approver_id = 0;
+      }
+      //2
+      if (labProc.Second_approver_id == null)
+      {
+        labProc.Second_approver_id = 0;
+      }
+      //3
+      if (labProc.Third_approver_id == null)
+      {
+        labProc.Third_approver_id = 0;
+      }
+      //4
+      if (labProc.Fourth_approver_id == null)
+      {
+        labProc.Fourth_approver_id = 0;
+      }
+
+
+   // Excemption attempting to Save on Database
+
+      if (existingDataStatus != null)
         {
 
 
@@ -434,7 +511,8 @@ namespace MvcTaskManager.Controllers
           existingDataStatus.Second_approver_id = labProc.Second_approver_id;
           existingDataStatus.Third_approver_name = labProc.Third_approver_name;
           existingDataStatus.Third_approver_id = labProc.Third_approver_id;
-
+          existingDataStatus.Fourth_approver_name = labProc.Fourth_approver_name;
+          existingDataStatus.Fourth_approver_id = labProc.Fourth_approver_id;
 
 
 
@@ -445,7 +523,7 @@ namespace MvcTaskManager.Controllers
         {
           return null;
         }
-      }
+      //}
 
     }
 
