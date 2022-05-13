@@ -24,11 +24,10 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/tblDryPartialReceivingRejection")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
       string data_is_pending = "1";
-      List<tblDryPartialReceivingRejectionModel> tblDryPartialReceivingRejections = db.tblDryPartialReceivingRejection.Where(temp => temp.Is_pending.Contains(data_is_pending)).ToList();
+      List<tblDryPartialReceivingRejectionModel> tblDryPartialReceivingRejections = await db.tblDryPartialReceivingRejection.Where(temp => temp.Is_pending.Contains(data_is_pending)).ToListAsync();
       return Ok(tblDryPartialReceivingRejections);
     }
 
@@ -36,7 +35,7 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/tblDryPartialReceivingRejection/search/{searchby}/{searchtext}/{searchindex}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult Search(string searchBy, string searchText, string searchIndex)
+    public async Task<IActionResult> Search(string searchBy, string searchText, string searchIndex)
     {
 
       string data_is_pending = "1";
@@ -47,7 +46,7 @@ namespace MvcTaskManager.Controllers
       string RejectIndexes = searchIndex;
       if (searchBy == "Po_number")
 
-        projects = db.tblDryPartialReceivingRejection.Where(temp => temp.Is_active.Contains(is_activated) && temp.Is_pending.Contains(data_is_pending) && temp.Po_number.ToString().Contains(PoNumberValue) && temp.Projection_identity.ToString().Contains(RejectIndexes)).ToList();
+        projects = await db.tblDryPartialReceivingRejection.Where(temp => temp.Is_active.Contains(is_activated) && temp.Is_pending.Contains(data_is_pending) && temp.Po_number.ToString().Contains(PoNumberValue) && temp.Projection_identity.ToString().Contains(RejectIndexes)).ToListAsync();
 
 
       List<WarehouseRejectStatusViewModel> WarehouseRejectStatusContructor = new List<WarehouseRejectStatusViewModel>();
