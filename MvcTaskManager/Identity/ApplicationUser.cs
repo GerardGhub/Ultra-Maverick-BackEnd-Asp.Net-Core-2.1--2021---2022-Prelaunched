@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -47,6 +48,18 @@ namespace MvcTaskManager.Identity
         public bool Is_active { get; set; }
         public bool Requestor { get; set; }
         public bool Approver { get; set; }
+
+        [ForeignKey("department_id")]
+        public virtual Department Department { get; set; }
+
+
+        [ForeignKey("position_id")]
+            public virtual Position Position { get; set; }
+
+        [ForeignKey("unit_id")]
+        public virtual DepartmentUnit DepartmentUnit { get; set; }
+
+
   }
 }
 

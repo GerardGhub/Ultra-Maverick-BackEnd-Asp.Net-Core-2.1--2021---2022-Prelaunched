@@ -2,6 +2,7 @@ using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,69 +48,38 @@ namespace MvcTaskManager.ViewModels
     public int Unit_id { get; set; }
     [Required]
     public string Location { get; set; }
-    [Required]
-    public string Type_of_approver { get; set; }
+
     [Required]
     public string First_approver_name { get; set; }
     [Required]
-    public int First_approver_id { get; set; }
+    public int? First_approver_id { get; set; }
     [Required]
     public string Second_approver_name { get; set; }
     [Required]
-    public int Second_approver_id { get; set; }
+    public int? Second_approver_id { get; set; }
     [Required]
     public string Third_approver_name { get; set; }
     [Required]
-    public int Third_approver_id { get; set; }
+    public int? Third_approver_id { get; set; }
     [Required]
     public string Fourth_approver_name { get; set; }
     [Required]
-    public int Fourth_approver_id { get; set; }
+    public int? Fourth_approver_id { get; set; }
     public bool Is_active { get; set; }
+    public bool Approver { get; set; }
+    public bool Requestor { get; set; }
+    public string Department_Name { get; set; }
+    public string Position_Name { get; set; }
+    public string DepartmentUnit_Name { get; set; }
+
+    //[ForeignKey("department_id")]
+    //public virtual Department Department { get; set; }
+
     //[Required]
     //public MaterialRequestRequirements MaterialRequest { get; set; }
   }
 
 
-  //public class MaterialRequestRequirements
-  //{
-  //  [Required]
-  //  public int Department_id { get; set; }
-  //  [Required]
-  //  public int Position_id { get; set; }
-  //  [Required]
-  //  public int Unit_id { get; set; }
-  //  [Required]
-  //  public string Location { get; set; }
-  //  [Required]
-  //  public string Type_of_approver { get; set; }
-  //  [Required]
-  //  public string First_approver_name { get; set; }
-  //  [Required]
-  //  public int First_approver_id { get; set; }
-  //  [Required]
-  //  public string Second_approver_name { get; set; }
-  //  [Required]
-  //  public int Second_approver_id { get; set; }
-  //  [Required]
-  //  public string Third_approver_name { get; set; }
-  //  [Required]
-  //  public int Third_approver_id { get; set; }
-  //  [Required]
-  //  public string Fourth_approver_name { get; set; }
-  //  [Required]
-  //  public int Fourth_approver_id { get; set; }
-  //  public bool Is_active { get; set; }
-  //}
-
-
-  //public class PersonFullName
-  //{
-  //  [Required]
-  //  public string FirstName { get; set; }
-  //  [Required]
-  //  public string LastName { get; set; }
-  //}
 
 
 }
