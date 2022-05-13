@@ -23,7 +23,7 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/AspNetRoles")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
     public async Task<IActionResult> Get()
     {

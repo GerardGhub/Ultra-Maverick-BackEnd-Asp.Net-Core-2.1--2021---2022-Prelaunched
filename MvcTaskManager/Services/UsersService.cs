@@ -69,15 +69,32 @@ namespace MvcTaskManager.Services
       applicationUser.FirstName = signUpViewModel.PersonName.FirstName;
       applicationUser.LastName = signUpViewModel.PersonName.LastName;
       applicationUser.Email = signUpViewModel.Email;
-            applicationUser.PhoneNumber = signUpViewModel.Mobile;
-            applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
-            applicationUser.CountryID = signUpViewModel.CountryID;
-            applicationUser.Gender = signUpViewModel.Gender;
-            applicationUser.Role = "Admin";
-            applicationUser.UserName = signUpViewModel.Email;
+      applicationUser.PhoneNumber = signUpViewModel.Mobile;
+      applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
+      applicationUser.CountryID = signUpViewModel.CountryID;
+      applicationUser.Gender = signUpViewModel.Gender;
+      applicationUser.Role = "Admin";
+      applicationUser.UserName = signUpViewModel.Email;
       applicationUser.UserRole = signUpViewModel.UserRole;
 
-            var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
+      applicationUser.Department_id = signUpViewModel.MaterialRequest.Department_id;
+      applicationUser.Position_id = signUpViewModel.MaterialRequest.Position_id;
+      applicationUser.Unit_id = signUpViewModel.MaterialRequest.Unit_id;
+
+      applicationUser.Location = signUpViewModel.MaterialRequest.Location;
+      applicationUser.Type_of_approver = signUpViewModel.MaterialRequest.Type_of_approver;
+      applicationUser.First_approver_name = signUpViewModel.MaterialRequest.First_approver_name;
+      applicationUser.First_approver_id = (int)signUpViewModel.MaterialRequest.First_approver_id;
+      applicationUser.Second_approver_name = signUpViewModel.MaterialRequest.Second_approver_name;
+      applicationUser.Second_approver_id = (int)signUpViewModel.MaterialRequest.Second_approver_id;
+      applicationUser.Third_approver_name = signUpViewModel.MaterialRequest.Third_approver_name;
+      applicationUser.Third_approver_id = (int)signUpViewModel.MaterialRequest.Third_approver_id;
+      applicationUser.Fourth_approver_name = signUpViewModel.MaterialRequest.Fourth_approver_name;
+      applicationUser.Fourth_approver_id = (int)signUpViewModel.MaterialRequest.Fourth_approver_id;
+      applicationUser.Approver = signUpViewModel.MaterialRequest.Approver;
+      applicationUser.Requestor = signUpViewModel.MaterialRequest.Requestor;
+      applicationUser.Is_active = true;
+      var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
             if (result.Succeeded)
             {
                 if ((await _applicationUserManager.AddToRoleAsync(await _applicationUserManager.FindByNameAsync(signUpViewModel.Email), "Admin")).Succeeded)
@@ -101,18 +118,18 @@ namespace MvcTaskManager.Services
                         var token = tokenHandler.CreateToken(tokenDescriptor);
                         applicationUser.Token = tokenHandler.WriteToken(token);
 
-                        //Skills
-                        //foreach (var sk in signUpViewModel.Skills)
-                        //{
-                        //    Skill skill = new Skill();
-                        //    skill.SkillName = sk.SkillName;
-                        //    skill.SkillLevel = sk.SkillLevel;
-                        //    skill.Id = applicationUser.Id;
-                        //    skill.ApplicationUser = null;
-                        //    this._db.Skills.Add(skill);
-                        //    this._db.SaveChanges();
-                        //}
-            this._db.SaveChanges();
+            //Skills
+            foreach (var sk in signUpViewModel.Skills)
+            {
+              Skill skill = new Skill();
+              skill.SkillName = sk.SkillName;
+              skill.SkillLevel = sk.SkillLevel;
+              skill.Id = applicationUser.Id;
+              skill.ApplicationUser = null;
+              this._db.Skills.Add(skill);
+              this._db.SaveChanges();
+            }
+            //this._db.SaveChanges();
 
             return applicationUser;
                     }

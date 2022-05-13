@@ -101,7 +101,7 @@ namespace MvcTaskManager
                 }
 
                 //Create Admin User
-                if ((await userManager.FindByNameAsync("admin")) == null)
+             if ((await userManager.FindByNameAsync("admin")) == null)
                 {
                     var user = new ApplicationUser();
                     user.UserName = "admin";
