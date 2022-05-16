@@ -70,9 +70,20 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/material_request_logs_insert")]
     [Authorize]
-
+ 
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs materialRequest)
     {
+
+      var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == materialRequest.mrs_transact_no
+      && temp.mrs_date_needed == materialRequest.mrs_date_needed
+      && temp.mrs_order_qty == materialRequest.mrs_order_qty
+      && temp.mrs_item_code == materialRequest.mrs_item_code).ToListAsync();
+
+      if (RawDataInfo.Count > 0)
+      {
+        return BadRequest(new { message = "You already request a same item today" });
+      }
+
 
       db.material_request_logs.Add(materialRequest);
       await db.SaveChangesAsync();
@@ -93,6 +104,7 @@ namespace MvcTaskManager.Controllers
       //  return BadRequest(new { message = "string is not allowed!" });
       //}
 
+     
       MaterialRequestLogsViewModel MRISViewModel = new MaterialRequestLogsViewModel()
       {
         Mrs_transact_no = existingProject.mrs_transact_no,
@@ -103,10 +115,11 @@ namespace MvcTaskManager.Controllers
         Mrs_date_needed = existingProject.mrs_date_needed,
         Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
         Mrs_requested_by = existingProject.mrs_requested_by,
-        Is_active = true
-        //Mrs_order_by = existingProject.mrs_order_by,
-        //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
-      };
+        Is_active = existingProject.is_active.ToString()
+
+      //Mrs_order_by = existingProject.mrs_order_by,
+      //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
+    };
 
       return Ok(MRISViewModel);
 
@@ -145,7 +158,7 @@ namespace MvcTaskManager.Controllers
           Mrs_issued_by = material.mrs_issued_by,
           Mrs_issued_date = material.mrs_issued_by,
           Mrs_requested_by = material.mrs_requested_by,
-          Is_active = material.is_active
+          Is_active = material.is_active.ToString()
 
 
         });
