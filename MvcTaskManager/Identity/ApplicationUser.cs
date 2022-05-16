@@ -49,12 +49,13 @@ namespace MvcTaskManager.Identity
         public bool Requestor { get; set; }
         public bool Approver { get; set; }
 
+
         [ForeignKey("department_id")]
         public virtual Department Department { get; set; }
 
 
         [ForeignKey("position_id")]
-            public virtual Position Position { get; set; }
+        public virtual Position Position { get; set; }
 
         [ForeignKey("unit_id")]
         public virtual DepartmentUnit DepartmentUnit { get; set; }

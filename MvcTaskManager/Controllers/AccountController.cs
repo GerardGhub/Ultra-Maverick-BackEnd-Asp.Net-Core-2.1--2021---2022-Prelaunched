@@ -294,8 +294,24 @@ namespace MvcTaskManager.Controllers
           SecurityStamp = dept.SecurityStamp,
           ConcurrencyStamp = dept.ConcurrencyStamp,
           Mobile = dept.PhoneNumber,
-          Is_active = dept.Is_active
-          
+          Is_active = dept.Is_active,
+          Department_id = dept.Department_id,
+          Position_id = dept.Position_id,
+          Unit_id = dept.Unit_id,
+          Location = dept.Location,
+          Approver = dept.Approver,
+          Requestor = dept.Requestor,
+          First_approver_id = dept.First_approver_id,
+          First_approver_name = dept.First_approver_name,
+          Second_approver_id = dept.Second_approver_id,
+          Second_approver_name = dept.Second_approver_name,
+          Third_approver_id = dept.Third_approver_id,
+          Third_approver_name = dept.Third_approver_name,
+          Fourth_approver_id = dept.Fourth_approver_id,
+          Fourth_approver_name = dept.Fourth_approver_name,
+
+
+
 
         });
       }
@@ -342,7 +358,21 @@ namespace MvcTaskManager.Controllers
           SecurityStamp = dept.SecurityStamp,
           ConcurrencyStamp = dept.ConcurrencyStamp,
           Mobile = dept.PhoneNumber,
-          Is_active = dept.Is_active
+          Is_active = dept.Is_active,
+          Department_id = dept.Department_id,
+          Position_id = dept.Position_id,
+          Unit_id = dept.Unit_id,
+          Location = dept.Location,
+          Approver = dept.Approver,
+          Requestor = dept.Requestor,
+          First_approver_id = dept.First_approver_id,
+          First_approver_name = dept.First_approver_name,
+          Second_approver_id = dept.Second_approver_id,
+          Second_approver_name = dept.Second_approver_name,
+          Third_approver_id = dept.Third_approver_id,
+          Third_approver_name = dept.Third_approver_name,
+          Fourth_approver_id = dept.Fourth_approver_id,
+          Fourth_approver_name = dept.Fourth_approver_name,
 
 
         });
