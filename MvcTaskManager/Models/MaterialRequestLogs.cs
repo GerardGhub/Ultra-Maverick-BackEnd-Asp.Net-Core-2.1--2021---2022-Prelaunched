@@ -13,13 +13,20 @@ namespace MvcTaskManager.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
     public int mrs_id { get; set; }
+
     public string mrs_transact_no { get; set; }
+    
     public string mrs_item_code { get; set; }
     public string mrs_item_description { get; set; }
-    public string mrs_order_qty { get; set; }
+
+    [Required]
+    [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
+    public decimal mrs_order_qty { get; set; }
+    [Required]
     public string mrs_uom { get; set; }
     public string mrs_served_qty { get; set; }
     public string mrs_remarks { get; set; }
+    [Required]
     public string mrs_date_needed { get; set; }
     public string mrs_date_requested { get; set; }
     public string mrs_order_by { get; set; }

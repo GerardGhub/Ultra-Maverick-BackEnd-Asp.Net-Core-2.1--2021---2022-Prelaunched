@@ -20,14 +20,7 @@ namespace MvcTaskManager.Controllers
       this.db = db;
     }
 
-    //[HttpGet]
-    //[Route("api/DryWareHouseReceivingForLabTest")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //public IActionResult Get()
-    //{
-    //  List<DryWareHouseReceiving> TbLLabTestRemarks = db.tblDryWHReceiving.ToList();
-    //  return Ok(TbLLabTestRemarks);
-    //}
+
 
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest")]
@@ -411,7 +404,7 @@ namespace MvcTaskManager.Controllers
           Aging = project.aging,
           Remarks = project.remarks,
           Fk_receiving_id = project.fk_receiving_id,
-          //Is_active = project.is_active,
+          Is_active = project.is_active,
           Added_by = project.added_by,
           Date_added = project.date_added.ToString("MM/dd/yyyy"),
           Qa_approval_by = project.qa_approval_by,
@@ -462,7 +455,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.qa_approval_status = labTestQAStaffApprovalParams.qa_approval_status;
         existingDataStatus.qa_approval_date = labTestQAStaffApprovalParams.qa_approval_date;
         existingDataStatus.lab_status = labTestQAStaffApprovalParams.lab_status;
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return existingDataStatus;
       }
       else

@@ -21,7 +21,99 @@ namespace MvcTaskManager.Controllers
         this.db = db;
       }
 
-      [HttpGet]
+
+    [HttpPut]
+    [Route("api/material_request_logs_update")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestLogs> Put([FromBody] MaterialRequestLogs MRSParams)
+    {
+      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
+        existingDataStatus.mrs_uom = MRSParams.mrs_uom;
+        existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
+        //existingDataStatus.mrs_date_requested = DateTime.Now.ToString("M/d/yyyy");
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+    [HttpPut]
+    [Route("api/material_request_logs_deactivate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestLogs> PutDeactivate([FromBody] MaterialRequestLogs MRSParams)
+    {
+      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
+        existingDataStatus.mrs_uom = MRSParams.mrs_uom;
+        existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
+        //existingDataStatus.mrs_date_requested = DateTime.Now.ToString("M/d/yyyy");
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
+    [HttpPost]
+    [Route("api/material_request_logs_insert")]
+    [Authorize]
+
+    public async Task<IActionResult> Post([FromBody] MaterialRequestLogs materialRequest)
+    {
+
+      db.material_request_logs.Add(materialRequest);
+      await db.SaveChangesAsync();
+
+      MaterialRequestLogs existingProject = await db.material_request_logs.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
+
+      string ActualQuantity = materialRequest.mrs_order_qty.ToString();
+      decimal qtyorder;
+      bool isDecimal = decimal.TryParse(ActualQuantity.ToString(), out qtyorder);
+
+      if (isDecimal == false)
+      {
+        return BadRequest(new { message = "Invalid Quantity!" });
+        //...
+      }
+      //else
+      //{
+      //  return BadRequest(new { message = "string is not allowed!" });
+      //}
+
+      MaterialRequestLogsViewModel MRISViewModel = new MaterialRequestLogsViewModel()
+      {
+        Mrs_transact_no = existingProject.mrs_transact_no,
+        Mrs_item_code = existingProject.mrs_item_code,
+        Mrs_item_description = existingProject.mrs_item_description,
+        Mrs_order_qty = existingProject.mrs_order_qty,
+        Mrs_uom = existingProject.mrs_uom,
+        Mrs_date_needed = existingProject.mrs_date_needed,
+        Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
+        Mrs_requested_by = existingProject.mrs_requested_by,
+        Is_active = true
+        //Mrs_order_by = existingProject.mrs_order_by,
+        //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
+      };
+
+      return Ok(MRISViewModel);
+
+    }
+
+
+    [HttpGet]
       [Route("api/material_request_logs")]
       [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
@@ -46,8 +138,8 @@ namespace MvcTaskManager.Controllers
           Mrs_remarks = material.mrs_remarks,
           Mrs_date_needed = material.mrs_date_needed,
           Mrs_date_requested = material.mrs_date_requested,
-          Mrs_order_by = material.mrs_order_by,
-          Mrs_order_date = material.mrs_order_date,
+          //Mrs_order_by = material.mrs_order_by,
+          //Mrs_order_date = material.mrs_order_date,
           Mrs_approved_by = material.mrs_approved_by,
           Mrs_approved_date =  material.mrs_approved_date,
           Mrs_issued_by = material.mrs_issued_by,
@@ -63,4 +155,10 @@ namespace MvcTaskManager.Controllers
 
       }
     }
+
+
+
+
+
+
 }

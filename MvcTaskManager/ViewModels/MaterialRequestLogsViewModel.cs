@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,7 +12,10 @@ namespace MvcTaskManager.ViewModels
     public string Mrs_transact_no { get; set; }
     public string Mrs_item_code { get; set; }
     public string Mrs_item_description { get; set; }
-    public string Mrs_order_qty { get; set; }
+
+    [Required]
+    [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
+    public decimal Mrs_order_qty { get; set; }
     public string Mrs_uom { get; set; }
     public string Mrs_served_qty { get; set; }
     public string Mrs_remarks { get; set; }
