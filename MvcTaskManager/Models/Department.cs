@@ -20,6 +20,8 @@ namespace MvcTaskManager.Models
     public bool is_active { get; set; }
     public string primary_user_id { get; set; }
     public string location_id { get; set; }
+
+
   }
 
 

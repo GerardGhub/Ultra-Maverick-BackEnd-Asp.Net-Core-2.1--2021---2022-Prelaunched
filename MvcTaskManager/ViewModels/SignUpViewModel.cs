@@ -13,9 +13,9 @@ namespace MvcTaskManager.ViewModels
     public PersonFullName PersonName { get; set; }
     [Required]
     public string Email { get; set; }
-    [Required]
+    //[Required]
     public string Mobile { get; set; }
-    [Required]
+    //[Required]
     public string DateOfBirth { get; set; }
      [Required]
      public string Password { get; set; }
@@ -27,8 +27,8 @@ namespace MvcTaskManager.ViewModels
     public bool ReceiveNewsLetters { get; set; }
     [Required]
     public string UserRole { get; set; }
-    [Required]
-    public List<Skill> Skills { get; set; }
+    //[Required]
+    //public List<Skill> Skills { get; set; }
 
     [Required]
     public MaterialRequestRequirement MaterialRequest{ get; set; }

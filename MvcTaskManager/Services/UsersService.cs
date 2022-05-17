@@ -69,9 +69,9 @@ namespace MvcTaskManager.Services
       applicationUser.FirstName = signUpViewModel.PersonName.FirstName;
       applicationUser.LastName = signUpViewModel.PersonName.LastName;
       applicationUser.Email = signUpViewModel.Email;
-      applicationUser.PhoneNumber = signUpViewModel.Mobile;
-      applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
-      applicationUser.CountryID = signUpViewModel.CountryID;
+      //applicationUser.PhoneNumber = signUpViewModel.Mobile;
+      //applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
+      //applicationUser.CountryID = signUpViewModel.CountryID;
       applicationUser.Gender = signUpViewModel.Gender;
       applicationUser.Role = "Admin";
       applicationUser.UserName = signUpViewModel.Email;
@@ -119,17 +119,17 @@ namespace MvcTaskManager.Services
                         applicationUser.Token = tokenHandler.WriteToken(token);
 
             //Skills
-            foreach (var sk in signUpViewModel.Skills)
-            {
-              Skill skill = new Skill();
-              skill.SkillName = sk.SkillName;
-              skill.SkillLevel = sk.SkillLevel;
-              skill.Id = applicationUser.Id;
-              skill.ApplicationUser = null;
-              this._db.Skills.Add(skill);
-              this._db.SaveChanges();
-            }
-            //this._db.SaveChanges();
+            //foreach (var sk in signUpViewModel.Skills)
+            //{
+            //  Skill skill = new Skill();
+            //  skill.SkillName = sk.SkillName;
+            //  skill.SkillLevel = sk.SkillLevel;
+            //  skill.Id = applicationUser.Id;
+            //  skill.ApplicationUser = null;
+            //  this._db.Skills.Add(skill);
+            //  this._db.SaveChanges();
+            //}
+            this._db.SaveChanges();
 
             return applicationUser;
                     }

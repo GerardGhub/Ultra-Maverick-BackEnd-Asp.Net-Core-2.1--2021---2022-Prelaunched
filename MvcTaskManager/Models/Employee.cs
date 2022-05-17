@@ -17,7 +17,18 @@ namespace MvcTaskManager.Models
     public string last_name { get; set; }
     public string department { get; set; }
     public string sub_unit { get; set; }
+    public int dept_id { get; set; }
+    public int unit_id { get; set; }
     public bool is_active { get; set; }
+
+
+ 
+    [ForeignKey("dept_id")]
+    public virtual Department Department { get; set; }
+
+
+    [ForeignKey("unit_id")]
+    public virtual DepartmentUnit DepartmentUnit { get; set; }
 
   }
 }

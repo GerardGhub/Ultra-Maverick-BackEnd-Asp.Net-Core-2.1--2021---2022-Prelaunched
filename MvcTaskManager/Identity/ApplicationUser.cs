@@ -19,6 +19,7 @@ namespace MvcTaskManager.Identity
         public string LastName { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string Gender { get; set; }
+
         public int CountryID { get; set; }
         public string UserRole { get; set; }
         public bool ReceiveNewsLetters { get; set; }
@@ -50,13 +51,16 @@ namespace MvcTaskManager.Identity
         public bool Approver { get; set; }
 
 
+        [NotMapped]
         [ForeignKey("department_id")]
         public virtual Department Department { get; set; }
 
 
+        [NotMapped]
         [ForeignKey("position_id")]
         public virtual Position Position { get; set; }
 
+        [NotMapped]
         [ForeignKey("unit_id")]
         public virtual DepartmentUnit DepartmentUnit { get; set; }
 

@@ -14,5 +14,7 @@ namespace MvcTaskManager.ViewModels
     public string Department { get; set; }
     public string Sub_unit { get; set; }
     public bool Is_active { get; set; }
+    public string Department_id { get; set; }
+    public string DepartmentUnit_id { get; set; }
   }
 }

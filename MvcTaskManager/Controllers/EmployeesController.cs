@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
   public async Task<IActionResult> Get()
   {
 
-    List<Employee> employees = await db.Employees.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+    List<Employee> employees = await db.Employees.Include("Department").Include("DepartmentUnit").Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
     List<EmployeeViewModel> EmployeeViewModel = new List<EmployeeViewModel>();
@@ -42,7 +42,11 @@ namespace MvcTaskManager.Controllers
         Last_name = emp.last_name,
         Department = emp.department,
         Sub_unit = emp.sub_unit,
-        Is_active = emp.is_active
+        Is_active = emp.is_active,
+        Department_id = emp.Department.department_id.ToString(),
+        DepartmentUnit_id = emp.DepartmentUnit.unit_id.ToString()
+
+
 
       });
     }
