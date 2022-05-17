@@ -51,10 +51,12 @@ namespace MvcTaskManager.Controllers
       MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
-        existingDataStatus.mrs_uom = MRSParams.mrs_uom;
-        existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
-        //existingDataStatus.mrs_date_requested = DateTime.Now.ToString("M/d/yyyy");
+        existingDataStatus.is_active = false;
+        existingDataStatus.activated_by = null;
+        existingDataStatus.activated_date = null;
+        existingDataStatus.deactivated_by = MRSParams.deactivated_by;
+        existingDataStatus.deactivated_date = DateTime.Now.ToString("M/d/yyyy");
+
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -64,6 +66,31 @@ namespace MvcTaskManager.Controllers
       }
     }
 
+
+
+
+    [HttpPut]
+    [Route("api/material_request_logs_activate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestLogs> Putactivate([FromBody] MaterialRequestLogs MRSParams)
+    {
+      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.is_active = true;
+        existingDataStatus.deactivated_by = null;
+        existingDataStatus.deactivated_date = null;
+        existingDataStatus.activated_by = MRSParams.activated_by;
+        existingDataStatus.activated_date = DateTime.Now.ToString("M/d/yyyy");
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
 
 
 

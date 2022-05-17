@@ -37,6 +37,9 @@ namespace MvcTaskManager.Models
     public string mrs_issued_date { get; set; }
     public string mrs_requested_by { get; set; }
     public bool is_active { get; set; } = true;
-
+    public string deactivated_by { get; set; }
+    public string deactivated_date { get; set; }
+    public string activated_by { get; set; }
+    public string activated_date { get; set; }
   }
 }

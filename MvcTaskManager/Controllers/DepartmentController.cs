@@ -27,8 +27,6 @@ namespace MvcTaskManager.Controllers
 
     public async Task<IActionResult> Get()
     {
-      //List<Department> tblRejectedStatuses = await db.Department.ToListAsync();
-      //return Ok(tblRejectedStatuses);
 
       List<Department> departments =  await db.Department.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
