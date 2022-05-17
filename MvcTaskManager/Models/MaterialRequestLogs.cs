@@ -28,15 +28,15 @@ namespace MvcTaskManager.Models
     public string mrs_remarks { get; set; }
     [Required]
     public string mrs_date_needed { get; set; }
-    public string mrs_date_requested { get; set; }
-    public string mrs_order_by { get; set; }
-    public string mrs_order_date { get; set; }
+    public string mrs_date_requested { get; set; } = DateTime.Now.ToString("M/d/yyyy");
+    //public string mrs_order_by { get; set; }
+    //public string mrs_order_date { get; set; }
     public string mrs_approved_by { get; set; }
     public string mrs_approved_date { get; set; }
     public string mrs_issued_by { get; set; }
     public string mrs_issued_date { get; set; }
     public string mrs_requested_by { get; set; }
-    public bool is_active { get; set; }
+    public bool is_active { get; set; } = true;
 
   }
 }

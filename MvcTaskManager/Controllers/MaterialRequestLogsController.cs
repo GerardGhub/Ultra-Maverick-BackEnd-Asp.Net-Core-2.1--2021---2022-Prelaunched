@@ -69,8 +69,7 @@ namespace MvcTaskManager.Controllers
 
     [HttpPost]
     [Route("api/material_request_logs_insert")]
-    [Authorize]
- 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs materialRequest)
     {
 
@@ -104,7 +103,7 @@ namespace MvcTaskManager.Controllers
       //  return BadRequest(new { message = "string is not allowed!" });
       //}
 
-     
+
       MaterialRequestLogsViewModel MRISViewModel = new MaterialRequestLogsViewModel()
       {
         Mrs_transact_no = existingProject.mrs_transact_no,
@@ -113,9 +112,9 @@ namespace MvcTaskManager.Controllers
         Mrs_order_qty = existingProject.mrs_order_qty,
         Mrs_uom = existingProject.mrs_uom,
         Mrs_date_needed = existingProject.mrs_date_needed,
-        Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
+        //Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
         Mrs_requested_by = existingProject.mrs_requested_by,
-        Is_active = existingProject.is_active.ToString()
+        Is_active = true
 
       //Mrs_order_by = existingProject.mrs_order_by,
       //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
@@ -158,7 +157,7 @@ namespace MvcTaskManager.Controllers
           Mrs_issued_by = material.mrs_issued_by,
           Mrs_issued_date = material.mrs_issued_by,
           Mrs_requested_by = material.mrs_requested_by,
-          Is_active = material.is_active.ToString()
+          Is_active = material.is_active
 
 
         });

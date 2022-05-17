@@ -28,6 +28,6 @@ namespace MvcTaskManager.ViewModels
     public string Mrs_issued_by { get; set; }
     public string Mrs_issued_date { get; set; }
     public string Mrs_requested_by { get; set; }
-    public string Is_active { get; set; }
+    public bool Is_active { get; set; }
   }
 }
