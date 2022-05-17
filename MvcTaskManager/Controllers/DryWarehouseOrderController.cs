@@ -45,7 +45,10 @@ namespace MvcTaskManager.Controllers
       string Activated = "1";
       string DeActivated = "0";
       List<DryWhOrder> StoreOrderCheckList = await db.dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
-        && temp.is_for_validation.Contains(DeActivated) && temp.is_approved != null && temp.is_prepared != null && temp.is_wh_approved == null && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
+        && temp.is_for_validation.Contains(DeActivated)
+        && temp.is_approved != null && temp.is_prepared != null
+        && temp.is_wh_approved == null
+        && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
       return StoreOrderCheckList;
 
 

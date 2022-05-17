@@ -53,6 +53,8 @@ namespace MvcTaskManager.Identity
     public DbSet<TypeofApprover> TypeofApprover { get; set; }
     public DbSet<Position> Position { get; set; }
     public DbSet<DepartmentUnit> DepartmentUnit { get; set; }
+    public DbSet<Employee> Employees { get; set; }
+
 
     //public DbSet<ApplicationUserTaggingofApprover> AspNetUsers { get; set; }
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }
