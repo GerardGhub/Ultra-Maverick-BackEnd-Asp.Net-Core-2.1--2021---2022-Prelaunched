@@ -24,22 +24,22 @@ namespace MvcTaskManager.ViewModels
       [Required]
     public string Email { get; set; }
     public string NormalizedEmail { get; set; }
-    [Required]
-    public string Mobile { get; set; }
-    [Required]
-    public string DateOfBirth { get; set; }
+    //[Required]
+    //public string Mobile { get; set; }
+    //[Required]
+    //public string DateOfBirth { get; set; }
     [Required]
     public string Password { get; set; }
     [Required]
     public string Gender { get; set; }
-    [Required]
-    public int CountryID { get; set; }
-    [Required]
-    public bool ReceiveNewsLetters { get; set; }
+    //[Required]
+    //public int CountryID { get; set; }
+    //[Required]
+    //public bool ReceiveNewsLetters { get; set; }
     [Required]
     public string UserRole { get; set; }
-    [Required]
-    public List<Skill> Skills { get; set; }
+    //[Required]
+    //public List<Skill> Skills { get; set; }
     [Required]
     public int Department_id { get; set; }
     [Required]

@@ -27,7 +27,10 @@ namespace MvcTaskManager.Controllers
   public async Task<IActionResult> Get()
   {
 
-    List<Employee> employees = await db.Employees.Include("Department").Include("DepartmentUnit").Where(temp => temp.is_active.Equals(true)).ToListAsync();
+    List<Employee> employees = await db.Employees
+        .Include("Department")
+        .Include("DepartmentUnit")
+        .Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
     List<EmployeeViewModel> EmployeeViewModel = new List<EmployeeViewModel>();
