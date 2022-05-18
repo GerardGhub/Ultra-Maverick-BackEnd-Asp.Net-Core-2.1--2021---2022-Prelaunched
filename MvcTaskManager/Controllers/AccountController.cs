@@ -269,55 +269,68 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetMrsRequestor()
     {
-      
-    
-      List<ApplicationUser> departments = await db.Users.Where(temp => temp.Is_active.Equals(true) && temp.Requestor.Equals(true)).ToListAsync();
 
 
-      List<ApplicationUserViewModel> departmentViewModel = new List<ApplicationUserViewModel>();
-      foreach (var dept in departments)
+      List<ApplicationUser> obj = new List<ApplicationUser>();
+
+      var userlist = (from a in db.Users
+                      join b in db.Department on a.Department_id equals b.department_id
+                      join c in db.Position on a.Position_id equals c.position_id
+                      join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
+                      where
+                      a.Is_active.Equals(true)
+                      && a.Requestor.Equals(true)
+                      && b.is_active.Equals(true)
+                      && c.is_active.Equals(true)
+                      && d.is_active.Equals(true)
+                      select new
+                      {
+                        FirstName = a.FirstName,
+                        LastName = a.LastName,
+                        Gender = a.Gender,
+                        UserRole = a.UserRole,
+                        Id = a.Id,
+                        Username = a.UserName,
+                        Email = a.Email,
+                        Password = a.PasswordHash,
+                        SecurityStamp = a.SecurityStamp,
+                        ConcurrencyStamp = a.ConcurrencyStamp,
+                        Is_active = a.Is_active,
+                        Department_id = a.Department_id,
+                        Position_id = a.Position_id,
+                        Unit_id = a.Unit_id,
+                        Location = a.Location,
+                        Approver = a.Approver,
+                        Requestor = a.Requestor,
+                        First_approver_id = a.First_approver_id,
+                        First_approver_name = a.First_approver_name,
+                        Second_approver_id = a.Second_approver_id,
+                        Second_approver_name = a.Second_approver_name,
+                        Third_approver_id = a.Third_approver_id,
+                        Third_approver_name = a.Third_approver_name,
+                        Fourth_approver_id = a.Fourth_approver_id,
+                        Fourth_approver_name = a.Fourth_approver_name,
+                        Department_Name = b.department_name,
+                        Position_Name = c.position_name,
+                        DepartmentUnit_Name = d.unit_description
+
+
+                      });
+      foreach (var user in userlist)
       {
 
-        departmentViewModel.Add(new ApplicationUserViewModel()
-        {
-          FirstName = dept.FirstName,
-          LastName = dept.LastName,
-          //DateOfBirth = dept.DateOfBirth.ToString("M/d/yyyy"),
-          Gender = dept.Gender,
-          UserRole = dept.UserRole,
-          //ReceiveNewsLetters = dept.ReceiveNewsLetters,
-          Id = dept.Id.ToString(),
-          Username = dept.UserName,
-          Email = dept.Email,
-          NormalizedEmail = dept.NormalizedEmail,
-          Password = dept.PasswordHash,
-          SecurityStamp = dept.SecurityStamp,
-          ConcurrencyStamp = dept.ConcurrencyStamp,
-          //Mobile = dept.PhoneNumber,
-          Is_active = dept.Is_active,
-          Department_id = dept.Department_id,
-          Position_id = dept.Position_id,
-          Unit_id = dept.Unit_id,
-          Location = dept.Location,
-          Approver = dept.Approver,
-          Requestor = dept.Requestor,
-          First_approver_id = dept.First_approver_id,
-          First_approver_name = dept.First_approver_name,
-          Second_approver_id = dept.Second_approver_id,
-          Second_approver_name = dept.Second_approver_name,
-          Third_approver_id = dept.Third_approver_id,
-          Third_approver_name = dept.Third_approver_name,
-          Fourth_approver_id = dept.Fourth_approver_id,
-          Fourth_approver_name = dept.Fourth_approver_name,
+        ApplicationUser clr = new ApplicationUser();
+        clr.FirstName = user.FirstName;
+        clr.LastName = user.LastName;
+
+
+        obj.Add(clr);
 
 
 
 
-        });
       }
-      return Ok(departmentViewModel);
-
-
+      return Ok(userlist);
 
     }
 
@@ -334,51 +347,112 @@ namespace MvcTaskManager.Controllers
     {
       //List<ApplicationUser> AspNetUsers = await db.Users.ToListAsync();
       //return Ok(AspNetUsers);
-     
-      List<ApplicationUser> departments = await db.Users.Where(temp => temp.Is_active.Equals(true) && temp.Approver.Equals(true)).ToListAsync();
+
+      //List<ApplicationUser> departments = await db.Users.Where(temp => temp.Is_active.Equals(true) && temp.Approver.Equals(true)).ToListAsync();
 
 
-      List<ApplicationUserViewModel> departmentViewModel = new List<ApplicationUserViewModel>();
-      foreach (var dept in departments)
+      //List<ApplicationUserViewModel> departmentViewModel = new List<ApplicationUserViewModel>();
+      //foreach (var dept in departments)
+      //{
+
+      //  departmentViewModel.Add(new ApplicationUserViewModel()
+      //  {
+      //    FirstName = dept.FirstName,
+      //    LastName = dept.LastName,
+      //    //DateOfBirth = dept.DateOfBirth.ToString("M/d/yyyy"),
+      //    Gender = dept.Gender,
+      //    UserRole = dept.UserRole,
+      //    //ReceiveNewsLetters = dept.ReceiveNewsLetters,
+      //    Id = dept.Id.ToString(),
+      //    Username = dept.UserName,
+      //    Email = dept.Email,
+      //    NormalizedEmail = dept.NormalizedEmail,
+      //    Password = dept.PasswordHash,
+      //    SecurityStamp = dept.SecurityStamp,
+      //    ConcurrencyStamp = dept.ConcurrencyStamp,
+      //    //Mobile = dept.PhoneNumber,
+      //    Is_active = dept.Is_active,
+      //    Department_id = dept.Department_id,
+      //    Position_id = dept.Position_id,
+      //    Unit_id = dept.Unit_id,
+      //    Location = dept.Location,
+      //    Approver = dept.Approver,
+      //    Requestor = dept.Requestor,
+      //    First_approver_id = dept.First_approver_id,
+      //    First_approver_name = dept.First_approver_name,
+      //    Second_approver_id = dept.Second_approver_id,
+      //    Second_approver_name = dept.Second_approver_name,
+      //    Third_approver_id = dept.Third_approver_id,
+      //    Third_approver_name = dept.Third_approver_name,
+      //    Fourth_approver_id = dept.Fourth_approver_id,
+      //    Fourth_approver_name = dept.Fourth_approver_name,
+
+
+      //  });
+      //}
+      //return Ok(departmentViewModel);
+
+
+      List<ApplicationUser> obj = new List<ApplicationUser>();
+
+      var userlist = (from a in db.Users
+                      join b in db.Department on a.Department_id equals b.department_id
+                      join c in db.Position on a.Position_id equals c.position_id
+                      join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
+                      where
+                      a.Is_active.Equals(true)
+                      && a.Approver.Equals(true)
+                      && b.is_active.Equals(true)
+                      && c.is_active.Equals(true)
+                      && d.is_active.Equals(true)
+                      select new
+                      {
+                        FirstName = a.FirstName,
+                        LastName = a.LastName,
+                        Gender = a.Gender,
+                        UserRole = a.UserRole,
+                        Id = a.Id,
+                        Username = a.UserName,
+                        Email = a.Email,
+                        Password = a.PasswordHash,
+                        SecurityStamp = a.SecurityStamp,
+                        ConcurrencyStamp = a.ConcurrencyStamp,
+                        Is_active = a.Is_active,
+                        Department_id = a.Department_id,
+                        Position_id = a.Position_id,
+                        Unit_id = a.Unit_id,
+                        Location = a.Location,
+                        Approver = a.Approver,
+                        Requestor = a.Requestor,
+                        First_approver_id = a.First_approver_id,
+                        First_approver_name = a.First_approver_name,
+                        Second_approver_id = a.Second_approver_id,
+                        Second_approver_name = a.Second_approver_name,
+                        Third_approver_id = a.Third_approver_id,
+                        Third_approver_name = a.Third_approver_name,
+                        Fourth_approver_id = a.Fourth_approver_id,
+                        Fourth_approver_name = a.Fourth_approver_name,
+                        Department_Name = b.department_name,
+                        Position_Name = c.position_name,
+                        DepartmentUnit_Name = d.unit_description
+
+
+                      });
+      foreach (var user in userlist)
       {
 
-        departmentViewModel.Add(new ApplicationUserViewModel()
-        {
-          FirstName = dept.FirstName,
-          LastName = dept.LastName,
-          //DateOfBirth = dept.DateOfBirth.ToString("M/d/yyyy"),
-          Gender = dept.Gender,
-          UserRole = dept.UserRole,
-          //ReceiveNewsLetters = dept.ReceiveNewsLetters,
-          Id = dept.Id.ToString(),
-          Username = dept.UserName,
-          Email = dept.Email,
-          NormalizedEmail = dept.NormalizedEmail,
-          Password = dept.PasswordHash,
-          SecurityStamp = dept.SecurityStamp,
-          ConcurrencyStamp = dept.ConcurrencyStamp,
-          //Mobile = dept.PhoneNumber,
-          Is_active = dept.Is_active,
-          Department_id = dept.Department_id,
-          Position_id = dept.Position_id,
-          Unit_id = dept.Unit_id,
-          Location = dept.Location,
-          Approver = dept.Approver,
-          Requestor = dept.Requestor,
-          First_approver_id = dept.First_approver_id,
-          First_approver_name = dept.First_approver_name,
-          Second_approver_id = dept.Second_approver_id,
-          Second_approver_name = dept.Second_approver_name,
-          Third_approver_id = dept.Third_approver_id,
-          Third_approver_name = dept.Third_approver_name,
-          Fourth_approver_id = dept.Fourth_approver_id,
-          Fourth_approver_name = dept.Fourth_approver_name,
+        ApplicationUser clr = new ApplicationUser();
+        clr.FirstName = user.FirstName;
+        clr.LastName = user.LastName;
 
 
-        });
+        obj.Add(clr);
+
+
+
+
       }
-      return Ok(departmentViewModel);
-
+      return Ok(userlist);
 
 
     }
@@ -449,7 +523,7 @@ namespace MvcTaskManager.Controllers
         {
        
           return null;
-          //return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+     
         }
       }
 
@@ -458,7 +532,7 @@ namespace MvcTaskManager.Controllers
         if (labProc.First_approver_id != null && labProc.Third_approver_id != null)
         {
           return null;
-          //return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
+          
         }
       }
 
@@ -467,7 +541,7 @@ namespace MvcTaskManager.Controllers
         if (labProc.First_approver_id != null && labProc.Fourth_approver_id != null)
         {
           return null;
-          //return BadRequest(new { message = "You already tagged a approver on section 1 and 4" });
+      
         }
       }
       else if (labProc.Second_approver_id == labProc.Third_approver_id)
@@ -475,7 +549,7 @@ namespace MvcTaskManager.Controllers
         if (labProc.Second_approver_id != null && labProc.Third_approver_id != null)
         {
           return null;
-          //return BadRequest(new { message = "You already tagged a approver on section 2 and 3" });
+
         }
       }
 
@@ -484,7 +558,7 @@ namespace MvcTaskManager.Controllers
         if (labProc.Second_approver_id != null && labProc.Fourth_approver_id != null)
         {
           return null;
-          //return BadRequest(new { message = "You already tagged a approver on section 2 and 4" });
+  
         }
       }
 
@@ -493,8 +567,7 @@ namespace MvcTaskManager.Controllers
         if (labProc.Third_approver_id != null && labProc.Fourth_approver_id != null)
         {
           return null;
-          //return Ok("ddd");
-          //return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
+ 
         }
       }
 
@@ -661,7 +734,11 @@ namespace MvcTaskManager.Controllers
                        join b in db.Department on a.Department_id equals b.department_id
                        join c in db.Position on a.Position_id equals c.position_id
                        join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
-                       where a.Is_active == true && b.is_active == true && c.is_active == true
+                       where
+                       a.Is_active.Equals(true)
+                       && b.is_active.Equals(true)
+                       && c.is_active.Equals(true)
+                       && d.is_active.Equals(true)
                        select new
                        {
                          FirstName = a.FirstName,
