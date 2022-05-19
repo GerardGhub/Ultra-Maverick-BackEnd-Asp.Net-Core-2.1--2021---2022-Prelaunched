@@ -100,6 +100,31 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs materialRequest)
     {
 
+      var RawMaterial = await db.Raw_Materials_Dry.Where(temp => temp.item_code == materialRequest.mrs_item_code
+      && temp.is_active.Equals(true)).ToListAsync();
+
+      if (RawMaterial.Count > 0)
+      {
+
+      }
+      else
+      {
+        return BadRequest(new { message = "Item is not exist" });
+      }
+
+      var PrimaryUnit = await db.Primary_Unit.Where(temp => temp.unit_desc == materialRequest.mrs_uom
+     && temp.is_active.Equals(true)).ToListAsync();
+
+      if (PrimaryUnit.Count > 0)
+      {
+
+      }
+      else
+      {
+        return BadRequest(new { message = "Primary Unit is not exist" });
+      }
+
+
       var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == materialRequest.mrs_transact_no
       && temp.mrs_date_needed == materialRequest.mrs_date_needed
       && temp.mrs_order_qty == materialRequest.mrs_order_qty
@@ -148,6 +173,21 @@ namespace MvcTaskManager.Controllers
     };
 
       return Ok(MRISViewModel);
+
+    }
+
+
+
+    [HttpGet]
+    [Route("api/material_request_logs_distinct")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<List<MaterialRequestLogs>> GetDistinctMaterialRequestByTransactNo()
+    {
+     
+      List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+        ).ToListAsync();
+      return StoreOrderCheckList;
+
 
     }
 

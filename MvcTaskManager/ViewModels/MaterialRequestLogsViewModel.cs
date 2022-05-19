@@ -21,8 +21,8 @@ namespace MvcTaskManager.ViewModels
     public string Mrs_remarks { get; set; }
     public string Mrs_date_needed { get; set; }
     public string Mrs_date_requested { get; set; }
-    public string Mrs_order_by { get; set; }
-    public string Mrs_order_date { get; set; }
+    //public string Mrs_order_by { get; set; }
+    //public string Mrs_order_date { get; set; }
     public string Mrs_approved_by { get; set; }
     public string Mrs_approved_date { get; set; }
     public string Mrs_issued_by { get; set; }

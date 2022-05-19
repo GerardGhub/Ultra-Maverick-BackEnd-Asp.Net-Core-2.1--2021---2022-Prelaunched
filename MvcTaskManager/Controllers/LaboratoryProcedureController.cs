@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using System;
@@ -21,9 +22,9 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/LaboratoryProcedure")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
-      List<LaboratoryProcedure> tblLabProc = db.laboratory_procedure.ToList();
+      List<LaboratoryProcedure> tblLabProc = await db.laboratory_procedure.ToListAsync();
       return Ok(tblLabProc);
     }
 
@@ -31,11 +32,11 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/LaboratoryProcedure/searchbyid/{id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public IActionResult GetByLabID(int LabID)
+    public async Task<IActionResult> GetByLabID(int LabID)
     {
       int LaboratoryIdentity = LabID;
 
-      LaboratoryProcedure tblLabProc = db.laboratory_procedure.Where(temp => temp.lab_id == LaboratoryIdentity).FirstOrDefault();
+      LaboratoryProcedure tblLabProc = await db.laboratory_procedure.Where(temp => temp.lab_id == LaboratoryIdentity).FirstOrDefaultAsync();
       if (tblLabProc != null)
       {
         return Ok(tblLabProc);
@@ -47,28 +48,28 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/LaboratoryProcedure")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public LaboratoryProcedure Post([FromBody] LaboratoryProcedure LabProc)
+    public async Task<LaboratoryProcedure> Post([FromBody] LaboratoryProcedure LabProc)
     {
       db.laboratory_procedure.Add(LabProc);
-      db.SaveChanges();
+      await db.SaveChangesAsync();
 
-      LaboratoryProcedure existingData = db.laboratory_procedure.Where(temp => temp.lab_id == LabProc.lab_id).FirstOrDefault();
+      LaboratoryProcedure existingData = await db.laboratory_procedure.Where(temp => temp.lab_id == LabProc.lab_id).FirstOrDefaultAsync();
       return LabProc;
     }
 
     [HttpPut]
     [Route("api/LaboratoryProcedure")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public LaboratoryProcedure Put([FromBody] LaboratoryProcedure labProc)
+    public async Task<LaboratoryProcedure> Put([FromBody] LaboratoryProcedure labProc)
     {
-      LaboratoryProcedure existingDataStatus = db.laboratory_procedure.Where(temp => temp.lab_id == labProc.lab_id).FirstOrDefault();
+      LaboratoryProcedure existingDataStatus = await db.laboratory_procedure.Where(temp => temp.lab_id == labProc.lab_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_description = labProc.lab_description;
         existingDataStatus.is_active_status = labProc.is_active_status;
         existingDataStatus.updated_at = labProc.updated_at;
         existingDataStatus.updated_by = labProc.updated_by;
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return existingDataStatus;
       }
       else
@@ -80,13 +81,13 @@ namespace MvcTaskManager.Controllers
     [HttpDelete]
     [Route("api/LaboratoryProcedure")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public int Delete(int ID)
+    public async Task<int> Delete(int ID)
     {
-      LaboratoryProcedure existingDataStatus = db.laboratory_procedure.Where(temp => temp.lab_id == ID).FirstOrDefault();
+      LaboratoryProcedure existingDataStatus = await db.laboratory_procedure.Where(temp => temp.lab_id == ID).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         db.laboratory_procedure.Remove(existingDataStatus);
-        db.SaveChanges();
+        await db.SaveChangesAsync();
         return ID;
       }
       else
