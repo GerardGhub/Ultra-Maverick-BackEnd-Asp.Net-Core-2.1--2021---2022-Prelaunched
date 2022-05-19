@@ -244,7 +244,7 @@ namespace MvcTaskManager.Controllers
     }
 
 
-
+    [HttpGet]
     [Route("api/getUserByEmail/{Email}")]
         public async Task<IActionResult> GetUserByEmail(string Email)
         {
@@ -252,7 +252,9 @@ namespace MvcTaskManager.Controllers
             return Ok(user);
         }
 
-        [Route("api/getallemployees")]
+
+    [HttpGet]
+    [Route("api/getallemployees")]
         public async Task<IActionResult> GetAllEmployees()
         {
             List<ApplicationUser> users = await this.db.Users.ToListAsync();

@@ -69,23 +69,23 @@ namespace MvcTaskManager.Controllers
       }
     }
 
-    [HttpDelete]
-    [Route("api/tblrejectedstatus")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<int> Delete(int ID)
-    {
-      TblRejectedStats existingRejectedStatus = await db.TblRejectedStatus.Where(temp => temp.id == ID).FirstOrDefaultAsync();
-      if (existingRejectedStatus != null)
-      {
-        db.TblRejectedStatus.Remove(existingRejectedStatus);
-        await db.SaveChangesAsync();
-        return ID;
-      }
-      else
-      {
-        return -1;
-      }
-    }
+    //[HttpDelete]
+    //[Route("api/tblrejectedstatus")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //public async Task<int> Delete(int ID)
+    //{
+    //  TblRejectedStats existingRejectedStatus = await db.TblRejectedStatus.Where(temp => temp.id == ID).FirstOrDefaultAsync();
+    //  if (existingRejectedStatus != null)
+    //  {
+    //    db.TblRejectedStatus.Remove(existingRejectedStatus);
+    //    await db.SaveChangesAsync();
+    //    return ID;
+    //  }
+    //  else
+    //  {
+    //    return -1;
+    //  }
+    //}
 
 
 

@@ -1185,23 +1185,23 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    [HttpDelete]
-    [Route("api/projects")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public int Delete(int ProjectID)
-    {
-      Project existingProject = db.Projects.Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
-      if (existingProject != null)
-      {
-        db.Projects.Remove(existingProject);
-        db.SaveChanges();
-        return ProjectID;
-      }
-      else
-      {
-        return -1;
-      }
-    }
+    //[HttpDelete]
+    //[Route("api/projects")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //public int Delete(int ProjectID)
+    //{
+    //  Project existingProject = db.Projects.Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
+    //  if (existingProject != null)
+    //  {
+    //    db.Projects.Remove(existingProject);
+    //    db.SaveChanges();
+    //    return ProjectID;
+    //  }
+    //  else
+    //  {
+    //    return -1;
+    //  }
+    //}
 
 
 
