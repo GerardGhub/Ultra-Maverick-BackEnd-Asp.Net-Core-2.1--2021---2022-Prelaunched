@@ -59,13 +59,20 @@ namespace MvcTaskManager.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] SignUpViewModel signUpViewModel)
     {
-      var EmailValidation = db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToList();
+      var EmailValidation = await db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToListAsync();
 
       if (EmailValidation.Count > 0)
       {
         return BadRequest(new { message = "Username Already Taken" });
       }
 
+
+      var EmployeeNumberValidation = await db.Users.Where(temp => temp.Employee_number == signUpViewModel.Employee_number).ToListAsync();
+
+      if (EmployeeNumberValidation.Count > 0)
+      {
+        return BadRequest(new { message = "Employee Already Exist" });
+      }
 
       //2nd Boolean
       if (signUpViewModel.MaterialRequest.Requestor == true)
