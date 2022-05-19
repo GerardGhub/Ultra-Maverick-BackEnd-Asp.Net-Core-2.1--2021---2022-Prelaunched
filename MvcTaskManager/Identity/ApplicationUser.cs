@@ -49,20 +49,21 @@ namespace MvcTaskManager.Identity
         public bool Is_active { get; set; }
         public bool Requestor { get; set; }
         public bool Approver { get; set; }
+        public int Employee_number { get; set; }
 
-    [NotMapped]
+        [NotMapped]
 
-    [ForeignKey("department_id")]
+        [ForeignKey("department_id")]
         public virtual Department Department { get; set; }
 
 
-    [NotMapped]
+        [NotMapped]
 
-    [ForeignKey("position_id")]
+        [ForeignKey("position_id")]
         public virtual Position Position { get; set; }
 
-    [NotMapped]
-    [ForeignKey("unit_id")]
+        [NotMapped]
+        [ForeignKey("unit_id")]
         public virtual DepartmentUnit DepartmentUnit { get; set; }
 
 

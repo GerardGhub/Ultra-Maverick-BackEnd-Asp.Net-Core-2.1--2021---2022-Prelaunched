@@ -312,7 +312,8 @@ namespace MvcTaskManager.Controllers
                         Fourth_approver_name = a.Fourth_approver_name,
                         Department_Name = b.department_name,
                         Position_Name = c.position_name,
-                        DepartmentUnit_Name = d.unit_description
+                        DepartmentUnit_Name = d.unit_description,
+                        Employee_number = a.Employee_number
 
 
                       });
@@ -434,7 +435,8 @@ namespace MvcTaskManager.Controllers
                         Fourth_approver_name = a.Fourth_approver_name,
                         Department_Name = b.department_name,
                         Position_Name = c.position_name,
-                        DepartmentUnit_Name = d.unit_description
+                        DepartmentUnit_Name = d.unit_description,
+                        Employee_number = a.Employee_number
 
 
                       });

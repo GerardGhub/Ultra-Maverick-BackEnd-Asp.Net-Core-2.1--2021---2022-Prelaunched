@@ -94,6 +94,7 @@ namespace MvcTaskManager.Services
       applicationUser.Approver = signUpViewModel.MaterialRequest.Approver;
       applicationUser.Requestor = signUpViewModel.MaterialRequest.Requestor;
       applicationUser.Is_active = true;
+      applicationUser.Employee_number = signUpViewModel.Employee_number;
       var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
             if (result.Succeeded)
             {

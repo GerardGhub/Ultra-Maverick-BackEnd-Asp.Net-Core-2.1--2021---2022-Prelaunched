@@ -27,6 +27,8 @@ namespace MvcTaskManager.ViewModels
     public bool ReceiveNewsLetters { get; set; }
     [Required]
     public string UserRole { get; set; }
+    [Required]
+    public int Employee_number { get; set; }
     //[Required]
     //public List<Skill> Skills { get; set; }
 
