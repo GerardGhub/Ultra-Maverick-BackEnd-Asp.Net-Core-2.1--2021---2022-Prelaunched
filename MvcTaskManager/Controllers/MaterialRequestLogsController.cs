@@ -197,7 +197,8 @@ namespace MvcTaskManager.Controllers
                      group p by new
                      {
                        p.mrs_transact_no,
-                       p.department_id
+                       p.department_id,
+                       p.mrs_date_requested
                      } into total
 
                      select new MaterialRequestDistinctPerTransactions
@@ -206,7 +207,8 @@ namespace MvcTaskManager.Controllers
                        Mrs_transact_no = total.Key.mrs_transact_no,
                        Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
                        Department_Id = total.Key.department_id,
-                       Static_count = total.Count()
+                       Static_count = total.Count(),
+                       Mrs_date_requested = total.Key.mrs_date_requested
                        
                      }
 

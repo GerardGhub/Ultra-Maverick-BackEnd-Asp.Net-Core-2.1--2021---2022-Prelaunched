@@ -42,12 +42,8 @@ namespace MvcTaskManager.ViewModels
     public decimal Mrs_order_qty { get; set; }
     public int Static_count { get; set; }
 
-    public string Mrs_date_needed { get; set; }
     public string Mrs_date_requested { get; set; }
 
-    public string Mrs_approved_by { get; set; }
-    public string Mrs_approved_date { get; set; }
-  
     public string Mrs_requested_by { get; set; }
     public int Department_Id { get; set; }
   }
