@@ -41,5 +41,8 @@ namespace MvcTaskManager.Models
     public string deactivated_date { get; set; }
     public string activated_by { get; set; }
     public string activated_date { get; set; }
+    public int static_count { get; set; }
+    public int department_id { get; set; }
+   
   }
 }

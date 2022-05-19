@@ -166,7 +166,8 @@ namespace MvcTaskManager.Controllers
         Mrs_date_needed = existingProject.mrs_date_needed,
         //Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
         Mrs_requested_by = existingProject.mrs_requested_by,
-        Is_active = true
+        Is_active = true,
+        Department_Id = existingProject.department_id
 
       //Mrs_order_by = existingProject.mrs_order_by,
       //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
@@ -181,14 +182,52 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/material_request_logs_distinct")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<List<MaterialRequestLogs>> GetDistinctMaterialRequestByTransactNo()
+    public async Task<IActionResult> GetDistinctMaterialRequestByTransactNo()
     {
-     
-      List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-        ).ToListAsync();
-      return StoreOrderCheckList;
+
+      //List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by })
+      //  .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      //  ).ToListAsync();
+
+      List<MaterialRequestLogs> obj = new List<MaterialRequestLogs>();
+      var results = (from p in db.material_request_logs
+                     join b in db.Department on p.department_id equals b.department_id
+                     where p.is_active.Equals(true)
+
+                     group p by new
+                     {
+                       p.mrs_transact_no,
+                       p.department_id
+                     } into total
+
+                     select new MaterialRequestDistinctPerTransactions
+                     {
+                   
+                       Mrs_transact_no = total.Key.mrs_transact_no,
+                       Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Department_Id = total.Key.department_id,
+                       Static_count = total.Count()
+                       
+                     }
 
 
+
+                    );
+
+
+      return Ok(results);
+      //  var teamTotalScores =
+      //from player in StoreOrderCheckList
+      //group player by player.mrs_transact_no into playerGroup
+      //select new
+      //{
+      //  Team = playerGroup.Key,
+      //  TotalScore = playerGroup.Sum(x => x.static_count),
+      //};
+
+      //return StoreOrderCheckList;
+
+      //return List<MaterialRequestLogs>;
     }
 
 
