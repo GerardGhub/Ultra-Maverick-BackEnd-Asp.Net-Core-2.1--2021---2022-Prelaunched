@@ -14,7 +14,7 @@ namespace MvcTaskManager.Models
 
     public int mrs_id { get; set; }
 
-    public string mrs_transact_no { get; set; }
+    public int mrs_transact_no { get; set; }
     
     public string mrs_item_code { get; set; }
     public string mrs_item_description { get; set; }
@@ -29,8 +29,7 @@ namespace MvcTaskManager.Models
     [Required]
     public string mrs_date_needed { get; set; }
     public string mrs_date_requested { get; set; } = DateTime.Now.ToString("M/d/yyyy");
-    //public string mrs_order_by { get; set; }
-    //public string mrs_order_date { get; set; }
+
     public string mrs_approved_by { get; set; }
     public string mrs_approved_date { get; set; }
     public string mrs_issued_by { get; set; }

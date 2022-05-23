@@ -131,79 +131,88 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/material_request_logs_insert")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> Post([FromBody] MaterialRequestLogs materialRequest)
+    public async Task<IActionResult> Post([FromBody] MaterialRequestLogs[] materialRequest)
     {
 
-      var RawMaterial = await db.Raw_Materials_Dry.Where(temp => temp.item_code == materialRequest.mrs_item_code
-      && temp.is_active.Equals(true)).ToListAsync();
 
-      if (RawMaterial.Count > 0)
+      foreach (MaterialRequestLogs items in materialRequest)
       {
 
-      }
-      else
-      {
+        //1
+        var MrsTransactNo = await db.material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
+       && temp.is_active.Equals(true)).ToListAsync();
+
+        if (MrsTransactNo.Count > 0)
+        {
+          db.material_request_logs.Add(items);
+          //await db.SaveChangesAsync();
+        }
+        else
+        {
+          return BadRequest(new { message = "Transaction number is not exist" });
+        }
+        //2
+        var RawMaterial = await db.Raw_Materials_Dry.Where(temp => temp.item_code == items.mrs_item_code
+        && temp.is_active.Equals(true)).ToListAsync();
+
+        if (RawMaterial.Count > 0)
+        {
+          db.material_request_logs.Add(items);
+          //await db.SaveChangesAsync();
+        }
+        else
+        {
         return BadRequest(new { message = "Item is not exist" });
-      }
+        }
+        //3
+        var PrimaryUnit = await db.Primary_Unit.Where(temp => temp.unit_desc == items.mrs_uom
+        && temp.is_active.Equals(true)).ToListAsync();
 
-      var PrimaryUnit = await db.Primary_Unit.Where(temp => temp.unit_desc == materialRequest.mrs_uom
-     && temp.is_active.Equals(true)).ToListAsync();
-
-      if (PrimaryUnit.Count > 0)
-      {
-
-      }
-      else
-      {
+        if (PrimaryUnit.Count > 0)
+        {
+          db.material_request_logs.Add(items);
+          //await db.SaveChangesAsync();
+        }
+        else
+        {
         return BadRequest(new { message = "Primary Unit is not exist" });
-      }
+        }
+        //4
+        var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == items.mrs_transact_no
+        && temp.mrs_date_needed == items.mrs_date_needed
+        && temp.mrs_order_qty == items.mrs_order_qty
+        && temp.mrs_item_code == items.mrs_item_code).ToListAsync();
 
-
-      var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == materialRequest.mrs_transact_no
-      && temp.mrs_date_needed == materialRequest.mrs_date_needed
-      && temp.mrs_order_qty == materialRequest.mrs_order_qty
-      && temp.mrs_item_code == materialRequest.mrs_item_code).ToListAsync();
-
-      if (RawDataInfo.Count > 0)
-      {
+        if (RawDataInfo.Count > 0)
+        {
         return BadRequest(new { message = "You already request a same item today" });
+        }
+        //5
+
+
+        MaterialRequestLogs existingProject = await db.material_request_logs.Where(temp => temp.mrs_id == items.mrs_id).FirstOrDefaultAsync();
+
+        string ActualQuantity = items.mrs_order_qty.ToString();
+        decimal qtyorder;
+        bool isDecimal = decimal.TryParse(ActualQuantity.ToString(), out qtyorder);
+
+        if (isDecimal == false)
+        {
+          return BadRequest(new { message = "Invalid Quantity!" });
+        }
+
+
+        await db.SaveChangesAsync();
+
+
       }
 
 
-      db.material_request_logs.Add(materialRequest);
-      await db.SaveChangesAsync();
 
-      MaterialRequestLogs existingProject = await db.material_request_logs.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
-
-      string ActualQuantity = materialRequest.mrs_order_qty.ToString();
-      decimal qtyorder;
-      bool isDecimal = decimal.TryParse(ActualQuantity.ToString(), out qtyorder);
-
-      if (isDecimal == false)
-      {
-        return BadRequest(new { message = "Invalid Quantity!" });
-      }
-    
-
-
-      MaterialRequestLogsViewModel MRISViewModel = new MaterialRequestLogsViewModel()
-      {
-        Mrs_transact_no = existingProject.mrs_transact_no,
-        Mrs_item_code = existingProject.mrs_item_code,
-        Mrs_item_description = existingProject.mrs_item_description,
-        Mrs_order_qty = existingProject.mrs_order_qty,
-        Mrs_uom = existingProject.mrs_uom,
-        Mrs_date_needed = existingProject.mrs_date_needed,
-        Mrs_requested_by = existingProject.mrs_requested_by,
-        Is_active = true,
-        Department_Id = existingProject.department_id
-
-     
-      };
-
-      return Ok(MRISViewModel);
-
+      return Ok(materialRequest);
     }
+
+
 
 
 
@@ -217,27 +226,64 @@ namespace MvcTaskManager.Controllers
       //  .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
       //  ).ToListAsync();
 
-      List<MaterialRequestLogs> obj = new List<MaterialRequestLogs>();
-      var results = (from p in db.material_request_logs
-                     join b in db.Department on p.department_id equals b.department_id
-                     where p.is_active.Equals(true)
+      //List<MaterialRequestLogs> obj = new List<MaterialRequestLogs>();
+      //var results = (from p in db.material_request_logs
+      //               join b in db.Department on p.department_id equals b.department_id
+      //               where p.is_active.Equals(true)
 
-                     group p by new
+      //               group p by new
+      //               {
+      //                 p.mrs_transact_no,
+      //                 p.department_id,
+      //                 p.mrs_date_requested
+      //               } into total
+
+      //               select new MaterialRequestDistinctPerTransactions
+      //               {
+
+      //                 Mrs_transact_no = total.Key.mrs_transact_no,
+      //                 Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+      //                 Department_Id = total.Key.department_id,
+      //                 Static_count = total.Count(),
+      //                 Mrs_date_requested = total.Key.mrs_date_requested
+
+      //               }
+
+
+
+      //              );
+
+
+      //return Ok(results);
+
+
+      List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
+      var results = (from a in db.material_request_master
+                     join b in db.Department on a.department_id equals b.department_id
+                     join c in db.material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
+
+                     group a by new
                      {
-                       p.mrs_transact_no,
-                       p.department_id,
-                       p.mrs_date_requested
+                       a.mrs_id,
+                       a.mrs_req_desc,
+                       a.department_id,
+                       a.mrs_requested_date,
+                       a.mrs_requested_by,
+                       b.department_name
                      } into total
 
                      select new MaterialRequestDistinctPerTransactions
                      {
 
-                       Mrs_transact_no = total.Key.mrs_transact_no,
-                       Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Mrs_transact_no = total.Key.mrs_id.ToString(),
+                       //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
                        Department_Id = total.Key.department_id,
                        Static_count = total.Count(),
-                       Mrs_date_requested = total.Key.mrs_date_requested
-
+                       Mrs_date_requested = total.Key.mrs_requested_date,
+                       Department_name = total.Key.department_name,
+                       Mrs_requested_by = total.Key.mrs_requested_by
+                       
                      }
 
 
@@ -246,18 +292,9 @@ namespace MvcTaskManager.Controllers
 
 
       return Ok(results);
-      //  var teamTotalScores =
-      //from player in StoreOrderCheckList
-      //group player by player.mrs_transact_no into playerGroup
-      //select new
-      //{
-      //  Team = playerGroup.Key,
-      //  TotalScore = playerGroup.Sum(x => x.static_count),
-      //};
 
-      //return StoreOrderCheckList;
 
-      //return List<MaterialRequestLogs>;
+
     }
 
 
@@ -268,9 +305,18 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetDistinctTransactionNumber()
     {
 
+      //List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by })
+      //  .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      //  ).ToListAsync();
 
-      List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by })
-        .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      //int count = StoreOrderCheckList.Count() + 1;
+
+
+      //return Ok(count);
+
+      List<MaterialRequestMaster> StoreOrderCheckList =
+        await db.material_request_master.GroupBy(p => new { p.mrs_id })
+        .Select(g => g.First()).Where(temp => temp.is_active.Equals(true) || temp.is_active.Equals(false)
         ).ToListAsync();
 
       int count = StoreOrderCheckList.Count() + 1;
@@ -296,7 +342,7 @@ namespace MvcTaskManager.Controllers
         MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
         {
           Mrs_id = material.mrs_id,
-          Mrs_transact_no = material.mrs_transact_no,
+          Mrs_transact_no = material.mrs_transact_no.ToString(),
           Mrs_item_code = material.mrs_item_code,
           Mrs_item_description = material.mrs_item_description,
           Mrs_order_qty = material.mrs_order_qty,
@@ -334,7 +380,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-    List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.Contains(transact_no_passed_by)).ToListAsync();
+    List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.ToString().Contains(transact_no_passed_by)).ToListAsync();
     List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
 
       if (allmrs.Count > 0)
@@ -352,7 +398,7 @@ namespace MvcTaskManager.Controllers
       MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
       {
         Mrs_id = material.mrs_id,
-        Mrs_transact_no = material.mrs_transact_no,
+        Mrs_transact_no = material.mrs_transact_no.ToString(),
         Mrs_item_code = material.mrs_item_code,
         Mrs_item_description = material.mrs_item_description,
         Mrs_order_qty = material.mrs_order_qty,

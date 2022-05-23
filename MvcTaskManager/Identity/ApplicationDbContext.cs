@@ -55,7 +55,7 @@ namespace MvcTaskManager.Identity
     public DbSet<DepartmentUnit> DepartmentUnit { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<PrimaryUnit> Primary_Unit { get; set; }
-
+    public DbSet<MaterialRequestMaster> material_request_master { get; set; }
 
     //public DbSet<ApplicationUserTaggingofApprover> AspNetUsers { get; set; }
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }
