@@ -25,7 +25,7 @@ namespace MvcTaskManager.Identity
         //public bool ReceiveNewsLetters { get; set; }
 
         public int Department_id { get; set; }
-        public int Position_id { get; set; }
+        public string Position_id { get; set; }
         public int Unit_id { get; set; }
         public string Location { get; set; }
 

@@ -42,7 +42,7 @@ namespace MvcTaskManager.ViewModels
     [Required]
     public int Department_id { get; set; }
     [Required]
-    public int Position_id { get; set; }
+    public string Position_id { get; set; }
     [Required]
     public int Unit_id { get; set; }
     [Required]

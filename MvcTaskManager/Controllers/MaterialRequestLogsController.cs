@@ -14,12 +14,12 @@ namespace MvcTaskManager.Controllers
 {
   public class MaterialRequestLogsController : Controller
   {
-    
-      private ApplicationDbContext db;
-      public MaterialRequestLogsController(ApplicationDbContext db)
-      {
-        this.db = db;
-      }
+
+    private ApplicationDbContext db;
+    public MaterialRequestLogsController(ApplicationDbContext db)
+    {
+      this.db = db;
+    }
 
 
     [HttpPut]
@@ -33,7 +33,6 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
         existingDataStatus.mrs_uom = MRSParams.mrs_uom;
         existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
-        //existingDataStatus.mrs_date_requested = DateTime.Now.ToString("M/d/yyyy");
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -94,6 +93,41 @@ namespace MvcTaskManager.Controllers
 
 
 
+
+    [HttpPut]
+    [Route("api/material_request_logs_activate_cancelallOrder")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestLogs> PutCancelAll([FromBody] MaterialRequestLogs MRSParams)
+    {
+      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.is_active = false;
+          item.activated_by = null;
+          item.activated_date = null;
+          item.deactivated_by = MRSParams.deactivated_by;
+          item.deactivated_date = DateTime.Now.ToString("M/d/yyyy");
+        
+        }
+
+      await db.SaveChangesAsync();
+      return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
     [HttpPost]
     [Route("api/material_request_logs_insert")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -148,12 +182,8 @@ namespace MvcTaskManager.Controllers
       if (isDecimal == false)
       {
         return BadRequest(new { message = "Invalid Quantity!" });
-        //...
       }
-      //else
-      //{
-      //  return BadRequest(new { message = "string is not allowed!" });
-      //}
+    
 
 
       MaterialRequestLogsViewModel MRISViewModel = new MaterialRequestLogsViewModel()
@@ -164,14 +194,12 @@ namespace MvcTaskManager.Controllers
         Mrs_order_qty = existingProject.mrs_order_qty,
         Mrs_uom = existingProject.mrs_uom,
         Mrs_date_needed = existingProject.mrs_date_needed,
-        //Mrs_date_requested = DateTime.Now.ToString("M/d/yyyy"),
         Mrs_requested_by = existingProject.mrs_requested_by,
         Is_active = true,
         Department_Id = existingProject.department_id
 
-      //Mrs_order_by = existingProject.mrs_order_by,
-      //Mrs_order_date = DateTime.Now.ToString("M/d/yyyy"),
-    };
+     
+      };
 
       return Ok(MRISViewModel);
 
@@ -203,13 +231,13 @@ namespace MvcTaskManager.Controllers
 
                      select new MaterialRequestDistinctPerTransactions
                      {
-                   
+
                        Mrs_transact_no = total.Key.mrs_transact_no,
                        Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
                        Department_Id = total.Key.department_id,
                        Static_count = total.Count(),
                        Mrs_date_requested = total.Key.mrs_date_requested
-                       
+
                      }
 
 
@@ -233,21 +261,40 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    [HttpGet]
-      [Route("api/material_request_logs")]
-      [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-      public async Task<IActionResult> Get()
+    [HttpGet]
+    [Route("api/material_request_logs_distinct_generate_transactno")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetDistinctTransactionNumber()
+    {
+
+
+      List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by })
+        .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+        ).ToListAsync();
+
+      int count = StoreOrderCheckList.Count() + 1;
+
+   
+      return Ok(count);
+
+    }
+
+
+    [HttpGet]
+    [Route("api/material_request_logs")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+    public async Task<IActionResult> Get()
+    {
+   
+      List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
+      foreach (var material in allmrs)
       {
-        //List<tblLocation> tblRejectedStatuses = await db.Location.ToListAsync();
-        //return Ok(tblRejectedStatuses);
-        List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true)).ToListAsync();
-        List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
-        foreach (var material in allmrs)
-        {
 
         MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
-          {
+        {
           Mrs_id = material.mrs_id,
           Mrs_transact_no = material.mrs_transact_no,
           Mrs_item_code = material.mrs_item_code,
@@ -258,10 +305,8 @@ namespace MvcTaskManager.Controllers
           Mrs_remarks = material.mrs_remarks,
           Mrs_date_needed = material.mrs_date_needed,
           Mrs_date_requested = material.mrs_date_requested,
-          //Mrs_order_by = material.mrs_order_by,
-          //Mrs_order_date = material.mrs_order_date,
           Mrs_approved_by = material.mrs_approved_by,
-          Mrs_approved_date =  material.mrs_approved_date,
+          Mrs_approved_date = material.mrs_approved_date,
           Mrs_issued_by = material.mrs_issued_by,
           Mrs_issued_date = material.mrs_issued_by,
           Mrs_requested_by = material.mrs_requested_by,
@@ -269,16 +314,68 @@ namespace MvcTaskManager.Controllers
 
 
         });
-        }
-        return Ok(MaterialRequestViewModel);
+      }
+      return Ok(MaterialRequestViewModel);
 
+
+    }
+  
+
+
+
+  [HttpGet]
+  [Route("api/material_request_logs/search/{transaction_number}")]
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+  public async Task<IActionResult> GetMaterialOrder(string transaction_number)
+  {
+
+      string transact_no_passed_by = transaction_number;
+
+
+
+    List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.Contains(transact_no_passed_by)).ToListAsync();
+    List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
+
+      if (allmrs.Count > 0)
+      {
 
       }
+      else
+      {
+        return NoContent();
+      }
+
+      foreach (var material in allmrs)
+    {
+
+      MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
+      {
+        Mrs_id = material.mrs_id,
+        Mrs_transact_no = material.mrs_transact_no,
+        Mrs_item_code = material.mrs_item_code,
+        Mrs_item_description = material.mrs_item_description,
+        Mrs_order_qty = material.mrs_order_qty,
+        Mrs_uom = material.mrs_uom,
+        Mrs_served_qty = material.mrs_served_qty,
+        Mrs_remarks = material.mrs_remarks,
+        Mrs_date_needed = material.mrs_date_needed,
+        Mrs_date_requested = material.mrs_date_requested,
+        Mrs_approved_by = material.mrs_approved_by,
+        Mrs_approved_date = material.mrs_approved_date,
+        Mrs_issued_by = material.mrs_issued_by,
+        Mrs_issued_date = material.mrs_issued_by,
+        Mrs_requested_by = material.mrs_requested_by,
+        Is_active = material.is_active
+
+
+      });
     }
+    return Ok(MaterialRequestViewModel);
 
-
-
-
+     
+  }
+}
 
 
 }

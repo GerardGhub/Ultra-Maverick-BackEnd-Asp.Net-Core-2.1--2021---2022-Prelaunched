@@ -284,7 +284,7 @@ namespace MvcTaskManager.Controllers
 
       var userlist = (from a in db.Users
                       join b in db.Department on a.Department_id equals b.department_id
-                      join c in db.Position on a.Position_id equals c.position_id
+                      join c in db.Position on a.Position_id equals c.position_name
                       join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
                       where
                       a.Is_active.Equals(true)
@@ -407,7 +407,7 @@ namespace MvcTaskManager.Controllers
 
       var userlist = (from a in db.Users
                       join b in db.Department on a.Department_id equals b.department_id
-                      join c in db.Position on a.Position_id equals c.position_id
+                      join c in db.Position on a.Position_id equals c.position_name
                       join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
                       where
                       a.Is_active.Equals(true)
@@ -743,7 +743,7 @@ namespace MvcTaskManager.Controllers
 
       var userlist = (from a in db.Users
                        join b in db.Department on a.Department_id equals b.department_id
-                       join c in db.Position on a.Position_id equals c.position_id
+                       join c in db.Position on a.Position_id equals c.position_name
                        join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
                        where
                        a.Is_active.Equals(true)
