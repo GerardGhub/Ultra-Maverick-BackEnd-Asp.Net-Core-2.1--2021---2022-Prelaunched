@@ -19,25 +19,52 @@ namespace MvcTaskManager.ViewModels
     public string Email { get; set; }
     public string UserName { get; set; }
     //[Required]
-    public string Mobile { get; set; }
+    //public string Mobile { get; set; }
     //[Required]
-    public string DateOfBirth { get; set; }
+    //public string DateOfBirth { get; set; }
      [Required]
      public string Password { get; set; }
     [Required]
     public string Gender { get; set; }
-    [Required]
-    public int CountryID { get; set; }
-    [Required]
-    public bool ReceiveNewsLetters { get; set; }
+    //[Required]
+    //public int CountryID { get; set; }
+    //[Required]
+    //public bool ReceiveNewsLetters { get; set; }
     [Required]
     public string UserRole { get; set; }
     [Required]
     public int Employee_number { get; set; }
- 
 
 
-    public MaterialRequestRequirement MaterialRequest{ get; set; }
+    //Material Request
+    [Required]
+    public int Department_id { get; set; }
+
+    [Required]
+    public int Unit_id { get; set; }
+    [Required]
+    public string Location { get; set; }
+    [Required]
+    public string First_approver_name { get; set; }
+
+    public int? First_approver_id { get; set; }
+
+    public string Second_approver_name { get; set; }
+
+    public int? Second_approver_id { get; set; }
+
+    public string Third_approver_name { get; set; }
+
+    public int? Third_approver_id { get; set; }
+
+    public string Fourth_approver_name { get; set; }
+
+    public int? Fourth_approver_id { get; set; }
+    public bool Is_active { get; set; }
+    public bool Approver { get; set; }
+    public bool Requestor { get; set; }
+
+    //public MaterialRequestRequirement MaterialRequest{ get; set; }
   }
 
 
@@ -45,8 +72,7 @@ namespace MvcTaskManager.ViewModels
   {
     [Required]
     public int Department_id { get; set; }
-    [Required]
-    public string Position_id { get; set; }
+
     [Required]
     public int Unit_id { get; set; }
     [Required]

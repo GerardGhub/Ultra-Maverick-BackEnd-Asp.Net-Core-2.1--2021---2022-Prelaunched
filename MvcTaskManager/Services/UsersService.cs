@@ -76,22 +76,22 @@ namespace MvcTaskManager.Services
       applicationUser.Email = signUpViewModel.UserName;
       applicationUser.UserRole = signUpViewModel.UserRole;
 
-      applicationUser.Department_id = signUpViewModel.MaterialRequest.Department_id;
-      //applicationUser.Position_id = signUpViewModel.MaterialRequest.Position_id;
-      applicationUser.Unit_id = signUpViewModel.MaterialRequest.Unit_id;
+      applicationUser.Department_id = signUpViewModel.Department_id;
+ 
+      applicationUser.Unit_id = signUpViewModel.Unit_id;
 
-      applicationUser.Location = signUpViewModel.MaterialRequest.Location;
-      //applicationUser.Type_of_approver = signUpViewModel.MaterialRequest.Type_of_approver;
-      applicationUser.First_approver_name = signUpViewModel.MaterialRequest.First_approver_name;
-      applicationUser.First_approver_id = (int)signUpViewModel.MaterialRequest.First_approver_id;
-      applicationUser.Second_approver_name = signUpViewModel.MaterialRequest.Second_approver_name;
-      applicationUser.Second_approver_id = (int)signUpViewModel.MaterialRequest.Second_approver_id;
-      applicationUser.Third_approver_name = signUpViewModel.MaterialRequest.Third_approver_name;
-      applicationUser.Third_approver_id = (int)signUpViewModel.MaterialRequest.Third_approver_id;
-      applicationUser.Fourth_approver_name = signUpViewModel.MaterialRequest.Fourth_approver_name;
-      applicationUser.Fourth_approver_id = (int)signUpViewModel.MaterialRequest.Fourth_approver_id;
-      applicationUser.Approver = signUpViewModel.MaterialRequest.Approver;
-      applicationUser.Requestor = signUpViewModel.MaterialRequest.Requestor;
+      applicationUser.Location = signUpViewModel.Location;
+
+      applicationUser.First_approver_name = signUpViewModel.First_approver_name;
+      applicationUser.First_approver_id = (int)signUpViewModel.First_approver_id;
+      applicationUser.Second_approver_name = signUpViewModel.Second_approver_name;
+      applicationUser.Second_approver_id = (int)signUpViewModel.Second_approver_id;
+      applicationUser.Third_approver_name = signUpViewModel.Third_approver_name;
+      applicationUser.Third_approver_id = (int)signUpViewModel.Third_approver_id;
+      applicationUser.Fourth_approver_name = signUpViewModel.Fourth_approver_name;
+      applicationUser.Fourth_approver_id = (int)signUpViewModel.Fourth_approver_id;
+      applicationUser.Approver = signUpViewModel.Approver;
+      applicationUser.Requestor = signUpViewModel.Requestor;
       applicationUser.Is_active = true;
       applicationUser.Employee_number = signUpViewModel.Employee_number;
       var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);

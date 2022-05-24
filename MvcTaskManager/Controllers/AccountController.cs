@@ -59,7 +59,7 @@ namespace MvcTaskManager.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] SignUpViewModel signUpViewModel)
     {
-      var EmailValidation = await db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToListAsync();
+      var EmailValidation = await db.Users.Where(temp => temp.UserName == signUpViewModel.UserName).ToListAsync();
 
       if (EmailValidation.Count > 0)
       {
@@ -75,10 +75,10 @@ namespace MvcTaskManager.Controllers
       }
 
       //2nd Boolean
-      if (signUpViewModel.MaterialRequest.Requestor == true)
+      if (signUpViewModel.Requestor == true)
       {
 
-        if (signUpViewModel.MaterialRequest.First_approver_id == null)
+        if (signUpViewModel.First_approver_id == null)
         {
           this.checkstatistic = "0";
 
@@ -88,18 +88,18 @@ namespace MvcTaskManager.Controllers
           this.checkstatistic = "1";
         }
 
-        if (signUpViewModel.MaterialRequest.Second_approver_id == null)
+        if (signUpViewModel.Second_approver_id == null)
         {
-          if (signUpViewModel.MaterialRequest.Third_approver_id != null)
+          if (signUpViewModel.Third_approver_id != null)
           {
             this.checkstatistic = "2";
           }
 
         }
 
-        if (signUpViewModel.MaterialRequest.Third_approver_id == null)
+        if (signUpViewModel.Third_approver_id == null)
         {
-          if (signUpViewModel.MaterialRequest.Fourth_approver_id != null)
+          if (signUpViewModel.Fourth_approver_id != null)
           {
             this.checkstatistic = "2";
           }
@@ -122,48 +122,48 @@ namespace MvcTaskManager.Controllers
 
 
 
-      if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Second_approver_id)
+      if (signUpViewModel.First_approver_id == signUpViewModel.Second_approver_id)
       {
-      if (signUpViewModel.MaterialRequest.First_approver_id != null)
+      if (signUpViewModel.First_approver_id != null)
       {
       return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
       }
       }
 
-      else if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Third_approver_id)
+      else if (signUpViewModel.First_approver_id == signUpViewModel.Third_approver_id)
       {
-        if (signUpViewModel.MaterialRequest.First_approver_id != null)
+        if (signUpViewModel.First_approver_id != null)
         {
           return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
         }
       }
 
-      else if (signUpViewModel.MaterialRequest.First_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
+      else if (signUpViewModel.First_approver_id == signUpViewModel.Fourth_approver_id)
       {
-        if (signUpViewModel.MaterialRequest.First_approver_id != null)
+        if (signUpViewModel.First_approver_id != null)
         {
           return BadRequest(new { message = "You already tagged a approver on section 1 and 4" });
         }
       }
-      else if (signUpViewModel.MaterialRequest.Second_approver_id == signUpViewModel.MaterialRequest.Third_approver_id)
+      else if (signUpViewModel.Second_approver_id == signUpViewModel.Third_approver_id)
       {
-        if (signUpViewModel.MaterialRequest.Second_approver_id != null)
+        if (signUpViewModel.Second_approver_id != null)
         {
           return BadRequest(new { message = "You already tagged a approver on section 2 and 3" });
         }
       }
 
-      else if (signUpViewModel.MaterialRequest.Second_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
+      else if (signUpViewModel.Second_approver_id == signUpViewModel.Fourth_approver_id)
       {
-        if (signUpViewModel.MaterialRequest.Second_approver_id != null)
+        if (signUpViewModel.Second_approver_id != null)
         {
           return BadRequest(new { message = "You already tagged a approver on section 2 and 4" });
         }
       }
 
-      else if (signUpViewModel.MaterialRequest.Third_approver_id == signUpViewModel.MaterialRequest.Fourth_approver_id)
+      else if (signUpViewModel.Third_approver_id == signUpViewModel.Fourth_approver_id)
       {
-        if (signUpViewModel.MaterialRequest.Third_approver_id != null)
+        if (signUpViewModel.Third_approver_id != null)
         {
           return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
         }
@@ -179,24 +179,24 @@ namespace MvcTaskManager.Controllers
 
         //Validating Null Value
         //1
-      if (signUpViewModel.MaterialRequest.First_approver_id == null)
+      if (signUpViewModel.First_approver_id == null)
       {
-        signUpViewModel.MaterialRequest.First_approver_id = 0;
+        signUpViewModel.First_approver_id = 0;
       }
       //2
-      if (signUpViewModel.MaterialRequest.Second_approver_id == null)
+      if (signUpViewModel.Second_approver_id == null)
       {
-        signUpViewModel.MaterialRequest.Second_approver_id = 0;
+        signUpViewModel.Second_approver_id = 0;
       }
       //3
-      if (signUpViewModel.MaterialRequest.Third_approver_id == null)
+      if (signUpViewModel.Third_approver_id == null)
       {
-        signUpViewModel.MaterialRequest.Third_approver_id = 0;
+        signUpViewModel.Third_approver_id = 0;
       }
       //4
-      if (signUpViewModel.MaterialRequest.Fourth_approver_id == null)
+      if (signUpViewModel.Fourth_approver_id == null)
       {
-        signUpViewModel.MaterialRequest.Fourth_approver_id = 0;
+        signUpViewModel.Fourth_approver_id = 0;
       }
 
 
@@ -294,16 +294,17 @@ namespace MvcTaskManager.Controllers
                       && d.is_active.Equals(true)
                       select new
                       {
+                        Id = a.Id,
+                        Employee_number = a.Employee_number,
                         FirstName = a.FirstName,
                         LastName = a.LastName,
                         Gender = a.Gender,
-                        UserRole = a.UserRole,
-                        Id = a.Id,
+                        UserRole = a.UserRole,                      
                         Username = a.UserName,
-                        Email = a.Email,
+                        //Email = a.Email,
                         Password = a.PasswordHash,
-                        SecurityStamp = a.SecurityStamp,
-                        ConcurrencyStamp = a.ConcurrencyStamp,
+                        //SecurityStamp = a.SecurityStamp,
+                        //ConcurrencyStamp = a.ConcurrencyStamp,
                         Is_active = a.Is_active,
                         Department_id = a.Department_id,
                         //Position_id = a.Position_id,
@@ -322,7 +323,7 @@ namespace MvcTaskManager.Controllers
                         Department_Name = b.department_name,
                         //Position_Name = c.position_name,
                         DepartmentUnit_Name = d.unit_description,
-                        Employee_number = a.Employee_number
+                      
 
 
                       });
@@ -355,52 +356,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetMrsApprover()
     {
-      //List<ApplicationUser> AspNetUsers = await db.Users.ToListAsync();
-      //return Ok(AspNetUsers);
-
-      //List<ApplicationUser> departments = await db.Users.Where(temp => temp.Is_active.Equals(true) && temp.Approver.Equals(true)).ToListAsync();
-
-
-      //List<ApplicationUserViewModel> departmentViewModel = new List<ApplicationUserViewModel>();
-      //foreach (var dept in departments)
-      //{
-
-      //  departmentViewModel.Add(new ApplicationUserViewModel()
-      //  {
-      //    FirstName = dept.FirstName,
-      //    LastName = dept.LastName,
-      //    //DateOfBirth = dept.DateOfBirth.ToString("M/d/yyyy"),
-      //    Gender = dept.Gender,
-      //    UserRole = dept.UserRole,
-      //    //ReceiveNewsLetters = dept.ReceiveNewsLetters,
-      //    Id = dept.Id.ToString(),
-      //    Username = dept.UserName,
-      //    Email = dept.Email,
-      //    NormalizedEmail = dept.NormalizedEmail,
-      //    Password = dept.PasswordHash,
-      //    SecurityStamp = dept.SecurityStamp,
-      //    ConcurrencyStamp = dept.ConcurrencyStamp,
-      //    //Mobile = dept.PhoneNumber,
-      //    Is_active = dept.Is_active,
-      //    Department_id = dept.Department_id,
-      //    Position_id = dept.Position_id,
-      //    Unit_id = dept.Unit_id,
-      //    Location = dept.Location,
-      //    Approver = dept.Approver,
-      //    Requestor = dept.Requestor,
-      //    First_approver_id = dept.First_approver_id,
-      //    First_approver_name = dept.First_approver_name,
-      //    Second_approver_id = dept.Second_approver_id,
-      //    Second_approver_name = dept.Second_approver_name,
-      //    Third_approver_id = dept.Third_approver_id,
-      //    Third_approver_name = dept.Third_approver_name,
-      //    Fourth_approver_id = dept.Fourth_approver_id,
-      //    Fourth_approver_name = dept.Fourth_approver_name,
-
-
-      //  });
-      //}
-      //return Ok(departmentViewModel);
+      
 
 
       List<ApplicationUser> obj = new List<ApplicationUser>();
@@ -417,16 +373,16 @@ namespace MvcTaskManager.Controllers
                       && d.is_active.Equals(true)
                       select new
                       {
+                        Id = a.Id,
+                        Employee_number = a.Employee_number,
                         FirstName = a.FirstName,
                         LastName = a.LastName,
                         Gender = a.Gender,
-                        UserRole = a.UserRole,
-                        Id = a.Id,
+                        UserRole = a.UserRole,                 
                         Username = a.UserName,
-                        Email = a.Email,
                         Password = a.PasswordHash,
-                        SecurityStamp = a.SecurityStamp,
-                        ConcurrencyStamp = a.ConcurrencyStamp,
+                        //SecurityStamp = a.SecurityStamp,
+                        //ConcurrencyStamp = a.ConcurrencyStamp,
                         Is_active = a.Is_active,
                         Department_id = a.Department_id,
                         //Position_id = a.Position_id,
@@ -444,8 +400,8 @@ namespace MvcTaskManager.Controllers
                         Fourth_approver_name = a.Fourth_approver_name,
                         Department_Name = b.department_name,
                         //Position_Name = c.position_name,
-                        DepartmentUnit_Name = d.unit_description,
-                        Employee_number = a.Employee_number
+                        DepartmentUnit_Name = d.unit_description
+            
 
 
                       });
@@ -689,55 +645,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Get()
     {
-      //List<ApplicationUser> AspNetUsers = await db.Users.ToListAsync();
-      //return Ok(AspNetUsers);
-      //List<ApplicationUser> departments = await db.Users.Include("Department").Include("Position").Include("DepartmentUnit").Where(temp => temp.Is_active.Equals(true)).ToListAsync();
-
-
-      //List<ApplicationUserViewModel> departmentViewModel = new List<ApplicationUserViewModel>();
-      //foreach (var dept in departments)
-      //{
-
-      //  departmentViewModel.Add(new ApplicationUserViewModel()
-      //  {
-      //    FirstName = dept.FirstName,
-      //    LastName = dept.LastName,
-      //    //DateOfBirth = dept.DateOfBirth.ToString("M/d/yyyy"),
-      //    Gender = dept.Gender,
-      //    UserRole = dept.UserRole,
-      //    //ReceiveNewsLetters = dept.ReceiveNewsLetters,
-      //    Id = dept.Id.ToString(),
-      //    Username = dept.UserName,
-      //    Email = dept.Email,
-      //    NormalizedEmail = dept.NormalizedEmail,
-      //    Password = dept.PasswordHash,
-      //    SecurityStamp = dept.SecurityStamp,
-      //    ConcurrencyStamp = dept.ConcurrencyStamp,
-      //    //Mobile = dept.PhoneNumber,
-      //    Is_active = dept.Is_active,
-      //    Department_id = dept.Department_id,
-      //    Position_id = dept.Position_id,
-      //    Unit_id = dept.Unit_id,
-      //    Location = dept.Location,
-      //    Approver = dept.Approver,
-      //    Requestor = dept.Requestor,
-      //    First_approver_id = dept.First_approver_id,
-      //    First_approver_name = dept.First_approver_name,
-      //    Second_approver_id = dept.Second_approver_id,
-      //    Second_approver_name = dept.Second_approver_name,
-      //    Third_approver_id = dept.Third_approver_id,
-      //    Third_approver_name = dept.Third_approver_name,
-      //    Fourth_approver_id = dept.Fourth_approver_id,
-      //    Fourth_approver_name = dept.Fourth_approver_name,
-      //    Department_Name = dept.Department.department_name,
-      //    Position_Name = dept.Position.position_name,
-      //    DepartmentUnit_Name = dept.DepartmentUnit.unit_description
-
-
-
-      //  });
-      //}
-      //return Ok(departmentViewModel);
+   
 
       List<ApplicationUser> obj = new List<ApplicationUser>();
 
