@@ -9,10 +9,15 @@ namespace MvcTaskManager.ViewModels
 {
     public class SignUpViewModel
     {
+    //[Required]
+    //public PersonFullName PersonName { get; set; }
     [Required]
-    public PersonFullName PersonName { get; set; }
+    public string FirstName { get; set; }
     [Required]
+    public string LastName { get; set; }
+
     public string Email { get; set; }
+    public string UserName { get; set; }
     //[Required]
     public string Mobile { get; set; }
     //[Required]
@@ -29,10 +34,9 @@ namespace MvcTaskManager.ViewModels
     public string UserRole { get; set; }
     [Required]
     public int Employee_number { get; set; }
-    //[Required]
-    //public List<Skill> Skills { get; set; }
+ 
 
-    [Required]
+
     public MaterialRequestRequirement MaterialRequest{ get; set; }
   }
 

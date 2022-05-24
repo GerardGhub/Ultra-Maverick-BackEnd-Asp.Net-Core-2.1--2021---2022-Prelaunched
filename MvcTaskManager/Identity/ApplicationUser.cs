@@ -17,15 +17,15 @@ namespace MvcTaskManager.Identity
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public DateTime DateOfBirth { get; set; }
+  
         public string Gender { get; set; }
 
-        //public int CountryID { get; set; }
+ 
         public string UserRole { get; set; }
-        //public bool ReceiveNewsLetters { get; set; }
+
 
         public int Department_id { get; set; }
-        public string Position_id { get; set; }
+        //public string Position_id { get; set; }
         public int Unit_id { get; set; }
         public string Location { get; set; }
 

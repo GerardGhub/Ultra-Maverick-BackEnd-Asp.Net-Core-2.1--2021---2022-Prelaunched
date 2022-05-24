@@ -66,19 +66,18 @@ namespace MvcTaskManager.Services
         public async Task<ApplicationUser> Register(SignUpViewModel signUpViewModel)
         {
             ApplicationUser applicationUser = new ApplicationUser();
-      applicationUser.FirstName = signUpViewModel.PersonName.FirstName;
-      applicationUser.LastName = signUpViewModel.PersonName.LastName;
-      applicationUser.Email = signUpViewModel.Email;
-      //applicationUser.PhoneNumber = signUpViewModel.Mobile;
-      //applicationUser.ReceiveNewsLetters = signUpViewModel.ReceiveNewsLetters;
-      //applicationUser.CountryID = signUpViewModel.CountryID;
+      applicationUser.FirstName = signUpViewModel.FirstName;
+      applicationUser.LastName = signUpViewModel.LastName;
+
+
       applicationUser.Gender = signUpViewModel.Gender;
       applicationUser.Role = "Admin";
-      applicationUser.UserName = signUpViewModel.Email;
+      applicationUser.UserName = signUpViewModel.UserName;
+      applicationUser.Email = signUpViewModel.UserName;
       applicationUser.UserRole = signUpViewModel.UserRole;
 
       applicationUser.Department_id = signUpViewModel.MaterialRequest.Department_id;
-      applicationUser.Position_id = signUpViewModel.MaterialRequest.Position_id;
+      //applicationUser.Position_id = signUpViewModel.MaterialRequest.Position_id;
       applicationUser.Unit_id = signUpViewModel.MaterialRequest.Unit_id;
 
       applicationUser.Location = signUpViewModel.MaterialRequest.Location;
@@ -98,9 +97,9 @@ namespace MvcTaskManager.Services
       var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
             if (result.Succeeded)
             {
-                if ((await _applicationUserManager.AddToRoleAsync(await _applicationUserManager.FindByNameAsync(signUpViewModel.Email), "Admin")).Succeeded)
+                if ((await _applicationUserManager.AddToRoleAsync(await _applicationUserManager.FindByNameAsync(signUpViewModel.UserName), "Admin")).Succeeded)
                 {
-                    var result2 = await _applicationSignInManager.PasswordSignInAsync(signUpViewModel.Email, signUpViewModel.Password, false, false);
+                    var result2 = await _applicationSignInManager.PasswordSignInAsync(signUpViewModel.UserName, signUpViewModel.Password, false, false);
                     if (result2.Succeeded)
                     {
                         //token
