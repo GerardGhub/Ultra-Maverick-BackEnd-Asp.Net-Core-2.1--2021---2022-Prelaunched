@@ -22,14 +22,46 @@ namespace MvcTaskManager.Controllers
 
 
 
+    [HttpPut]
+    [Route("api/parent_checklist")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<ParentCheckList>> Put([FromBody] ParentCheckList parentRequestParam)
+    {
+
+      var ParentCheckListDataInfo = await db.parent_checklist
+        .Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details).ToListAsync();
+
+      if (ParentCheckListDataInfo.Count > 0)
+      {
+        return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      }
+
+      ParentCheckList existingDataStatus = await db.parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.parent_chck_details = parentRequestParam.parent_chck_details;
+        existingDataStatus.updated_at = DateTime.Now.ToString();
+        existingDataStatus.updated_by = parentRequestParam.updated_by;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
 
     [HttpPost]
     [Route("api/parent_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> Post([FromBody] ParentCheckList materialRequest)
+    public async Task<IActionResult> Post([FromBody] ParentCheckList parentRequestParam)
     {
 
-      var ParentCheckListDataInfo = await db.parent_checklist.Where(temp => temp.parent_chck_details == materialRequest.parent_chck_details
+      var ParentCheckListDataInfo = await db.parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details
       ).ToListAsync();
 
       if (ParentCheckListDataInfo.Count > 0)
@@ -38,13 +70,10 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      db.parent_checklist.Add(materialRequest);
+      db.parent_checklist.Add(parentRequestParam);
       await db.SaveChangesAsync();
 
-      ParentCheckList existingProject = await db.parent_checklist.Where(temp => temp.parent_chck_id == materialRequest.parent_chck_id).FirstOrDefaultAsync();
-
-
-
+      ParentCheckList existingProject = await db.parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
 
       ParentCheckListViewModel MRISViewModel = new ParentCheckListViewModel()
       {

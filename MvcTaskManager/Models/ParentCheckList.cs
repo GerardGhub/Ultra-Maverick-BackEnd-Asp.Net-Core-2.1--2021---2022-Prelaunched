@@ -18,6 +18,8 @@ namespace MvcTaskManager.Models
     public string parent_chck_added_by { get; set; }
     public string parent_chck_date_added { get; set; } = DateTime.Now.ToString();
     public bool is_active { get; set; } = true;
+    public string updated_at { get; set; }
+    public string updated_by { get; set; }
 
 
   }

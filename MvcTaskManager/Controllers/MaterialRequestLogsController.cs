@@ -128,6 +128,9 @@ namespace MvcTaskManager.Controllers
 
 
 
+
+
+
     [HttpPost]
     [Route("api/material_request_logs_insert")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -178,15 +181,15 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "Primary Unit is not exist" });
         }
         //4
-        var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == items.mrs_transact_no
-        && temp.mrs_date_needed == items.mrs_date_needed
-        && temp.mrs_order_qty == items.mrs_order_qty
-        && temp.mrs_item_code == items.mrs_item_code).ToListAsync();
+        //var RawDataInfo = await db.material_request_logs.Where(temp => temp.mrs_transact_no == items.mrs_transact_no
+        //&& temp.mrs_date_needed == items.mrs_date_needed
+        //&& temp.mrs_order_qty == items.mrs_order_qty
+        //&& temp.mrs_item_code == items.mrs_item_code).ToListAsync();
 
-        if (RawDataInfo.Count > 0)
-        {
-        return BadRequest(new { message = "You already request a same item today" });
-        }
+        //if (RawDataInfo.Count > 0)
+        //{
+        //return BadRequest(new { message = "You already request a same item today" });
+        //}
         //5
 
 
