@@ -58,6 +58,7 @@ namespace MvcTaskManager.Identity
     public DbSet<MaterialRequestMaster> material_request_master { get; set; }
 
     public DbSet<ParentCheckList> parent_checklist { get; set; }
+    public DbSet<ChildCheckList> child_checklist { get; set; }
 
     //public DbSet<ApplicationUserTaggingofApprover> AspNetUsers { get; set; }
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }
