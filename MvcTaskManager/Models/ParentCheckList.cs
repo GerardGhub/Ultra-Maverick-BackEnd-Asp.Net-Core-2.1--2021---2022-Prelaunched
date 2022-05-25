@@ -20,6 +20,8 @@ namespace MvcTaskManager.Models
     public bool is_active { get; set; } = true;
     public string updated_at { get; set; }
     public string updated_by { get; set; }
+    public string deactivated_at { get; set; }
+    public string deactivated_by { get; set; }
 
 
   }

@@ -51,7 +51,50 @@ namespace MvcTaskManager.Controllers
       }
     }
 
+    [HttpPut]
+    [Route("api/parent_checklist/deactivate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<ParentCheckList>> PutDeactivate([FromBody] ParentCheckList parentRequestParam)
+    {
 
+    
+
+      ParentCheckList existingDataStatus = await db.parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.is_active = false;
+        existingDataStatus.deactivated_at = DateTime.Now.ToString();
+        existingDataStatus.deactivated_by = parentRequestParam.deactivated_by;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+    [HttpPut]
+    [Route("api/parent_checklist/activate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<ParentCheckList>> PutActivate([FromBody] ParentCheckList parentRequestParam)
+    {
+
+      ParentCheckList existingDataStatus = await db.parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.is_active = true;
+        existingDataStatus.deactivated_at = null;
+        existingDataStatus.deactivated_by = null;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
 
 
 
@@ -60,6 +103,12 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] ParentCheckList parentRequestParam)
     {
+
+      if(parentRequestParam.parent_chck_details == null || parentRequestParam.parent_chck_details == ""
+        || parentRequestParam.parent_chck_added_by == null || parentRequestParam.parent_chck_added_by == "")
+      {
+        return BadRequest(new { message = "Fill up the required fields" });
+      }
 
       var ParentCheckListDataInfo = await db.parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details
       ).ToListAsync();
@@ -75,7 +124,7 @@ namespace MvcTaskManager.Controllers
 
       ParentCheckList existingProject = await db.parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
 
-      ParentCheckListViewModel MRISViewModel = new ParentCheckListViewModel()
+      ParentCheckListViewModel ParentViewModel = new ParentCheckListViewModel()
       {
 
         Parent_chck_id = existingProject.parent_chck_id,
@@ -83,11 +132,9 @@ namespace MvcTaskManager.Controllers
         Parent_chck_added_by = existingProject.parent_chck_added_by,
         Parent_chck_date_added = existingProject.parent_chck_date_added,
         Is_active = existingProject.is_active
-
-
       };
 
-      return Ok(MRISViewModel);
+      return Ok(ParentViewModel);
 
     }
 
