@@ -132,25 +132,26 @@ namespace MvcTaskManager.Controllers
 
 
       var RawDataInfo = await db.material_request_master.Where(temp => temp.mrs_requested_date == materialRequest.mrs_requested_date
-      && temp.mrs_req_desc == materialRequest.mrs_req_desc).ToListAsync();
+      && temp.mrs_req_desc == materialRequest.mrs_req_desc && materialRequest.is_active.Equals(true)).ToListAsync();
 
       if (RawDataInfo.Count > 0)
       {
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
+   
 
+        db.material_request_master.Add(materialRequest);
+        await db.SaveChangesAsync();
+      
+        MaterialRequestMaster existingProject = await db.material_request_master.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
 
-      db.material_request_master.Add(materialRequest);
-      await db.SaveChangesAsync();
-
-      MaterialRequestMaster existingProject = await db.material_request_master.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
-
-
+      
 
 
       MaterialRequestMasterViewModel MRISViewModel = new MaterialRequestMasterViewModel()
       {
 
+        Mrs_id = existingProject.mrs_id,
         Mrs_req_desc = existingProject.mrs_req_desc,
         Mrs_requested_by = existingProject.mrs_requested_by,
         Mrs_requested_date = DateTime.Now.ToString(),
