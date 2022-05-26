@@ -60,6 +60,8 @@ namespace MvcTaskManager.Identity
     public DbSet<ParentCheckList> parent_checklist { get; set; }
     public DbSet<ChildCheckList> child_checklist { get; set; }
 
+    public DbSet<GrandChildCheckList> grandchild_checklist { get; set; }
+
     //public DbSet<ApplicationUserTaggingofApprover> AspNetUsers { get; set; }
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }
     protected override void OnModelCreating(ModelBuilder modelBuilder)

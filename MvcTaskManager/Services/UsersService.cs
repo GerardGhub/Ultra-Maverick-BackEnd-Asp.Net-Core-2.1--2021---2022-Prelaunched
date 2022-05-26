@@ -65,35 +65,39 @@ namespace MvcTaskManager.Services
 
         public async Task<ApplicationUser> Register(SignUpViewModel signUpViewModel)
         {
-            ApplicationUser applicationUser = new ApplicationUser();
-      applicationUser.FirstName = signUpViewModel.FirstName;
-      applicationUser.LastName = signUpViewModel.LastName;
+
+          ApplicationUser applicationUser = new ApplicationUser();
+          applicationUser.FirstName = signUpViewModel.FirstName;
+          applicationUser.LastName = signUpViewModel.LastName;
 
 
-      applicationUser.Gender = signUpViewModel.Gender;
-      applicationUser.Role = "Admin";
-      applicationUser.UserName = signUpViewModel.UserName;
-      applicationUser.Email = signUpViewModel.UserName;
-      applicationUser.UserRole = signUpViewModel.UserRole;
+          applicationUser.Gender = signUpViewModel.Gender;
+          applicationUser.Role = "Admin";
+          applicationUser.UserName = signUpViewModel.UserName;
+          applicationUser.Email = signUpViewModel.UserName;
+          applicationUser.UserRole = signUpViewModel.UserRole;
 
-      applicationUser.Department_id = signUpViewModel.Department_id;
+          applicationUser.Department_id = signUpViewModel.Department_id;
  
-      applicationUser.Unit_id = signUpViewModel.Unit_id;
+          applicationUser.Unit_id = signUpViewModel.Unit_id;
 
-      applicationUser.Location = signUpViewModel.Location;
+          applicationUser.Location = signUpViewModel.Location;
 
-      applicationUser.First_approver_name = signUpViewModel.First_approver_name;
-      applicationUser.First_approver_id = (int)signUpViewModel.First_approver_id;
-      applicationUser.Second_approver_name = signUpViewModel.Second_approver_name;
-      applicationUser.Second_approver_id = (int)signUpViewModel.Second_approver_id;
-      applicationUser.Third_approver_name = signUpViewModel.Third_approver_name;
-      applicationUser.Third_approver_id = (int)signUpViewModel.Third_approver_id;
-      applicationUser.Fourth_approver_name = signUpViewModel.Fourth_approver_name;
-      applicationUser.Fourth_approver_id = (int)signUpViewModel.Fourth_approver_id;
-      applicationUser.Approver = signUpViewModel.Approver;
-      applicationUser.Requestor = signUpViewModel.Requestor;
-      applicationUser.Is_active = true;
-      applicationUser.Employee_number = signUpViewModel.Employee_number;
+          applicationUser.First_approver_name = signUpViewModel.First_approver_name;
+          applicationUser.First_approver_id = (int)signUpViewModel.First_approver_id;
+          applicationUser.Second_approver_name = signUpViewModel.Second_approver_name;
+          applicationUser.Second_approver_id = (int)signUpViewModel.Second_approver_id;
+          applicationUser.Third_approver_name = signUpViewModel.Third_approver_name;
+          applicationUser.Third_approver_id = (int)signUpViewModel.Third_approver_id;
+          applicationUser.Fourth_approver_name = signUpViewModel.Fourth_approver_name;
+          applicationUser.Fourth_approver_id = (int)signUpViewModel.Fourth_approver_id;
+          applicationUser.Approver = signUpViewModel.Approver;
+          applicationUser.Requestor = signUpViewModel.Requestor;
+          applicationUser.Is_active = true;
+          applicationUser.Employee_number = signUpViewModel.Employee_number;
+
+
+
       var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
             if (result.Succeeded)
             {
@@ -118,18 +122,8 @@ namespace MvcTaskManager.Services
                         var token = tokenHandler.CreateToken(tokenDescriptor);
                         applicationUser.Token = tokenHandler.WriteToken(token);
 
-            //Skills
-            //foreach (var sk in signUpViewModel.Skills)
-            //{
-            //  Skill skill = new Skill();
-            //  skill.SkillName = sk.SkillName;
-            //  skill.SkillLevel = sk.SkillLevel;
-            //  skill.Id = applicationUser.Id;
-            //  skill.ApplicationUser = null;
-            //  this._db.Skills.Add(skill);
-            //  this._db.SaveChanges();
-            //}
-            this._db.SaveChanges();
+      
+           await  this._db.SaveChangesAsync();
 
             return applicationUser;
                     }

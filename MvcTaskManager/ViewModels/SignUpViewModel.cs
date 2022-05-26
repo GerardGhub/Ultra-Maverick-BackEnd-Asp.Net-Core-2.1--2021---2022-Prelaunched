@@ -22,7 +22,7 @@ namespace MvcTaskManager.ViewModels
     //public string Mobile { get; set; }
     //[Required]
     //public string DateOfBirth { get; set; }
-     [Required]
+     //[Required]
      public string Password { get; set; }
     [Required]
     public string Gender { get; set; }
