@@ -16,6 +16,8 @@ namespace MvcTaskManager.ViewModels
     public string Is_cancel_reason { get; set; }
     public string Is_cancel_date { get; set; }
     public bool Is_active { get; set; }
+    public string Is_approved_by { get; set; }
+    public string Is_approved_date { get; set; }
 
   }
 }

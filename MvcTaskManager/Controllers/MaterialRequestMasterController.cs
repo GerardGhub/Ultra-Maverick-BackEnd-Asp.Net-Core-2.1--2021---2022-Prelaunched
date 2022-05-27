@@ -42,10 +42,12 @@ namespace MvcTaskManager.Controllers
           Mrs_requested_by = material.mrs_requested_by,
           Mrs_requested_date = material.mrs_requested_date,
           Department_id = material.department_id,
-         Is_cancel_by = material.is_cancel_by,
+          Is_cancel_by = material.is_cancel_by,
           Is_cancel_reason = material.is_cancel_reason,
           Is_cancel_date = material.is_cancel_date,
-          Is_active = material.is_active
+          Is_active = material.is_active,
+          Is_approved_by = material.is_approved_by,
+          Is_approved_date = material.is_approved_date
 
 
         });
@@ -55,6 +57,41 @@ namespace MvcTaskManager.Controllers
 
     }
 
+
+
+    [HttpGet]
+    [Route("api/material_request_master/cancel")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+    public async Task<IActionResult> GetCancelMRS()
+    {
+
+      List<MaterialRequestMaster> allmrs = await db.Material_request_master.Where(temp => temp.is_active.Equals(false)).ToListAsync();
+      List<MaterialRequestMasterViewModel> MaterialRequestViewModel = new List<MaterialRequestMasterViewModel>();
+      foreach (var material in allmrs)
+      {
+
+        MaterialRequestViewModel.Add(new MaterialRequestMasterViewModel()
+        {
+          Mrs_id = material.mrs_id,
+          Mrs_req_desc = material.mrs_req_desc,
+          Mrs_requested_by = material.mrs_requested_by,
+          Mrs_requested_date = material.mrs_requested_date,
+          Department_id = material.department_id,
+          Is_cancel_by = material.is_cancel_by,
+          Is_cancel_reason = material.is_cancel_reason,
+          Is_cancel_date = material.is_cancel_date,
+          Is_active = material.is_active,
+          Is_approved_by = material.is_approved_by,
+          Is_approved_date = material.is_approved_date
+
+
+        });
+      }
+      return Ok(MaterialRequestViewModel);
+
+
+    }
 
 
 
@@ -89,6 +126,72 @@ namespace MvcTaskManager.Controllers
     }
 
 
+
+    [HttpPut]
+    [Route("api/material_request_master/approve")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestMaster> PutforApprove([FromBody] MaterialRequestMaster MRSParams)
+    {
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.is_approved_by = MRSParams.is_approved_by;
+          item.is_approved_date = DateTime.Now.ToString("M/d/yyyy");
+
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
+
+
+    [HttpPut]
+    [Route("api/material_request_master/dis-approve")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestMaster> PutDisApprove([FromBody] MaterialRequestMaster MRSParams)
+    {
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+     
+          item.is_cancel_by = MRSParams.is_cancel_by;
+          item.is_cancel_date = DateTime.Now.ToString("M/d/yyyy");
+          item.is_cancel_reason = MRSParams.is_cancel_reason;
+          item.is_approved_by = null;
+          item.is_approved_date = null;
+          item.is_active = false;
+
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
 
 
     [HttpPut]

@@ -275,7 +275,8 @@ namespace MvcTaskManager.Controllers
         Gc_child_key = existingProject.gc_child_key,
         Gc_child_po_number = existingProject.gc_child_po_number,
         Gc_bool_status = existingProject.gc_bool_status,
-        Is_active = existingProject.is_active
+        Is_active = existingProject.is_active,
+        Gc_added_by = existingProject.gc_added_by
       };
 
       return Ok(ChildViewModel);

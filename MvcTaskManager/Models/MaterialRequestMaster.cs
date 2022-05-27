@@ -20,6 +20,8 @@ namespace MvcTaskManager.Models
     public string is_cancel_reason { get; set; }
     public string is_cancel_date { get; set; }
     public bool is_active { get; set; } = true;
+    public string is_approved_by { get; set; }
+    public string is_approved_date { get; set; }
 
   }
 
