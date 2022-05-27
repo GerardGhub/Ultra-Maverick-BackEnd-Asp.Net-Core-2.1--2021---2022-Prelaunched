@@ -50,8 +50,11 @@ namespace MvcTaskManager.Identity
         public bool Requestor { get; set; }
         public bool Approver { get; set; }
         public int Employee_number { get; set; }
+        public string Added_by { get; set; }
+        public DateTime Date_added { get; set; } = DateTime.Now;
 
-        [NotMapped]
+
+         [NotMapped]
 
         [ForeignKey("department_id")]
         public virtual Department Department { get; set; }

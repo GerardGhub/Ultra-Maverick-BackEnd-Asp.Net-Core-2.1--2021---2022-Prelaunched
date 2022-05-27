@@ -658,7 +658,8 @@ namespace MvcTaskManager.Controllers
                        && b.is_active.Equals(true)
                        //&& c.is_active.Equals(true)
                        && d.is_active.Equals(true)
-                       select new
+                       orderby a.Date_added descending
+                       select new 
                        {
                          FirstName = a.FirstName,
                          LastName = a.LastName,
@@ -687,7 +688,8 @@ namespace MvcTaskManager.Controllers
                          Fourth_approver_name = a.Fourth_approver_name,
                          Department_Name = b.department_name,
                          //Position_Name = c.position_name,
-                         DepartmentUnit_Name = d.unit_description
+                         DepartmentUnit_Name = d.unit_description,
+                         Date_added = a.Date_added
 
 
                        });
