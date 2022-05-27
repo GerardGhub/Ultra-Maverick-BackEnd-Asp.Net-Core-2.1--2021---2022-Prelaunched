@@ -25,7 +25,7 @@ namespace MvcTaskManager.Controllers
 
     public async Task<ActionResult> Get()
     {
-      List<SystemCapabilityStatus> SystemStatus = await db.system_capability_status.ToListAsync();
+      List<SystemCapabilityStatus> SystemStatus = await db.System_capability_status.ToListAsync();
       return Ok(SystemStatus);
     }
 

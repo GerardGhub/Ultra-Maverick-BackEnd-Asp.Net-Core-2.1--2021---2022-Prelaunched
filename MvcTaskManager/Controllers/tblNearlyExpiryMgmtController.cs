@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Get()
     {
-      List<tblNearlyExpiryMgmtModel> tblNearlyExpiryMgmts = await db.tblNearlyExpiryMgmt.ToListAsync();
+      List<tblNearlyExpiryMgmtModel> tblNearlyExpiryMgmts = await db.TblNearlyExpiryMgmt.ToListAsync();
       return Ok(tblNearlyExpiryMgmts);
     }
 
@@ -37,7 +37,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetByRejectID(int ID)
     {
-      tblNearlyExpiryMgmtModel tblNearlyExpiryMgmtModels = await db.tblNearlyExpiryMgmt.Where(temp => temp.p_id == ID).FirstOrDefaultAsync();
+      tblNearlyExpiryMgmtModel tblNearlyExpiryMgmtModels = await db.TblNearlyExpiryMgmt.Where(temp => temp.p_id == ID).FirstOrDefaultAsync();
       if (tblNearlyExpiryMgmtModels != null)
       {
         return Ok(tblNearlyExpiryMgmtModels);
@@ -53,10 +53,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<tblNearlyExpiryMgmtModel> Post([FromBody] tblNearlyExpiryMgmtModel NearlyExpiry)
     {
-      db.tblNearlyExpiryMgmt.Add(NearlyExpiry);
+      db.TblNearlyExpiryMgmt.Add(NearlyExpiry);
       await db.SaveChangesAsync();
 
-      tblNearlyExpiryMgmtModel existingData = await db.tblNearlyExpiryMgmt.Where(temp => temp.p_id == NearlyExpiry.p_id).FirstOrDefaultAsync();
+      tblNearlyExpiryMgmtModel existingData = await db.TblNearlyExpiryMgmt.Where(temp => temp.p_id == NearlyExpiry.p_id).FirstOrDefaultAsync();
       return NearlyExpiry;
     }
 
@@ -65,7 +65,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<tblNearlyExpiryMgmtModel> Put([FromBody] tblNearlyExpiryMgmtModel NearlyExpiry)
     {
-      tblNearlyExpiryMgmtModel existingData = await db.tblNearlyExpiryMgmt.Where(temp => temp.p_id == NearlyExpiry.p_id).FirstOrDefaultAsync();
+      tblNearlyExpiryMgmtModel existingData = await db.TblNearlyExpiryMgmt.Where(temp => temp.p_id == NearlyExpiry.p_id).FirstOrDefaultAsync();
       if (existingData != null)
       {
         existingData.p_nearly_expiry_desc = NearlyExpiry.p_nearly_expiry_desc;
@@ -85,10 +85,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<int> Delete(int ID)
     {
-      tblNearlyExpiryMgmtModel existingData = await db.tblNearlyExpiryMgmt.Where(temp => temp.p_id == ID).FirstOrDefaultAsync();
+      tblNearlyExpiryMgmtModel existingData = await db.TblNearlyExpiryMgmt.Where(temp => temp.p_id == ID).FirstOrDefaultAsync();
       if (existingData != null)
       {
-        db.tblNearlyExpiryMgmt.Remove(existingData);
+        db.TblNearlyExpiryMgmt.Remove(existingData);
         await db.SaveChangesAsync();
         return ID;
       }

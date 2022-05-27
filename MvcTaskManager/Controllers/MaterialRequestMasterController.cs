@@ -30,7 +30,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Get()
     {
 
-      List<MaterialRequestMaster> allmrs = await db.material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<MaterialRequestMaster> allmrs = await db.Material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
       List<MaterialRequestMasterViewModel> MaterialRequestViewModel = new List<MaterialRequestMasterViewModel>();
       foreach (var material in allmrs)
       {
@@ -63,9 +63,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestMaster> PutCancelAll([FromBody] MaterialRequestMaster MRSParams)
     {
-      MaterialRequestMaster existingDataStatus = await db.material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
 
-      var allToBeUpdated = await db.material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
       if (existingDataStatus != null)
       {
         foreach (var item in allToBeUpdated)
@@ -96,9 +96,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestMaster> PutReturnAll([FromBody] MaterialRequestMaster MRSParams)
     {
-      MaterialRequestMaster existingDataStatus = await db.material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
 
-      var allToBeUpdated = await db.material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
       if (existingDataStatus != null)
       {
         foreach (var item in allToBeUpdated)
@@ -131,7 +131,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-      var RawDataInfo = await db.material_request_master.Where(temp => temp.mrs_requested_date == materialRequest.mrs_requested_date
+      var RawDataInfo = await db.Material_request_master.Where(temp => temp.mrs_requested_date == materialRequest.mrs_requested_date
       && temp.mrs_req_desc == materialRequest.mrs_req_desc && materialRequest.is_active.Equals(true)).ToListAsync();
 
       if (RawDataInfo.Count > 0)
@@ -140,10 +140,10 @@ namespace MvcTaskManager.Controllers
       }
    
 
-        db.material_request_master.Add(materialRequest);
+        db.Material_request_master.Add(materialRequest);
         await db.SaveChangesAsync();
       
-        MaterialRequestMaster existingProject = await db.material_request_master.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
+        MaterialRequestMaster existingProject = await db.Material_request_master.Where(temp => temp.mrs_id == materialRequest.mrs_id).FirstOrDefaultAsync();
 
       
 

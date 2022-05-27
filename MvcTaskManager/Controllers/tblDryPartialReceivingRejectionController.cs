@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Get()
     {
       string data_is_pending = "1";
-      List<tblDryPartialReceivingRejectionModel> tblDryPartialReceivingRejections = await db.tblDryPartialReceivingRejection.Where(temp => temp.Is_pending.Contains(data_is_pending)).ToListAsync();
+      List<tblDryPartialReceivingRejectionModel> tblDryPartialReceivingRejections = await db.TblDryPartialReceivingRejection.Where(temp => temp.Is_pending.Contains(data_is_pending)).ToListAsync();
       return Ok(tblDryPartialReceivingRejections);
     }
 
@@ -46,7 +46,7 @@ namespace MvcTaskManager.Controllers
       string RejectIndexes = searchIndex;
       if (searchBy == "Po_number")
 
-        projects = await db.tblDryPartialReceivingRejection.Where(temp => temp.Is_active.Contains(is_activated) && temp.Is_pending.Contains(data_is_pending) && temp.Po_number.ToString().Contains(PoNumberValue) && temp.Projection_identity.ToString().Contains(RejectIndexes)).ToListAsync();
+        projects = await db.TblDryPartialReceivingRejection.Where(temp => temp.Is_active.Contains(is_activated) && temp.Is_pending.Contains(data_is_pending) && temp.Po_number.ToString().Contains(PoNumberValue) && temp.Projection_identity.ToString().Contains(RejectIndexes)).ToListAsync();
 
 
       List<WarehouseRejectStatusViewModel> WarehouseRejectStatusContructor = new List<WarehouseRejectStatusViewModel>();

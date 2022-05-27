@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> Put([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
@@ -47,7 +47,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutDeactivate([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = false;
@@ -73,7 +73,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> Putactivate([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = true;
@@ -99,9 +99,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutCancelAll([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).FirstOrDefaultAsync();
 
-      var allToBeUpdated = await db.material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).ToListAsync();
+      var allToBeUpdated = await db.Material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).ToListAsync();
       if (existingDataStatus != null)
       {
         foreach (var item in allToBeUpdated)
@@ -142,12 +142,12 @@ namespace MvcTaskManager.Controllers
       {
 
         //1
-        var MrsTransactNo = await db.material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
+        var MrsTransactNo = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
        && temp.is_active.Equals(true)).ToListAsync();
 
         if (MrsTransactNo.Count > 0)
         {
-          db.material_request_logs.Add(items);
+          db.Material_request_logs.Add(items);
           //await db.SaveChangesAsync();
         }
         else
@@ -160,7 +160,7 @@ namespace MvcTaskManager.Controllers
 
         if (RawMaterial.Count > 0)
         {
-          db.material_request_logs.Add(items);
+          db.Material_request_logs.Add(items);
           //await db.SaveChangesAsync();
         }
         else
@@ -173,7 +173,7 @@ namespace MvcTaskManager.Controllers
 
         if (PrimaryUnit.Count > 0)
         {
-          db.material_request_logs.Add(items);
+          db.Material_request_logs.Add(items);
           //await db.SaveChangesAsync();
         }
         else
@@ -195,7 +195,7 @@ namespace MvcTaskManager.Controllers
         //5
 
 
-        MaterialRequestLogs existingProject = await db.material_request_logs.Where(temp => temp.mrs_id == items.mrs_id).FirstOrDefaultAsync();
+        MaterialRequestLogs existingProject = await db.Material_request_logs.Where(temp => temp.mrs_id == items.mrs_id).FirstOrDefaultAsync();
 
         string ActualQuantity = items.mrs_order_qty.ToString();
         decimal qtyorder;
@@ -263,9 +263,9 @@ namespace MvcTaskManager.Controllers
 
 
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
-      var results = (from a in db.material_request_master
+      var results = (from a in db.Material_request_master
                      join b in db.Department on a.department_id equals b.department_id
-                     join c in db.material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
 
                      group a by new
@@ -296,7 +296,13 @@ namespace MvcTaskManager.Controllers
                     );
 
 
-      return Ok(results);
+      //return Ok(results);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(results);
+      });
+
+      return (result);
 
 
 
@@ -320,7 +326,7 @@ namespace MvcTaskManager.Controllers
       //return Ok(count);
 
       List<MaterialRequestMaster> StoreOrderCheckList =
-        await db.material_request_master.GroupBy(p => new { p.mrs_id })
+        await db.Material_request_master.GroupBy(p => new { p.mrs_id })
         .Select(g => g.First()).Where(temp => temp.is_active.Equals(true) || temp.is_active.Equals(false)
         ).ToListAsync();
 
@@ -339,7 +345,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Get()
     {
    
-      List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true)).ToListAsync();
       List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
       foreach (var material in allmrs)
       {
@@ -385,7 +391,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-    List<MaterialRequestLogs> allmrs = await db.material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.ToString().Contains(transact_no_passed_by)).ToListAsync();
+    List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.ToString().Contains(transact_no_passed_by)).ToListAsync();
     List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
 
       if (allmrs.Count > 0)

@@ -36,7 +36,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var CheckParentForeignKey = await db.parent_checklist.Where(temp => temp.parent_chck_id.ToString() == ChildRequestParam.cc_parent_key
+      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id.ToString() == ChildRequestParam.cc_parent_key
       ).ToListAsync();
 
       if (CheckParentForeignKey.Count > 0)
@@ -49,7 +49,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var ChildCheckListDataInfo = await db.child_checklist.Where(temp => temp.cc_description == ChildRequestParam.cc_description
+      var ChildCheckListDataInfo = await db.Child_checklist.Where(temp => temp.cc_description == ChildRequestParam.cc_description
       ).ToListAsync();
 
       if (ChildCheckListDataInfo.Count > 0)
@@ -58,10 +58,10 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      db.child_checklist.Add(ChildRequestParam);
+      db.Child_checklist.Add(ChildRequestParam);
       await db.SaveChangesAsync();
 
-      ChildCheckList existingProject = await db.child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
+      ChildCheckList existingProject = await db.Child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
 
       ChildCheckListViewModel ChildViewModel = new ChildCheckListViewModel()
       {
@@ -87,7 +87,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-      ChildCheckList existingDataStatus = await db.child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
+      ChildCheckList existingDataStatus = await db.Child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = false;
@@ -110,7 +110,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-      ChildCheckList existingDataStatus = await db.child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
+      ChildCheckList existingDataStatus = await db.Child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = true;
@@ -132,7 +132,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ChildCheckList>> Put([FromBody] ChildCheckList ChildRequestParam)
     {
 
-      var ChildCheckListDataInfo = await db.parent_checklist
+      var ChildCheckListDataInfo = await db.Parent_checklist
         .Where(temp => temp.parent_chck_details == ChildRequestParam.cc_description).ToListAsync();
 
       if (ChildCheckListDataInfo.Count > 0)
@@ -140,7 +140,7 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
-      ChildCheckList existingDataStatus = await db.child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
+      ChildCheckList existingDataStatus = await db.Child_checklist.Where(temp => temp.cc_id == ChildRequestParam.cc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.cc_description = ChildRequestParam.cc_description;
@@ -163,7 +163,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetChildCheckList(string parent_fk)
     {
 
-      List<ChildCheckList> allChildCheckList = await db.child_checklist.Where(temp => temp.is_active.Equals(true) && temp.cc_parent_key.Contains(parent_fk)).ToListAsync();
+      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.is_active.Equals(true) && temp.cc_parent_key.Contains(parent_fk)).ToListAsync();
 
 
       List<ChildCheckListViewModel> ListViewModel = new List<ChildCheckListViewModel>();
@@ -210,10 +210,10 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/child_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetMaterialOrder()
+    public async Task<IActionResult> GetChildCheckList()
     {
 
-      List<ChildCheckList> allChildCheckList = await db.child_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
       List<ChildCheckListViewModel> ListViewModel = new List<ChildCheckListViewModel>();

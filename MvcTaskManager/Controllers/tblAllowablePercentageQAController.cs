@@ -25,7 +25,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Get()
     {
-      List<AllowablePercentageQAModel> tblAllowablePercentages = await db.tblAllowablePercentageQA.ToListAsync();
+      List<AllowablePercentageQAModel> tblAllowablePercentages = await db.TblAllowablePercentageQA.ToListAsync();
       return Ok(tblAllowablePercentages);
     }
 
@@ -35,7 +35,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetByRejectID(int AllowPercentageID)
     {
-      AllowablePercentageQAModel AllowablePercentageQA = await db.tblAllowablePercentageQA.Where(temp => temp.p_id == AllowPercentageID).FirstOrDefaultAsync();
+      AllowablePercentageQAModel AllowablePercentageQA = await db.TblAllowablePercentageQA.Where(temp => temp.p_id == AllowPercentageID).FirstOrDefaultAsync();
       if (AllowablePercentageQA != null)
       {
         return Ok(AllowablePercentageQA);
@@ -51,10 +51,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<AllowablePercentageQAModel> Post([FromBody] AllowablePercentageQAModel AllowablePercentage)
     {
-      db.tblAllowablePercentageQA.Add(AllowablePercentage);
+      db.TblAllowablePercentageQA.Add(AllowablePercentage);
       await db.SaveChangesAsync();
 
-      AllowablePercentageQAModel existingData = await db.tblAllowablePercentageQA.Where(temp => temp.p_id == AllowablePercentage.p_id).FirstOrDefaultAsync();
+      AllowablePercentageQAModel existingData = await db.TblAllowablePercentageQA.Where(temp => temp.p_id == AllowablePercentage.p_id).FirstOrDefaultAsync();
       return AllowablePercentage;
     }
 
@@ -66,7 +66,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<AllowablePercentageQAModel> Put([FromBody] AllowablePercentageQAModel AllowablePercentage)
     {
-      AllowablePercentageQAModel existingAllowablePercentage = await db.tblAllowablePercentageQA.Where(temp => temp.p_id == AllowablePercentage.p_id).FirstOrDefaultAsync();
+      AllowablePercentageQAModel existingAllowablePercentage = await db.TblAllowablePercentageQA.Where(temp => temp.p_id == AllowablePercentage.p_id).FirstOrDefaultAsync();
       if (existingAllowablePercentage != null)
       {
         existingAllowablePercentage.p_allowable_percentage = AllowablePercentage.p_allowable_percentage;

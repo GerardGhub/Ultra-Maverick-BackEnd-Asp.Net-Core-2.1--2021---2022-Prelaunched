@@ -341,7 +341,14 @@ namespace MvcTaskManager.Controllers
 
 
       }
-      return Ok(userlist);
+
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(userlist);
+      });
+
+      return (result);
+      
     
     }
 
@@ -419,7 +426,13 @@ namespace MvcTaskManager.Controllers
 
 
       }
-      return Ok(userlist);
+      //return Ok(userlist);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(userlist);
+      });
+
+      return (result);
 
 
     }
@@ -707,13 +720,20 @@ namespace MvcTaskManager.Controllers
 
 
       }
-      return Ok(userlist);
+      //return Ok(userlist);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(userlist);
+      });
+
+      return (result);
+
     }
 
 
-      //End
+    //End
 
-    }
+  }
 }
 
 

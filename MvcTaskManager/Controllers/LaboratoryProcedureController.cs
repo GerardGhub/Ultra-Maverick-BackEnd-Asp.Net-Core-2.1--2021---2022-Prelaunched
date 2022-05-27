@@ -24,7 +24,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Get()
     {
-      List<LaboratoryProcedure> tblLabProc = await db.laboratory_procedure.ToListAsync();
+      List<LaboratoryProcedure> tblLabProc = await db.Laboratory_procedure.ToListAsync();
       return Ok(tblLabProc);
     }
 
@@ -36,7 +36,7 @@ namespace MvcTaskManager.Controllers
     {
       int LaboratoryIdentity = LabID;
 
-      LaboratoryProcedure tblLabProc = await db.laboratory_procedure.Where(temp => temp.lab_id == LaboratoryIdentity).FirstOrDefaultAsync();
+      LaboratoryProcedure tblLabProc = await db.Laboratory_procedure.Where(temp => temp.lab_id == LaboratoryIdentity).FirstOrDefaultAsync();
       if (tblLabProc != null)
       {
         return Ok(tblLabProc);
@@ -50,10 +50,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<LaboratoryProcedure> Post([FromBody] LaboratoryProcedure LabProc)
     {
-      db.laboratory_procedure.Add(LabProc);
+      db.Laboratory_procedure.Add(LabProc);
       await db.SaveChangesAsync();
 
-      LaboratoryProcedure existingData = await db.laboratory_procedure.Where(temp => temp.lab_id == LabProc.lab_id).FirstOrDefaultAsync();
+      LaboratoryProcedure existingData = await db.Laboratory_procedure.Where(temp => temp.lab_id == LabProc.lab_id).FirstOrDefaultAsync();
       return LabProc;
     }
 
@@ -62,7 +62,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<LaboratoryProcedure> Put([FromBody] LaboratoryProcedure labProc)
     {
-      LaboratoryProcedure existingDataStatus = await db.laboratory_procedure.Where(temp => temp.lab_id == labProc.lab_id).FirstOrDefaultAsync();
+      LaboratoryProcedure existingDataStatus = await db.Laboratory_procedure.Where(temp => temp.lab_id == labProc.lab_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_description = labProc.lab_description;
@@ -83,10 +83,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<int> Delete(int ID)
     {
-      LaboratoryProcedure existingDataStatus = await db.laboratory_procedure.Where(temp => temp.lab_id == ID).FirstOrDefaultAsync();
+      LaboratoryProcedure existingDataStatus = await db.Laboratory_procedure.Where(temp => temp.lab_id == ID).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        db.laboratory_procedure.Remove(existingDataStatus);
+        db.Laboratory_procedure.Remove(existingDataStatus);
         await db.SaveChangesAsync();
         return ID;
       }

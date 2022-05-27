@@ -24,7 +24,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Get()
     {
-      List<LaboratorySubRemark> TbLLabTestSubRemarks = db.laboratory_sub_remarks.ToList();
+      List<LaboratorySubRemark> TbLLabTestSubRemarks = db.Laboratory_sub_remarks.ToList();
       return Ok(TbLLabTestSubRemarks);
     }
 
@@ -36,7 +36,7 @@ namespace MvcTaskManager.Controllers
     {
       int LaboratoryIdentity = LabTestSubRemarksID;
 
-      LaboratorySubRemark tblLabTestSubRemark = db.laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == LaboratoryIdentity).FirstOrDefault();
+      LaboratorySubRemark tblLabTestSubRemark = db.Laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == LaboratoryIdentity).FirstOrDefault();
       if (tblLabTestSubRemark != null)
       {
         return Ok(tblLabTestSubRemark);
@@ -52,10 +52,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public LaboratorySubRemark Post([FromBody] LaboratorySubRemark LabSubRemarks)
     {
-      db.laboratory_sub_remarks.Add(LabSubRemarks);
+      db.Laboratory_sub_remarks.Add(LabSubRemarks);
       db.SaveChanges();
 
-      LaboratorySubRemark existingData = db.laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == LabSubRemarks.lab_sub_remarks_id).FirstOrDefault();
+      LaboratorySubRemark existingData = db.Laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == LabSubRemarks.lab_sub_remarks_id).FirstOrDefault();
       return LabSubRemarks;
     }
 
@@ -64,7 +64,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public LaboratorySubRemark Put([FromBody] LaboratorySubRemark labTestSubRemarksProc)
     {
-      LaboratorySubRemark existingDataStatus = db.laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == labTestSubRemarksProc.lab_sub_remarks_id).FirstOrDefault();
+      LaboratorySubRemark existingDataStatus = db.Laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == labTestSubRemarksProc.lab_sub_remarks_id).FirstOrDefault();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_remarks_desc_parent = labTestSubRemarksProc.lab_remarks_desc_parent;
@@ -86,10 +86,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public int Delete(int ID)
     {
-      LaboratorySubRemark existingDataStatus = db.laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == ID).FirstOrDefault();
+      LaboratorySubRemark existingDataStatus = db.Laboratory_sub_remarks.Where(temp => temp.lab_sub_remarks_id == ID).FirstOrDefault();
       if (existingDataStatus != null)
       {
-        db.laboratory_sub_remarks.Remove(existingDataStatus);
+        db.Laboratory_sub_remarks.Remove(existingDataStatus);
         db.SaveChanges();
         return ID;
       }

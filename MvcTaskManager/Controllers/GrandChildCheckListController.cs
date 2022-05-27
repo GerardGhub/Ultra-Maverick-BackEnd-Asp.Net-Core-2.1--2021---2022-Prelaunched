@@ -26,7 +26,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetGrandChildCheckList ()
     {
 
-      List<GrandChildCheckList> allGrandChildCheckList = await db.grandchild_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<GrandChildCheckList> allGrandChildCheckList = await db.Grandchild_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
       List<GrandChildCheckListViewModel> ListViewModel = new List<GrandChildCheckListViewModel>();
@@ -74,7 +74,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<GrandChildCheckList>> Put([FromBody] GrandChildCheckList GrandChildRequestParam)
     {
 
-      var ParentCheckListDataInfo = await db.grandchild_checklist
+      var ParentCheckListDataInfo = await db.Grandchild_checklist
         .Where(temp => temp.gc_description == GrandChildRequestParam.gc_description).ToListAsync();
 
       if (ParentCheckListDataInfo.Count > 0)
@@ -82,7 +82,7 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
-      GrandChildCheckList existingDataStatus = await db.grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
+      GrandChildCheckList existingDataStatus = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.gc_description = GrandChildRequestParam.gc_description;
@@ -105,7 +105,7 @@ namespace MvcTaskManager.Controllers
     {
 
    
-      GrandChildCheckList existingDataStatus = await db.grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
+      GrandChildCheckList existingDataStatus = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = false;
@@ -126,7 +126,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<GrandChildCheckList>> PutActivate([FromBody] GrandChildCheckList GrandChildRequestParam)
     {
-      GrandChildCheckList existingDataStatus = await db.grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
+      GrandChildCheckList existingDataStatus = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = true;
@@ -150,7 +150,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetGrandChild(string parent_fk)
     {
 
-      List<GrandChildCheckList> allGrandChildCheckList = await db.grandchild_checklist.Where(temp => temp.is_active.Equals(true) && temp.gc_child_key.Contains(parent_fk)).ToListAsync();
+      List<GrandChildCheckList> allGrandChildCheckList = await db.Grandchild_checklist.Where(temp => temp.is_active.Equals(true) && temp.gc_child_key.Contains(parent_fk)).ToListAsync();
 
 
       List<GrandChildCheckListViewModel> ListViewModel = new List<GrandChildCheckListViewModel>();
@@ -240,7 +240,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var CheckChildForeignKey = await db.child_checklist.Where(temp => temp.cc_id.ToString() == ChildRequestParam.gc_child_key
+      var CheckChildForeignKey = await db.Child_checklist.Where(temp => temp.cc_id.ToString() == ChildRequestParam.gc_child_key
       ).ToListAsync();
 
       if (CheckChildForeignKey.Count > 0)
@@ -253,7 +253,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var ChildCheckListDataInfo = await db.grandchild_checklist.Where(temp => temp.gc_description == ChildRequestParam.gc_description
+      var ChildCheckListDataInfo = await db.Grandchild_checklist.Where(temp => temp.gc_description == ChildRequestParam.gc_description
       ).ToListAsync();
 
       if (ChildCheckListDataInfo.Count > 0)
@@ -262,10 +262,10 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      db.grandchild_checklist.Add(ChildRequestParam);
+      db.Grandchild_checklist.Add(ChildRequestParam);
       await db.SaveChangesAsync();
 
-      GrandChildCheckList existingProject = await db.grandchild_checklist.Where(temp => temp.gc_id == ChildRequestParam.gc_id).FirstOrDefaultAsync();
+      GrandChildCheckList existingProject = await db.Grandchild_checklist.Where(temp => temp.gc_id == ChildRequestParam.gc_id).FirstOrDefaultAsync();
 
       GrandChildCheckListViewModel ChildViewModel = new GrandChildCheckListViewModel()
       {

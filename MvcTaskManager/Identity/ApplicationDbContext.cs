@@ -27,40 +27,41 @@ namespace MvcTaskManager.Identity
     public DbSet<Task> Tasks { get; set; }
     public DbSet<TaskStatusDetail> TaskStatusDetails { get; set; }
     public DbSet<TblRejectedStats> TblRejectedStatus { get; set; }
-    public DbSet<tblDryPartialReceivingRejectionModel> tblDryPartialReceivingRejection { get; set; }
-    public DbSet<AllowablePercentageQAModel> tblAllowablePercentageQA { get; set; }
+    public DbSet<tblDryPartialReceivingRejectionModel> TblDryPartialReceivingRejection { get; set; }
+    public DbSet<AllowablePercentageQAModel> TblAllowablePercentageQA { get; set; }
 
     public DbSet<RMPoSummaryCancelledStats> CancelledPOTransactionStatus { get; set; }
     public DbSet<RMReturnPOTransactionStatus> ReturnPOTransactionStatus { get; set; }
-    //public DbSet<WebUsers> AspNetUsers { get; set; }
-    public DbSet<SystemCapabilityStatus> system_capability_status { get; set; }
-    public DbSet<tblNearlyExpiryMgmtModel> tblNearlyExpiryMgmt { get; set; }
+ 
+    public DbSet<SystemCapabilityStatus> System_capability_status { get; set; }
+    public DbSet<tblNearlyExpiryMgmtModel> TblNearlyExpiryMgmt { get; set; }
 
-    public DbSet<DryWhOrder> dry_wh_orders { get; set; }
+    public DbSet<DryWhOrder> Dry_wh_orders { get; set; }
 
-    public DbSet<LaboratoryProcedure> laboratory_procedure { get; set; }
-    public DbSet<LabTestRemarks> laboratory_test_remarks { get; set; }
+    public DbSet<LaboratoryProcedure> Laboratory_procedure { get; set; }
+    public DbSet<LabTestRemarks> Laboratory_test_remarks { get; set; }
 
-    public DbSet<LaboratorySubRemark> laboratory_sub_remarks {get; set; }
+    public DbSet<LaboratorySubRemark> Laboratory_sub_remarks {get; set; }
 
-    public DbSet<DryWhLabTestReqLogs> dry_wh_lab_test_req_logs { get; set; }
-    public DbSet<DryWareHouseReceiving> tblDryWHReceiving { get; set; }
+    public DbSet<DryWhLabTestReqLogs> Dry_wh_lab_test_req_logs { get; set; }
+    public DbSet<DryWareHouseReceiving> TblDryWHReceiving { get; set; }
 
     public DbSet<Department> Department { get; set; }
     public DbSet<tblLocation> Location { get; set; }
     public DbSet<RawMaterialsDry> Raw_Materials_Dry { get; set; }
-    public DbSet<MaterialRequestLogs> material_request_logs { get; set; }
+    public DbSet<MaterialRequestLogs> Material_request_logs { get; set; }
     public DbSet<TypeofApprover> TypeofApprover { get; set; }
     public DbSet<Position> Position { get; set; }
     public DbSet<DepartmentUnit> DepartmentUnit { get; set; }
     public DbSet<Employee> Employees { get; set; }
     public DbSet<PrimaryUnit> Primary_Unit { get; set; }
-    public DbSet<MaterialRequestMaster> material_request_master { get; set; }
+    public DbSet<MaterialRequestMaster> Material_request_master { get; set; }
 
-    public DbSet<ParentCheckList> parent_checklist { get; set; }
-    public DbSet<ChildCheckList> child_checklist { get; set; }
+    public DbSet<ParentCheckList> Parent_checklist { get; set; }
+    public DbSet<ChildCheckList> Child_checklist { get; set; }
 
-    public DbSet<GrandChildCheckList> grandchild_checklist { get; set; }
+    public DbSet<GrandChildCheckList> Grandchild_checklist { get; set; }
+    public DbSet<CheckListParameters> Checklist_paramaters { get; set; }
 
     //public DbSet<ApplicationUserTaggingofApprover> AspNetUsers { get; set; }
     //public DbSet<UserRolesModel> AspNetRoles { get; set; }

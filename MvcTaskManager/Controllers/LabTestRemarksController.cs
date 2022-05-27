@@ -25,7 +25,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Get()
     {
-      List<LabTestRemarks> TbLLabTestRemarks = await db.laboratory_test_remarks.ToListAsync();
+      List<LabTestRemarks> TbLLabTestRemarks = await db.Laboratory_test_remarks.ToListAsync();
       return Ok(TbLLabTestRemarks);
     }
 
@@ -37,7 +37,7 @@ namespace MvcTaskManager.Controllers
     {
       int LaboratoryIdentity = LabTestRemarksID;
 
-      LabTestRemarks tblLabTestRemark = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LaboratoryIdentity).FirstOrDefaultAsync();
+      LabTestRemarks tblLabTestRemark = await db.Laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LaboratoryIdentity).FirstOrDefaultAsync();
       if (tblLabTestRemark != null)
       {
         return Ok(tblLabTestRemark);
@@ -53,10 +53,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<LabTestRemarks> Post([FromBody] LabTestRemarks LabRemarks)
     {
-      db.laboratory_test_remarks.Add(LabRemarks);
+      db.Laboratory_test_remarks.Add(LabRemarks);
       await db.SaveChangesAsync();
 
-      LabTestRemarks existingData = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LabRemarks.lab_remarks_id).FirstOrDefaultAsync();
+      LabTestRemarks existingData = await db.Laboratory_test_remarks.Where(temp => temp.lab_remarks_id == LabRemarks.lab_remarks_id).FirstOrDefaultAsync();
       return LabRemarks;
     }
 
@@ -65,7 +65,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<LabTestRemarks> Put([FromBody] LabTestRemarks labTestRemarksProc)
     {
-      LabTestRemarks existingDataStatus = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == labTestRemarksProc.lab_remarks_id).FirstOrDefaultAsync();
+      LabTestRemarks existingDataStatus = await db.Laboratory_test_remarks.Where(temp => temp.lab_remarks_id == labTestRemarksProc.lab_remarks_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_remarks_description = labTestRemarksProc.lab_remarks_description;
@@ -86,10 +86,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<int> Delete(int ID)
     {
-      LabTestRemarks existingDataStatus = await db.laboratory_test_remarks.Where(temp => temp.lab_remarks_id == ID).FirstOrDefaultAsync();
+      LabTestRemarks existingDataStatus = await db.Laboratory_test_remarks.Where(temp => temp.lab_remarks_id == ID).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        db.laboratory_test_remarks.Remove(existingDataStatus);
+        db.Laboratory_test_remarks.Remove(existingDataStatus);
         await db.SaveChangesAsync();
         return ID;
       }
