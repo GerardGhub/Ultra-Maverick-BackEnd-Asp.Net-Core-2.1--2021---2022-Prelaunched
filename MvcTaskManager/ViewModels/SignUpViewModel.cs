@@ -18,18 +18,11 @@ namespace MvcTaskManager.ViewModels
 
     public string Email { get; set; }
     public string UserName { get; set; }
-    //[Required]
-    //public string Mobile { get; set; }
-    //[Required]
-    //public string DateOfBirth { get; set; }
-     //[Required]
+
      public string Password { get; set; }
     [Required]
     public string Gender { get; set; }
-    //[Required]
-    //public int CountryID { get; set; }
-    //[Required]
-    //public bool ReceiveNewsLetters { get; set; }
+
     [Required]
     public string UserRole { get; set; }
     [Required]
@@ -63,6 +56,7 @@ namespace MvcTaskManager.ViewModels
     public bool Is_active { get; set; }
     public bool Approver { get; set; }
     public bool Requestor { get; set; }
+    public string EncryptPassword { get; set; }
 
     //public MaterialRequestRequirement MaterialRequest{ get; set; }
   }

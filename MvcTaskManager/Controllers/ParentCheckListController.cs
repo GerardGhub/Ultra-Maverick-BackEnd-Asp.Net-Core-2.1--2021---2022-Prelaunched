@@ -141,19 +141,20 @@ namespace MvcTaskManager.Controllers
 
 
 
+
     [HttpGet]
-    [Route("api/parent_checklist")]
+    [Route("api/parent_checklist/{parent_identity}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-    public async Task<IActionResult> GetMaterialOrder()
+    public async Task<IActionResult> GetParentCheckListById(int parent_identity)
     {
 
-      List<ParentCheckList> allmrs = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true) && temp.parent_chck_id == parent_identity).ToListAsync();
 
 
       List<ParentCheckListViewModel> MaterialRequestViewModel = new List<ParentCheckListViewModel>();
 
-      if (allmrs.Count > 0)
+      if (AllParentData.Count > 0)
       {
 
       }
@@ -162,7 +163,54 @@ namespace MvcTaskManager.Controllers
         return NoContent();
       }
 
-      foreach (var material in allmrs)
+      foreach (var material in AllParentData)
+      {
+
+        MaterialRequestViewModel.Add(new ParentCheckListViewModel()
+        {
+          Parent_chck_id = material.parent_chck_id,
+          Parent_chck_details = material.parent_chck_details,
+          Parent_chck_added_by = material.parent_chck_added_by,
+          Parent_chck_date_added = material.parent_chck_date_added,
+          Is_active = material.is_active
+
+
+        });
+      }
+      return Ok(MaterialRequestViewModel);
+
+
+    }
+
+
+
+
+
+
+
+
+    [HttpGet]
+    [Route("api/parent_checklist")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+    public async Task<IActionResult> GetParentCheckList()
+    {
+
+      List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+
+
+      List<ParentCheckListViewModel> MaterialRequestViewModel = new List<ParentCheckListViewModel>();
+
+      if (AllParentData.Count > 0)
+      {
+
+      }
+      else
+      {
+        return NoContent();
+      }
+
+      foreach (var material in AllParentData)
       {
 
         MaterialRequestViewModel.Add(new ParentCheckListViewModel()
@@ -181,6 +229,14 @@ namespace MvcTaskManager.Controllers
 
     }
   }
+
+
+
+
+
+
+
+
   ///
 }
 

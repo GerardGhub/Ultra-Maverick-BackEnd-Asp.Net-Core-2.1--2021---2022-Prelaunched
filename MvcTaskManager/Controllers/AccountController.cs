@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -23,6 +25,7 @@ namespace MvcTaskManager.Controllers
         private readonly ApplicationDbContext db;
         private readonly ApplicationUserManager applicationUserManager;
         string checkstatistic = "";
+     //private readonly ApplicationUserManager _applicationUserManager;
     public AccountController(IUsersService usersService, ApplicationSignInManager applicationSignManager, IAntiforgery antiforgery, ApplicationDbContext db, ApplicationUserManager applicationUserManager)
         {
             this._usersService = usersService;
@@ -30,7 +33,8 @@ namespace MvcTaskManager.Controllers
             this._antiforgery = antiforgery;
             this.db = db;
             this.applicationUserManager = applicationUserManager;
-        }
+       
+    }
 
         [HttpPost]
         [Route("authenticate")]
@@ -215,33 +219,33 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    [HttpPut]
-    [Route("updateuser")]
-    public async Task<IActionResult> UpdateUserInformation([FromBody] SignUpViewModel signUpViewModel)
-    {
-      //var EmailValidation = db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToList();
+    //[HttpPut]
+    //[Route("updateuser")]
+    //public async Task<IActionResult> UpdateUserInformation([FromBody] SignUpViewModel signUpViewModel)
+    //{
+    //  //var EmailValidation = db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToList();
 
-      //if (EmailValidation.Count > 0)
-      //{
-      //  return BadRequest(new { message = "Email Already taken" });
-      //}
-
-
-      var user = await _usersService.Register(signUpViewModel);
-
-      if (user == null)
-        return BadRequest(new { message = "Invalid Data" });
+    //  //if (EmailValidation.Count > 0)
+    //  //{
+    //  //  return BadRequest(new { message = "Email Already taken" });
+    //  //}
 
 
+    //  var user = await _usersService.Register(signUpViewModel);
+
+    //  if (user == null)
+    //    return BadRequest(new { message = "Invalid Data" });
 
 
-      HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
-      var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-      Response.Headers.Add("Access-Control-Expose-Headers", "XSRF-REQUEST-TOKEN");
-      Response.Headers.Add("XSRF-REQUEST-TOKEN", tokens.RequestToken);
 
-      return Ok(user);
-    }
+
+    //  HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
+    //  var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+    //  Response.Headers.Add("Access-Control-Expose-Headers", "XSRF-REQUEST-TOKEN");
+    //  Response.Headers.Add("XSRF-REQUEST-TOKEN", tokens.RequestToken);
+
+    //  return Ok(user);
+    //}
 
 
     [HttpGet]
@@ -303,6 +307,7 @@ namespace MvcTaskManager.Controllers
                         Username = a.UserName,
                         //Email = a.Email,
                         Password = a.PasswordHash,
+                        EncryptPassword = a.EncryptPassword,
                         //SecurityStamp = a.SecurityStamp,
                         //ConcurrencyStamp = a.ConcurrencyStamp,
                         Is_active = a.Is_active,
@@ -388,6 +393,7 @@ namespace MvcTaskManager.Controllers
                         UserRole = a.UserRole,                 
                         Username = a.UserName,
                         Password = a.PasswordHash,
+                        EncryptPassword = a.EncryptPassword,
                         //SecurityStamp = a.SecurityStamp,
                         //ConcurrencyStamp = a.ConcurrencyStamp,
                         Is_active = a.Is_active,
@@ -443,6 +449,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ApplicationUser> Put([FromBody] ApplicationUser labProc)
     {
+
+    
+
       ApplicationUser existingDataStatus = await db.Users.Where(temp => temp.Id == labProc.Id).FirstOrDefaultAsync();
 
 
@@ -575,24 +584,25 @@ namespace MvcTaskManager.Controllers
       }
 
 
-   // Excemption attempting to Save on Database
-
+      // Excemption attempting to Save on Database
+      ApplicationUser applicationUser = new ApplicationUser();
       if (existingDataStatus != null)
         {
 
-
-          existingDataStatus.First_approver_name = labProc.First_approver_name;
-          existingDataStatus.First_approver_id = labProc.First_approver_id;
-          existingDataStatus.Second_approver_name = labProc.Second_approver_name;
-          existingDataStatus.Second_approver_id = labProc.Second_approver_id;
-          existingDataStatus.Third_approver_name = labProc.Third_approver_name;
-          existingDataStatus.Third_approver_id = labProc.Third_approver_id;
-          existingDataStatus.Fourth_approver_name = labProc.Fourth_approver_name;
-          existingDataStatus.Fourth_approver_id = labProc.Fourth_approver_id;
-
-
-
-          await db.SaveChangesAsync();
+        
+      existingDataStatus.First_approver_name = labProc.First_approver_name;
+      existingDataStatus.First_approver_id = labProc.First_approver_id;
+      existingDataStatus.Second_approver_name = labProc.Second_approver_name;
+      existingDataStatus.Second_approver_id = labProc.Second_approver_id;
+      existingDataStatus.Third_approver_name = labProc.Third_approver_name;
+      existingDataStatus.Third_approver_id = labProc.Third_approver_id;
+      existingDataStatus.Fourth_approver_name = labProc.Fourth_approver_name;
+      existingDataStatus.Fourth_approver_id = labProc.Fourth_approver_id;
+      //existingDataStatus.EncryptPassword = labProc.EncryptPassword;
+      existingDataStatus.Location = labProc.Location;
+      existingDataStatus.UserRole = labProc.UserRole;
+       
+        await db.SaveChangesAsync();
           return existingDataStatus;
         }
         else
@@ -674,6 +684,7 @@ namespace MvcTaskManager.Controllers
                        orderby a.Date_added descending
                        select new 
                        {
+                         Employee_number = a.Employee_number,
                          FirstName = a.FirstName,
                          LastName = a.LastName,
                          Gender = a.Gender,
@@ -682,6 +693,7 @@ namespace MvcTaskManager.Controllers
                          Username = a.UserName,
                          Email = a.Email,
                          Password = a.PasswordHash,
+                         EncryptPassword = a.EncryptPassword,
                          SecurityStamp = a.SecurityStamp,
                          ConcurrencyStamp = a.ConcurrencyStamp,
                          Is_active = a.Is_active,

@@ -14,7 +14,6 @@ namespace MvcTaskManager.Identity
         [NotMapped]
         public string Role { get; set; }
 
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
   
@@ -52,9 +51,10 @@ namespace MvcTaskManager.Identity
         public int Employee_number { get; set; }
         public string Added_by { get; set; }
         public DateTime Date_added { get; set; } = DateTime.Now;
+       public string EncryptPassword { get; set; }
 
 
-         [NotMapped]
+    [NotMapped]
 
         [ForeignKey("department_id")]
         public virtual Department Department { get; set; }
