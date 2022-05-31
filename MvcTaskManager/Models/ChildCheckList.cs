@@ -13,6 +13,7 @@ namespace MvcTaskManager.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
     public int cc_id { get; set; }
+    public string cc_description { get; set; }
     [Required]
     public string cc_parent_key { get; set; }
     [Required]
@@ -27,7 +28,7 @@ namespace MvcTaskManager.Models
     public string deactivated_by { get; set; }
     public string deactivated_at { get; set; }
 
-    public string cc_description { get; set; }
+
 
   }
 }

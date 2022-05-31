@@ -82,6 +82,20 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
+
+      var CheckChildForeignKey = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id
+    ).ToListAsync();
+
+      if (CheckChildForeignKey.Count > 0)
+      {
+
+      }
+      else
+      {
+        return BadRequest(new { message = "Child key(" + GrandChildRequestParam.gc_id + ") is not registered on the system" });
+      }
+
+
       GrandChildCheckList existingDataStatus = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
@@ -276,7 +290,8 @@ namespace MvcTaskManager.Controllers
         Gc_child_po_number = existingProject.gc_child_po_number,
         Gc_bool_status = existingProject.gc_bool_status,
         Is_active = existingProject.is_active,
-        Gc_added_by = existingProject.gc_added_by
+        Gc_added_by = existingProject.gc_added_by,
+        Gc_date_added = existingProject.gc_date_added
       };
 
       return Ok(ChildViewModel);

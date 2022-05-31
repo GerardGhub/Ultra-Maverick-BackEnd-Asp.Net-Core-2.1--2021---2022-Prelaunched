@@ -21,7 +21,7 @@ namespace MvcTaskManager.Controllers
       this.db = db;
     }
 
-
+    
     [HttpPut]
     [Route("api/material_request_logs_update")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -367,7 +367,8 @@ namespace MvcTaskManager.Controllers
           Mrs_issued_by = material.mrs_issued_by,
           Mrs_issued_date = material.mrs_issued_by,
           Mrs_requested_by = material.mrs_requested_by,
-          Is_active = material.is_active
+          Is_active = material.is_active,
+          Department_Id = material.department_id
 
 
         });

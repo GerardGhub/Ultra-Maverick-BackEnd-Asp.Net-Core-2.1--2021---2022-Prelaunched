@@ -71,7 +71,9 @@ namespace MvcTaskManager.Controllers
         Cc_parent_key = existingProject.cc_parent_key,
         Cc_parent_po_number = existingProject.cc_parent_po_number,
         Cc_bool_status = existingProject.cc_bool_status,
-        Is_active = existingProject.is_active
+        Is_active = existingProject.is_active,
+        Cc_added_by = existingProject.cc_added_by,
+        Cc_date_added = existingProject.cc_date_added
       };
 
       return Ok(ChildViewModel);
@@ -132,8 +134,22 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ChildCheckList>> Put([FromBody] ChildCheckList ChildRequestParam)
     {
 
-      var ChildCheckListDataInfo = await db.Parent_checklist
-        .Where(temp => temp.parent_chck_details == ChildRequestParam.cc_description).ToListAsync();
+
+      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id.ToString() == ChildRequestParam.cc_parent_key
+      ).ToListAsync();
+
+      if (CheckParentForeignKey.Count > 0)
+      {
+
+      }
+      else
+      {
+        return BadRequest(new { message = "Parent key(" + ChildRequestParam.cc_parent_key + ") is not registered on the system" });
+      }
+
+
+      var ChildCheckListDataInfo = await db.Child_checklist
+        .Where(temp => temp.cc_description == ChildRequestParam.cc_description).ToListAsync();
 
       if (ChildCheckListDataInfo.Count > 0)
       {
@@ -146,6 +162,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.cc_description = ChildRequestParam.cc_description;
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = ChildRequestParam.updated_by;
+        existingDataStatus.cc_parent_key = ChildRequestParam.cc_parent_key;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }

@@ -25,7 +25,7 @@ namespace MvcTaskManager.Controllers
         private readonly ApplicationDbContext db;
         private readonly ApplicationUserManager applicationUserManager;
         string checkstatistic = "";
-     //private readonly ApplicationUserManager _applicationUserManager;
+     
     public AccountController(IUsersService usersService, ApplicationSignInManager applicationSignManager, IAntiforgery antiforgery, ApplicationDbContext db, ApplicationUserManager applicationUserManager)
         {
             this._usersService = usersService;
