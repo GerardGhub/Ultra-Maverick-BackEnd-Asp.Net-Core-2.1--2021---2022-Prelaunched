@@ -22,6 +22,11 @@ namespace MvcTaskManager.Models
     public bool is_active { get; set; } = true;
     public string is_approved_by { get; set; }
     public string is_approved_date { get; set; }
+    public string updated_by { get; set; }
+    public string updated_date { get; set; }
+ 
+    [Required]
+    public string user_id { get; set; }
 
   }
 

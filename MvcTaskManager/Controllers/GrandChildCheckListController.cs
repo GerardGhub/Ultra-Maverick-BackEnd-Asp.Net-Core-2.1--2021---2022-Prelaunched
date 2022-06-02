@@ -83,7 +83,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var CheckChildForeignKey = await db.Grandchild_checklist.Where(temp => temp.gc_id == GrandChildRequestParam.gc_id
+      var CheckChildForeignKey = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(GrandChildRequestParam.gc_child_key)
     ).ToListAsync();
 
       if (CheckChildForeignKey.Count > 0)

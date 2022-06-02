@@ -128,6 +128,50 @@ namespace MvcTaskManager.Controllers
 
 
     [HttpPut]
+    [Route("api/material_request_master")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<MaterialRequestMaster>> PutUpdateAll([FromBody] MaterialRequestMaster MRSParams)
+    {
+
+      var CheckParametersKey =
+        await db.Material_request_master.Where(temp => temp.mrs_req_desc.ToString() == MRSParams.mrs_req_desc).ToListAsync();
+
+      if (CheckParametersKey.Count > 0)
+      {
+        return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      }
+ 
+
+
+
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.mrs_req_desc = MRSParams.mrs_req_desc;
+          item.updated_by = MRSParams.updated_by;
+          item.updated_date = DateTime.Now.ToString("M/d/yyyy");
+
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
+    [HttpPut]
     [Route("api/material_request_master/approve")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestMaster> PutforApprove([FromBody] MaterialRequestMaster MRSParams)
@@ -259,7 +303,8 @@ namespace MvcTaskManager.Controllers
         Mrs_requested_by = existingProject.mrs_requested_by,
         Mrs_requested_date = DateTime.Now.ToString(),
         Department_id = existingProject.department_id,
-        Is_active = true
+        Is_active = true,
+        User_id = existingProject.user_id
 
 
       };

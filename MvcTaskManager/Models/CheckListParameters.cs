@@ -17,7 +17,7 @@ namespace MvcTaskManager.Models
     public string cp_bool_status { get; set; }
     public string cp_added_by { get; set; }
     public string cp_date_added { get; set; } = DateTime.Now.ToString();
-    public bool is_active { get; set; }
+    public bool is_active { get; set; } = true;
     public string updated_at { get; set; }
     public string updated_by { get; set; }
     public string deactivated_by { get; set; }

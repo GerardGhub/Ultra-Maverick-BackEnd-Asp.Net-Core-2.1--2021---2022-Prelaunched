@@ -36,7 +36,7 @@ namespace MvcTaskManager.ViewModels
 
     public string Mrs_transact_no { get; set; }
 
-    [Required]
+    //[Required]
     [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
     //public decimal Mrs_order_qty { get; set; }
     public int Static_count { get; set; }
@@ -46,5 +46,8 @@ namespace MvcTaskManager.ViewModels
     public string Mrs_requested_by { get; set; }
     public int Department_Id { get; set; }
     public string Department_name { get; set; }
+
+    public string Is_prepared { get; set; }
+    public string User_id { get; set; }
   }
 }

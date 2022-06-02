@@ -148,12 +148,28 @@ namespace MvcTaskManager.Controllers
         if (MrsTransactNo.Count > 0)
         {
           db.Material_request_logs.Add(items);
-          //await db.SaveChangesAsync();
+        
         }
         else
         {
           return BadRequest(new { message = "Transaction number is not exist" });
         }
+
+        var MrsTransactIsApproved = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
+        && temp.is_active.Equals(true) && temp.is_approved_by != null).ToListAsync();
+
+        if (MrsTransactIsApproved.Count > 0)
+        {
+          //db.Material_request_logs.Add(items);
+        
+        }
+        else
+        {
+          return BadRequest(new { message = "Transaction number is not yet approved" });
+        }
+      
+
+
         //2
         var RawMaterial = await db.Raw_Materials_Dry.Where(temp => temp.item_code == items.mrs_item_code
         && temp.is_active.Equals(true)).ToListAsync();
@@ -218,8 +234,155 @@ namespace MvcTaskManager.Controllers
     }
 
 
+    [HttpGet]
+    [Route("api/material_request_logs_distinct/userlogin/{user_id}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetDistinctMaterialRequestByUserLogin(string user_id)
+    {
+
+    
 
 
+      List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
+      var results = (from a in db.Material_request_master
+                     join b in db.Department on a.department_id equals b.department_id
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
+                  && a.user_id.Contains(user_id)
+
+                     group a by new
+                     {
+                       a.mrs_id,
+                       a.mrs_req_desc,
+                       a.department_id,
+                       a.mrs_requested_date,
+                       a.mrs_requested_by,
+                       b.department_name,
+                       a.user_id
+
+
+
+                     } into total
+
+                     select new MaterialRequestDistinctPerTransactions
+                     {
+
+                       Mrs_transact_no = total.Key.mrs_id.ToString(),
+                       //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Department_Id = total.Key.department_id,
+                       Static_count = total.Count(),
+                       Mrs_date_requested = total.Key.mrs_requested_date,
+                       Department_name = total.Key.department_name,
+                       Mrs_requested_by = total.Key.mrs_requested_by,
+                       User_id = total.Key.user_id
+
+                     }
+
+
+
+                    );
+
+
+      //return Ok(results);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(results);
+      });
+
+      if(results.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+   
+        return NoContent();
+      }
+
+
+
+
+
+    }
+
+
+
+
+    [HttpGet]
+    [Route("api/material_request_logs_distinct/userlogin/approver/{user_id}/{username}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetDistinctMaterialRequestByUserLoginApprover(string user_id, string username)
+    {
+
+
+
+
+      List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
+      var results = (from a in db.Material_request_master
+                     join b in db.Department on a.department_id equals b.department_id
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     join d in db.Users on a.user_id equals d.Id
+                     where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
+                  && a.user_id.Contains(user_id)
+                  || d.First_approver_name.Contains(username)
+                  || d.Second_approver_name.Contains(username)
+                  || d.Third_approver_name.Contains(username)
+                  || d.Fourth_approver_name.Contains(username)
+
+                     group a by new
+                     {
+                       a.mrs_id,
+                       a.mrs_req_desc,
+                       a.department_id,
+                       a.mrs_requested_date,
+                       a.mrs_requested_by,
+                       b.department_name,
+                       a.user_id
+
+
+
+                     } into total
+
+                     select new MaterialRequestDistinctPerTransactions
+                     {
+
+                       Mrs_transact_no = total.Key.mrs_id.ToString(),
+                       //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Department_Id = total.Key.department_id,
+                       Static_count = total.Count(),
+                       Mrs_date_requested = total.Key.mrs_requested_date,
+                       Department_name = total.Key.department_name,
+                       Mrs_requested_by = total.Key.mrs_requested_by,
+                       User_id = total.Key.user_id
+
+                     }
+
+
+
+                    );
+
+
+      //return Ok(results);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(results);
+      });
+
+      if (results.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
+
+
+
+
+
+    }
 
     [HttpGet]
     [Route("api/material_request_logs_distinct")]
@@ -276,6 +439,9 @@ namespace MvcTaskManager.Controllers
                        a.mrs_requested_date,
                        a.mrs_requested_by,
                        b.department_name
+                 
+               
+ 
                      } into total
 
                      select new MaterialRequestDistinctPerTransactions
@@ -284,11 +450,13 @@ namespace MvcTaskManager.Controllers
                        Mrs_transact_no = total.Key.mrs_id.ToString(),
                        //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
                        Department_Id = total.Key.department_id,
-                       Static_count = total.Count(),
+                       Static_count = total.Count(),  
                        Mrs_date_requested = total.Key.mrs_requested_date,
                        Department_name = total.Key.department_name,
-                       Mrs_requested_by = total.Key.mrs_requested_by
-                       
+                       Mrs_requested_by = total.Key.mrs_requested_by,
+                       //Is_prepared = total.Sum(x => Convert.ToInt32(total.Key.is_prepared))
+                       //Is_prepared = (from x in total where x.is_prepared != 1 select x).Count().ToString()
+                       //Is_prepared = total.Sum(x => Convert.ToInt32(x.is_prepared)).ToString()
                      }
 
 

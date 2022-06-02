@@ -35,7 +35,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var CheckChildForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id.ToString() == RequestParam.cp_gchild_key
+      var CheckChildForeignKey = await db.Grandchild_checklist.Where(temp => temp.gc_id.ToString() == RequestParam.cp_gchild_key
       ).ToListAsync();
 
       if (CheckChildForeignKey.Count > 0)
@@ -71,7 +71,8 @@ namespace MvcTaskManager.Controllers
         Cp_gchild_po_number = existingProject.cp_gchild_po_number,
         Cp_bool_status = existingProject.cp_bool_status,
         Is_active = existingProject.is_active,
-        Cp_added_by = existingProject.cp_added_by
+        Cp_added_by = existingProject.cp_added_by,
+        Cp_date_added = existingProject.cp_date_added
       };
 
       return Ok(ChildViewModel);
@@ -207,15 +208,13 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/checklist_paramaters")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetParameterCheckList()
+    public async Task<IActionResult> GetParametersCheckList()
     {
 
       List<CheckListParameters> allParametersCheckList =
         await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
-
       List<CheckListParametersViewModel> ListViewModel = new List<CheckListParametersViewModel>();
-
       if (allParametersCheckList.Count > 0)
       {
 

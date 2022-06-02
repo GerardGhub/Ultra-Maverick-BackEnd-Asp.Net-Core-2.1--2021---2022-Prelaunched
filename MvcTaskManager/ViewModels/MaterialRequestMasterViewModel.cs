@@ -18,6 +18,7 @@ namespace MvcTaskManager.ViewModels
     public bool Is_active { get; set; }
     public string Is_approved_by { get; set; }
     public string Is_approved_date { get; set; }
+    public string User_id { get; set; }
 
   }
 }
