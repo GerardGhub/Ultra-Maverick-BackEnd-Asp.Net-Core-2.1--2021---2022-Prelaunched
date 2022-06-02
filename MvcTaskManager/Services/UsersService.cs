@@ -95,9 +95,12 @@ namespace MvcTaskManager.Services
           applicationUser.Requestor = signUpViewModel.Requestor;
           applicationUser.Is_active = true;
           applicationUser.Employee_number = signUpViewModel.Employee_number;
-           applicationUser.EncryptPassword = signUpViewModel.Password;
+          applicationUser.EncryptPassword = signUpViewModel.Password;
 
 
+      var TotalUsers = await _db.Users.Where(temp => temp.LockoutEnabled.Equals(true)).ToListAsync();
+   
+      applicationUser.User_Identity = signUpViewModel.User_Identity = TotalUsers.Count + 1;
 
       var result = await _applicationUserManager.CreateAsync(applicationUser, signUpViewModel.Password);
             if (result.Succeeded)

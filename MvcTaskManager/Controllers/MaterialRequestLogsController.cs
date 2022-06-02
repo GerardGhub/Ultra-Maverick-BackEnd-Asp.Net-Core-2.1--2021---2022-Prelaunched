@@ -136,7 +136,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs[] materialRequest)
     {
-
+      
 
       foreach (MaterialRequestLogs items in materialRequest)
       {
@@ -232,6 +232,8 @@ namespace MvcTaskManager.Controllers
 
       return Ok(materialRequest);
     }
+
+
 
 
     [HttpGet]

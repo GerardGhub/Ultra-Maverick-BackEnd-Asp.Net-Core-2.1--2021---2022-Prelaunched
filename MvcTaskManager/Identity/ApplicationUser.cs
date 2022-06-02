@@ -52,6 +52,7 @@ namespace MvcTaskManager.Identity
         public string Added_by { get; set; }
         public DateTime Date_added { get; set; } = DateTime.Now;
        public string EncryptPassword { get; set; }
+    public int User_Identity { get; set; }
 
 
     [NotMapped]

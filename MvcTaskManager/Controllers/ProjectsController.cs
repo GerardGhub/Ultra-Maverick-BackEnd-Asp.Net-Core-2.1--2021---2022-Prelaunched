@@ -216,6 +216,48 @@ namespace MvcTaskManager.Controllers
 
 
 
+
+    [HttpPost]
+    [Route("api/dynamic_checklist_logger_insert")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> Post([FromBody] DynamicChecklistLogger[] QcChecklistForm)
+    {
+
+
+      foreach (DynamicChecklistLogger items in QcChecklistForm)
+      {
+
+        var allToBeUpdated = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+       
+          foreach (var item in allToBeUpdated)
+          {
+
+            item.is_active = true;
+          db.Parent_checklist.Update(item);
+
+          }
+
+
+          DynamicChecklistLogger existingProject = await db.dynamic_checklist_logger.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
+
+        items.child_desc = "nevermore";
+
+        db.dynamic_checklist_logger.Add(items);
+        
+        await db.SaveChangesAsync();
+
+      }
+
+
+
+
+      return Ok(QcChecklistForm);
+    }
+
+
+
+
+
     [HttpGet]
     [Route("api/projects/dynamicdata")]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

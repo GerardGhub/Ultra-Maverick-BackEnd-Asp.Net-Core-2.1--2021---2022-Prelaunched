@@ -62,6 +62,7 @@ namespace MvcTaskManager.Identity
 
     public DbSet<GrandChildCheckList> Grandchild_checklist { get; set; }
     public DbSet<CheckListParameters> Checklist_paramaters { get; set; }
+    public DbSet<DynamicChecklistLogger> dynamic_checklist_logger { get; set; }
     //public DbSet<CheckListParameters> AspNetRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

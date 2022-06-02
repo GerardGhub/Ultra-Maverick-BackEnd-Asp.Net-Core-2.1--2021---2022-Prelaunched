@@ -57,6 +57,7 @@ namespace MvcTaskManager.ViewModels
     public bool Approver { get; set; }
     public bool Requestor { get; set; }
     public string EncryptPassword { get; set; }
+    public int User_Identity { get; set; }
 
     //public MaterialRequestRequirement MaterialRequest{ get; set; }
   }
