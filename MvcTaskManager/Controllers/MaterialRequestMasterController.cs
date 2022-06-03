@@ -84,7 +84,9 @@ namespace MvcTaskManager.Controllers
           Is_cancel_date = material.is_cancel_date,
           Is_active = material.is_active,
           Is_approved_by = material.is_approved_by,
-          Is_approved_date = material.is_approved_date
+          Is_approved_date = material.is_approved_date,
+          User_id = material.user_id,
+          Is_prepared = material.is_prepared
 
 
         });

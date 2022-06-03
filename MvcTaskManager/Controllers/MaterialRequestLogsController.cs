@@ -260,7 +260,9 @@ namespace MvcTaskManager.Controllers
                        a.mrs_requested_date,
                        a.mrs_requested_by,
                        b.department_name,
-                       a.user_id
+                       a.user_id,
+                       a.is_prepared
+                      
 
 
 
@@ -276,7 +278,8 @@ namespace MvcTaskManager.Controllers
                        Mrs_date_requested = total.Key.mrs_requested_date,
                        Department_name = total.Key.department_name,
                        Mrs_requested_by = total.Key.mrs_requested_by,
-                       User_id = total.Key.user_id
+                       User_id = total.Key.user_id,
+                       Is_prepared = total.Key.is_prepared.ToString()
 
                      }
 
@@ -339,7 +342,8 @@ namespace MvcTaskManager.Controllers
                        a.mrs_requested_date,
                        a.mrs_requested_by,
                        b.department_name,
-                       a.user_id
+                       a.user_id,
+                       a.is_prepared
 
 
 
@@ -355,7 +359,8 @@ namespace MvcTaskManager.Controllers
                        Mrs_date_requested = total.Key.mrs_requested_date,
                        Department_name = total.Key.department_name,
                        Mrs_requested_by = total.Key.mrs_requested_by,
-                       User_id = total.Key.user_id
+                       User_id = total.Key.user_id,
+                       Is_prepared = total.Key.is_prepared.ToString()
 
                      }
 
@@ -440,7 +445,9 @@ namespace MvcTaskManager.Controllers
                        a.department_id,
                        a.mrs_requested_date,
                        a.mrs_requested_by,
-                       b.department_name
+                       b.department_name,
+                       a.is_prepared,
+                       a.user_id
                  
                
  
@@ -456,6 +463,8 @@ namespace MvcTaskManager.Controllers
                        Mrs_date_requested = total.Key.mrs_requested_date,
                        Department_name = total.Key.department_name,
                        Mrs_requested_by = total.Key.mrs_requested_by,
+                       Is_prepared = total.Key.is_prepared.ToString(),
+                       User_id = total.Key.user_id
                        //Is_prepared = total.Sum(x => Convert.ToInt32(total.Key.is_prepared))
                        //Is_prepared = (from x in total where x.is_prepared != 1 select x).Count().ToString()
                        //Is_prepared = total.Sum(x => Convert.ToInt32(x.is_prepared)).ToString()
