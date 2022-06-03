@@ -22,7 +22,7 @@ namespace MvcTaskManager.Models
     [Required]
     [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Target Price; Maximum Two Decimal Points.")]
     public decimal mrs_order_qty { get; set; }
-    public decimal is_prepared { get; set; }
+    public bool is_prepared { get; set; }
     [Required]
     public string mrs_uom { get; set; }
     public string mrs_served_qty { get; set; }

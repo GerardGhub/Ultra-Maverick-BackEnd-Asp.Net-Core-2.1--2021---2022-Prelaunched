@@ -311,9 +311,9 @@ namespace MvcTaskManager.Controllers
 
 
     [HttpGet]
-    [Route("api/material_request_logs_distinct/userlogin/approver/{user_id}/{username}")]
+    [Route("api/material_request_logs_distinct/userlogin/approver/{user_id}/{approver_id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetDistinctMaterialRequestByUserLoginApprover(string user_id, string username)
+    public async Task<IActionResult> GetDistinctMaterialRequestByUserLoginApprover(string user_id, int approver_id)
     {
 
 
@@ -325,11 +325,11 @@ namespace MvcTaskManager.Controllers
                      join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
                      join d in db.Users on a.user_id equals d.Id
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
-                  && a.user_id.Contains(user_id)
-                  || d.First_approver_name.Contains(username)
-                  || d.Second_approver_name.Contains(username)
-                  || d.Third_approver_name.Contains(username)
-                  || d.Fourth_approver_name.Contains(username)
+                     && a.user_id.Contains(user_id)
+                     || d.First_approver_id == approver_id
+                     || d.Second_approver_id == approver_id
+                     || d.Third_approver_id == approver_id
+                     || d.First_approver_id == approver_id
 
                      group a by new
                      {
