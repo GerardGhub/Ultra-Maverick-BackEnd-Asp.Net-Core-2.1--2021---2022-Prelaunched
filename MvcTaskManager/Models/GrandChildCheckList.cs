@@ -23,6 +23,7 @@ namespace MvcTaskManager.Models
     public string deactivated_by { get; set; }
     public string deactivated_at { get; set; }
     public string gc_description { get; set; }
+    public int parent_chck_id_fk { get; set; }
 
   }
 }

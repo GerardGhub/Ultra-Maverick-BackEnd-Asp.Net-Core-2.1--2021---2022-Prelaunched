@@ -16,6 +16,7 @@ namespace MvcTaskManager.Controllers
   {
     private ApplicationDbContext db;
 
+
     public ProjectsController(ApplicationDbContext db)
     {
       this.db = db;
@@ -222,34 +223,147 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] DynamicChecklistLogger[] QcChecklistForm)
     {
+   
 
 
-      foreach (DynamicChecklistLogger items in QcChecklistForm)
+
+      var allToBeUpdated = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+
+
+      //var students = new List<ParentCheckList>();
+
+
+      //foreach (var stud in students)
+      //{
+        
+      //}
+
+
+
+      foreach (var item in allToBeUpdated)
       {
 
-        var allToBeUpdated = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
-       
-          foreach (var item in allToBeUpdated)
+        if(item.parent_chck_id == 1)
+        {
+
+          var ChildKey = await db.Child_checklist.Where(temp =>
+          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+
+
+          foreach (var item1 in ChildKey)
           {
+          var GrandChildKey = await db.Grandchild_checklist.Where(temp =>
+          temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
-            item.is_active = true;
-          db.Parent_checklist.Update(item);
+            if (GrandChildKey.Count == 1)
+            {
+              var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
+              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              var students = new List<DynamicChecklistLogger>();
+              //return BadRequest(GrandChildKey.Count());
+              //if Grandchild is equal to 1 show some fucking results ;;
+              int GrandChildParametersnum = 0;
+              foreach (DynamicChecklistLogger items in QcChecklistForm)
+              {
+                if (items.parent_id == item1.cc_parent_key)
+                {
+                  GrandChildParametersnum++;
+                  students.Add(items);
+                }
+              }
 
+              if (GrandChildParametersnum == GrandChildKeyParameter.Count)
+              {
+                //item1.child_desc = QcChecklistForm.Length.ToString();
+
+                foreach (DynamicChecklistLogger items in students)// QCChecklistForm
+                {
+                  db.dynamic_checklist_logger.Add(items);
+                }
+              }
+              else
+              {
+
+                return BadRequest(new { message = "Your data submitted is " + GrandChildParametersnum + " the target is " + GrandChildKeyParameter.Count + " " + item.parent_chck_details + "" });
+              }
+
+
+            }
+            else
+            {
+              int GrandChildnum = 0;
+              foreach (DynamicChecklistLogger items in QcChecklistForm)
+              {
+        
+
+                if (items.parent_id == item1.cc_parent_key)
+                {
+                  GrandChildnum++;
+                }
+              }
+
+              //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
+              if (GrandChildnum == GrandChildKey.Count)
+              {
+                //item1.child_desc = QcChecklistForm.Length.ToString();
+
+                foreach (DynamicChecklistLogger items in QcChecklistForm)
+                {
+                  db.dynamic_checklist_logger.Add(items);
+                }
+              }
+              else
+              {
+                //return BadRequest(new { message = "Your data submitted is " + QcChecklistForm.Length + " the target is " + GrandChildKey.Count + " "+ item.parent_chck_details +"" });
+                return BadRequest(new { message = "Your data submitted is " + GrandChildnum + " the target is " + GrandChildKey.Count + " " + item.parent_chck_details + "" });
+              }
+
+
+
+            }
+            //return BadRequest("Alakbak" + GrandChildKey.Count());
           }
 
+          //return BadRequest(item.parent_chck_details);
+        }
+          if (item.parent_chck_id == 2)
+        {
+          //return BadRequest(item.parent_chck_details);
+        }
 
-          DynamicChecklistLogger existingProject = await db.dynamic_checklist_logger.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
 
-        items.child_desc = "nevermore";
+        //if(allToBeUpdated.)
+        //item.is_active = true;
+        //db.Parent_checklist.Update(item);
 
-        db.dynamic_checklist_logger.Add(items);
-        
-        await db.SaveChangesAsync();
+        //////foreach (DynamicChecklistLogger items in QcChecklistForm)
+        //////{
+
+
+        //////  DynamicChecklistLogger existingProject = await db.dynamic_checklist_logger.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
+
+        //////  if (QcChecklistForm.Length.ToString() == allToBeUpdated.Count.ToString())
+        //////  {
+        //////    items.child_desc = QcChecklistForm.Length.ToString();
+           
+
+        //////    db.dynamic_checklist_logger.Add(items);
+        //////  }
+        //////  else
+        //////  {
+        //////    return BadRequest(new { message = "Your data submitted is " + QcChecklistForm.Length + " the target is " + allToBeUpdated.Count + "" });
+        //////  }
+
+        //////}
 
       }
 
 
 
+
+
+
+      await db.SaveChangesAsync();
 
       return Ok(QcChecklistForm);
     }
