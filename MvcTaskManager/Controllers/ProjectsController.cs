@@ -282,7 +282,7 @@ namespace MvcTaskManager.Controllers
                 {
                   db.dynamic_checklist_logger.Add(items);
                 }
-                //return Ok(students);
+               
 
               }
               else
@@ -332,38 +332,107 @@ namespace MvcTaskManager.Controllers
             //return BadRequest("Alakbak" + GrandChildKey.Count());
           }
 
+
           //return BadRequest(item.parent_chck_details);
         }
-          if (item.parent_chck_id == 2)
+
+        // 2nd PROCEDURE OF PROCESS BACK END
+        if (item.parent_chck_id == 2)
         {
+
+          var ChildKey = await db.Child_checklist.Where(temp =>
+       temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+
+          //return BadRequest(ChildKey.Count());  //BreakPoint
+
+
+          foreach (var item1 in ChildKey)
+          {
+            var GrandChildKey = await db.Grandchild_checklist.Where(temp =>
+            temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+
+            //if (GrandChildKey.Count == 1)
+            //{
+            //  var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
+            //  temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+
+            //  var ListLogger = new List<DynamicChecklistLogger>();
+
+            //  //return BadRequest(GrandChildKey.Count());
+            //  //if Grandchild is equal to 1 show some fucking results ;;
+            //  int GrandChildParametersnum = 0;
+            //  foreach (DynamicChecklistLogger items in QcChecklistForm)
+            //  {
+            //    if (items.parent_id == item1.cc_parent_key)
+            //    {
+            //      GrandChildParametersnum++;
+            //      ListLogger.Add(items);
+            //    }
+            //  }
+
+            //  if (GrandChildParametersnum == GrandChildKeyParameter.Count)
+            //  {
+            //    //item1.child_desc = QcChecklistForm.Length.ToString();
+
+            //    foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
+            //    {
+            //      db.dynamic_checklist_logger.Add(items);
+            //    }
+
+
+            //  }
+            //  else
+            //  {
+
+            //    return BadRequest(new { message = "Your data submitted is " + GrandChildParametersnum + " the target is " + GrandChildKeyParameter.Count + " " + item.parent_chck_details + "" });
+            //  }
+
+
+            //}
+            //Seperator for else in Grand Child in Parent 1
+
+            if (GrandChildKey.Count >= 2)
+            {
+              //return BadRequest(new { message = GrandChildKey.Count });
+
+              int GrandChildnum = 0;
+              foreach (DynamicChecklistLogger items in QcChecklistForm)
+              {
+
+
+                if (items.parent_id == item1.cc_parent_key)
+                {
+                  GrandChildnum++;
+                }
+              }
+
+              //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
+              if (GrandChildnum == GrandChildKey.Count)
+              {
+                //item1.child_desc = QcChecklistForm.Length.ToString();
+
+                foreach (DynamicChecklistLogger items in QcChecklistForm)
+                {
+                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                }
+              }
+              else
+              {
+                //return BadRequest(new { message = "Your data submitted is " + QcChecklistForm.Length + " the target is " + GrandChildKey.Count + " "+ item.parent_chck_details +"" });
+                return BadRequest(new { message = "Your data submitted is " + GrandChildnum + " the target is " + GrandChildKey.Count + " " + item.parent_chck_details + "" });
+              }
+
+
+
+            }
+            //return BadRequest("Alakbak" + GrandChildKey.Count());
+          }
+
           //return BadRequest(item.parent_chck_details);
         }
 
 
-        //if(allToBeUpdated.)
-        //item.is_active = true;
-        //db.Parent_checklist.Update(item);
-
-        //////foreach (DynamicChecklistLogger items in QcChecklistForm)
-        //////{
-
-
-        //////  DynamicChecklistLogger existingProject = await db.dynamic_checklist_logger.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
-
-        //////  if (QcChecklistForm.Length.ToString() == allToBeUpdated.Count.ToString())
-        //////  {
-        //////    items.child_desc = QcChecklistForm.Length.ToString();
-           
-
-        //////    db.dynamic_checklist_logger.Add(items);
-        //////  }
-        //////  else
-        //////  {
-        //////    return BadRequest(new { message = "Your data submitted is " + QcChecklistForm.Length + " the target is " + allToBeUpdated.Count + "" });
-        //////  }
-
-        //////}
-
+    
       }
 
 
