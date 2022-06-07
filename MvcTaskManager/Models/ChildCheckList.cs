@@ -17,7 +17,7 @@ namespace MvcTaskManager.Models
     [Required]
     public string cc_parent_key { get; set; }
     [Required]
-    public string cc_parent_po_number { get; set; }
+
 
     public string cc_bool_status { get; set; }
     public string cc_added_by { get; set; }

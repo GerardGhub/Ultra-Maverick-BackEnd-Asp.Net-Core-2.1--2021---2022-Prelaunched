@@ -29,8 +29,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] ChildCheckList ChildRequestParam)
     {
 
-      if (ChildRequestParam.cc_parent_key == null || ChildRequestParam.cc_parent_key == ""
-        || ChildRequestParam.cc_parent_po_number == null || ChildRequestParam.cc_parent_po_number == "")
+      if (ChildRequestParam.cc_parent_key == null || ChildRequestParam.cc_parent_key == "")
       {
         return BadRequest(new { message = "Fill up the required fields" });
       }
@@ -69,7 +68,6 @@ namespace MvcTaskManager.Controllers
         Cc_id = existingProject.cc_id,
         Cc_description = existingProject.cc_description,
         Cc_parent_key = existingProject.cc_parent_key,
-        Cc_parent_po_number = existingProject.cc_parent_po_number,
         Cc_bool_status = existingProject.cc_bool_status,
         Is_active = existingProject.is_active,
         Cc_added_by = existingProject.cc_added_by,
@@ -202,7 +200,6 @@ namespace MvcTaskManager.Controllers
           Cc_description = form.cc_description,
           Cc_id = form.cc_id,
           Cc_parent_key = form.cc_parent_key,
-          Cc_parent_po_number = form.cc_parent_po_number,
           Cc_bool_status = form.cc_bool_status,
           Cc_added_by = form.cc_added_by,
           Cc_date_added = form.cc_date_added,
@@ -252,7 +249,6 @@ namespace MvcTaskManager.Controllers
           Cc_description = form.cc_description,
           Cc_id = form.cc_id,
           Cc_parent_key = form.cc_parent_key,
-          Cc_parent_po_number = form.cc_parent_po_number,
           Cc_bool_status = form.cc_bool_status,
           Cc_added_by = form.cc_added_by,
           Cc_date_added = form.cc_date_added,

@@ -9,7 +9,6 @@ namespace MvcTaskManager.Models
   {
     public int Cc_id { get; set; }
     public string Cc_parent_key { get; set; }
-    public string Cc_parent_po_number { get; set; }
     public string Cc_description { get; set; }
     public string Cc_bool_status { get; set; }
     public string Cc_added_by { get; set; }

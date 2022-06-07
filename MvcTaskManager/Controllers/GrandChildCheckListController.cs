@@ -48,7 +48,6 @@ namespace MvcTaskManager.Controllers
           Gc_description = form.gc_description,
           Gc_id = form.gc_id,
           Gc_child_key = form.gc_child_key,
-          Gc_child_po_number = form.gc_child_po_number,
           Gc_bool_status = form.gc_bool_status,
           Gc_added_by = form.gc_added_by,
           Gc_date_added = form.gc_date_added,
@@ -186,7 +185,6 @@ namespace MvcTaskManager.Controllers
           Gc_description = form.gc_description,
           Gc_id = form.gc_id,
           Gc_child_key = form.gc_child_key,
-          Gc_child_po_number = form.gc_child_po_number,
           Gc_bool_status = form.gc_bool_status,
           Gc_added_by = form.gc_added_by,
           Gc_date_added = form.gc_date_added,
@@ -247,8 +245,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-      if (ChildRequestParam.gc_child_key == null || ChildRequestParam.gc_child_key == ""
-        || ChildRequestParam.gc_child_po_number == null || ChildRequestParam.gc_child_po_number == "")
+      if (ChildRequestParam.gc_child_key == null || ChildRequestParam.gc_child_key == "")
       {
         return BadRequest(new { message = "Fill up the required fields" });
       }
@@ -287,7 +284,6 @@ namespace MvcTaskManager.Controllers
         Gc_id = existingProject.gc_id,
         Gc_description = existingProject.gc_description,
         Gc_child_key = existingProject.gc_child_key,
-        Gc_child_po_number = existingProject.gc_child_po_number,
         Gc_bool_status = existingProject.gc_bool_status,
         Is_active = existingProject.is_active,
         Gc_added_by = existingProject.gc_added_by,
