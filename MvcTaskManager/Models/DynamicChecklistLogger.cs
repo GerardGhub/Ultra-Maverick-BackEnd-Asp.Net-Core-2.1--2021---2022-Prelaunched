@@ -19,6 +19,7 @@ namespace MvcTaskManager.Models
     public string parent_desc { get; set; }
     public string child_desc { get; set; }
     public string grand_child_desc { get; set; }
+    [Required]
     public string parameters_status { get; set; }
   }
 }

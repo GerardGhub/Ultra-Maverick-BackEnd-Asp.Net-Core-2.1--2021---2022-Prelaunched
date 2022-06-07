@@ -259,7 +259,9 @@ namespace MvcTaskManager.Controllers
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
               temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
-              var students = new List<DynamicChecklistLogger>();
+
+              var ListLogger = new List<DynamicChecklistLogger>();
+
               //return BadRequest(GrandChildKey.Count());
               //if Grandchild is equal to 1 show some fucking results ;;
               int GrandChildParametersnum = 0;
@@ -268,7 +270,7 @@ namespace MvcTaskManager.Controllers
                 if (items.parent_id == item1.cc_parent_key)
                 {
                   GrandChildParametersnum++;
-                  students.Add(items);
+                  ListLogger.Add(items);
                 }
               }
 
@@ -276,10 +278,12 @@ namespace MvcTaskManager.Controllers
               {
                 //item1.child_desc = QcChecklistForm.Length.ToString();
 
-                foreach (DynamicChecklistLogger items in students)// QCChecklistForm
+                foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
                   db.dynamic_checklist_logger.Add(items);
                 }
+                //return Ok(students);
+
               }
               else
               {
@@ -287,10 +291,14 @@ namespace MvcTaskManager.Controllers
                 return BadRequest(new { message = "Your data submitted is " + GrandChildParametersnum + " the target is " + GrandChildKeyParameter.Count + " " + item.parent_chck_details + "" });
               }
 
-
+ 
             }
-            else
+            //Seperator for else in Grand Child in Parent 1
+   
+            if (GrandChildKey.Count >= 2)
             {
+              //return BadRequest(new { message = GrandChildKey.Count });
+       
               int GrandChildnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -309,7 +317,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -363,8 +371,8 @@ namespace MvcTaskManager.Controllers
 
 
 
+      //await db.SaveChangesAsync();
       await db.SaveChangesAsync();
-
       return Ok(QcChecklistForm);
     }
 
