@@ -56,7 +56,8 @@ namespace MvcTaskManager.Controllers
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
           Is_active = form.is_active,
-          Is_manual = form.is_manual
+          Is_manual = form.is_manual,
+          Parent_chck_id_fk = form.parent_chck_id_fk
 
 
         });
@@ -103,6 +104,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = GrandChildRequestParam.updated_by;
         existingDataStatus.is_manual = GrandChildRequestParam.is_manual;
+        existingDataStatus.parent_chck_id_fk = GrandChildRequestParam.parent_chck_id_fk;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -195,7 +197,8 @@ namespace MvcTaskManager.Controllers
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
           Is_active = form.is_active,
-          Is_manual = form.is_manual
+          Is_manual = form.is_manual,
+          Parent_chck_id_fk = form.parent_chck_id_fk
 
 
         });

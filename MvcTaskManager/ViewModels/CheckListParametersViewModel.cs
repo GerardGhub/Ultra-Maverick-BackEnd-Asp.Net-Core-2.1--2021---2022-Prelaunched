@@ -19,6 +19,7 @@ namespace MvcTaskManager.ViewModels
     public string Deactivated_by { get; set; }
     public string Deactivated_at { get; set; }
     public string Cp_description { get; set; }
+    public int Parent_chck_id_fk { get; set; }
 
   }
 }

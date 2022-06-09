@@ -72,7 +72,8 @@ namespace MvcTaskManager.Controllers
         Cp_bool_status = existingProject.cp_bool_status,
         Is_active = existingProject.is_active,
         Cp_added_by = existingProject.cp_added_by,
-        Cp_date_added = existingProject.cp_date_added
+        Cp_date_added = existingProject.cp_date_added,
+        Parent_chck_id_fk = existingProject.parent_chck_id_fk
       };
 
       return Ok(ChildViewModel);
@@ -100,6 +101,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.cp_description = RequestParam.cp_description;
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = RequestParam.updated_by;
+        existingDataStatus.parent_chck_id_fk = RequestParam.parent_chck_id_fk;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -191,7 +193,8 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Parent_chck_id_fk = form.parent_chck_id_fk
 
 
         });
@@ -240,7 +243,8 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Parent_chck_id_fk = form.parent_chck_id_fk
 
 
         });
