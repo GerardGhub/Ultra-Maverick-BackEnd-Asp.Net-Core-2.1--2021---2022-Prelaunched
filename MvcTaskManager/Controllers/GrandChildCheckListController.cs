@@ -55,7 +55,8 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Is_manual = form.is_manual
 
 
         });
@@ -101,6 +102,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.gc_description = GrandChildRequestParam.gc_description;
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = GrandChildRequestParam.updated_by;
+        existingDataStatus.is_manual = GrandChildRequestParam.is_manual;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -192,7 +194,8 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Is_manual = form.is_manual
 
 
         });
@@ -287,7 +290,8 @@ namespace MvcTaskManager.Controllers
         Gc_bool_status = existingProject.gc_bool_status,
         Is_active = existingProject.is_active,
         Gc_added_by = existingProject.gc_added_by,
-        Gc_date_added = existingProject.gc_date_added
+        Gc_date_added = existingProject.gc_date_added,
+        Is_manual = existingProject.is_manual
       };
 
       return Ok(ChildViewModel);

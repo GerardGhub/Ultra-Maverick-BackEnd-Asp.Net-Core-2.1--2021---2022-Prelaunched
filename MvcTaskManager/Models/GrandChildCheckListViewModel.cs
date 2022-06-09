@@ -18,6 +18,7 @@ namespace MvcTaskManager.Models
     public string Deactivated_by { get; set; }
     public string Deactivated_at { get; set; }
     public string Gc_description { get; set; }
+    public string Is_manual { get; set; }
 
   }
 }
