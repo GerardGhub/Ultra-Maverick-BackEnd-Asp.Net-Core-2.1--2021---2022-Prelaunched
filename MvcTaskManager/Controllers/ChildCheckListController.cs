@@ -29,13 +29,13 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] ChildCheckList ChildRequestParam)
     {
 
-      if (ChildRequestParam.cc_parent_key == null || ChildRequestParam.cc_parent_key == "")
+      if (ChildRequestParam.cc_parent_key == 0 || ChildRequestParam.cc_parent_key == 0)
       {
         return BadRequest(new { message = "Fill up the required fields" });
       }
 
 
-      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id.ToString() == ChildRequestParam.cc_parent_key
+      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id == ChildRequestParam.cc_parent_key
       ).ToListAsync();
 
       if (CheckParentForeignKey.Count > 0)
@@ -67,11 +67,12 @@ namespace MvcTaskManager.Controllers
 
         Cc_id = existingProject.cc_id,
         Cc_description = existingProject.cc_description,
-        Cc_parent_key = existingProject.cc_parent_key,
+        Cc_parent_key = existingProject.cc_parent_key.ToString(),
         Cc_bool_status = existingProject.cc_bool_status,
         Is_active = existingProject.is_active,
         Cc_added_by = existingProject.cc_added_by,
-        Cc_date_added = existingProject.cc_date_added
+        Cc_date_added = existingProject.cc_date_added,
+        Parent_chck_id = existingProject.cc_parent_key.ToString()
       };
 
       return Ok(ChildViewModel);
@@ -133,7 +134,7 @@ namespace MvcTaskManager.Controllers
     {
 
 
-      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id.ToString() == ChildRequestParam.cc_parent_key
+      var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id == ChildRequestParam.cc_parent_key
       ).ToListAsync();
 
       if (CheckParentForeignKey.Count > 0)
@@ -175,10 +176,10 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/child_checklist/search/{parent_fk}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetChildCheckList(string parent_fk)
+    public async Task<IActionResult> GetChildCheckList(int parent_fk)
     {
 
-      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.is_active.Equals(true) && temp.cc_parent_key.Contains(parent_fk)).ToListAsync();
+      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.is_active.Equals(true) && temp.cc_parent_key == parent_fk).ToListAsync();
 
 
       List<ChildCheckListViewModel> ListViewModel = new List<ChildCheckListViewModel>();
@@ -199,7 +200,7 @@ namespace MvcTaskManager.Controllers
         {
           Cc_description = form.cc_description,
           Cc_id = form.cc_id,
-          Cc_parent_key = form.cc_parent_key,
+          Cc_parent_key = form.cc_parent_key.ToString(),
           Cc_bool_status = form.cc_bool_status,
           Cc_added_by = form.cc_added_by,
           Cc_date_added = form.cc_date_added,
@@ -248,7 +249,7 @@ namespace MvcTaskManager.Controllers
         {
           Cc_description = form.cc_description,
           Cc_id = form.cc_id,
-          Cc_parent_key = form.cc_parent_key,
+          Cc_parent_key = form.cc_parent_key.ToString(),
           Cc_bool_status = form.cc_bool_status,
           Cc_added_by = form.cc_added_by,
           Cc_date_added = form.cc_date_added,

@@ -247,7 +247,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -341,7 +341,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-       temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+       temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
           //return BadRequest(ChildKey.Count());  //BreakPoint
 
@@ -495,7 +495,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -589,7 +589,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -683,7 +683,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -777,7 +777,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -870,7 +870,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)
@@ -963,7 +963,7 @@ namespace MvcTaskManager.Controllers
         {
 
           var ChildKey = await db.Child_checklist.Where(temp =>
-          temp.is_active.Equals(true) && temp.cc_parent_key.Contains(item.parent_chck_id.ToString())).ToListAsync();
+          temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
 
           foreach (var item1 in ChildKey)

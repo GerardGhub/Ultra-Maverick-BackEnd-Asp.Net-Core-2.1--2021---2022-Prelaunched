@@ -24,6 +24,7 @@ namespace MvcTaskManager.Models
     public string gc_description { get; set; }
     public int parent_chck_id_fk { get; set; }
     public string is_manual { get; set; }
+    public int parent_chck_id { get; set; }
 
   }
 }

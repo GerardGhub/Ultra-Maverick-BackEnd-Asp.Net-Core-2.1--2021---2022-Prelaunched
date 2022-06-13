@@ -15,11 +15,12 @@ namespace MvcTaskManager.Models
     public int cc_id { get; set; }
     public string cc_description { get; set; }
     [Required]
-    public string cc_parent_key { get; set; }
+    public int cc_parent_key { get; set; }
     [Required]
 
 
     public string cc_bool_status { get; set; }
+    public int parent_chck_id { get; set; }
     public string cc_added_by { get; set; }
     public string cc_date_added { get; set; } = DateTime.Now.ToString();
     public bool is_active { get; set; } = true;

@@ -56,6 +56,20 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
+      // Start of Getting the Child Key
+      var GChildParentKeyGetandSet = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
+    ).ToListAsync();
+
+
+      int ParentKey = 0;
+      foreach (var form in GChildParentKeyGetandSet)
+      {
+        ParentKey = Convert.ToInt32(form.parent_chck_id_fk);
+      }
+
+      RequestParam.parent_chck_id_fk = ParentKey;
+      //End of getting the Child Key
+
 
       db.Checklist_paramaters.Add(RequestParam);
       await db.SaveChangesAsync();

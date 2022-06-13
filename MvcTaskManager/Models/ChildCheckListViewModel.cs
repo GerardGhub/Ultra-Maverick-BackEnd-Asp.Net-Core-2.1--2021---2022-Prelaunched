@@ -18,7 +18,7 @@ namespace MvcTaskManager.Models
     public string Updated_by { get; set; }
     public string Deactivated_by { get; set; }
     public string Deactivated_at { get; set; }
-
+    public string Parent_chck_id { get; set; }
 
   }
 }

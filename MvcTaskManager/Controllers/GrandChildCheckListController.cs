@@ -105,6 +105,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.updated_by = GrandChildRequestParam.updated_by;
         existingDataStatus.is_manual = GrandChildRequestParam.is_manual;
         existingDataStatus.parent_chck_id_fk = GrandChildRequestParam.parent_chck_id_fk;
+        existingDataStatus.parent_chck_id = GrandChildRequestParam.parent_chck_id_fk;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -220,33 +221,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] GrandChildCheckList ChildRequestParam)
     {
 
-      //var  sample[];
-      //sample = asasa;
-
-      //// Step 1: create list.
-      //List<string> list = new List<string>();
-      //list.Add("one");
-      //list.Add("two");
-      //list.Add("three");
-      //list.Add("four");
-      //list.Add("five");
-
-      //// Step 2: convert to string array.
-      //string[] array = list.ToArray();
-
-
-      //return Ok(list);
-
-      // Step 1: create list.
-      //List<string> list = new List<string>();
-      //list.Add("one");
-      //list.Add("two");
-      //list.Add("three");
-      //list.Add("four");
-      //list.Add("five");
-
-      //// Step 2: convert to string array.
-      //string[] array = list.ToArray();
+     
 
 
 
@@ -278,12 +253,27 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
+    // Start of Getting the Child Key
+      var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(ChildRequestParam.gc_child_key)
+    ).ToListAsync();
+
+    
+      int ParentKey = 0;
+      foreach (var form in ChildParentKeyGetandSet)
+      {
+        ParentKey = Convert.ToInt32(form.cc_parent_key);
+      }
+
+      ChildRequestParam.parent_chck_id_fk = ParentKey;
+      //End of getting the Child Key
 
       db.Grandchild_checklist.Add(ChildRequestParam);
       await db.SaveChangesAsync();
 
       GrandChildCheckList existingProject = await db.Grandchild_checklist.Where(temp => temp.gc_id == ChildRequestParam.gc_id).FirstOrDefaultAsync();
 
+    
+     
       GrandChildCheckListViewModel ChildViewModel = new GrandChildCheckListViewModel()
       {
 
@@ -294,7 +284,9 @@ namespace MvcTaskManager.Controllers
         Is_active = existingProject.is_active,
         Gc_added_by = existingProject.gc_added_by,
         Gc_date_added = existingProject.gc_date_added,
-        Is_manual = existingProject.is_manual
+        Is_manual = existingProject.is_manual,
+        Parent_chck_id_fk = existingProject.parent_chck_id_fk,
+        Parent_chck_id = existingProject.parent_chck_id_fk
       };
 
       return Ok(ChildViewModel);

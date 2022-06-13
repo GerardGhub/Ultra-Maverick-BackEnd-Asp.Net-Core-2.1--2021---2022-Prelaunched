@@ -105,7 +105,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] ParentCheckList parentRequestParam)
     {
 
-      if(parentRequestParam.parent_chck_details == null || parentRequestParam.parent_chck_details == ""
+      if (parentRequestParam.parent_chck_details == null || parentRequestParam.parent_chck_details == ""
         || parentRequestParam.parent_chck_added_by == null || parentRequestParam.parent_chck_added_by == "")
       {
         return BadRequest(new { message = "Fill up the required fields" });
@@ -182,6 +182,69 @@ namespace MvcTaskManager.Controllers
 
     }
 
+
+
+
+    [HttpGet]
+    [Route("api/parent_dynamic_checklist")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+    //public async Task<IActionResult> GetDynamicChecklist()
+    //{
+
+    //  List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+
+
+    //  List<ParentCheckListViewModel> MaterialRequestViewModel = new List<ParentCheckListViewModel>();
+
+    //  if (AllParentData.Count > 0)
+    //  {
+
+    //  }
+    //  else
+    //  {
+    //    return NoContent();
+    //  }
+
+    //  foreach (var material in AllParentData)
+    //  {
+
+    //    MaterialRequestViewModel.Add(new ParentCheckListViewModel()
+    //    {
+    //      Parent_chck_id = material.parent_chck_id,
+    //      Parent_chck_details = material.parent_chck_details,
+    //      Parent_chck_added_by = material.parent_chck_added_by,
+    //      Parent_chck_date_added = material.parent_chck_date_added,
+    //      Is_active = material.is_active,
+    //      Books = BadImageFormatException.
+
+
+    //    });
+    //  }
+
+
+
+    //  return Ok(MaterialRequestViewModel);
+
+
+    //}
+
+    public async Task<ActionResult<ParentCheckList>> GetDynamicChecklist()
+    {
+
+      var DynamicCheckList = await db.Parent_checklist
+        .Include(pub => pub.ChildCheckLists)
+        .Include(pub => pub.GrandChildCheckLists)
+        .Where(pub => pub.is_active.Equals(true))
+        .ToListAsync();
+
+      if (DynamicCheckList == null)
+      {
+        return NotFound();
+      }
+      return Ok(DynamicCheckList);
+
+    }
 
 
 
