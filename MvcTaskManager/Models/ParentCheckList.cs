@@ -29,8 +29,8 @@ namespace MvcTaskManager.Models
       GrandChildCheckLists = new HashSet<GrandChildCheckList>();
       CheckListParameters = new HashSet<CheckListParameters>();
     }
-    public virtual ICollection<ChildCheckList> ChildCheckLists { get; set; }
-    public virtual ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
-    public virtual ICollection<CheckListParameters> CheckListParameters{ get; set; }
+    public ICollection<ChildCheckList> ChildCheckLists { get; set; }
+    public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
+    public ICollection<CheckListParameters> CheckListParameters{ get; set; }
   }
 }
