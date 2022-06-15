@@ -660,29 +660,35 @@ namespace MvcTaskManager.Controllers
 
     [HttpPost]
     [Route("api/ProjectsPartialPo")]
-    [Authorize]
-    [ValidateAntiForgeryToken]
+    //[Authorize]
+    //[ValidateAntiForgeryToken]
     public IActionResult Post([FromBody] RMProjectsPartialPo project)
     {
-      project.ClientLocation = null;
+      //project.ClientLocation = null;
       project.ClientLocationID = 1;
+      //project.TeamSize = 40;
+      //project.Status = "In Force";
+      project.QCReceivingDate = DateTime.Now.ToString();
+      project.is_activated = "1";
+      project.Active = true;
       db.ProjectsPartialPo.Add(project);
       db.SaveChanges();
 
-      RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+      RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
       ProjectViewModel projectViewModel = new ProjectViewModel()
       {
         ProjectID = existingProject.ProjectID,
         ProjectName = existingProject.ProjectName,
-        //TeamSize = existingProject.TeamSize = 40,
+        ////TeamSize = existingProject.TeamSize,
         DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
-        Active = existingProject.Active = true,
+        Active = existingProject.Active,
         //ClientLocation = existingProject.ClientLocation,
-        //ClientLocationID = existingProject.ClientLocationID = 1,
-        //Status = existingProject.Status = "In Force",
+        ClientLocationID = existingProject.ClientLocationID,
+        //Status = existingProject.Status,
         Supplier = existingProject.Supplier,
-        //is_activated = existingProject.is_activated ="1",
+        is_activated = existingProject.is_activated,
         item_code = existingProject.item_code,
+        item_description = existingProject.item_description,
         Po_number = existingProject.Po_number,
         Po_date = existingProject.Po_date,
         Pr_number = existingProject.Pr_number,
@@ -702,6 +708,7 @@ namespace MvcTaskManager.Controllers
         Count_of_reject_two = existingProject.Count_of_reject_two,
         Count_of_reject_three = existingProject.Count_of_reject_three,
         Total_of_reject_mat = existingProject.Total_of_reject_mat,
+
         //SECTION 1
         //A
         //A_delivery_van_desc = existingProject.A_delivery_van_desc,
@@ -826,9 +833,9 @@ namespace MvcTaskManager.Controllers
         Is_approved_XP = existingProject.Is_approved_XP,
         Is_approved_by = existingProject.Is_approved_by,
         Is_approved_date = existingProject.Is_approved_date
- 
 
-  };
+
+      };
 
       return Ok(projectViewModel);
     }
