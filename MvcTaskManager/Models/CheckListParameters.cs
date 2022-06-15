@@ -26,5 +26,12 @@ namespace MvcTaskManager.Models
     public int parent_chck_id_fk { get; set; }
     public int parent_chck_id { get; set; }
 
+    public CheckListParameters()
+    {
+      DynamicChecklistLoggers = new HashSet<DynamicChecklistLogger>();
+
+    }
+    public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
+
   }
 }

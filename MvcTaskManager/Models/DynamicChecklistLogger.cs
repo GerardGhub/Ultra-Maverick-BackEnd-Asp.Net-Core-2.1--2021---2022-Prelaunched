@@ -12,11 +12,11 @@ namespace MvcTaskManager.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int id { get; set; }
-    public string ProjectID { get; set; }
+    public int gc_id { get; set; }
+    public int ProjectID { get; set; }
     public int parent_id { get; set; }
     public string child_id { get; set; }
-    public string grand_child_id { get; set; }
-    public string parameters_id { get; set; }
+    public int cp_params_id { get; set; }
     public string parent_desc { get; set; }
     public string child_desc { get; set; }
     public string grand_child_desc { get; set; }

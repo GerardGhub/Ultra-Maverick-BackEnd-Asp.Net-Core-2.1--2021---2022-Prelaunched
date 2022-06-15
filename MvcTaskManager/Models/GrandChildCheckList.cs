@@ -26,5 +26,13 @@ namespace MvcTaskManager.Models
     public string is_manual { get; set; }
     public int parent_chck_id { get; set; }
 
+
+    public GrandChildCheckList()
+    {
+      DynamicChecklistLoggers = new HashSet<DynamicChecklistLogger>();
+    
+    }
+    public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
+
   }
 }
