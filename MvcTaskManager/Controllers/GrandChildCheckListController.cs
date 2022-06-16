@@ -221,10 +221,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Post([FromBody] GrandChildCheckList ChildRequestParam)
     {
 
-     
-
-
-
+    
 
       if (ChildRequestParam.gc_child_key == null || ChildRequestParam.gc_child_key == "")
       {
@@ -286,7 +283,8 @@ namespace MvcTaskManager.Controllers
         Gc_date_added = existingProject.gc_date_added,
         Is_manual = existingProject.is_manual,
         Parent_chck_id_fk = existingProject.parent_chck_id_fk,
-        Parent_chck_id = existingProject.parent_chck_id_fk
+        Parent_chck_id = existingProject.parent_chck_id_fk,
+        Cc_id = Convert.ToInt32(existingProject.gc_child_key)
       };
 
       return Ok(ChildViewModel);

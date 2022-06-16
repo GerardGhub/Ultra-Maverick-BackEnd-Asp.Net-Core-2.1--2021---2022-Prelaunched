@@ -31,9 +31,11 @@ namespace MvcTaskManager.Models
     public GrandChildCheckList()
     {
       DynamicChecklistLoggers = new HashSet<DynamicChecklistLogger>();
-    
+      CheckListParameters = new HashSet<CheckListParameters>();
     }
     public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
+    public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
 
   }
 }

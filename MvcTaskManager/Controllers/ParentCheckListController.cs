@@ -29,7 +29,7 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/parent_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ActionResult<ParentCheckList>> Put([FromBody] ParentCheckList parentRequestParam)
+    public async Task<ActionResult<ParentCheckList>> Put([FromBody] ParentCheckListReturnEagerLoading parentRequestParam)
     {
 
       var ParentCheckListDataInfo = await db.Parent_checklist
@@ -58,7 +58,7 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/parent_checklist/deactivate")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ActionResult<ParentCheckList>> PutDeactivate([FromBody] ParentCheckList parentRequestParam)
+    public async Task<ActionResult<ParentCheckList>> PutDeactivate([FromBody] ParentCheckListReturnEagerLoading parentRequestParam)
     {
       ParentCheckList existingDataStatus = await db.Parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
@@ -79,7 +79,7 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/parent_checklist/activate")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ActionResult<ParentCheckList>> PutActivate([FromBody] ParentCheckList parentRequestParam)
+    public async Task<ActionResult<ParentCheckList>> PutActivate([FromBody] ParentCheckListReturnEagerLoading parentRequestParam)
     {
 
       ParentCheckList existingDataStatus = await db.Parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
@@ -189,13 +189,19 @@ namespace MvcTaskManager.Controllers
     [Route("api/parent_dynamic_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-  
+
     public async Task<ActionResult<ParentCheckList>> GetDynamicChecklist()
     {
 
+      //List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+
+
       var DynamicCheckList = await db.Parent_checklist
+
         .Include(a => a.ChildCheckLists)
         .ThenInclude(a1 => a1.GrandChildCheckLists)
+        .ThenInclude(a2 => a2.CheckListParameters)
+
         //.Include(b => b.GrandChildCheckLists)
         //.Include(c => c.CheckListParameters)
         .Where(d => d.is_active.Equals(true))
@@ -205,8 +211,30 @@ namespace MvcTaskManager.Controllers
       {
         return NotFound();
       }
-      return Ok(DynamicCheckList);
 
+      List<ParentCheckList> ViewModel = new List<ParentCheckList>();
+
+      foreach (var material in DynamicCheckList)
+      {
+        ViewModel.Add(new ParentCheckList()
+        {
+          parent_chck_id = material.parent_chck_id,
+          parent_chck_details = material.parent_chck_details,
+          parent_chck_added_by = material.parent_chck_added_by,
+          parent_chck_date_added = material.parent_chck_date_added,
+          is_active = material.is_active,
+          ChildCheckLists = material.ChildCheckLists
+
+     
+
+
+
+        });
+
+      }
+
+      //return Ok(DynamicCheckList);
+      return Ok(ViewModel);
     }
 
     [HttpGet]

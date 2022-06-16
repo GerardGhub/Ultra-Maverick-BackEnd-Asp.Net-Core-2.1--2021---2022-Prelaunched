@@ -88,7 +88,8 @@ namespace MvcTaskManager.Controllers
         Cp_added_by = existingProject.cp_added_by,
         Cp_date_added = existingProject.cp_date_added,
         Parent_chck_id_fk = existingProject.parent_chck_id_fk,
-        Parent_chck_id = existingProject.parent_chck_id_fk
+        Parent_chck_id = existingProject.parent_chck_id_fk,
+        Gc_id = Convert.ToInt32(existingProject.cp_gchild_key)
       };
 
       return Ok(ChildViewModel);

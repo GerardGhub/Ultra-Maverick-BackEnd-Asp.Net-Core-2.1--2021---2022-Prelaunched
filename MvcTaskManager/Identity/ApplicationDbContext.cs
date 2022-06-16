@@ -58,6 +58,8 @@ namespace MvcTaskManager.Identity
     public DbSet<MaterialRequestMaster> Material_request_master { get; set; }
 
     public DbSet<ParentCheckList> Parent_checklist { get; set; }
+
+    //public DbSet<ParentCheckListReturnEagerLoading> Parent_checklist as J { get; set; }
     public DbSet<ChildCheckList> Child_checklist { get; set; }
 
     public DbSet<GrandChildCheckList> Grandchild_checklist { get; set; }

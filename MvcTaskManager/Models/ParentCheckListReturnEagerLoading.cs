@@ -22,16 +22,14 @@ namespace MvcTaskManager.Models
     public string updated_by { get; set; }
     public string deactivated_at { get; set; }
     public string deactivated_by { get; set; }
-    //public ICollection<ChildCheckList> ChildCheckLists { get; set; }
+ 
     public ParentCheckListReturnEagerLoading()
     {
       ChildCheckLists = new HashSet<ChildCheckList>();
-      //GrandChildCheckLists = new HashSet<GrandChildCheckList>();
-      //CheckListParameters = new HashSet<CheckListParameters>();
+;
     }
     public ICollection<ChildCheckList> ChildCheckLists { get; set; }
-    public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
-    public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
 
   }
 }

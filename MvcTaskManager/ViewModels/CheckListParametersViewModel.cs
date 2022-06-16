@@ -8,6 +8,7 @@ namespace MvcTaskManager.ViewModels
   public class CheckListParametersViewModel
   {
     public int Cp_params_id { get; set; }
+    public int Gc_id { get; set; }
     public string Cp_gchild_key { get; set; }
     public string Cp_gchild_po_number { get; set; }
     public string Cp_bool_status { get; set; }
