@@ -21,8 +21,6 @@ namespace MvcTaskManager.Controllers
     }
 
 
-
-
     [HttpPost]
     [Route("api/child_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -33,6 +31,24 @@ namespace MvcTaskManager.Controllers
       {
         return BadRequest(new { message = "Fill up the required fields" });
       }
+
+      // Start of Getting the Parent Description Key
+      var ParentKeyGetandSet = await db.Parent_checklist.Where(temp => temp.parent_chck_id == Convert.ToInt32(ChildRequestParam.cc_parent_key)
+    ).ToListAsync();
+
+
+      string ParentKeyDescription = "";
+      int ParentPrimaryKey = 0;
+      foreach (var form in ParentKeyGetandSet)
+      {
+        ParentKeyDescription = form.parent_chck_details;
+        ParentPrimaryKey = form.parent_chck_id;
+      }
+
+      ChildRequestParam.parent_chck_details = ParentKeyDescription;
+      ChildRequestParam.parent_chck_id = ParentPrimaryKey;
+      //End of getting the Child Key
+
 
 
       var CheckParentForeignKey = await db.Parent_checklist.Where(temp => temp.parent_chck_id == ChildRequestParam.cc_parent_key
@@ -72,7 +88,8 @@ namespace MvcTaskManager.Controllers
         Is_active = existingProject.is_active,
         Cc_added_by = existingProject.cc_added_by,
         Cc_date_added = existingProject.cc_date_added,
-        Parent_chck_id = existingProject.cc_parent_key.ToString()
+        Parent_chck_id = ParentPrimaryKey.ToString(),
+        Parent_chck_details = ParentKeyDescription
       };
 
       return Ok(ChildViewModel);
@@ -208,7 +225,8 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Parent_chck_details = form.parent_chck_details
 
 
         });
@@ -257,10 +275,11 @@ namespace MvcTaskManager.Controllers
           Updated_by = form.updated_by,
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
-          Is_active = form.is_active
+          Is_active = form.is_active,
+          Parent_chck_details = form.parent_chck_details
 
 
-        });
+         });
       }
       return Ok(ListViewModel);
 

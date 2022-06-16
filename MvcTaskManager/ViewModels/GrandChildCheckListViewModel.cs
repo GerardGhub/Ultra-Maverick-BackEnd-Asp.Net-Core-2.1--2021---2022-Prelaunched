@@ -10,6 +10,7 @@ namespace MvcTaskManager.Models
     public int Gc_id { get; set; }
     public int Cc_id { get; set; }
     public string Gc_child_key { get; set; }
+    public string Parent_chck_details { get; set; }
     public string Gc_bool_status { get; set; }
     public string Gc_added_by { get; set; }
     public string Gc_date_added { get; set; }

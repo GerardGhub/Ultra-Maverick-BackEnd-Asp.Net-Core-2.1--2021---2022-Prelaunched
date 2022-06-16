@@ -14,6 +14,7 @@ namespace MvcTaskManager.Models
     public int gc_id { get; set; }
     public int cc_id { get; set; }
     public string gc_child_key { get; set; }
+    public string parent_chck_details { get; set; }
     public string gc_bool_status { get; set; }
     public string gc_added_by { get; set; }
     public string gc_date_added { get; set; } = DateTime.Now.ToString();

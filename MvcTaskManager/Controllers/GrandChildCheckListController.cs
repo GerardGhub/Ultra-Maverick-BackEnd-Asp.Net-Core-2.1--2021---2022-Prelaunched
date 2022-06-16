@@ -48,6 +48,7 @@ namespace MvcTaskManager.Controllers
           Gc_description = form.gc_description,
           Gc_id = form.gc_id,
           Gc_child_key = form.gc_child_key,
+          Parent_chck_details = form.parent_chck_details,
           Gc_bool_status = form.gc_bool_status,
           Gc_added_by = form.gc_added_by,
           Gc_date_added = form.gc_date_added,
@@ -190,6 +191,7 @@ namespace MvcTaskManager.Controllers
           Gc_description = form.gc_description,
           Gc_id = form.gc_id,
           Gc_child_key = form.gc_child_key,
+          Parent_chck_details = form.parent_chck_details,
           Gc_bool_status = form.gc_bool_status,
           Gc_added_by = form.gc_added_by,
           Gc_date_added = form.gc_date_added,
@@ -229,6 +231,10 @@ namespace MvcTaskManager.Controllers
       }
 
 
+     
+
+
+
       var CheckChildForeignKey = await db.Child_checklist.Where(temp => temp.cc_id.ToString() == ChildRequestParam.gc_child_key
       ).ToListAsync();
 
@@ -250,18 +256,36 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
-    // Start of Getting the Child Key
+      //// Start of Getting the Child Key
+      //  var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(ChildRequestParam.gc_child_key)
+      //).ToListAsync();
+
+
+      //  int ParentKey = 0;
+      //  foreach (var form in ChildParentKeyGetandSet)
+      //  {
+      //    ParentKey = Convert.ToInt32(form.cc_parent_key);
+      //  }
+
+      //  ChildRequestParam.parent_chck_id_fk = ParentKey;
+      //  //End of getting the Child Key
+      // Start of Getting the Parent Description Key
       var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(ChildRequestParam.gc_child_key)
     ).ToListAsync();
 
-    
-      int ParentKey = 0;
+
+      string ParentKeyDescription = "";
+      int ParentPrimaryKey = 0;
       foreach (var form in ChildParentKeyGetandSet)
       {
-        ParentKey = Convert.ToInt32(form.cc_parent_key);
+        ParentKeyDescription = form.parent_chck_details;
+        ParentPrimaryKey = form.parent_chck_id;
       }
 
-      ChildRequestParam.parent_chck_id_fk = ParentKey;
+      ChildRequestParam.parent_chck_details = ParentKeyDescription;
+      ChildRequestParam.parent_chck_id = ParentPrimaryKey;
+      ChildRequestParam.parent_chck_id_fk = ParentPrimaryKey;
+      ChildRequestParam.cc_id = Convert.ToInt32(ChildRequestParam.gc_child_key);
       //End of getting the Child Key
 
       db.Grandchild_checklist.Add(ChildRequestParam);
@@ -282,9 +306,10 @@ namespace MvcTaskManager.Controllers
         Gc_added_by = existingProject.gc_added_by,
         Gc_date_added = existingProject.gc_date_added,
         Is_manual = existingProject.is_manual,
-        Parent_chck_id_fk = existingProject.parent_chck_id_fk,
-        Parent_chck_id = existingProject.parent_chck_id_fk,
-        Cc_id = Convert.ToInt32(existingProject.gc_child_key)
+        Parent_chck_id_fk = ParentPrimaryKey,
+        Parent_chck_id = ParentPrimaryKey,
+        Cc_id = Convert.ToInt32(existingProject.gc_child_key),
+        Parent_chck_details = ParentKeyDescription
       };
 
       return Ok(ChildViewModel);
