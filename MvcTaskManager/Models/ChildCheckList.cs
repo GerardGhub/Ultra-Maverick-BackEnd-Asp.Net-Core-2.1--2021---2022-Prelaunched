@@ -29,6 +29,12 @@ namespace MvcTaskManager.Models
     public string deactivated_by { get; set; }
     public string deactivated_at { get; set; }
 
+    public ChildCheckList()
+    {
+      GrandChildCheckLists = new HashSet<GrandChildCheckList>();
+
+    }
+    public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
 
 
   }

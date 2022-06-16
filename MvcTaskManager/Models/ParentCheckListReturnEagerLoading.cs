@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MvcTaskManager.Models
 {
-  public class ParentCheckList
+  public class ParentCheckListReturnEagerLoading
   {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -23,7 +23,7 @@ namespace MvcTaskManager.Models
     public string deactivated_at { get; set; }
     public string deactivated_by { get; set; }
     //public ICollection<ChildCheckList> ChildCheckLists { get; set; }
-    public ParentCheckList()
+    public ParentCheckListReturnEagerLoading()
     {
       ChildCheckLists = new HashSet<ChildCheckList>();
       //GrandChildCheckLists = new HashSet<GrandChildCheckList>();
@@ -31,6 +31,7 @@ namespace MvcTaskManager.Models
     }
     public ICollection<ChildCheckList> ChildCheckLists { get; set; }
     public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
-    public ICollection<CheckListParameters> CheckListParameters{ get; set; }
+    public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
   }
 }

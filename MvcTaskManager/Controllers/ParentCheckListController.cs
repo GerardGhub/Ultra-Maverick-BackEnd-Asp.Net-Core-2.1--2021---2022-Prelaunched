@@ -195,8 +195,9 @@ namespace MvcTaskManager.Controllers
 
       var DynamicCheckList = await db.Parent_checklist
         .Include(a => a.ChildCheckLists)
-        .Include(b => b.GrandChildCheckLists)
-        .Include(c => c.CheckListParameters)
+        .ThenInclude(a1 => a1.GrandChildCheckLists)
+        //.Include(b => b.GrandChildCheckLists)
+        //.Include(c => c.CheckListParameters)
         .Where(d => d.is_active.Equals(true))
         .ToListAsync();
 
