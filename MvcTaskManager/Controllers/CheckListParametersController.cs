@@ -28,8 +28,7 @@ namespace MvcTaskManager.Controllers
     {
 
     
-      if (RequestParam.cp_gchild_key == null || RequestParam.cp_gchild_key == ""
-        || RequestParam.cp_gchild_po_number == null || RequestParam.cp_gchild_po_number == "")
+      if (RequestParam.cp_gchild_key == null || RequestParam.cp_gchild_key == "")
       {
         return BadRequest(new { message = "Fill up the required fields" });
       }
@@ -56,18 +55,37 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
-      // Start of Getting the Child Key
-      var GChildParentKeyGetandSet = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
+      //  // Start of Getting the Child Key
+      //  var GChildParentKeyGetandSet = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
+      //).ToListAsync();
+
+
+      //  int ParentKey = 0;
+      //  foreach (var form in GChildParentKeyGetandSet)
+      //  {
+      //    ParentKey = Convert.ToInt32(form.parent_chck_id_fk);
+      //  }
+
+      //  RequestParam.parent_chck_id_fk = ParentKey;
+      //  //End of getting the Child Key
+
+      // Start of Getting the Parent Description Key
+      var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
     ).ToListAsync();
 
 
-      int ParentKey = 0;
-      foreach (var form in GChildParentKeyGetandSet)
+      string ParentKeyDescription = "";
+      int ParentPrimaryKey = 0;
+      foreach (var form in ChildParentKeyGetandSet)
       {
-        ParentKey = Convert.ToInt32(form.parent_chck_id_fk);
+        ParentKeyDescription = form.parent_chck_details;
+        ParentPrimaryKey = form.parent_chck_id;
       }
 
-      RequestParam.parent_chck_id_fk = ParentKey;
+      RequestParam.parent_chck_details = ParentKeyDescription;
+      RequestParam.parent_chck_id = ParentPrimaryKey;
+      RequestParam.parent_chck_id_fk = ParentPrimaryKey;
+      RequestParam.gc_id = Convert.ToInt32(RequestParam.cp_gchild_key);
       //End of getting the Child Key
 
 
@@ -82,14 +100,14 @@ namespace MvcTaskManager.Controllers
         Cp_params_id = existingProject.cp_params_id,
         Cp_description = existingProject.cp_description,
         Cp_gchild_key = existingProject.cp_gchild_key,
-        Cp_gchild_po_number = existingProject.cp_gchild_po_number,
         Cp_bool_status = existingProject.cp_bool_status,
         Is_active = existingProject.is_active,
         Cp_added_by = existingProject.cp_added_by,
         Cp_date_added = existingProject.cp_date_added,
-        Parent_chck_id_fk = existingProject.parent_chck_id_fk,
-        Parent_chck_id = existingProject.parent_chck_id_fk,
-        Gc_id = Convert.ToInt32(existingProject.cp_gchild_key)
+        Parent_chck_id_fk = ParentPrimaryKey,
+        Parent_chck_id = ParentPrimaryKey,
+        Gc_id = Convert.ToInt32(existingProject.cp_gchild_key),
+        Parent_chck_details = ParentKeyDescription
       };
 
       return Ok(ChildViewModel);
@@ -202,7 +220,7 @@ namespace MvcTaskManager.Controllers
           Cp_description = form.cp_description,
           Cp_params_id = form.cp_params_id,
           Cp_gchild_key = form.cp_gchild_key,
-          Cp_gchild_po_number = form.cp_gchild_po_number,
+          Parent_chck_details = form.parent_chck_details,
           Cp_bool_status = form.cp_bool_status,
           Cp_added_by = form.cp_added_by,
           Cp_date_added = form.cp_date_added,
@@ -252,7 +270,7 @@ namespace MvcTaskManager.Controllers
           Cp_description = form.cp_description,
           Cp_params_id = form.cp_params_id,
           Cp_gchild_key = form.cp_gchild_key,
-          Cp_gchild_po_number = form.cp_gchild_po_number,
+          Parent_chck_details = form.parent_chck_details,
           Cp_bool_status = form.cp_bool_status,
           Cp_added_by = form.cp_added_by,
           Cp_date_added = form.cp_date_added,

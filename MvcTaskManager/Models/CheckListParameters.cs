@@ -14,7 +14,7 @@ namespace MvcTaskManager.Models
     public int cp_params_id { get; set; }
     public int gc_id { get; set; }
     public string cp_gchild_key { get; set; }
-    public string cp_gchild_po_number { get; set; }
+    public string parent_chck_details { get; set; }
     public string cp_bool_status { get; set; }
     public string cp_added_by { get; set; }
     public string cp_date_added { get; set; } = DateTime.Now.ToString();

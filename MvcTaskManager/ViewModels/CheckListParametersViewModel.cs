@@ -10,7 +10,7 @@ namespace MvcTaskManager.ViewModels
     public int Cp_params_id { get; set; }
     public int Gc_id { get; set; }
     public string Cp_gchild_key { get; set; }
-    public string Cp_gchild_po_number { get; set; }
+    public string Parent_chck_details { get; set; }
     public string Cp_bool_status { get; set; }
     public string Cp_added_by { get; set; }
     public string Cp_date_added { get; set; }
