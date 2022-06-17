@@ -22,10 +22,6 @@ namespace MvcTaskManager.Controllers
 
 
 
-
-
-
-
     [HttpPut]
     [Route("api/parent_checklist")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -247,10 +243,19 @@ namespace MvcTaskManager.Controllers
 
       var DynamicCheckList = await db.Parent_checklist
         .Include(a => a.ChildCheckLists)
-        .Include(b => b.GrandChildCheckLists)
-        .ThenInclude(b1 => b1.DynamicChecklistLoggers)
-        .Include(c => c.CheckListParameters)
-        .ThenInclude(c1 => c1.DynamicChecklistLoggers)
+
+        //new
+        .ThenInclude(a1 => a1.GrandChildCheckLists)
+        .ThenInclude(a2 => a2.DynamicChecklistLoggers)
+
+        //.ThenInclude(a3 => a3.DynamicChecklistLoggers)
+        //.ThenInclude(a3 => a3.
+
+
+        //.Include(b => b.GrandChildCheckLists)
+        //.ThenInclude(b1 => b1.DynamicChecklistLoggers)
+        //.Include(c => c.CheckListParameters)
+        //.ThenInclude(c1 => c1.DynamicChecklistLoggers)
         .Where(d => d.is_active.Equals(true))
         .ToListAsync();
 
