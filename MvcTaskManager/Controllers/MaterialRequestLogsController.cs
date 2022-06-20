@@ -155,18 +155,20 @@ namespace MvcTaskManager.Controllers
           return BadRequest(new { message = "Transaction number is not exist" });
         }
 
-        var MrsTransactIsApproved = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
-        && temp.is_active.Equals(true) && temp.is_approved_by != null).ToListAsync();
 
-        if (MrsTransactIsApproved.Count > 0)
-        {
-          //db.Material_request_logs.Add(items);
+        //Remove muna conflict 6/20/2022
+        //var MrsTransactIsApproved = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
+        //&& temp.is_active.Equals(true) && temp.is_approved_by != null).ToListAsync();
+
+        //if (MrsTransactIsApproved.Count > 0)
+        //{
+        //  //db.Material_request_logs.Add(items);
         
-        }
-        else
-        {
-          return BadRequest(new { message = "Transaction number is not yet approved" });
-        }
+        //}
+        //else
+        //{
+        //  return BadRequest(new { message = "Transaction number is not yet approved" });
+        //}
       
 
 
@@ -207,7 +209,7 @@ namespace MvcTaskManager.Controllers
         //return BadRequest(new { message = "You already request a same item today" });
         //}
 
-
+        
         //5
 
 
