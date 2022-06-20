@@ -248,6 +248,9 @@ namespace MvcTaskManager.Controllers
         .ThenInclude(a1 => a1.GrandChildCheckLists)
         .ThenInclude(a2 => a2.DynamicChecklistLoggers)
 
+        .Include(b => b.CheckListParameters)
+        .ThenInclude(b1 => b1.DynamicChecklistLoggers)
+
         //.ThenInclude(a3 => a3.DynamicChecklistLoggers)
         //.ThenInclude(a3 => a3.
 

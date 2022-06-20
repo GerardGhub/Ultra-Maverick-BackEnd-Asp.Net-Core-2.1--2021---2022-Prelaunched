@@ -20,5 +20,13 @@ namespace MvcTaskManager.Models
     public string grand_child_desc { get; set; }
     [Required]
     public string parameters_status { get; set; }
+
+    ////New Form of Data
+    //public DynamicChecklistLogger()
+    //{
+    //  CheckListParameters = new HashSet<CheckListParameters>();
+    //}
+    //public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
   }
 }
