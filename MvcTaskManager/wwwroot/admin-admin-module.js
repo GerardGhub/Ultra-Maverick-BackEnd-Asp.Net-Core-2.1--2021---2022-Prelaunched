@@ -22264,7 +22264,8 @@ class ProjectsComponent {
                 p.total_of_reject_mat = response.total_of_reject_mat;
                 this.projects[this.editIndex] = p;
                 this.InsertANewPartialReceiving();
-                // this.InsertPartialDatainMasterTable();  remove muna ito
+                this.InsertPartialDatainMasterTable();
+                //  remove muna ito
                 this.editProject.projectID = null;
                 this.editProject.projectName = null;
                 this.editProject.dateOfStart = null;
@@ -22310,40 +22311,67 @@ class ProjectsComponent {
     }
     InsertPartialDatainMasterTable() {
         this.editProject.is_activated = this.PartialEntry;
+        // this.editProject.primaryID = 150;
         this.projectsService.insertProject(this.editProject).subscribe((response) => {
             //Add Project to Grid
             var p = new src_app_models_project__WEBPACK_IMPORTED_MODULE_2__["Project"]();
             p.projectID = response.projectID;
             p.projectName = response.projectName;
             p.dateOfStart = response.dateOfStart;
+            p.teamSize = response.teamSize;
+            p.clientLocation = response.clientLocation;
+            p.active = response.active;
+            p.clientLocationID = response.clientLocationID;
             p.status = response.status;
             p.is_activated = response.is_activated;
+            p.supplier = response.supplier;
+            p.item_code = response.item_code;
+            p.po_number = response.po_number;
+            p.po_date = response.po_date;
+            p.pr_number = response.pr_number;
+            p.pr_date = response.pr_date;
+            p.qty_order = response.qty_order;
+            p.qty_uom = response.qty_uom;
+            p.mfg_date = response.mfg_date;
             p.expiration_date = response.expiration_date;
             p.expected_delivery = response.expected_delivery;
             p.actual_delivery = response.actual_delivery;
             p.actual_remaining_receiving = response.actual_remaining_receiving;
             p.received_by_QA = response.received_by_QA;
-            // p.teamSize = response.teamSize;
-            // p.clientLocation = response.clientLocation;
-            // p.active = response.active;
-            // p.clientLocationID = response.clientLocationID;
-            // p.supplier = response.supplier;
-            // p.item_code = response.item_code;
-            // p.po_number = response.po_number;
-            // p.po_date = response.po_date;
-            // p.pr_number = response.pr_number;
-            // p.pr_date = response.pr_date;
-            // p.qty_order = response.qty_order;
-            // p.qty_uom = response.qty_uom;
-            // p.mfg_date = response.mfg_date;
-            p.status_of_reject_one = response.status_of_reject_one;
-            p.status_of_reject_two = response.status_of_reject_two;
-            p.status_of_reject_three = response.status_of_reject_three;
-            p.count_of_reject_one = response.count_of_reject_one;
-            p.count_of_reject_two = response.count_of_reject_two;
-            p.count_of_reject_three = response.count_of_reject_three;
-            p.total_of_reject_mat = response.total_of_reject_mat;
             this.projects.push(p);
+            // //Add Project to Grid
+            // var p: Project = new Project();
+            // p.projectID = response.projectID;
+            // p.projectName = response.projectName;
+            // p.dateOfStart = response.dateOfStart;
+            // p.status = response.status;
+            // p.is_activated = response.is_activated;
+            // p.expiration_date = response.expiration_date;
+            // p.expected_delivery = response.expected_delivery;
+            // p.actual_delivery = response.actual_delivery;
+            // p.actual_remaining_receiving = response.actual_remaining_receiving;
+            // p.received_by_QA = response.received_by_QA;
+            // // p.teamSize = response.teamSize;
+            // // p.clientLocation = response.clientLocation;
+            // // p.active = response.active;
+            // // p.clientLocationID = response.clientLocationID;
+            // // p.supplier = response.supplier;
+            // // p.item_code = response.item_code;
+            // // p.po_number = response.po_number;
+            // // p.po_date = response.po_date;
+            // // p.pr_number = response.pr_number;
+            // // p.pr_date = response.pr_date;
+            // // p.qty_order = response.qty_order;
+            // // p.qty_uom = response.qty_uom;
+            // // p.mfg_date = response.mfg_date;
+            // p.status_of_reject_one = response.status_of_reject_one;
+            // p.status_of_reject_two = response.status_of_reject_two;
+            // p.status_of_reject_three = response.status_of_reject_three;
+            // p.count_of_reject_one = response.count_of_reject_one;
+            // p.count_of_reject_two = response.count_of_reject_two;
+            // p.count_of_reject_three = response.count_of_reject_three;
+            // p.total_of_reject_mat = response.total_of_reject_mat;
+            // this.projects.push(p);
             //Clear New Project Dialog - TextBoxes
         }, (error) => {
             console.log(error);

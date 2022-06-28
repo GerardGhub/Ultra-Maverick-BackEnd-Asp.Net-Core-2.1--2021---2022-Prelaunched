@@ -32,7 +32,7 @@ namespace MvcTaskManager.Controllers
             List<Task> tasks = db.Tasks
                 .Include(temp => temp.CreatedByUser)
                 .Include(temp => temp.AssignedToUser)
-                .Include(temp => temp.Project).ThenInclude(temp => temp.ClientLocation)
+                //.Include(temp => temp.Project).ThenInclude(temp => temp.ClientLocation)
                 .Include(temp => temp.TaskStatusDetails)
                 .Include(temp => temp.TaskPriority)
                 .Where(temp => temp.CreatedBy == currentUserId || temp.AssignedTo == currentUserId)
@@ -76,7 +76,7 @@ namespace MvcTaskManager.Controllers
             Task task = db.Tasks
                 .Include(temp => temp.CreatedByUser)
                 .Include(temp => temp.AssignedToUser)
-                .Include(temp => temp.Project).ThenInclude(temp => temp.ClientLocation)
+                //.Include(temp => temp.Project).ThenInclude(temp => temp.ClientLocation)
                 .Include(temp => temp.TaskStatusDetails)
                 .Include(temp => temp.TaskPriority)
                 .Where(temp => temp.TaskID == TaskID)

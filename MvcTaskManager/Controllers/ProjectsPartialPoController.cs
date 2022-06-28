@@ -34,7 +34,7 @@ namespace MvcTaskManager.Controllers
       string Approve = "1";
       //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.Active.ToString().Contains((char)1)).ToList();
 
-      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
+      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
       && temp.Is_wh_received != "1" || temp.Is_approved_XP.Contains(Approve)).ToList();
 
 
@@ -48,7 +48,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+        
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -222,7 +222,7 @@ namespace MvcTaskManager.Controllers
       string GoodRM = "0";
       string Approve = "1";
 
-      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
+      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
       && temp.Is_wh_received.Contains(Approve) && (Convert.ToInt32(temp.Is_wh_reject) > 0) != temp.Is_wh_reject_approval.Contains(Approve) && temp.Is_wh_reject != "0").ToList();
 
       List<ProjectsPartialPoViewModel> projectsViewModel = new List<ProjectsPartialPoViewModel>();
@@ -236,7 +236,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+          //ClientLocation = project.ClientLocation,
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -414,7 +414,7 @@ namespace MvcTaskManager.Controllers
       string ProjectIsActivated = "1";
       string ExpiredRM = "1";
     
-      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated)
+      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated)
         && temp.Is_expired.Contains(ExpiredRM) != temp.Is_approved_XP.Contains(ExpiredRM)).ToList();
 
 
@@ -434,7 +434,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+          //ClientLocation = project.ClientLocation,
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -610,29 +610,30 @@ namespace MvcTaskManager.Controllers
       string ProjectIsActivated = "1";
       List<RMProjectsPartialPo> projects = null;
       if (searchBy == "ProjectID")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
       else if (searchBy == "ProjectName")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.ProjectName.Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.ProjectName.Contains(searchText)).ToList();
       else if (searchBy == "Po_number")
            
-      projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) != temp.Is_wh_received.Contains(ProjectIsActivated)).ToList();
+      projects = db.ProjectsPartialPo.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) != temp.Is_wh_received.Contains(ProjectIsActivated)).ToList();
 
 
 
       //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText)).ToList();
           else if (searchBy == "item_code")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.item_code.Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.item_code.Contains(searchText)).ToList();
       else if (searchBy == "item_description")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.item_description.Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.item_description.Contains(searchText)).ToList();
       if (searchBy == "DateOfStart")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.DateOfStart.ToString().Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.DateOfStart.ToString().Contains(searchText)).ToList();
       if (searchBy == "TeamSize")
-        projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.TeamSize.ToString().Contains(searchText)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.TeamSize.ToString().Contains(searchText)).ToList();
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
       {
-        projectsViewModel.Add(new ProjectViewModel() { ProjectID = project.ProjectID, Po_number = project.Po_number, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active, ClientLocation = project.ClientLocation, ClientLocationID = project.ClientLocationID, Status = project.Status, Actual_delivery = project.Actual_delivery});
+        projectsViewModel.Add(new ProjectViewModel() { ProjectID = project.ProjectID, Po_number = project.Po_number, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
+          ClientLocationID = project.ClientLocationID, Status = project.Status, Actual_delivery = project.Actual_delivery});
       }
 
       return Ok(projectsViewModel);
@@ -646,10 +647,11 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult GetProjectByProjectIdentity(int ProjectID)
     {
-      Project project = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
+      Project project = db.Projects.Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
       if (project != null)
       {
-        ProjectViewModel projectViewModel = new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active, ClientLocation = project.ClientLocation, ClientLocationID = project.ClientLocationID, Status = project.Status };
+        ProjectViewModel projectViewModel = new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
+           ClientLocationID = project.ClientLocationID, Status = project.Status };
         return Ok(projectViewModel);
       }
       else
@@ -1011,10 +1013,10 @@ namespace MvcTaskManager.Controllers
         existingProject.Is_wh_reject_approval = project.Is_wh_reject_approval;
         existingProject.Is_wh_reject_approval_by = project.Is_wh_reject_approval_by;
         existingProject.Is_wh_reject_approval_date = project.Is_wh_reject_approval_date;
-        existingProject.ClientLocation = null;
+        //existingProject.ClientLocation = null;
         db.SaveChanges();
 
-        RMProjectsPartialPo existingProject2 = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+        RMProjectsPartialPo existingProject2 = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
         ProjectViewModel projectViewModel = new ProjectViewModel()
         {
           ProjectID = existingProject2.ProjectID,
@@ -1025,7 +1027,7 @@ namespace MvcTaskManager.Controllers
           Active = existingProject2.Active,
           is_activated = existingProject2.is_activated,
           Status = existingProject2.Status,
-          ClientLocation = existingProject2.ClientLocation,
+          //ClientLocation = existingProject2.ClientLocation,
           Supplier = existingProject.Supplier,
           item_code = existingProject.item_code,
           Po_number = existingProject.Po_number,

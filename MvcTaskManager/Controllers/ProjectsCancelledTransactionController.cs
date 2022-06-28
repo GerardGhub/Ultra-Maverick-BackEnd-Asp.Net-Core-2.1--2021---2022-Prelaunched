@@ -28,10 +28,9 @@ namespace MvcTaskManager.Controllers
       //System.Threading.Thread.Sleep(1000);
       //List<Project> projects = db.Projects.Include("ClientLocation").ToList();
       string ProjectIsActivated = "0";
-      //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.Active.ToString().Contains((char)1)).ToList();
 
 
-      List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated)).ToList();
+      List<Project> projects = db.Projects.Where(temp => temp.is_activated.Contains(ProjectIsActivated)).ToList();
       //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectName == ProjectName).ToList();
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
@@ -43,7 +42,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+          //ClientLocation = project.ClientLocation,
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,

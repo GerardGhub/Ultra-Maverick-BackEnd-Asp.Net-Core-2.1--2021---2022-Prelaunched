@@ -27,15 +27,12 @@ namespace MvcTaskManager.Controllers
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Get()
     {
-      //System.Threading.Thread.Sleep(1000);
-      //List<Project> projects = db.Projects.Include("ClientLocation").ToList();
+  
       string ProjectIsActivated = "1";
-      //string ZeroOut = "0";
-      //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.Active.ToString().Contains((char)1)).ToList();
+ 
 
+      List<Project> projects = db.Projects.Where(temp => temp.is_activated.Contains(ProjectIsActivated) &&  temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
 
-      List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated) &&  temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
-      //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectName == ProjectName).ToList();
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
       {
@@ -46,7 +43,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+          //ClientLocation = project.ClientLocation,
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -1079,8 +1076,7 @@ namespace MvcTaskManager.Controllers
  
 
 
-      List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectName == ProjectName).ToList();
+      List<Project> projects = db.Projects.Where(temp => temp.is_activated.Contains(ProjectIsActivated)).ToList();
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
       {
@@ -1091,7 +1087,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+          //ClientLocation = project.ClientLocation,
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -1271,20 +1267,20 @@ namespace MvcTaskManager.Controllers
       string ProjectIsActivated = "1";
       List<Project> projects = null;
       if (searchBy == "ProjectID")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
+        projects = db.Projects.Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
       else if (searchBy == "ProjectName")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectName.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+        projects = db.Projects.Where(temp => temp.ProjectName.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
       else if (searchBy == "Po_number")
         //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) && temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
-      projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+      projects = db.Projects.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
       else if (searchBy == "item_code")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.item_code.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+        projects = db.Projects.Where(temp => temp.item_code.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
       else if (searchBy == "item_description")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.item_description.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+        projects = db.Projects.Where(temp => temp.item_description.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
       if (searchBy == "DateOfStart")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.DateOfStart.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+        projects = db.Projects.Where(temp => temp.DateOfStart.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
       if (searchBy == "TeamSize")
-        projects = db.Projects.Include("ClientLocation").Where(temp => temp.TeamSize.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+        projects = db.Projects.Where(temp => temp.TeamSize.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
@@ -1298,7 +1294,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          ClientLocation = project.ClientLocation,
+         
           ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
@@ -1469,181 +1465,182 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult GetProjectByProject(int ProjectID)
     {
-      Project project = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
+      Project project = db.Projects.Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
       if (project != null)
       {
-        ProjectViewModel projectViewModel = new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active, ClientLocation = project.ClientLocation, ClientLocationID = project.ClientLocationID, Status = project.Status };
+        ProjectViewModel projectViewModel = new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
+         ClientLocationID = project.ClientLocationID, Status = project.Status };
         return Ok(projectViewModel);
       }
       else
         return new EmptyResult();
     }
 
-    //[HttpPost]
-    //[Route("api/projects")]
-    //[Authorize]
-    //[ValidateAntiForgeryToken]
-    //public IActionResult Post([FromBody] Project project)
-    //{
-    //  project.ClientLocation = null;
-    //  db.Projects.Add(project);
-    //  db.SaveChanges();
+    [HttpPost]
+    [Route("api/projects")]
+    [Authorize]
+    [ValidateAntiForgeryToken]
+    public IActionResult Post([FromBody] Project project)
+    {
+      //project.ClientLocation = null;
+      db.Projects.Add(project);
+      db.SaveChanges();
 
-    //  Project existingProject = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
-    //  ProjectViewModel projectViewModel = new ProjectViewModel()
-    //  {
-    //    ProjectID = existingProject.ProjectID,
-    //    ProjectName = existingProject.ProjectName,
-    //    TeamSize = existingProject.TeamSize,
-    //    DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
-    //    Active = existingProject.Active,
-    //    ClientLocation = existingProject.ClientLocation,
-    //    ClientLocationID = existingProject.ClientLocationID,
-    //    Status = existingProject.Status,
-    //    Supplier = existingProject.Supplier,
-    //    is_activated = existingProject.is_activated,
-    //    item_code = existingProject.item_code,
-    //    Po_number = existingProject.Po_number,
-    //    Po_date = existingProject.Po_date,
-    //    Pr_number = existingProject.Pr_number,
-    //    Pr_date = existingProject.Pr_date,
-    //    Qty_order = existingProject.Qty_order,
-    //    Qty_uom = existingProject.Qty_uom,
-    //    Mfg_date = existingProject.Mfg_date,
-    //    Expiration_date = existingProject.Expiration_date,
-    //    Expected_delivery = existingProject.Expected_delivery,
-    //    Actual_delivery = existingProject.Actual_delivery,
-    //    Actual_remaining_receiving = existingProject.Actual_remaining_receiving,
-    //    Received_by_QA = existingProject.Received_by_QA,
-    //    Status_of_reject_one = existingProject.Status_of_reject_one,
-    //    Status_of_reject_two = existingProject.Status_of_reject_two,
-    //    Status_of_reject_three = existingProject.Status_of_reject_three,
-    //    Count_of_reject_one = existingProject.Count_of_reject_one,
-    //    Count_of_reject_two = existingProject.Count_of_reject_two,
-    //    Count_of_reject_three = existingProject.Count_of_reject_three,
-    //    Total_of_reject_mat = existingProject.Total_of_reject_mat,
-    //    //SECTION 1
-    //    //A
-    //    A_delivery_van_desc = existingProject.A_delivery_van_desc,
-    //    A_compliance = existingProject.A_compliance,
-    //    A_remarks = existingProject.A_remarks,
-    //    //B
-    //    B_cooling_system_desc = existingProject.B_cooling_system_desc,
-    //    B_compliance = existingProject.B_compliance,
-    //    B_remarks = existingProject.B_remarks,
-    //    //C
-    //    C_inner_walls_desc = existingProject.C_inner_walls_desc,
-    //    C_compliance = existingProject.C_compliance,
-    //    C_remarks = existingProject.C_remarks,
-    //    //D
-    //    D_plastic_curtains_desc = existingProject.D_plastic_curtains_desc,
-    //    D_compliance = existingProject.D_compliance,
-    //    D_remarks = existingProject.D_remarks,
-    //    //E
-    //    E_thereno_pest_desc = existingProject.E_thereno_pest_desc,
-    //    E_compliance = existingProject.E_compliance,
-    //    E_remarks = existingProject.E_remarks,
-    //    //SECTION 2
-    //    //A
-    //    A_clean_company_dos = existingProject.A_clean_company_dos,
-    //    A_compliance_dos = existingProject.A_compliance_dos,
-    //    A_remarks_dos = existingProject.A_remarks_dos,
-    //    //B
-    //    B_delivery_staff_symptoms_dos = existingProject.B_delivery_staff_symptoms_dos,
-    //    B_compliance_dos = existingProject.B_compliance_dos,
-    //    B_remarks_dos = existingProject.B_remarks_dos,
-    //    //C
-    //    C_inner_walls_clean_dos = existingProject.C_inner_walls_clean_dos,
-    //    C_compliance_dos = existingProject.C_compliance_dos,
-    //    C_remarks_dos = existingProject.C_remarks_dos,
-    //    //D
-    //    D_plastic_curtains_dos = existingProject.D_plastic_curtains_dos,
-    //    D_compliance_dos = existingProject.D_compliance_dos,
-    //    D_remarks_dos = existingProject.D_remarks_dos,
-    //    //E
-    //    E_no_accessories_dos = existingProject.E_no_accessories_dos,
-    //    E_compliance_dos = existingProject.E_compliance_dos,
-    //    E_remarks_dos = existingProject.E_remarks_dos,
-    //    //F
-    //    F_no_pests_sightings_dos = existingProject.F_no_pests_sightings_dos,
-    //    F_remarks_dos = existingProject.F_remarks_dos,
-    //    F_compliance_dos = existingProject.F_compliance_dos,
-    //    //SECTION 3
-    //    //A
-    //    A_pallet_crates_tres = existingProject.A_pallet_crates_tres,
-    //    A_compliance_tres = existingProject.A_compliance_tres,
-    //    A_remarks_tres = existingProject.A_remarks_tres,
-    //    //B
-    //    B_product_contamination_tres = existingProject.B_product_contamination_tres,
-    //    B_compliance_tres = existingProject.B_compliance_tres,
-    //    B_remarks_tres = existingProject.B_remarks_tres,
-    //    //C
-    //    C_uncessary_items_tres = existingProject.C_uncessary_items_tres,
-    //    C_compliance_tres = existingProject.C_compliance_tres,
-    //    C_remarks_tres = existingProject.C_remarks_tres,
-    //    //D
-    //    D_products_cover_tres = existingProject.D_products_cover_tres,
-    //    D_compliance_tres = existingProject.D_compliance_tres,
-    //    D_remarks_tres = existingProject.D_remarks_tres,
-    //    //SECTION 4
-    //    //A
-    //    A_certificate_coa_kwatro_desc = existingProject.A_certificate_coa_kwatro_desc,
-    //    A_compliance_kwatro = existingProject.A_compliance_kwatro,
-    //    A_remarks_kwatro = existingProject.A_remarks_kwatro,
-    //    //B
-    //    B_po_kwatro_desc = existingProject.B_po_kwatro_desc,
-    //    B_compliance_kwatro = existingProject.B_compliance_kwatro,
-    //    B_remarks_kwatro = existingProject.B_remarks_kwatro,
-    //    //C
-    //    C_msds_kwatro_desc = existingProject.C_msds_kwatro_desc,
-    //    C_compliance_kwatro = existingProject.C_compliance_kwatro,
-    //    C_remarks_kwatro = existingProject.C_remarks_kwatro,
-    //    //D
-    //    D_food_grade_desc = existingProject.D_food_grade_desc,
-    //    D_compliance_kwatro = existingProject.D_compliance_kwatro,
-    //    D_remarks_kwatro = existingProject.D_remarks_kwatro,
+      Project existingProject = db.Projects.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+      ProjectViewModel projectViewModel = new ProjectViewModel()
+      {
+        ProjectID = existingProject.ProjectID,
+        ProjectName = existingProject.ProjectName,
+        TeamSize = existingProject.TeamSize,
+        DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
+        Active = existingProject.Active,
+        //ClientLocation = existingProject.ClientLocation,
+        ClientLocationID = existingProject.ClientLocationID,
+        Status = existingProject.Status,
+        Supplier = existingProject.Supplier,
+        is_activated = existingProject.is_activated,
+        item_code = existingProject.item_code,
+        Po_number = existingProject.Po_number,
+        Po_date = existingProject.Po_date,
+        Pr_number = existingProject.Pr_number,
+        Pr_date = existingProject.Pr_date,
+        Qty_order = existingProject.Qty_order,
+        Qty_uom = existingProject.Qty_uom,
+        Mfg_date = existingProject.Mfg_date,
+        Expiration_date = existingProject.Expiration_date,
+        Expected_delivery = existingProject.Expected_delivery,
+        Actual_delivery = existingProject.Actual_delivery,
+        Actual_remaining_receiving = existingProject.Actual_remaining_receiving,
+        Received_by_QA = existingProject.Received_by_QA,
+        Status_of_reject_one = existingProject.Status_of_reject_one,
+        Status_of_reject_two = existingProject.Status_of_reject_two,
+        Status_of_reject_three = existingProject.Status_of_reject_three,
+        Count_of_reject_one = existingProject.Count_of_reject_one,
+        Count_of_reject_two = existingProject.Count_of_reject_two,
+        Count_of_reject_three = existingProject.Count_of_reject_three,
+        Total_of_reject_mat = existingProject.Total_of_reject_mat,
+        //SECTION 1
+        //A
+        A_delivery_van_desc = existingProject.A_delivery_van_desc,
+        A_compliance = existingProject.A_compliance,
+        A_remarks = existingProject.A_remarks,
+        //B
+        B_cooling_system_desc = existingProject.B_cooling_system_desc,
+        B_compliance = existingProject.B_compliance,
+        B_remarks = existingProject.B_remarks,
+        //C
+        C_inner_walls_desc = existingProject.C_inner_walls_desc,
+        C_compliance = existingProject.C_compliance,
+        C_remarks = existingProject.C_remarks,
+        //D
+        D_plastic_curtains_desc = existingProject.D_plastic_curtains_desc,
+        D_compliance = existingProject.D_compliance,
+        D_remarks = existingProject.D_remarks,
+        //E
+        E_thereno_pest_desc = existingProject.E_thereno_pest_desc,
+        E_compliance = existingProject.E_compliance,
+        E_remarks = existingProject.E_remarks,
+        //SECTION 2
+        //A
+        A_clean_company_dos = existingProject.A_clean_company_dos,
+        A_compliance_dos = existingProject.A_compliance_dos,
+        A_remarks_dos = existingProject.A_remarks_dos,
+        //B
+        B_delivery_staff_symptoms_dos = existingProject.B_delivery_staff_symptoms_dos,
+        B_compliance_dos = existingProject.B_compliance_dos,
+        B_remarks_dos = existingProject.B_remarks_dos,
+        //C
+        C_inner_walls_clean_dos = existingProject.C_inner_walls_clean_dos,
+        C_compliance_dos = existingProject.C_compliance_dos,
+        C_remarks_dos = existingProject.C_remarks_dos,
+        //D
+        D_plastic_curtains_dos = existingProject.D_plastic_curtains_dos,
+        D_compliance_dos = existingProject.D_compliance_dos,
+        D_remarks_dos = existingProject.D_remarks_dos,
+        //E
+        E_no_accessories_dos = existingProject.E_no_accessories_dos,
+        E_compliance_dos = existingProject.E_compliance_dos,
+        E_remarks_dos = existingProject.E_remarks_dos,
+        //F
+        F_no_pests_sightings_dos = existingProject.F_no_pests_sightings_dos,
+        F_remarks_dos = existingProject.F_remarks_dos,
+        F_compliance_dos = existingProject.F_compliance_dos,
+        //SECTION 3
+        //A
+        A_pallet_crates_tres = existingProject.A_pallet_crates_tres,
+        A_compliance_tres = existingProject.A_compliance_tres,
+        A_remarks_tres = existingProject.A_remarks_tres,
+        //B
+        B_product_contamination_tres = existingProject.B_product_contamination_tres,
+        B_compliance_tres = existingProject.B_compliance_tres,
+        B_remarks_tres = existingProject.B_remarks_tres,
+        //C
+        C_uncessary_items_tres = existingProject.C_uncessary_items_tres,
+        C_compliance_tres = existingProject.C_compliance_tres,
+        C_remarks_tres = existingProject.C_remarks_tres,
+        //D
+        D_products_cover_tres = existingProject.D_products_cover_tres,
+        D_compliance_tres = existingProject.D_compliance_tres,
+        D_remarks_tres = existingProject.D_remarks_tres,
+        //SECTION 4
+        //A
+        A_certificate_coa_kwatro_desc = existingProject.A_certificate_coa_kwatro_desc,
+        A_compliance_kwatro = existingProject.A_compliance_kwatro,
+        A_remarks_kwatro = existingProject.A_remarks_kwatro,
+        //B
+        B_po_kwatro_desc = existingProject.B_po_kwatro_desc,
+        B_compliance_kwatro = existingProject.B_compliance_kwatro,
+        B_remarks_kwatro = existingProject.B_remarks_kwatro,
+        //C
+        C_msds_kwatro_desc = existingProject.C_msds_kwatro_desc,
+        C_compliance_kwatro = existingProject.C_compliance_kwatro,
+        C_remarks_kwatro = existingProject.C_remarks_kwatro,
+        //D
+        D_food_grade_desc = existingProject.D_food_grade_desc,
+        D_compliance_kwatro = existingProject.D_compliance_kwatro,
+        D_remarks_kwatro = existingProject.D_remarks_kwatro,
 
-    //    //SECTION 5
-    //    //A
-    //    A_qty_received_singko_singko = existingProject.A_qty_received_singko_singko,
-    //    A_compliance_singko = existingProject.A_compliance_singko,
-    //    A_remarks_singko = existingProject.A_compliance_singko,
-    //    //B
-    //    B_mfg_date_desc_singko = existingProject.B_mfg_date_desc_singko,
-    //    B_compliance_singko = existingProject.B_compliance_singko,
-    //    B_remarks_singko = existingProject.B_remarks_singko,
-    //    //C
-    //    C_expirydate_desc_singko = existingProject.C_expirydate_desc_singko,
-    //    C_compliance_singko = existingProject.C_compliance_singko,
-    //    C_remarks_singko = existingProject.C_remarks_singko,
-    //    //D
-    //    D_packaging_desc_singko = existingProject.D_packaging_desc_singko,
-    //    D_compliance_singko = existingProject.D_compliance_singko,
-    //    D_remarks_singko = existingProject.D_remarks_singko,
-    //    //E
-    //    E_no_contaminants_desc_singko = existingProject.E_no_contaminants_desc_singko,
-    //    E_compliance_singko = existingProject.E_compliance_singko,
-    //    E_remarks_singko = existingProject.E_remarks_singko,
-    //    //F
-    //    F_qtyrejected_desc_singko = existingProject.F_qtyrejected_desc_singko,
-    //    F_compliance_singko = existingProject.F_compliance_singko,
-    //    F_remarks_singko = existingProject.F_remarks_singko,
-    //    //G
-    //    G_rejected_reason_desc_singko = existingProject.G_rejected_reason_desc_singko,
-    //    G_compliance_singko = existingProject.G_compliance_singko,
-    //    G_remarks_singko = existingProject.G_remarks_singko,
-    //    //H
-    //    H_lab_sample_desc_singko = existingProject.H_lab_sample_desc_singko,
-    //    H_compliance_singko = existingProject.H_compliance_singko,
-    //    H_remarks_singko = existingProject.G_remarks_singko
-
-
+        //SECTION 5
+        //A
+        A_qty_received_singko_singko = existingProject.A_qty_received_singko_singko,
+        A_compliance_singko = existingProject.A_compliance_singko,
+        A_remarks_singko = existingProject.A_compliance_singko,
+        //B
+        B_mfg_date_desc_singko = existingProject.B_mfg_date_desc_singko,
+        B_compliance_singko = existingProject.B_compliance_singko,
+        B_remarks_singko = existingProject.B_remarks_singko,
+        //C
+        C_expirydate_desc_singko = existingProject.C_expirydate_desc_singko,
+        C_compliance_singko = existingProject.C_compliance_singko,
+        C_remarks_singko = existingProject.C_remarks_singko,
+        //D
+        D_packaging_desc_singko = existingProject.D_packaging_desc_singko,
+        D_compliance_singko = existingProject.D_compliance_singko,
+        D_remarks_singko = existingProject.D_remarks_singko,
+        //E
+        E_no_contaminants_desc_singko = existingProject.E_no_contaminants_desc_singko,
+        E_compliance_singko = existingProject.E_compliance_singko,
+        E_remarks_singko = existingProject.E_remarks_singko,
+        //F
+        F_qtyrejected_desc_singko = existingProject.F_qtyrejected_desc_singko,
+        F_compliance_singko = existingProject.F_compliance_singko,
+        F_remarks_singko = existingProject.F_remarks_singko,
+        //G
+        G_rejected_reason_desc_singko = existingProject.G_rejected_reason_desc_singko,
+        G_compliance_singko = existingProject.G_compliance_singko,
+        G_remarks_singko = existingProject.G_remarks_singko,
+        //H
+        H_lab_sample_desc_singko = existingProject.H_lab_sample_desc_singko,
+        H_compliance_singko = existingProject.H_compliance_singko,
+        H_remarks_singko = existingProject.G_remarks_singko
 
 
-    //  };
 
-    //  return Ok(projectViewModel);
-    //}
+
+      };
+
+      return Ok(projectViewModel);
+    }
 
 
 
@@ -1812,10 +1809,10 @@ namespace MvcTaskManager.Controllers
         //QC Receiving Date Angular Binding Bugok Man
         existingProject.QCReceivingDate = project.QCReceivingDate;
 
-        existingProject.ClientLocation = null;
+        //existingProject.ClientLocation = null;
         db.SaveChanges();
 
-        Project existingProject2 = db.Projects.Include("ClientLocation").Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+        Project existingProject2 = db.Projects.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
         ProjectViewModel projectViewModel = new ProjectViewModel()
         {
           ProjectID = existingProject2.ProjectID,
@@ -1826,7 +1823,7 @@ namespace MvcTaskManager.Controllers
           Active = existingProject2.Active,
           is_activated = existingProject2.is_activated,
           Status = existingProject2.Status,
-          ClientLocation = existingProject2.ClientLocation,
+          //ClientLocation = existingProject2.ClientLocation,
           Supplier = existingProject.Supplier,
           item_code = existingProject.item_code,
           Po_number = existingProject.Po_number,
@@ -2149,10 +2146,10 @@ namespace MvcTaskManager.Controllers
         //QC Receiving Date Angular Binding Bugok Man
         existingProject.QCReceivingDate = project.QCReceivingDate;
 
-        existingProject.ClientLocation = null;
+        //existingProject.ClientLocation = null;
         db.SaveChanges();
 
-        Project existingProject2 = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number == project.Po_number).FirstOrDefault();
+        Project existingProject2 = db.Projects.Where(temp => temp.Po_number == project.Po_number).FirstOrDefault();
         ProjectViewModel projectViewModel = new ProjectViewModel()
         {
           ProjectID = existingProject2.ProjectID,
@@ -2163,7 +2160,7 @@ namespace MvcTaskManager.Controllers
           Active = existingProject2.Active,
           is_activated = existingProject2.is_activated,
           Status = existingProject2.Status,
-          ClientLocation = existingProject2.ClientLocation,
+          //ClientLocation = existingProject2.ClientLocation,
           Supplier = existingProject.Supplier,
           item_code = existingProject.item_code,
           Po_number = existingProject.Po_number,
