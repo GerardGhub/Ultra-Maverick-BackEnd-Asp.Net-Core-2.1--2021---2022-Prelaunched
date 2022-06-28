@@ -27,6 +27,7 @@ namespace MvcTaskManager.Models
     public int parent_chck_id_fk { get; set; }
     public int parent_chck_id { get; set; }
     public bool cp_status { get; set; }
+    public string manual_description { get; set; }
 
     public CheckListParameters()
     {

@@ -665,7 +665,7 @@ namespace MvcTaskManager.Controllers
     public IActionResult Post([FromBody] RMProjectsPartialPo project)
     {
       //project.ClientLocation = null;
-      project.ClientLocationID = 1;
+      //project.ClientLocationID = 1;
       //project.TeamSize = 40;
       //project.Status = "In Force";
       project.QCReceivingDate = DateTime.Now.ToString();
@@ -683,7 +683,7 @@ namespace MvcTaskManager.Controllers
         DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
         Active = existingProject.Active,
         //ClientLocation = existingProject.ClientLocation,
-        ClientLocationID = existingProject.ClientLocationID,
+        //ClientLocationID = existingProject.ClientLocationID,
         //Status = existingProject.Status,
         Supplier = existingProject.Supplier,
         is_activated = existingProject.is_activated,

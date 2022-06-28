@@ -15,6 +15,9 @@ body {
 .bg-all {
   background-color: #36474f;
 }
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #27b0b5 !important;
+}
 .bg-all-po-checklist {
   background-color: #36474f;
 }
