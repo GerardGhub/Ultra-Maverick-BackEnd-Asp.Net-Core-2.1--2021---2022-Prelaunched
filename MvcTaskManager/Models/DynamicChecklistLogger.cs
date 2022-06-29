@@ -20,6 +20,7 @@ namespace MvcTaskManager.Models
     public string grand_child_desc { get; set; }
     [Required]
     public string manual_description { get; set; }
+    public bool cp_status { get; set; }
 
     ////New Form of Data
     //public DynamicChecklistLogger()
