@@ -251,6 +251,9 @@ namespace MvcTaskManager.Controllers
         .Include(b => b.CheckListParameters)
         .ThenInclude(b1 => b1.DynamicChecklistLoggers)
 
+
+
+
         //.ThenInclude(a3 => a3.DynamicChecklistLoggers)
         //.ThenInclude(a3 => a3.
 
@@ -259,6 +262,7 @@ namespace MvcTaskManager.Controllers
         //.ThenInclude(b1 => b1.DynamicChecklistLoggers)
         //.Include(c => c.CheckListParameters)
         //.ThenInclude(c1 => c1.DynamicChecklistLoggers)
+        //.Include("DynamicChecklistLogger")
         .Where(d => d.is_active.Equals(true))
         .ToListAsync();
 
