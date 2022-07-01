@@ -44,6 +44,7 @@ namespace MvcTaskManager.ViewModels
     public string Mrs_date_requested { get; set; }
 
     public string Mrs_requested_by { get; set; }
+    public string Mrs_req_desc { get; set; }
     public int Department_Id { get; set; }
     public string Department_name { get; set; }
 

@@ -243,10 +243,6 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetDistinctMaterialRequestByUserLogin(string user_id)
     {
-
-    
-
-
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Department on a.department_id equals b.department_id
@@ -275,6 +271,7 @@ namespace MvcTaskManager.Controllers
 
                        Mrs_transact_no = total.Key.mrs_id.ToString(),
                        //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Mrs_req_desc = total.Key.mrs_req_desc,
                        Department_Id = total.Key.department_id,
                        Static_count = total.Count(),
                        Mrs_date_requested = total.Key.mrs_requested_date,
@@ -460,6 +457,7 @@ namespace MvcTaskManager.Controllers
 
                        Mrs_transact_no = total.Key.mrs_id.ToString(),
                        //Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
+                       Mrs_req_desc = total.Key.mrs_req_desc,
                        Department_Id = total.Key.department_id,
                        Static_count = total.Count(),  
                        Mrs_date_requested = total.Key.mrs_requested_date,
