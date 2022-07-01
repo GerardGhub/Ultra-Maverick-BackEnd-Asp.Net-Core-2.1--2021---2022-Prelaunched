@@ -22,15 +22,23 @@ namespace MvcTaskManager.Models
     public string updated_by { get; set; }
     public string deactivated_at { get; set; }
     public string deactivated_by { get; set; }
+
+  
+
     //public ICollection<ChildCheckList> ChildCheckLists { get; set; }
     public ParentCheckList()
     {
       ChildCheckLists = new HashSet<ChildCheckList>();
-      //GrandChildCheckLists = new HashSet<GrandChildCheckList>();
-      //CheckListParameters = new HashSet<CheckListParameters>();
+      //DynamicChecklistLoggers = new HashSet<DynamicChecklistLogger>();
+
     }
     public ICollection<ChildCheckList> ChildCheckLists { get; set; }
     public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
     public ICollection<CheckListParameters> CheckListParameters{ get; set; }
+
+
+    //[ForeignKey("parent_chck_id")]
+    //public virtual DynamicChecklistLogger DynamicChecklistLoggers { get; set; }
+    //public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
   }
 }

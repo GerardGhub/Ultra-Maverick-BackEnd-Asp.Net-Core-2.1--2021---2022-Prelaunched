@@ -136,6 +136,9 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<MaterialRequestMaster>> PutUpdateAll([FromBody] MaterialRequestMaster MRSParams)
     {
 
+
+
+
       var CheckParametersKey =
         await db.Material_request_master.Where(temp => temp.mrs_req_desc.ToString() == MRSParams.mrs_req_desc).ToListAsync();
 

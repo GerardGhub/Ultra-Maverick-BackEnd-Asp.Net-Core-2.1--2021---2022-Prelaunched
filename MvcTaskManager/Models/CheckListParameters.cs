@@ -36,5 +36,8 @@ namespace MvcTaskManager.Models
     }
     public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
 
+    //[ForeignKey("cp_params_id")]
+    //public virtual DynamicChecklistLogger DynamicChecklistLogger { get; set; }
+
   }
 }

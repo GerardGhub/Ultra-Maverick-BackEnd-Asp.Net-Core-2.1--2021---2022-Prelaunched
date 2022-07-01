@@ -234,47 +234,257 @@ namespace MvcTaskManager.Controllers
     }
 
     [HttpGet]
-    [Route("api/parent_dynamic_checklist_per_identity")]
+    [Route("api/parent_dynamic_checklist_per_identity/{ProjectID}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
 
-    public async Task<ActionResult<ParentCheckList>> GetDynamicChecklistPerProjectID()
+    public async Task<ActionResult<ParentCheckList>> GetDynamicChecklistPerProjectID(int ProjectID)
     {
 
-      var DynamicCheckList = await db.Parent_checklist
-        .Include(a => a.ChildCheckLists)
-
-        //new
-        .ThenInclude(a1 => a1.GrandChildCheckLists)
-        .ThenInclude(a2 => a2.DynamicChecklistLoggers)
-
-        .Include(b => b.CheckListParameters)
-        .ThenInclude(b1 => b1.DynamicChecklistLoggers)
-
-
-
-
-        //.ThenInclude(a3 => a3.DynamicChecklistLoggers)
-        //.ThenInclude(a3 => a3.
+      var result = await (from Parent in db.Parent_checklist
+                          where Parent.is_active.Equals(true)
+                          //and
+                          select new
+                          {
+                            ParentCheckList = from Parents in db.Parent_checklist
+                                              where Parent.parent_chck_id == Parents.parent_chck_id && Parent.is_active.Equals(true)
+                                              select new
+                                              {
+                                                Parents.parent_chck_id,
+                                                Parents.parent_chck_details,
+                                                Parents.is_active,
 
 
-        //.Include(b => b.GrandChildCheckLists)
-        //.ThenInclude(b1 => b1.DynamicChecklistLoggers)
-        //.Include(c => c.CheckListParameters)
-        //.ThenInclude(c1 => c1.DynamicChecklistLoggers)
-        //.Include("DynamicChecklistLogger")
-        .Where(d => d.is_active.Equals(true))
-        .ToListAsync();
 
-      if (DynamicCheckList == null)
-      {
-        return NotFound();
-      }
-      return Ok(DynamicCheckList);
+                                                childCheckLists =
+                                                   from Childs in db.Child_checklist
+                                                   where Parent.parent_chck_id == Childs.parent_chck_id && Parent.is_active.Equals(true)
+                                                   select new
+                                                   {
+                                                     Childs.cc_id,
+                                                     Childs.cc_description,
+                                                     Childs.parent_chck_id,
+                                                     Childs.parent_chck_details,
+                                                     Childs.is_active,
+                                                     grandChildCheckLists = from GrandChilds in db.Grandchild_checklist
+                                                                            where Childs.cc_id == GrandChilds.cc_id && Childs.is_active.Equals(true)
+                                                                            select new
+                                                                            {
+                                                                              GrandChilds.gc_id,
+                                                                              GrandChilds.gc_description,
+                                                                              GrandChilds.cc_id,
+                                                                              GrandChilds.parent_chck_id,
+                                                                              GrandChilds.parent_chck_details,
+                                                                              GrandChilds.is_active,
+                                                                              dynamicChecklistLoggers =
+                                       from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                             where GrandChilds.gc_id == dynamicChecklistLoggers.gc_id && dynamicChecklistLoggers.ProjectID == ProjectID
+                                             select new
+                                             {
+                                               dynamicChecklistLoggers.id,
+                                               dynamicChecklistLoggers.manual_description,
+                                               dynamicChecklistLoggers.ProjectID,
+                                               dynamicChecklistLoggers.parent_chck_id,
+                                               dynamicChecklistLoggers.parent_desc,
+                                               dynamicChecklistLoggers.gc_id,
+                                               dynamicChecklistLoggers.grand_child_desc,
+                                               dynamicChecklistLoggers.cp_params_id,
+                                               dynamicChecklistLoggers.cp_status
+                                             }
+
+                                                                            },
+                                                     checkListParameters =
+                                                   from Params in db.Checklist_paramaters
+                                                   where Parent.parent_chck_id == Params.parent_chck_id && Params.is_active.Equals(true)
+                                                   select new
+                                                   {
+                                                     Params.cp_params_id,
+                                                     Params.cp_description,
+                                                     Params.parent_chck_id,
+                                                     Params.parent_chck_details,
+                                                     Params.gc_id,
+                                                     Params.is_active,
+                                                     Params.cp_status,
+                                                     Params.manual_description,
+                                                     dynamicChecklistLoggers =
+                                                   from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                                   where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id && dynamicChecklistLoggers.ProjectID == ProjectID
+                                                   select new
+                                                   {
+                                                     dynamicChecklistLoggers.id,
+                                                     dynamicChecklistLoggers.manual_description,
+                                                     dynamicChecklistLoggers.ProjectID,
+                                                     dynamicChecklistLoggers.parent_chck_id,
+                                                     dynamicChecklistLoggers.parent_desc,
+                                                     dynamicChecklistLoggers.gc_id,
+                                                     dynamicChecklistLoggers.grand_child_desc,
+                                                     dynamicChecklistLoggers.cp_params_id,
+                                                     dynamicChecklistLoggers.cp_status
+                                                   }
+
+
+                                                   }//child
+
+
+
+
+
+                                   }
+                                              }
+
+                                              //};
+                          }).ToListAsync();
+
+      return Ok(result);
+
+
+
+
+
+      //   var DynamicCheckList = await db.Parent_checklist.Where(d => d.is_active.Equals(true)
+      //)
+      //     .Include(a => a.ChildCheckLists)
+
+      //     //new
+      //     .ThenInclude(a1 => a1.GrandChildCheckLists)
+      //     .ThenInclude(a2 => a2.DynamicChecklistLoggers)
+
+      //     .Include(b => b.CheckListParameters)
+      //     .ThenInclude(b1 => b1.DynamicChecklistLoggers)
+
+      //     //.Where(d => d.is_active.Equals(true))
+      //     .FirstOrDefaultAsync();
+
+      //   if (DynamicCheckList == null)
+      //   {
+      //     return NotFound();
+      //   }
+
+
+      //   return Ok(DynamicCheckList);
+
+
+
+
 
     }
 
 
+
+
+    [HttpGet]
+    [Route("api/parent_dynamic_checklist_all")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+
+    public async Task<ActionResult<ParentCheckList>> GetDynamicChecklistAllAnswer()
+    {
+
+      var result = await (from Parent in db.Parent_checklist
+                          where Parent.is_active.Equals(true)
+                          //and
+                          select new
+                          {
+                            ParentCheckList = from Parents in db.Parent_checklist
+                                              where Parent.parent_chck_id == Parents.parent_chck_id && Parent.is_active.Equals(true)
+                                              select new
+                                              {
+                                                Parents.parent_chck_id,
+                                                Parents.parent_chck_details,
+                                                Parents.is_active,
+
+
+
+                                                childCheckLists =
+                                                   from Childs in db.Child_checklist
+                                                   where Parent.parent_chck_id == Childs.parent_chck_id && Parent.is_active.Equals(true)
+                                                   select new
+                                                   {
+                                                     Childs.cc_id,
+                                                     Childs.cc_description,
+                                                     Childs.parent_chck_id,
+                                                     Childs.parent_chck_details,
+                                                     Childs.is_active,
+                                                     grandChildCheckLists = from GrandChilds in db.Grandchild_checklist
+                                                                            where Childs.cc_id == GrandChilds.cc_id && Childs.is_active.Equals(true)
+                                                                            select new
+                                                                            {
+                                                                              GrandChilds.gc_id,
+                                                                              GrandChilds.gc_description,
+                                                                              GrandChilds.cc_id,
+                                                                              GrandChilds.parent_chck_id,
+                                                                              GrandChilds.parent_chck_details,
+                                                                              GrandChilds.is_active,
+                                                                              dynamicChecklistLoggers =
+                                       from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                       where GrandChilds.gc_id == dynamicChecklistLoggers.gc_id && GrandChilds.is_active.Equals(true)
+                                       select new
+                                       {
+                                         dynamicChecklistLoggers.id,
+                                         dynamicChecklistLoggers.manual_description,
+                                         dynamicChecklistLoggers.ProjectID,
+                                         dynamicChecklistLoggers.parent_chck_id,
+                                         dynamicChecklistLoggers.parent_desc,
+                                         dynamicChecklistLoggers.gc_id,
+                                         dynamicChecklistLoggers.grand_child_desc,
+                                         dynamicChecklistLoggers.cp_params_id,
+                                         dynamicChecklistLoggers.cp_status
+                                       }
+
+                                                                            },
+                                                     checkListParameters =
+                                                   from Params in db.Checklist_paramaters
+                                                   where Parent.parent_chck_id == Params.parent_chck_id && Parent.is_active.Equals(true)
+                                                   select new
+                                                   {
+                                                     Params.cp_params_id,
+                                                     Params.cp_description,
+                                                     Params.parent_chck_id,
+                                                     Params.parent_chck_details,
+                                                     Params.gc_id,
+                                                     Params.is_active,
+                                                     Params.cp_status,
+                                                     Params.manual_description,
+                                                     dynamicChecklistLoggers =
+                                                   from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                                   where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id 
+                                                   select new
+                                                   {
+                                                     dynamicChecklistLoggers.id,
+                                                     dynamicChecklistLoggers.manual_description,
+                                                     dynamicChecklistLoggers.ProjectID,
+                                                     dynamicChecklistLoggers.parent_chck_id,
+                                                     dynamicChecklistLoggers.parent_desc,
+                                                     dynamicChecklistLoggers.gc_id,
+                                                     dynamicChecklistLoggers.grand_child_desc,
+                                                     dynamicChecklistLoggers.cp_params_id,
+                                                     dynamicChecklistLoggers.cp_status
+                                                   }
+
+
+                                                   }//child
+
+
+
+
+
+                                                   }
+                                              }
+
+                                              //};
+                          }).ToListAsync();
+
+      return Ok(result);
+
+
+
+
+
+
+
+
+
+    }
 
 
 

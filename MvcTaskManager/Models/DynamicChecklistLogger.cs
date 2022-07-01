@@ -12,6 +12,7 @@ namespace MvcTaskManager.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int id { get; set; }
+
     public int ProjectID { get; set; }
     public int parent_id { get; set; }
     public int gc_id { get; set; }
@@ -22,12 +23,11 @@ namespace MvcTaskManager.Models
     public string manual_description { get; set; }
     public bool cp_status { get; set; }
 
-    ////New Form of Data
-    //public DynamicChecklistLogger()
-    //{
-    //  CheckListParameters = new HashSet<CheckListParameters>();
-    //}
-    //public ICollection<CheckListParameters> CheckListParameters { get; set; }
+    public int parent_chck_id { get; set; }
+    //public ICollection<ParentCheckList> ParentCheckLists { get; set; }
+
+    //[ForeignKey("parent_id")]
+    //public virtual ParentCheckList ParentCheckList { get; set; }
 
   }
 }
