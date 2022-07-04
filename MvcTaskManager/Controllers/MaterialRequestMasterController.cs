@@ -34,14 +34,13 @@ namespace MvcTaskManager.Controllers
 
       var result = await (from MRSParent in db.Material_request_master
                           where MRSParent.is_active.Equals(true)
-                          //and
                           select new
                           {
                             material_request_master = from Parents in db.Material_request_master
-                                        join User in db.Users on Parents.user_id equals User.User_Identity
-                                        join Department in db.Department on Parents.department_id equals Department.department_id
-                               
-                                        where Parents.mrs_id == Parents.mrs_id && Parents.is_active.Equals(true)
+                                                      join User in db.Users on MRSParent.user_id equals User.User_Identity
+                                                      join Department in db.Department on MRSParent.department_id equals Department.department_id
+
+                                                      where MRSParent.mrs_id == Parents.mrs_id
                                         select new
                                         {
                                           Parents.mrs_id,
@@ -70,6 +69,19 @@ namespace MvcTaskManager.Controllers
                                           User.Fourth_approver_id,
                                           User.Fourth_approver_name,
 
+                                          //Approvers = from Users in db.Users
+                                          //            where Parents.user_id == Users.User_Identity
+                                          //            select new
+                                          //            {
+                                          //              Users.First_approver_id,
+                                          //              Users.First_approver_name,
+                                          //              Users.Second_approver_id,
+                                          //              Users.Second_approver_name,
+                                          //              Users.Third_approver_id,
+                                          //              Users.Third_approver_name,
+                                          //              Users.Fourth_approver_id,
+                                          //              Users.Fourth_approver_name,
+                                          //            },
 
 
                                           material_request_logs =

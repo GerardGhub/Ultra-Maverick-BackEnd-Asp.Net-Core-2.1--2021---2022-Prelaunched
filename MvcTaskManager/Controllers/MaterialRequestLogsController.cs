@@ -93,6 +93,29 @@ namespace MvcTaskManager.Controllers
 
 
 
+    [HttpDelete]
+    [Route("api/material_request_logs/{ID}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<int> Delete(int ID)
+    {
+      MaterialRequestLogs existingTaskPriority = await db.Material_request_logs.Where(temp => temp.id == ID).FirstOrDefaultAsync();
+      if (existingTaskPriority != null)
+      {
+        db.Material_request_logs.Remove(existingTaskPriority);
+        db.SaveChanges();
+
+        return ID;
+      }
+      else
+      {
+        return -1;
+      }
+    }
+
+
+
+
+
 
     [HttpPut]
     [Route("api/material_request_logs_activate_cancelallOrder")]

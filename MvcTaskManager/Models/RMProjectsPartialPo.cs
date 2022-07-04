@@ -23,6 +23,8 @@ namespace MvcTaskManager.Models
 
     public int? TeamSize { get; set; }
 
+    public int Projects_FK { get; set; }
+
     public bool Active { get; set; }
 
     public string Status { get; set; }
