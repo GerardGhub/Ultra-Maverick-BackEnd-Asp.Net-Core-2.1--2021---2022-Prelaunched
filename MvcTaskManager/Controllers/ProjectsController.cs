@@ -220,25 +220,32 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] DynamicChecklistLogger[] QcChecklistForm)
     {
-   
 
+      var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
 
+       int FirstSummary = TotalPartialReceiving.Count + 1;
+
+      foreach (var item in QcChecklistForm)
+      {
+        if (item.ProjectID == FirstSummary)
+        {
+          FirstSummary = TotalPartialReceiving.Count + 1;
+        }
+      }
+
+      //project.ProjectID = TotalPartialReceiving.Count + 1;
+    
 
       var allToBeUpdated = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
-      //var students = new List<ParentCheckList>();
 
-
-      //foreach (var stud in students)
-      //{
-        
-      //}
 
 
 
       foreach (var item in allToBeUpdated)
       {
+        
 
         if(item.parent_chck_id == 1)
         {
@@ -264,6 +271,7 @@ namespace MvcTaskManager.Controllers
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
+                items.ProjectID = FirstSummary;
                 if (items.parent_id == item1.cc_parent_key)
                 {
                   GrandChildParametersnum++;
@@ -277,6 +285,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
+                  items.ProjectID = FirstSummary;
                   db.dynamic_checklist_logger.Add(items);
                 }
                
@@ -303,6 +312,7 @@ namespace MvcTaskManager.Controllers
 
                 if (items.parent_id == item1.cc_parent_key)
                 {
+                  items.ProjectID = FirstSummary;
                   GrandChildnum++;
                 }
               }
@@ -314,6 +324,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
+                  items.ProjectID = FirstSummary;
                   db.dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
@@ -326,11 +337,11 @@ namespace MvcTaskManager.Controllers
 
 
             }
-            //return BadRequest("Alakbak" + GrandChildKey.Count());
+        
           }
 
 
-          //return BadRequest(item.parent_chck_details);
+      
         }
 
         // 2nd PROCEDURE OF PROCESS BACK END

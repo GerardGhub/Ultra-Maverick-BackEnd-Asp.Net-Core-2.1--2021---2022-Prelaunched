@@ -664,15 +664,28 @@ namespace MvcTaskManager.Controllers
     [Route("api/ProjectsPartialPo")]
     //[Authorize]
     //[ValidateAntiForgeryToken]
-    public IActionResult Post([FromBody] RMProjectsPartialPo project)
+    public async Task<IActionResult> Post([FromBody] RMProjectsPartialPo project)
     {
-      //project.ClientLocation = null;
-      //project.ClientLocationID = 1;
-      //project.TeamSize = 40;
-      //project.Status = "In Force";
+    
       project.QCReceivingDate = DateTime.Now.ToString();
       project.is_activated = "1";
       project.Active = true;
+
+
+      var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
+
+      project.ProjectID = TotalPartialReceiving.Count + 1;
+      //TotalPartialReceiving.OrderByDescending(x => x.QCReceivingDate).FirstOrDefault();
+      //int sample = 0;
+      //foreach (var item in TotalPartialReceiving)
+      //{
+      //  sample = item.PrimaryID;
+      //}
+      //project.ProjectID = sample + 1;
+      //project.ProjectID = TotalPartialReceiving.
+      //;
+      //project.ProjectID = project.PrimaryID;
+
       db.ProjectsPartialPo.Add(project);
       db.SaveChanges();
 
@@ -681,12 +694,8 @@ namespace MvcTaskManager.Controllers
       {
         ProjectID = existingProject.ProjectID,
         ProjectName = existingProject.ProjectName,
-        ////TeamSize = existingProject.TeamSize,
         DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
         Active = existingProject.Active,
-        //ClientLocation = existingProject.ClientLocation,
-        //ClientLocationID = existingProject.ClientLocationID,
-        //Status = existingProject.Status,
         Supplier = existingProject.Supplier,
         is_activated = existingProject.is_activated,
         item_code = existingProject.item_code,
@@ -712,119 +721,7 @@ namespace MvcTaskManager.Controllers
         Total_of_reject_mat = existingProject.Total_of_reject_mat,
 
         //SECTION 1
-        //A
-        //A_delivery_van_desc = existingProject.A_delivery_van_desc,
-        //A_compliance = existingProject.A_compliance,
-        //A_remarks = existingProject.A_remarks,
-        ////B
-        //B_cooling_system_desc = existingProject.B_cooling_system_desc,
-        //B_compliance = existingProject.B_compliance,
-        //B_remarks = existingProject.B_remarks,
-        ////C
-        //C_inner_walls_desc = existingProject.C_inner_walls_desc,
-        //C_compliance = existingProject.C_compliance,
-        //C_remarks = existingProject.C_remarks,
-        ////D
-        //D_plastic_curtains_desc = existingProject.D_plastic_curtains_desc,
-        //D_compliance = existingProject.D_compliance,
-        //D_remarks = existingProject.D_remarks,
-        ////E
-        //E_thereno_pest_desc = existingProject.E_thereno_pest_desc,
-        //E_compliance = existingProject.E_compliance,
-        //E_remarks = existingProject.E_remarks,
-        ////SECTION 2
-        ////A
-        //A_clean_company_dos = existingProject.A_clean_company_dos,
-        //A_compliance_dos = existingProject.A_compliance_dos,
-        //A_remarks_dos = existingProject.A_remarks_dos,
-        ////B
-        //B_delivery_staff_symptoms_dos = existingProject.B_delivery_staff_symptoms_dos,
-        //B_compliance_dos = existingProject.B_compliance_dos,
-        //B_remarks_dos = existingProject.B_remarks_dos,
-        ////C
-        //C_inner_walls_clean_dos = existingProject.C_inner_walls_clean_dos,
-        //C_compliance_dos = existingProject.C_compliance_dos,
-        //C_remarks_dos = existingProject.C_remarks_dos,
-        ////D
-        //D_plastic_curtains_dos = existingProject.D_plastic_curtains_dos,
-        //D_compliance_dos = existingProject.D_compliance_dos,
-        //D_remarks_dos = existingProject.D_remarks_dos,
-        ////E
-        //E_no_accessories_dos = existingProject.E_no_accessories_dos,
-        //E_compliance_dos = existingProject.E_compliance_dos,
-        //E_remarks_dos = existingProject.E_remarks_dos,
-        ////F
-        //F_no_pests_sightings_dos = existingProject.F_no_pests_sightings_dos,
-        //F_remarks_dos = existingProject.F_remarks_dos,
-        //F_compliance_dos = existingProject.F_compliance_dos,
-        ////SECTION 3
-        ////A
-        //A_pallet_crates_tres = existingProject.A_pallet_crates_tres,
-        //A_compliance_tres = existingProject.A_compliance_tres,
-        //A_remarks_tres = existingProject.A_remarks_tres,
-        ////B
-        //B_product_contamination_tres = existingProject.B_product_contamination_tres,
-        //B_compliance_tres = existingProject.B_compliance_tres,
-        //B_remarks_tres = existingProject.B_remarks_tres,
-        ////C
-        //C_uncessary_items_tres = existingProject.C_uncessary_items_tres,
-        //C_compliance_tres = existingProject.C_compliance_tres,
-        //C_remarks_tres = existingProject.C_remarks_tres,
-        ////D
-        //D_products_cover_tres = existingProject.D_products_cover_tres,
-        //D_compliance_tres = existingProject.D_compliance_tres,
-        //D_remarks_tres = existingProject.D_remarks_tres,
-        ////SECTION 4
-        ////A
-        //A_certificate_coa_kwatro_desc = existingProject.A_certificate_coa_kwatro_desc,
-        //A_compliance_kwatro = existingProject.A_compliance_kwatro,
-        //A_remarks_kwatro = existingProject.A_remarks_kwatro,
-        ////B
-        //B_po_kwatro_desc = existingProject.B_po_kwatro_desc,
-        //B_compliance_kwatro = existingProject.B_compliance_kwatro,
-        //B_remarks_kwatro = existingProject.B_remarks_kwatro,
-        ////C
-        //C_msds_kwatro_desc = existingProject.C_msds_kwatro_desc,
-        //C_compliance_kwatro = existingProject.C_compliance_kwatro,
-        //C_remarks_kwatro = existingProject.C_remarks_kwatro,
-        ////D
-        //D_food_grade_desc = existingProject.D_food_grade_desc,
-        //D_compliance_kwatro = existingProject.D_compliance_kwatro,
-        //D_remarks_kwatro = existingProject.D_remarks_kwatro,
 
-        ////SECTION 5
-        ////A
-        //A_qty_received_singko_singko = existingProject.A_qty_received_singko_singko,
-        //A_compliance_singko = existingProject.A_compliance_singko,
-        //A_remarks_singko = existingProject.A_compliance_singko,
-        ////B
-        //B_mfg_date_desc_singko = existingProject.B_mfg_date_desc_singko,
-        //B_compliance_singko = existingProject.B_compliance_singko,
-        //B_remarks_singko = existingProject.B_remarks_singko,
-        ////C
-        //C_expirydate_desc_singko = existingProject.C_expirydate_desc_singko,
-        //C_compliance_singko = existingProject.C_compliance_singko,
-        //C_remarks_singko = existingProject.C_remarks_singko,
-        ////D
-        //D_packaging_desc_singko = existingProject.D_packaging_desc_singko,
-        //D_compliance_singko = existingProject.D_compliance_singko,
-        //D_remarks_singko = existingProject.D_remarks_singko,
-        ////E
-        //E_no_contaminants_desc_singko = existingProject.E_no_contaminants_desc_singko,
-        //E_compliance_singko = existingProject.E_compliance_singko,
-        //E_remarks_singko = existingProject.E_remarks_singko,
-        ////F
-        //F_qtyrejected_desc_singko = existingProject.F_qtyrejected_desc_singko,
-        //F_compliance_singko = existingProject.F_compliance_singko,
-        //F_remarks_singko = existingProject.F_remarks_singko,
-        ////G
-        //G_rejected_reason_desc_singko = existingProject.G_rejected_reason_desc_singko,
-        //G_compliance_singko = existingProject.G_compliance_singko,
-        //G_remarks_singko = existingProject.G_remarks_singko,
-        ////H
-        //H_lab_sample_desc_singko = existingProject.H_lab_sample_desc_singko,
-        //H_compliance_singko = existingProject.H_compliance_singko,
-        //H_remarks_singko = existingProject.G_remarks_singko,
         //Insert Date
         QCReceivingDate = existingProject.QCReceivingDate,
 

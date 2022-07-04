@@ -27,33 +27,130 @@ namespace MvcTaskManager.Controllers
     [Route("api/material_request_master")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
-    public async Task<IActionResult> Get()
+    public async Task<ActionResult<MaterialRequestMaster>> Get()
     {
 
-      List<MaterialRequestMaster> allmrs = await db.Material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
-      List<MaterialRequestMasterViewModel> MaterialRequestViewModel = new List<MaterialRequestMasterViewModel>();
-      foreach (var material in allmrs)
-      {
-
-        MaterialRequestViewModel.Add(new MaterialRequestMasterViewModel()
-        {
-          Mrs_id = material.mrs_id,
-          Mrs_req_desc = material.mrs_req_desc,
-          Mrs_requested_by = material.mrs_requested_by,
-          Mrs_requested_date = material.mrs_requested_date,
-          Department_id = material.department_id,
-          Is_cancel_by = material.is_cancel_by,
-          Is_cancel_reason = material.is_cancel_reason,
-          Is_cancel_date = material.is_cancel_date,
-          Is_active = material.is_active,
-          Is_approved_by = material.is_approved_by,
-          Is_approved_date = material.is_approved_date,
-          User_id = material.user_id
 
 
-        });
-      }
-      return Ok(MaterialRequestViewModel);
+      var result = await (from MRSParent in db.Material_request_master
+                          where MRSParent.is_active.Equals(true)
+                          //and
+                          select new
+                          {
+                            material_request_master = from Parents in db.Material_request_master
+                                        join User in db.Users on Parents.user_id equals User.User_Identity
+                                        join Department in db.Department on Parents.department_id equals Department.department_id
+                               
+                                        where Parents.mrs_id == Parents.mrs_id && Parents.is_active.Equals(true)
+                                        select new
+                                        {
+                                          Parents.mrs_id,
+                                          Parents.mrs_req_desc,
+                                          Parents.mrs_requested_date,
+                                          Parents.mrs_requested_by,
+                                          Parents.department_id,
+                                          Department.department_name,
+                                          Parents.is_cancel_by,
+                                          Parents.is_cancel_reason,
+                                          Parents.is_cancel_date,
+                                          Parents.is_active,
+                                          Parents.is_approved_by,
+                                          Parents.is_approved_date,
+                                          Parents.updated_by,
+                                          Parents.updated_date,
+                                          Parents.is_prepared,
+                                          Parents.is_for_validation,
+                                          Parents.user_id,
+                                          User.First_approver_id,
+                                          User.First_approver_name,
+                                          User.Second_approver_id,
+                                          User.Second_approver_name,
+                                          User.Third_approver_id,
+                                          User.Third_approver_name,
+                                          User.Fourth_approver_id,
+                                          User.Fourth_approver_name,
+
+
+
+                                          material_request_logs =
+                                             from Childs in db.Material_request_logs
+                                             where Parents.mrs_id == Childs.mrs_id && Childs.is_active.Equals(true)
+                                             select new
+                                             {
+                                               Childs.id,
+                                               Childs.mrs_id,
+                                               Childs.mrs_item_code,
+                                               Childs.mrs_item_description,
+                                               Childs.mrs_order_qty,
+                                               Childs.mrs_uom,
+                                               Childs.mrs_served_qty,
+                                               Childs.mrs_remarks,
+                                               Childs.mrs_date_needed,
+                                               Childs.mrs_date_requested,
+                                               Childs.is_active,
+                                               Childs.is_prepared,
+                                               Childs.is_prepared_date,
+                                               Childs.is_prepared_by,
+                                               Childs.is_wh_checker_cancel
+                                           
+                                              
+
+                                             }
+
+
+                                        }//child
+
+
+
+
+                                        //};
+                          }).ToListAsync();
+
+      return Ok(result);
+
+
+
+
+
+      //var DynamicCheckList = await db.Material_request_master.Where(d => d.is_active.Equals(true))
+      //  .Include(a => a.MaterialRequestLogs)
+      //  .FirstOrDefaultAsync();
+
+      //if (DynamicCheckList == null)
+      //{
+      //  return NotFound();
+      //}
+
+
+
+
+
+      //return Ok(DynamicCheckList);
+
+      //List<MaterialRequestMaster> allmrs = await db.Material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      //List<MaterialRequestMasterViewModel> MaterialRequestViewModel = new List<MaterialRequestMasterViewModel>();
+      //foreach (var material in allmrs)
+      //{
+
+      //  MaterialRequestViewModel.Add(new MaterialRequestMasterViewModel()
+      //  {
+      //    Mrs_id = material.mrs_id,
+      //    Mrs_req_desc = material.mrs_req_desc,
+      //    Mrs_requested_by = material.mrs_requested_by,
+      //    Mrs_requested_date = material.mrs_requested_date,
+      //    Department_id = material.department_id,
+      //    Is_cancel_by = material.is_cancel_by,
+      //    Is_cancel_reason = material.is_cancel_reason,
+      //    Is_cancel_date = material.is_cancel_date,
+      //    Is_active = material.is_active,
+      //    Is_approved_by = material.is_approved_by,
+      //    Is_approved_date = material.is_approved_date,
+      //    User_id = material.user_id
+
+
+      //  });
+      //}
+      //return Ok(MaterialRequestViewModel);
 
 
     }

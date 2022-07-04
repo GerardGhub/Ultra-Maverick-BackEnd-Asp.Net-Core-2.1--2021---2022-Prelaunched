@@ -12,9 +12,9 @@ namespace MvcTaskManager.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-    public int mrs_id { get; set; }
+    public int id { get; set; }
 
-    public int mrs_transact_no { get; set; }
+    public int mrs_id { get; set; }
     
     public string mrs_item_code { get; set; }
     public string mrs_item_description { get; set; }
@@ -43,6 +43,10 @@ namespace MvcTaskManager.Models
     public string activated_date { get; set; }
     public int static_count { get; set; }
     public int department_id { get; set; }
+
+    public string is_prepared_by { get; set; }
+    public string is_prepared_date { get; set; }
+    public string is_wh_checker_cancel { get; set; }
    
   }
 }

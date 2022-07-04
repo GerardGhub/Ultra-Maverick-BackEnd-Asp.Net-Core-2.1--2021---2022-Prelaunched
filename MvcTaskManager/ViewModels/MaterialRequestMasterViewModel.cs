@@ -1,3 +1,4 @@
+using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,10 @@ namespace MvcTaskManager.ViewModels
     public bool Is_active { get; set; }
     public string Is_approved_by { get; set; }
     public string Is_approved_date { get; set; }
-    public string User_id { get; set; }
+    public int User_id { get; set; }
     public bool Is_prepared { get; set; }
+
+
 
   }
 }

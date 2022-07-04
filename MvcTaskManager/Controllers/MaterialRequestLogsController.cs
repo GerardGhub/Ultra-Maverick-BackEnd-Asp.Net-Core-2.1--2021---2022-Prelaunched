@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> Put([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
@@ -47,7 +47,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutDeactivate([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = false;
@@ -73,7 +73,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> Putactivate([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.is_active = true;
@@ -99,9 +99,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutCancelAll([FromBody] MaterialRequestLogs MRSParams)
     {
-      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).FirstOrDefaultAsync();
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
 
-      var allToBeUpdated = await db.Material_request_logs.Where(temp => temp.mrs_transact_no == MRSParams.mrs_transact_no).ToListAsync();
+      var allToBeUpdated = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
       if (existingDataStatus != null)
       {
         foreach (var item in allToBeUpdated)
@@ -142,7 +142,7 @@ namespace MvcTaskManager.Controllers
       {
 
         //1
-        var MrsTransactNo = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_transact_no
+        var MrsTransactNo = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_id
        && temp.is_active.Equals(true)).ToListAsync();
 
         if (MrsTransactNo.Count > 0)
@@ -213,7 +213,7 @@ namespace MvcTaskManager.Controllers
         //5
 
 
-        MaterialRequestLogs existingProject = await db.Material_request_logs.Where(temp => temp.mrs_id == items.mrs_id).FirstOrDefaultAsync();
+        MaterialRequestLogs existingProject = await db.Material_request_logs.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
 
         string ActualQuantity = items.mrs_order_qty.ToString();
         decimal qtyorder;
@@ -241,14 +241,14 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/material_request_logs_distinct/userlogin/{user_id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetDistinctMaterialRequestByUserLogin(string user_id)
+    public async Task<IActionResult> GetDistinctMaterialRequestByUserLogin(int user_id)
     {
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Department on a.department_id equals b.department_id
-                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_id
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
-                  && a.user_id.Contains(user_id)
+                  && a.user_id == user_id
 
                      group a by new
                      {
@@ -315,7 +315,7 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/material_request_logs_distinct/userlogin/approver/{user_id}/{approver_id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> GetDistinctMaterialRequestByUserLoginApprover(string user_id, int approver_id)
+    public async Task<IActionResult> GetDistinctMaterialRequestByUserLoginApprover(int user_id, int approver_id)
     {
 
 
@@ -324,10 +324,10 @@ namespace MvcTaskManager.Controllers
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Department on a.department_id equals b.department_id
-                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
-                     join d in db.Users on a.user_id equals d.Id
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_id
+                     join d in db.Users on a.user_id equals d.User_Identity   //remove id
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
-                     && a.user_id.Contains(user_id)
+                     && a.user_id == user_id
                      || d.First_approver_id == approver_id
                      || d.Second_approver_id == approver_id
                      || d.Third_approver_id == approver_id
@@ -434,7 +434,7 @@ namespace MvcTaskManager.Controllers
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Department on a.department_id equals b.department_id
-                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_transact_no
+                     join c in db.Material_request_logs on a.mrs_id equals c.mrs_id
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
 
                      group a by new
@@ -531,8 +531,8 @@ namespace MvcTaskManager.Controllers
 
         MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
         {
-          Mrs_id = material.mrs_id,
-          Mrs_transact_no = material.mrs_transact_no.ToString(),
+          Id = material.id,
+          Mrs_transact_no = material.mrs_id.ToString(),
           Mrs_item_code = material.mrs_item_code,
           Mrs_item_description = material.mrs_item_description,
           Mrs_order_qty = material.mrs_order_qty,
@@ -571,7 +571,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-    List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_transact_no.ToString().Contains(transact_no_passed_by)).ToListAsync();
+    List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
     List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
 
       if (allmrs.Count > 0)
@@ -588,8 +588,8 @@ namespace MvcTaskManager.Controllers
 
       MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
       {
-        Mrs_id = material.mrs_id,
-        Mrs_transact_no = material.mrs_transact_no.ToString(),
+        Id = material.id,
+        Mrs_transact_no = material.mrs_id.ToString(),
         Mrs_item_code = material.mrs_item_code,
         Mrs_item_description = material.mrs_item_description,
         Mrs_order_qty = material.mrs_order_qty,

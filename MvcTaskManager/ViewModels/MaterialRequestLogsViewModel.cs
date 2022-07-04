@@ -8,7 +8,7 @@ namespace MvcTaskManager.ViewModels
 {
   public class MaterialRequestLogsViewModel
   {
-    public int Mrs_id { get; set; }
+    public int Id { get; set; }
     public string Mrs_transact_no { get; set; }
     public string Mrs_item_code { get; set; }
     public string Mrs_item_description { get; set; }
@@ -49,6 +49,6 @@ namespace MvcTaskManager.ViewModels
     public string Department_name { get; set; }
 
     public string Is_prepared { get; set; }
-    public string User_id { get; set; }
+    public int User_id { get; set; }
   }
 }

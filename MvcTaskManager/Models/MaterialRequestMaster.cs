@@ -1,3 +1,4 @@
+using MvcTaskManager.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +29,20 @@ namespace MvcTaskManager.Models
     public string is_for_validation { get; set; } = "0";
 
     [Required]
-    public string user_id { get; set; }
+    public int user_id { get; set; }
+
+    
+
+
+    public MaterialRequestMaster()
+    {
+      MaterialRequestLogs = new HashSet<MaterialRequestLogs>();
+
+    }
+    public ICollection<MaterialRequestLogs> MaterialRequestLogs { get; set; }
+
+
+
 
   }
 

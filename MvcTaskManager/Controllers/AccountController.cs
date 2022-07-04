@@ -219,33 +219,6 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    //[HttpPut]
-    //[Route("updateuser")]
-    //public async Task<IActionResult> UpdateUserInformation([FromBody] SignUpViewModel signUpViewModel)
-    //{
-    //  //var EmailValidation = db.Users.Where(temp => temp.Email == signUpViewModel.Email).ToList();
-
-    //  //if (EmailValidation.Count > 0)
-    //  //{
-    //  //  return BadRequest(new { message = "Email Already taken" });
-    //  //}
-
-
-    //  var user = await _usersService.Register(signUpViewModel);
-
-    //  if (user == null)
-    //    return BadRequest(new { message = "Invalid Data" });
-
-
-
-
-    //  HttpContext.User = await _applicationSignInManager.CreateUserPrincipalAsync(user);
-    //  var tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-    //  Response.Headers.Add("Access-Control-Expose-Headers", "XSRF-REQUEST-TOKEN");
-    //  Response.Headers.Add("XSRF-REQUEST-TOKEN", tokens.RequestToken);
-
-    //  return Ok(user);
-    //}
 
 
     [HttpGet]
