@@ -675,6 +675,16 @@ namespace MvcTaskManager.Controllers
       var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
 
       project.ProjectID = TotalPartialReceiving.Count + 1;
+
+      var GetProjectsPoNumber = await db.Projects.Where(src => src.Po_number.Contains(project.Po_number)).ToListAsync();
+
+      foreach (var item in GetProjectsPoNumber)
+      {
+        project.Projects_FK = item.ProjectID;
+      }
+
+      //return Ok(GetProjectsPoNumber);
+
       //TotalPartialReceiving.OrderByDescending(x => x.QCReceivingDate).FirstOrDefault();
       //int sample = 0;
       //foreach (var item in TotalPartialReceiving)
@@ -693,6 +703,7 @@ namespace MvcTaskManager.Controllers
       ProjectViewModel projectViewModel = new ProjectViewModel()
       {
         ProjectID = existingProject.ProjectID,
+        Projects_FK = existingProject.Projects_FK,
         ProjectName = existingProject.ProjectName,
         DateOfStart = existingProject.DateOfStart.ToString("dd/MM/yyyy"),
         Active = existingProject.Active,
