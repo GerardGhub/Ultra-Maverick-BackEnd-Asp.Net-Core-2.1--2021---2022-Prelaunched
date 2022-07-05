@@ -276,6 +276,7 @@ namespace MvcTaskManager.Controllers
                                                                               GrandChilds.parent_chck_id,
                                                                               GrandChilds.parent_chck_details,
                                                                               GrandChilds.is_active,
+                                                                              GrandChilds.is_manual,
                                                                               dynamicChecklistLoggers =
                                        from dynamicChecklistLoggers in db.dynamic_checklist_logger
                                              where GrandChilds.gc_id == dynamicChecklistLoggers.gc_id && dynamicChecklistLoggers.ProjectID == ProjectID
@@ -289,7 +290,9 @@ namespace MvcTaskManager.Controllers
                                                dynamicChecklistLoggers.gc_id,
                                                dynamicChecklistLoggers.grand_child_desc,
                                                dynamicChecklistLoggers.cp_params_id,
-                                               dynamicChecklistLoggers.cp_status
+                                               dynamicChecklistLoggers.cp_status,
+                                               dynamicChecklistLoggers.cp_description
+
                                              }
 
                                                                             },
@@ -319,7 +322,8 @@ namespace MvcTaskManager.Controllers
                                                      dynamicChecklistLoggers.gc_id,
                                                      dynamicChecklistLoggers.grand_child_desc,
                                                      dynamicChecklistLoggers.cp_params_id,
-                                                     dynamicChecklistLoggers.cp_status
+                                                     dynamicChecklistLoggers.cp_status,
+                                                     dynamicChecklistLoggers.cp_description
                                                    }
 
 

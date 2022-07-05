@@ -233,8 +233,10 @@ namespace MvcTaskManager.Controllers
         }
       }
 
-      //project.ProjectID = TotalPartialReceiving.Count + 1;
-    
+
+     
+     
+
 
       var allToBeUpdated = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
@@ -271,6 +273,14 @@ namespace MvcTaskManager.Controllers
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
+                //New Lang Sample
+                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
+                temp.cp_params_id == items.cp_params_id).ToListAsync();
+                foreach (var list in DynamicChecklist_cp_description)
+                {
+                  items.cp_description = list.cp_description;
+                }
+
                 items.ProjectID = FirstSummary;
                 if (items.parent_id == item1.cc_parent_key)
                 {
@@ -285,6 +295,14 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
+                  //New Lang Sample
+                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
+                  temp.cp_params_id == items.cp_params_id).ToListAsync();
+                  foreach (var list in DynamicChecklist_cp_description)
+                  {
+                    items.cp_description = list.cp_description;
+                  }
+
                   items.ProjectID = FirstSummary;
                   db.dynamic_checklist_logger.Add(items);
                 }
@@ -308,7 +326,13 @@ namespace MvcTaskManager.Controllers
               int GrandChildnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
-        
+                //New Lang Sample
+                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
+                temp.cp_params_id == items.cp_params_id).ToListAsync();
+                foreach (var list in DynamicChecklist_cp_description)
+                {
+                  items.cp_description = list.cp_description;
+                }
 
                 if (items.parent_id == item1.cc_parent_key)
                 {
@@ -324,6 +348,14 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
+                  //New Lang Sample
+                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
+                  temp.cp_params_id == items.cp_params_id).ToListAsync();
+                  foreach (var list in DynamicChecklist_cp_description)
+                  {
+                    items.cp_description = list.cp_description;
+                  }
+
                   items.ProjectID = FirstSummary;
                   db.dynamic_checklist_logger.Add(items); // add muna ito
                 }

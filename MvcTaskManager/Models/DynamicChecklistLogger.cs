@@ -24,6 +24,7 @@ namespace MvcTaskManager.Models
     public bool cp_status { get; set; }
 
     public int parent_chck_id { get; set; }
+    public string cp_description { get; set; }
     //public ICollection<ParentCheckList> ParentCheckLists { get; set; }
 
     //[ForeignKey("parent_id")]

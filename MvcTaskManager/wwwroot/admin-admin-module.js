@@ -22264,8 +22264,8 @@ class ProjectsComponent {
                 p.total_of_reject_mat = response.total_of_reject_mat;
                 this.projects[this.editIndex] = p;
                 this.InsertANewPartialReceiving();
-                this.InsertPartialDatainMasterTable();
-                //  remove muna ito
+                // this.InsertPartialDatainMasterTable(); 
+                //  remove muna itos 
                 this.editProject.projectID = null;
                 this.editProject.projectName = null;
                 this.editProject.dateOfStart = null;
