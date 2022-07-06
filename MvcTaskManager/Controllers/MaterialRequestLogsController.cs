@@ -32,7 +32,7 @@ namespace MvcTaskManager.Controllers
       {
         existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
         existingDataStatus.mrs_uom = MRSParams.mrs_uom;
-        existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
+        //existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -159,24 +159,27 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs[] materialRequest)
     {
-      
+      int getTheLastNumberofKey = await (from r in db.Material_request_master orderby r.mrs_id select r.mrs_id).MaxAsync();
+
+      int incrementationofId = getTheLastNumberofKey * 1;
+      //return Ok(incrementationofId);
 
       foreach (MaterialRequestLogs items in materialRequest)
       {
 
         //1
-        var MrsTransactNo = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_id
-       && temp.is_active.Equals(true)).ToListAsync();
+       // var MrsTransactNo = await db.Material_request_master.Where(temp => temp.mrs_id == items.mrs_id
+       //&& temp.is_active.Equals(true)).ToListAsync();
 
-        if (MrsTransactNo.Count > 0)
-        {
-          db.Material_request_logs.Add(items);
+       // if (MrsTransactNo.Count > 0)
+       // {
+       //   db.Material_request_logs.Add(items);
         
-        }
-        else
-        {
-          return BadRequest(new { message = "Transaction number is not exist" });
-        }
+       // }
+       // else
+       // {
+       //   return BadRequest(new { message = "Transaction number is not exist" });
+       // }
 
 
         //Remove muna conflict 6/20/2022
@@ -208,14 +211,34 @@ namespace MvcTaskManager.Controllers
         {
         return BadRequest(new { message = "Item is not exist" });
         }
+
+        //var MaterialRequestMaster = await db.Material_request_master.Where(src => src.
+
+        //int id = (from r in tableName orderby r.ID select r.ID).MAX();
+
+
         //3
         var PrimaryUnit = await db.Primary_Unit.Where(temp => temp.unit_desc == items.mrs_uom
         && temp.is_active.Equals(true)).ToListAsync();
 
         if (PrimaryUnit.Count > 0)
         {
-          db.Material_request_logs.Add(items);
-          //await db.SaveChangesAsync();
+          //items.mrs_id = incrementationofId;
+          var checkTheIncrementingID = await db.Material_request_master.Where(temp => temp.mrs_id == incrementationofId
+          ).FirstOrDefaultAsync();
+          //if (checkTheIncrementingID.Count > 0)
+          if (checkTheIncrementingID.mrs_id == incrementationofId)
+          {
+            //if(incrementationofId == )
+            items.mrs_id = incrementationofId;
+          }
+          else
+          {
+            items.mrs_id = incrementationofId + 1;
+          }
+
+            db.Material_request_logs.Add(items);
+         
         }
         else
         {
@@ -562,7 +585,6 @@ namespace MvcTaskManager.Controllers
           Mrs_uom = material.mrs_uom,
           Mrs_served_qty = material.mrs_served_qty,
           Mrs_remarks = material.mrs_remarks,
-          Mrs_date_needed = material.mrs_date_needed,
           Mrs_date_requested = material.mrs_date_requested,
           Mrs_approved_by = material.mrs_approved_by,
           Mrs_approved_date = material.mrs_approved_date,
@@ -619,7 +641,6 @@ namespace MvcTaskManager.Controllers
         Mrs_uom = material.mrs_uom,
         Mrs_served_qty = material.mrs_served_qty,
         Mrs_remarks = material.mrs_remarks,
-        Mrs_date_needed = material.mrs_date_needed,
         Mrs_date_requested = material.mrs_date_requested,
         Mrs_approved_by = material.mrs_approved_by,
         Mrs_approved_date = material.mrs_approved_date,

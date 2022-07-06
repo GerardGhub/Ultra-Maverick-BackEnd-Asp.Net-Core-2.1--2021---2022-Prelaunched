@@ -28,7 +28,7 @@ namespace MvcTaskManager.Models
     public string mrs_served_qty { get; set; }
     public string mrs_remarks { get; set; }
     [Required]
-    public string mrs_date_needed { get; set; }
+  
     public string mrs_date_requested { get; set; } = DateTime.Now.ToString("M/d/yyyy");
 
     public string mrs_approved_by { get; set; }

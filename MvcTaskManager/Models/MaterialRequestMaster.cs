@@ -15,6 +15,7 @@ namespace MvcTaskManager.Models
     public int mrs_id { get; set; }
     public string mrs_req_desc { get; set; }
     public string mrs_requested_date { get; set; } = DateTime.Now.ToString("M/d/yyyy");
+    public string mrs_date_needed { get; set; }
     public string mrs_requested_by { get; set; }
     public int department_id { get; set; }
     public string is_cancel_by { get; set; }

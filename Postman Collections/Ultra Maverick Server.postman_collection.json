@@ -3221,7 +3221,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"mrs_req_desc\": \"Kim Barona\",\r\n    \"mrs_requested_by\":\"Gerard\",\r\n    \"department_id\": 1,\r\n    \"user_id\": 1\r\n\r\n}",
+											"raw": "{\r\n    \"mrs_req_desc\": \"Gerard\",\r\n    \"mrs_requested_by\":\"Gerard\",\r\n    \"mrs_date_needed\": \"07/25/2022\",\r\n    \"department_id\": 1,\r\n    \"user_id\": 1\r\n\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3260,7 +3260,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"mrs_req_desc\": \"MIS Sample Man\",\r\n    \"mrs_id\": 3024\r\n}",
+											"raw": "{\r\n    \"mrs_req_desc\": \"Kim Barona\",\r\n    \"mrs_date_needed\": \"07/25/2022\",\r\n    \"mrs_id\": 3024\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3378,7 +3378,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_logs_distinct/userlogin/1df27d5e-772f-4c44-ad58-85e14e7c3c31",
+											"raw": "http://localhost:5000/api/material_request_logs_distinct/userlogin/1",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -3388,7 +3388,7 @@
 												"api",
 												"material_request_logs_distinct",
 												"userlogin",
-												"1df27d5e-772f-4c44-ad58-85e14e7c3c31"
+												"1"
 											]
 										}
 									},
@@ -3639,6 +3639,45 @@
 									"response": []
 								},
 								{
+									"name": "MRS | Acivate Item Copy",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"mrs_id\": \"106\",\r\n    \"activated_by\": \"Gerard Singian\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:5000/api/material_request_logs",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"material_request_logs"
+											]
+										}
+									},
+									"response": []
+								},
+								{
 									"name": "MRS | Bulk Insert",
 									"request": {
 										"auth": {
@@ -3655,7 +3694,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "[\r\n{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"EACH\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n},\r\n{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"CLN0047\",\r\n    \"mrs_item_description\":\"PLASTIC GLOVES (HANDGUARD) 100/BOX\",\r\n    \"mrs_order_qty\": 350.00,\r\n    \"mrs_uom\": \"PACK\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n}\r\n\r\n,{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"EACH\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n}\r\n\r\n,{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"SPC0006\",\r\n    \"mrs_item_description\":\"GARLIC POWDER\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"KILOGRAM\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n}\r\n,{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"CONDI0001\",\r\n    \"mrs_item_description\":\"BREAD CRUMBS 500G TIFFANY\",\r\n    \"mrs_order_qty\": 250.00,\r\n    \"mrs_uom\": \"PACK\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n}\r\n,{\r\n    \r\n    \"mrs_transact_no\": \"3026\",\r\n    \"mrs_item_code\": \"OFF0049\",\r\n    \"mrs_item_description\":\"PAPER TAPE OLD POS\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"PCS\",\r\n    \"mrs_date_needed\": \"06/25/2022\",\r\n    \"mrs_requested_by\": \"Kim\",\r\n    \"department_id\": 1\r\n    \r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n]\r\n\r\n\r\n\r\n\r\n\r\n",
+											"raw": "[\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"EACH\",\r\n\r\n    \r\n},\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"CLN0047\",\r\n    \"mrs_item_description\":\"PLASTIC GLOVES (HANDGUARD) 100/BOX\",\r\n    \"mrs_order_qty\": 350.00,\r\n    \"mrs_uom\": \"PACK\",\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"EACH\",\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"SPC0006\",\r\n    \"mrs_item_description\":\"GARLIC POWDER\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"KILOGRAM\",\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"CONDI0001\",\r\n    \"mrs_item_description\":\"BREAD CRUMBS 500G TIFFANY\",\r\n    \"mrs_order_qty\": 250.00,\r\n    \"mrs_uom\": \"PACK\",\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"OFF0049\",\r\n    \"mrs_item_description\":\"PAPER TAPE OLD POS\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"PCS\",\r\n\r\n    \r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n]\r\n\r\n\r\n\r\n\r\n\r\n",
 											"options": {
 												"raw": {
 													"language": "json"

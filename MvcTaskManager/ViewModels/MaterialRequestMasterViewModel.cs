@@ -11,6 +11,7 @@ namespace MvcTaskManager.ViewModels
     public int Mrs_id { get; set; }
     public string Mrs_req_desc { get; set; }
     public string Mrs_requested_date { get; set; }
+    public string Mrs_date_needed { get; set; }
     public string Mrs_requested_by { get; set; }
     public int Department_id { get; set; }
     public string Is_cancel_by { get; set; }

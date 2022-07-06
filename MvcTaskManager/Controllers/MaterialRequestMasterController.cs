@@ -60,6 +60,7 @@ namespace MvcTaskManager.Controllers
                                           Parents.is_prepared,
                                           Parents.is_for_validation,
                                           Parents.user_id,
+                                          Parents.mrs_date_needed,
                                           User.First_approver_id,
                                           User.First_approver_name,
                                           User.Second_approver_id,
@@ -96,8 +97,7 @@ namespace MvcTaskManager.Controllers
                                                Childs.mrs_order_qty,
                                                Childs.mrs_uom,
                                                Childs.mrs_served_qty,
-                                               Childs.mrs_remarks,
-                                               Childs.mrs_date_needed,
+                                               Childs.mrs_remarks,     
                                                Childs.mrs_date_requested,
                                                Childs.is_active,
                                                Childs.is_prepared,
@@ -245,9 +245,6 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<MaterialRequestMaster>> PutUpdateAll([FromBody] MaterialRequestMaster MRSParams)
     {
 
-
-
-
       var CheckParametersKey =
         await db.Material_request_master.Where(temp => temp.mrs_req_desc.ToString() == MRSParams.mrs_req_desc).ToListAsync();
 
@@ -269,6 +266,7 @@ namespace MvcTaskManager.Controllers
 
           item.mrs_req_desc = MRSParams.mrs_req_desc;
           item.updated_by = MRSParams.updated_by;
+          item.mrs_date_needed = MRSParams.mrs_date_needed;
           item.updated_date = DateTime.Now.ToString("M/d/yyyy");
 
         }
@@ -416,6 +414,7 @@ namespace MvcTaskManager.Controllers
         Mrs_id = existingProject.mrs_id,
         Mrs_req_desc = existingProject.mrs_req_desc,
         Mrs_requested_by = existingProject.mrs_requested_by,
+        Mrs_date_needed = existingProject.mrs_date_needed,
         Mrs_requested_date = DateTime.Now.ToString(),
         Department_id = existingProject.department_id,
         Is_active = true,
