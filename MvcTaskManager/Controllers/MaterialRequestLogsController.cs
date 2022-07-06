@@ -159,9 +159,23 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs[] materialRequest)
     {
-      int getTheLastNumberofKey = await (from r in db.Material_request_master orderby r.mrs_id select r.mrs_id).MaxAsync();
+      int incrementationofId = 0;
+      var GetAllCountofMasterData = await db.Material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
-      int incrementationofId = getTheLastNumberofKey * 1;
+      if (GetAllCountofMasterData.Count > 0)
+      {
+
+
+        int getTheLastNumberofKey = await (from r in db.Material_request_master orderby r.mrs_id select r.mrs_id).MaxAsync();
+
+        //return Ok(getTheLastNumberofKey);
+
+        incrementationofId = getTheLastNumberofKey * 1;
+      }
+      else
+      {
+        return BadRequest("No Master Data Found!");
+      }
       //return Ok(incrementationofId);
 
       foreach (MaterialRequestLogs items in materialRequest)

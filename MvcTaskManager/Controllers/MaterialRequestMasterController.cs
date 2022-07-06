@@ -32,15 +32,11 @@ namespace MvcTaskManager.Controllers
 
 
 
-      var result = await (from MRSParent in db.Material_request_master
-                          where MRSParent.is_active.Equals(true)
-                          select new
-                          {
-                            material_request_master = from Parents in db.Material_request_master
-                                                      join User in db.Users on MRSParent.user_id equals User.User_Identity
-                                                      join Department in db.Department on MRSParent.department_id equals Department.department_id
+      var result = await (from Parents in db.Material_request_master
+                                                      join User in db.Users on Parents.user_id equals User.User_Identity
+                                                      join Department in db.Department on Parents.department_id equals Department.department_id
 
-                                                      where MRSParent.mrs_id == Parents.mrs_id
+                                                      where Parents.mrs_id == Parents.mrs_id
                                         select new
                                         {
                                           Parents.mrs_id,
@@ -110,13 +106,15 @@ namespace MvcTaskManager.Controllers
                                              }
 
 
-                                        }//child
+                                  
 
 
 
 
                                         //};
-                          }).ToListAsync();
+                          })
+                        
+                          .ToListAsync();
 
       return Ok(result);
 
