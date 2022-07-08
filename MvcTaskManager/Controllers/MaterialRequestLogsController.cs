@@ -308,6 +308,7 @@ namespace MvcTaskManager.Controllers
                      join b in db.Department on a.department_id equals b.department_id
                      join c in db.Material_request_logs on a.mrs_id equals c.mrs_id
                      where a.is_active.Equals(true) && b.is_active.Equals(true) && c.is_active.Equals(true)
+                   
                   && a.user_id == user_id
 
                      group a by new
