@@ -3190,7 +3190,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_master",
+											"raw": "http://localhost:5000/api/material_request_master/1",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -3198,7 +3198,40 @@
 											"port": "5000",
 											"path": [
 												"api",
-												"material_request_master"
+												"material_request_master",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "MRS | Getting All Title Approved",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/material_request_master/approved/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"material_request_master",
+												"approved",
+												"1"
 											]
 										}
 									},
@@ -3221,7 +3254,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"mrs_req_desc\": \"Gerard\",\r\n    \"mrs_requested_by\":\"Gerard\",\r\n    \"mrs_date_needed\": \"07/25/2022\",\r\n    \"department_id\": 1,\r\n    \"user_id\": 1\r\n\r\n}",
+											"raw": "{\r\n    \"mrs_req_desc\": \"PussyLover Equipments\",\r\n    \"mrs_requested_by\":\"Gerard\",\r\n    \"mrs_date_needed\": \"07/25/2022\",\r\n    \"department_id\": 1,\r\n    \"user_id\": 1\r\n\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3505,7 +3538,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_logs/search/1012",
+											"raw": "http://localhost:5000/api/material_request_logs/search/3024",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -3515,7 +3548,7 @@
 												"api",
 												"material_request_logs",
 												"search",
-												"1012"
+												"3024"
 											]
 										}
 									},
@@ -3639,7 +3672,7 @@
 									"response": []
 								},
 								{
-									"name": "MRS | Acivate Item Copy",
+									"name": "MRS | DELETE",
 									"request": {
 										"auth": {
 											"type": "bearer",
@@ -3663,7 +3696,7 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_logs",
+											"raw": "http://localhost:5000/api/material_request_logs/3185",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -3671,7 +3704,8 @@
 											"port": "5000",
 											"path": [
 												"api",
-												"material_request_logs"
+												"material_request_logs",
+												"3185"
 											]
 										}
 									},
@@ -3694,7 +3728,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "[\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"EACH\",\r\n\r\n    \r\n},\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"CLN0047\",\r\n    \"mrs_item_description\":\"PLASTIC GLOVES (HANDGUARD) 100/BOX\",\r\n    \"mrs_order_qty\": 350.00,\r\n    \"mrs_uom\": \"PACK\",\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"EACH\",\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"SPC0006\",\r\n    \"mrs_item_description\":\"GARLIC POWDER\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"KILOGRAM\",\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"CONDI0001\",\r\n    \"mrs_item_description\":\"BREAD CRUMBS 500G TIFFANY\",\r\n    \"mrs_order_qty\": 250.00,\r\n    \"mrs_uom\": \"PACK\",\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"OFF0049\",\r\n    \"mrs_item_description\":\"PAPER TAPE OLD POS\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"PCS\",\r\n\r\n    \r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n]\r\n\r\n\r\n\r\n\r\n\r\n",
+											"raw": "[\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"EACH\"\r\n\r\n    \r\n},\r\n{\r\n    \r\n\r\n    \"mrs_item_code\": \"CLN0047\",\r\n    \"mrs_item_description\":\"PLASTIC GLOVES (HANDGUARD) 100/BOX\",\r\n    \"mrs_order_qty\": 350.00,\r\n    \"mrs_uom\": \"PACK\"\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"PCK0123\",\r\n    \"mrs_item_description\":\"STYRO (BLACK) T-2\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"EACH\"\r\n\r\n    \r\n}\r\n\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"SPC0006\",\r\n    \"mrs_item_description\":\"GARLIC POWDER\",\r\n    \"mrs_order_qty\": 200.00,\r\n    \"mrs_uom\": \"KILOGRAM\"\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"CONDI0001\",\r\n    \"mrs_item_description\":\"BREAD CRUMBS 500G TIFFANY\",\r\n    \"mrs_order_qty\": 250.00,\r\n    \"mrs_uom\": \"PACK\"\r\n\r\n    \r\n}\r\n,{\r\n    \r\n\r\n    \"mrs_item_code\": \"OFF0049\",\r\n    \"mrs_item_description\":\"PAPER TAPE OLD POS\",\r\n    \"mrs_order_qty\": 100.00,\r\n    \"mrs_uom\": \"PCS\"\r\n\r\n    \r\n}\r\n\r\n\r\n\r\n\r\n\r\n\r\n]\r\n\r\n\r\n\r\n\r\n\r\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3777,7 +3811,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\r\n    \"is_approved_by\": \"MIS Department\",\r\n    \"mrs_id\": 3023\r\n}",
+											"raw": "{\r\n    \"is_approved_by\": \"MIS Department\",\r\n    \"mrs_id\": 3042\r\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -3912,6 +3946,61 @@
 												"approver",
 												"1e461e76-d59b-4164-b50b-326399657565",
 												"18"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "MRS CANCELLED REASON",
+							"item": [
+								{
+									"name": "Get All Cancelled Reason",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/internal_mrs_cancelled_reason",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"internal_mrs_cancelled_reason"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get All Returned Reason",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/internal_mrs_returned_reason",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"internal_mrs_returned_reason"
 											]
 										}
 									},
@@ -5177,7 +5266,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"ProjectID\":232323265,\r\n    \"ProjectName\": \"GERARD SINGIAN\",\r\n    \"DateOfStart\": \"2022-04-28 00:00:00.0000000\",\r\n    \"supplier\": \"Keyboard 3\",\r\n    \"item_code\": \"MAC0002\",\r\n    \"item_description\": \"BOLIFOR\",\r\n    \"po_number\": \"4545345\",\r\n    \"po_date\": \"08/9/2021 12:00:00 am\",\r\n    \"pr_number\": \"4545453233\",\r\n    \"pr_date\": \"08/9/2021 12:00:00 am\",\r\n\r\n    \"qty_order\": \"500\",\r\n    \"qty_uom\": \"PCS\",\r\n    \"mfg_date\": \"2022-06-07T16:00:00.000Z\",\r\n\r\n    \"expiration_date\": \"2022-05-09T16:00:00.000Z\",\r\n    \"expected_delivery\": \"100\",\r\n    \"actual_delivery\": \"50\",\r\n    \"actual_remaining_receiving\": \"50\",\r\n    \"received_by_qa\": \"Sir Gerard\",\r\n\r\n    \"status_of_reject_one\": \"0\",\r\n    \"status_of_reject_two\": \"0\",\r\n    \"status_of_reject_three\": \"0\",\r\n\r\n    \"count_of_reject_one\": \"0\",\r\n    \"count_of_reject_two\": \"0\",\r\n    \"count_of_reject_three\": \"0\",\r\n\r\n    \"total_of_reject_mat\": \"0\",\r\n\r\n    \"days_expiry_setup\": 1,\r\n    \"is_expired\": \"0\",\r\n\r\n    \"is_approved_xp\": \"1\",\r\n    \"is_approved_by\": \"Pacheco Jose\",\r\n    \"is_approved_date\": \"2022-04-28T02:31:55.763Z\"\r\n    \r\n}",
+									"raw": "{\r\n    \"ProjectName\": \"Array Bente 4\",\r\n    \"DateOfStart\": \"2022-04-28 00:00:00.0000000\",\r\n    \"supplier\": \"Keyboard 3\",\r\n    \"item_code\": \"MAC0002\",\r\n    \"item_description\": \"BOLIFOR\",\r\n    \"po_number\": \"102\",\r\n    \"po_date\": \"08/9/2021 12:00:00 am\",\r\n    \"pr_number\": \"4545453233\",\r\n    \"pr_date\": \"08/9/2021 12:00:00 am\",\r\n\r\n    \"qty_order\": \"500\",\r\n    \"qty_uom\": \"PCS\",\r\n    \"mfg_date\": \"2022-06-07T16:00:00.000Z\",\r\n\r\n    \"expiration_date\": \"2022-05-09T16:00:00.000Z\",\r\n    \"expected_delivery\": \"100\",\r\n    \"actual_delivery\": \"50\",\r\n    \"actual_remaining_receiving\": \"50\",\r\n    \"received_by_qa\": \"Sir Gerard\",\r\n\r\n    \"status_of_reject_one\": \"0\",\r\n    \"status_of_reject_two\": \"0\",\r\n    \"status_of_reject_three\": \"0\",\r\n\r\n    \"count_of_reject_one\": \"0\",\r\n    \"count_of_reject_two\": \"0\",\r\n    \"count_of_reject_three\": \"0\",\r\n\r\n    \"total_of_reject_mat\": \"0\",\r\n\r\n    \"days_expiry_setup\": 1,\r\n    \"is_expired\": \"0\",\r\n\r\n    \"is_approved_xp\": \"1\",\r\n    \"is_approved_by\": \"Pacheco Jose\",\r\n    \"is_approved_date\": \"2022-04-28T02:31:55.763Z\"\r\n    \r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
