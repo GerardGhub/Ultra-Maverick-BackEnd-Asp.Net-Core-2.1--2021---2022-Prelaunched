@@ -32,10 +32,10 @@ namespace MvcTaskManager.Controllers
 
 
       string UserRole = "";
-      int ApproverOne = 1;
-      int ApproverTwo = 2;
-      int ApproverThree = 3;
-      int ApproverFour = 4;
+      int ApproverOne = 0;
+      int ApproverTwo = 0;
+      int ApproverThree = 0;
+      int ApproverFour = 0;
       int SelectedApprover = 0;
 
       var CheckifUserIsAdmin = await (from User in db.Users
@@ -61,8 +61,29 @@ namespace MvcTaskManager.Controllers
         ApproverFour = (int)item.ApproverFour;
 
       }
+      //return BadRequest(ApproverOne);
+      //if (ApproverOne == user_id)
+      //{
+      //  SelectedApprover = 1;
+      //  return BadRequest("1");
+      //}
 
-      if
+      //if (ApproverTwo == user_id)
+      //{
+      //  SelectedApprover = 2;
+      //  return BadRequest("2");
+      //}
+
+      //if (ApproverThree == user_id)
+      //{
+      //  SelectedApprover = 3;
+      //  return BadRequest("3");
+      //}
+      //if (ApproverFour == user_id)
+      //{
+      //  SelectedApprover = 4;
+      //  return BadRequest("4");
+      //}
 
 
       if (UserRole == "Admin")
@@ -152,10 +173,10 @@ namespace MvcTaskManager.Controllers
                             where Parents.mrs_id == Parents.mrs_id
                        
                               && Parents.user_id == user_id
-                              && (User.First_approver_id == user_id
+                              || User.First_approver_id == user_id
                               || User.Second_approver_id == user_id
                               || User.Third_approver_id == user_id
-                              || User.Fourth_approver_id == user_id)
+                              || User.Fourth_approver_id == user_id
  
                               && Parents.is_approved_by == null
                               && Parents.is_active.Equals(true)

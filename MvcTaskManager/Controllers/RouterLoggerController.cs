@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -27,8 +27,8 @@ namespace MvcTaskManager.Controllers
             {
                 logMessage = streamReader.ReadToEnd() + "\n";
             }
-            string filePath = this._hostingEnvironment.ContentRootPath + "\\RouterLogger.txt";
-            System.IO.File.AppendAllText(filePath, logMessage);
+            //string filePath = this._hostingEnvironment.ContentRootPath + "\\RouterLogger.txt";
+            //System.IO.File.AppendAllText(filePath, logMessage);
             return Ok();
         }
     }
