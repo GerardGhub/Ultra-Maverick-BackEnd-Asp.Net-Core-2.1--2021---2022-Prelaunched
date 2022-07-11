@@ -192,45 +192,119 @@ namespace MvcTaskManager.Controllers
       //List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
-      var DynamicCheckList = await db.Parent_checklist
+      //var DynamicCheckList = await db.Parent_checklist
 
-        .Include(a => a.ChildCheckLists)
-        .ThenInclude(a1 => a1.GrandChildCheckLists)
-        .ThenInclude(a2 => a2.CheckListParameters)
+      //  .Include(a => a.ChildCheckLists)
+      //  .ThenInclude(a1 => a1.GrandChildCheckLists)
+      //  .ThenInclude(a2 => a2.CheckListParameters)
 
-        //.Include(b => b.GrandChildCheckLists)
-        //.Include(c => c.CheckListParameters)
-        .Where(d => d.is_active.Equals(true))
-        .ToListAsync();
 
-      if (DynamicCheckList == null)
-      {
-        return NotFound();
-      }
+      //  .Where(d => d.is_active.Equals(true))
+      //  .ToListAsync();
 
-      List<ParentCheckList> ViewModel = new List<ParentCheckList>();
+      //if (DynamicCheckList == null)
+      //{
+      //  return NotFound();
+      //}
 
-      foreach (var material in DynamicCheckList)
-      {
-        ViewModel.Add(new ParentCheckList()
-        {
-          parent_chck_id = material.parent_chck_id,
-          parent_chck_details = material.parent_chck_details,
-          parent_chck_added_by = material.parent_chck_added_by,
-          parent_chck_date_added = material.parent_chck_date_added,
-          is_active = material.is_active,
-          ChildCheckLists = material.ChildCheckLists
+      //List<ParentCheckList> ViewModel = new List<ParentCheckList>();
 
-     
+      //foreach (var material in DynamicCheckList)
+      //{
+      //  ViewModel.Add(new ParentCheckList()
+      //  {
+      //    parent_chck_id = material.parent_chck_id,
+      //    parent_chck_details = material.parent_chck_details,
+      //    parent_chck_added_by = material.parent_chck_added_by,
+      //    parent_chck_date_added = material.parent_chck_date_added,
+      //    is_active = material.is_active,
+      //    ChildCheckLists = material.ChildCheckLists
 
 
 
-        });
 
-      }
 
-      //return Ok(DynamicCheckList);
-      return Ok(ViewModel);
+      //  });
+
+      //}
+
+
+      //return Ok(ViewModel);
+
+      var result = await (from ParentCheckList in db.Parent_checklist
+                          //join User in db.Users on Parents.user_id equals User.User_Identity
+                          //join Department in db.Department on Parents.department_id equals Department.department_id
+
+                          where ParentCheckList.parent_chck_id == ParentCheckList.parent_chck_id
+                      
+                            && ParentCheckList.is_active.Equals(true)
+
+
+
+                          select new
+                          {
+                            ParentCheckList.parent_chck_id,
+                            ParentCheckList.parent_chck_details,
+                            ParentCheckList.parent_chck_added_by,
+                            ParentCheckList.parent_chck_date_added,
+                            ParentCheckList.is_active,
+
+                            childCheckLists =
+                                             from Child_Checklist in db.Child_checklist
+                                             where ParentCheckList.parent_chck_id == Child_Checklist.parent_chck_id && Child_Checklist.is_active.Equals(true)
+                                             select new
+                                             {
+                                               Child_Checklist.cc_id,
+                                               Child_Checklist.cc_description,
+                                               Child_Checklist.cc_parent_key,
+                                               Child_Checklist.parent_chck_details,
+                                               Child_Checklist.parent_chck_id,                                         
+                                               Child_Checklist.cc_added_by,
+                                               Child_Checklist.cc_date_added,
+                                               Child_Checklist.is_active,
+                           grandChildCheckLists =
+                                              from GrandChildChecklist in db.Grandchild_checklist
+                                              where Child_Checklist.cc_id == GrandChildChecklist.cc_id && GrandChildChecklist.is_active.Equals(true)
+                                                  select new
+                                                  {
+                                                    GrandChildChecklist.gc_id,
+                                                    GrandChildChecklist.cc_id,
+                                                    GrandChildChecklist.gc_child_key,
+                                                    GrandChildChecklist.parent_chck_details,
+                                                    GrandChildChecklist.parent_chck_id,
+                                                    GrandChildChecklist.gc_added_by,
+                                                    GrandChildChecklist.is_active,
+                                                    GrandChildChecklist.gc_description,
+                                                    GrandChildChecklist.is_manual,
+                         checkListParameters =
+                             from CheckListParams in db.Checklist_paramaters
+                             where GrandChildChecklist.gc_id == CheckListParams.gc_id && CheckListParams.is_active.Equals(true)
+                             select new
+                             {
+                               CheckListParams.cp_params_id,
+                               CheckListParams.cp_description,
+                               CheckListParams.gc_id,
+                               CheckListParams.cp_gchild_key,
+                               CheckListParams.parent_chck_details,
+                               CheckListParams.cp_added_by,
+                               CheckListParams.cp_date_added,
+                               CheckListParams.is_active,
+                               CheckListParams.parent_chck_id,
+                               CheckListParams.cp_status,
+                               CheckListParams.manual_description
+                            
+                             }
+
+                             }
+
+                                                  }
+                          })
+
+                    .ToListAsync();
+
+      return Ok(result);
+
+
     }
 
     [HttpGet]
