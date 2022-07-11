@@ -32,13 +32,22 @@ namespace MvcTaskManager.Controllers
 
 
       string UserRole = "";
+      int ApproverOne = 1;
+      int ApproverTwo = 2;
+      int ApproverThree = 3;
+      int ApproverFour = 4;
+      int SelectedApprover = 0;
 
       var CheckifUserIsAdmin = await (from User in db.Users
                                         
                                       where User.User_Identity == user_id
                                       select new
                                       {
-                                        UserRole = User.UserRole
+                                        UserRole = User.UserRole,
+                                        ApproverOne = User.First_approver_id,
+                                        ApproverTwo = User.Second_approver_id,
+                                        ApproverThree = User.Third_approver_id,
+                                        ApproverFour = User.Fourth_approver_id
                                       })
 
                        .ToListAsync();
@@ -46,7 +55,14 @@ namespace MvcTaskManager.Controllers
       foreach (var item in CheckifUserIsAdmin)
       {
         UserRole = item.UserRole;
+        ApproverOne = (int)item.ApproverOne;
+        ApproverTwo = (int)item.ApproverTwo;
+        ApproverThree = (int)item.ApproverThree;
+        ApproverFour = (int)item.ApproverFour;
+
       }
+
+      if
 
 
       if (UserRole == "Admin")
@@ -134,14 +150,15 @@ namespace MvcTaskManager.Controllers
                             join Department in db.Department on Parents.department_id equals Department.department_id
 
                             where Parents.mrs_id == Parents.mrs_id
+                       
+                              && Parents.user_id == user_id
+                              && (User.First_approver_id == user_id
+                              || User.Second_approver_id == user_id
+                              || User.Third_approver_id == user_id
+                              || User.Fourth_approver_id == user_id)
+ 
                               && Parents.is_approved_by == null
                               && Parents.is_active.Equals(true)
-                              && Parents.user_id == user_id
-                              || User.First_approver_id == user_id
-                               || User.Second_approver_id == user_id
-                                || User.Third_approver_id == user_id
-                                 || User.Fourth_approver_id == user_id
-
 
                             select new
                             {
@@ -336,14 +353,15 @@ namespace MvcTaskManager.Controllers
                             join Department in db.Department on Parents.department_id equals Department.department_id
 
                             where Parents.mrs_id == Parents.mrs_id
-                              && Parents.is_approved_by != null
-                              && Parents.is_active.Equals(true)
+                            
                               && Parents.user_id == user_id
-                              || User.First_approver_id == user_id
+                              && (User.First_approver_id == user_id
                                || User.Second_approver_id == user_id
                                 || User.Third_approver_id == user_id
-                                 || User.Fourth_approver_id == user_id
-
+                                 || User.Fourth_approver_id == user_id)
+                         
+                              && Parents.is_active.Equals(true)
+                                        && Parents.is_approved_by != null
 
                             select new
                             {
@@ -415,11 +433,6 @@ namespace MvcTaskManager.Controllers
 
 
 
-    //[HttpGet]
-    //[Route("api/material_request_master/cancel/{user_idx}")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-
-    //public async Task<IActionResult> GetCancelMRSData(int user_idx)
 
 
 
@@ -548,13 +561,13 @@ namespace MvcTaskManager.Controllers
 
                             where Parents.mrs_id == Parents.mrs_id
                               //&& Parents.is_approved_by != null
-                              && Parents.is_active.Equals(false)
-                              && Parents.user_id == user_idx
-                              || User.First_approver_id == user_idx
-                               || User.Second_approver_id == user_idx
-                                || User.Third_approver_id == user_idx
-                                 || User.Fourth_approver_id == user_idx
-
+                         
+                            && Parents.user_id == user_idx
+                            && (User.First_approver_id == user_idx
+                            || User.Second_approver_id == user_idx
+                            || User.Third_approver_id == user_idx
+                            || User.Fourth_approver_id == user_idx)
+                            && Parents.is_active.Equals(false)
 
                             select new
                             {
@@ -785,7 +798,7 @@ namespace MvcTaskManager.Controllers
         return null;
       }
     }
-
+    
 
     [HttpPut]
     [Route("api/material_request_master/activate")]

@@ -10,7 +10,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: 13px Roboto, "Helvetica Neue", sans-serif;
 }
 .bg-all {
   background-color: #36474f;
@@ -656,6 +656,12 @@ td.mat-footer-cell:first-of-type {
   margin-bottom: 2px;
   min-width: 360px;
   color: black;
+}
+.partition-div {
+  background-color: #36474f;
+  color: white;
+  text-align: center;
+  font: 12px Roboto, "Helvetica Neue", sans-serif;
 }
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
