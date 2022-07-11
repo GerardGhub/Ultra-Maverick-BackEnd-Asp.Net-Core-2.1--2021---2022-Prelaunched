@@ -32,6 +32,7 @@ namespace MvcTaskManager.Controllers
 
 
       string UserRole = "";
+      bool IsRequestor = false;
       int ApproverOne = 0;
       int ApproverTwo = 0;
       int ApproverThree = 0;
@@ -47,7 +48,8 @@ namespace MvcTaskManager.Controllers
                                         ApproverOne = User.First_approver_id,
                                         ApproverTwo = User.Second_approver_id,
                                         ApproverThree = User.Third_approver_id,
-                                        ApproverFour = User.Fourth_approver_id
+                                        ApproverFour = User.Fourth_approver_id,
+                                        IsRequestor = User.Requestor
                                       })
 
                        .ToListAsync();
@@ -59,6 +61,8 @@ namespace MvcTaskManager.Controllers
         ApproverTwo = (int)item.ApproverTwo;
         ApproverThree = (int)item.ApproverThree;
         ApproverFour = (int)item.ApproverFour;
+        IsRequestor = item.IsRequestor;
+
 
       }
       //return BadRequest(ApproverOne);
@@ -160,6 +164,87 @@ namespace MvcTaskManager.Controllers
                             })
 
                         .ToListAsync();
+
+        return Ok(result);
+      }
+      else if(IsRequestor == true)
+      {
+        var result = await (from Parents in db.Material_request_master
+                            join User in db.Users on Parents.user_id equals User.User_Identity
+                            join Department in db.Department on Parents.department_id equals Department.department_id
+
+                            where Parents.mrs_id == Parents.mrs_id
+
+                              && Parents.user_id == user_id
+                              //|| User.First_approver_id == user_id
+                              //|| User.Second_approver_id == user_id
+                              //|| User.Third_approver_id == user_id
+                              //|| User.Fourth_approver_id == user_id
+
+                              && Parents.is_approved_by == null
+                              && Parents.is_active.Equals(true)
+
+                            select new
+                            {
+                              Parents.mrs_id,
+                              Parents.mrs_req_desc,
+                              Parents.mrs_requested_date,
+                              Parents.mrs_requested_by,
+                              Parents.department_id,
+                              Department.department_name,
+                              Parents.is_cancel_by,
+                              Parents.is_cancel_reason,
+                              Parents.is_cancel_date,
+                              Parents.is_active,
+                              Parents.is_approved_by,
+                              Parents.is_approved_date,
+                              Parents.updated_by,
+                              Parents.updated_date,
+                              Parents.is_prepared,
+                              Parents.is_for_validation,
+                              Parents.user_id,
+                              Parents.mrs_date_needed,
+                              User.First_approver_id,
+                              User.First_approver_name,
+                              User.Second_approver_id,
+                              User.Second_approver_name,
+                              User.Third_approver_id,
+                              User.Third_approver_name,
+                              User.Fourth_approver_id,
+                              User.Fourth_approver_name,
+                              total_request_count = (from Childs in db.Material_request_logs
+                                                     where Parents.mrs_id == Childs.mrs_id
+                                                     && Childs.is_active.Equals(true)
+                                                     select Parents).Count(),
+
+
+
+                              material_request_logs =
+                                               from Childs in db.Material_request_logs
+                                               where Parents.mrs_id == Childs.mrs_id && Childs.is_active.Equals(true)
+                                               select new
+                                               {
+                                                 Childs.id,
+                                                 Childs.mrs_id,
+                                                 Childs.mrs_item_code,
+                                                 Childs.mrs_item_description,
+                                                 Childs.mrs_order_qty,
+                                                 Childs.mrs_uom,
+                                                 Childs.mrs_served_qty,
+                                                 Childs.mrs_remarks,
+                                                 Childs.mrs_date_requested,
+                                                 Childs.is_active,
+                                                 Childs.is_prepared,
+                                                 Childs.is_prepared_date,
+                                                 Childs.is_prepared_by,
+                                                 Childs.is_wh_checker_cancel
+
+
+
+                                               }
+                            })
+
+                      .ToListAsync();
 
         return Ok(result);
       }
@@ -271,13 +356,16 @@ namespace MvcTaskManager.Controllers
 
   
       string UserRole = "";
+      bool IsRequestor = false;
+
 
       var CheckifUserIsAdmin = await (from User in db.Users
 
                                       where User.User_Identity == user_id
                                       select new
                                       {
-                                        UserRole = User.UserRole
+                                        UserRole = User.UserRole,
+                                        IsRequestor = User.Requestor
                                       })
 
                        .ToListAsync();
@@ -285,9 +373,10 @@ namespace MvcTaskManager.Controllers
       foreach (var item in CheckifUserIsAdmin)
       {
         UserRole = item.UserRole;
+        IsRequestor = item.IsRequestor;
       }
 
-
+      //return BadRequest(IsRequestor);
 
       if (UserRole == "Admin")
       {
@@ -366,6 +455,94 @@ namespace MvcTaskManager.Controllers
 
         return Ok(result);
       }
+      else if(IsRequestor == true)
+      {
+        //Start
+        var result = await (from Parents in db.Material_request_master
+                            join User in db.Users on Parents.user_id equals User.User_Identity
+                            join Department in db.Department on Parents.department_id equals Department.department_id
+
+                            where Parents.mrs_id == Parents.mrs_id
+
+                              && Parents.user_id == user_id
+                              //|| User.First_approver_id == user_id
+                              //|| User.Second_approver_id == user_id
+                              //|| User.Third_approver_id == user_id
+                              //|| User.Fourth_approver_id == user_id
+
+                              && Parents.is_active.Equals(true)
+                                        && Parents.is_approved_by != null
+
+                            select new
+                            {
+                              Parents.mrs_id,
+                              Parents.mrs_req_desc,
+                              Parents.mrs_requested_date,
+                              Parents.mrs_requested_by,
+                              Parents.department_id,
+                              Department.department_name,
+                              Parents.is_cancel_by,
+                              Parents.is_cancel_reason,
+                              Parents.is_cancel_date,
+                              Parents.is_active,
+                              Parents.is_approved_by,
+                              Parents.is_approved_date,
+                              Parents.updated_by,
+                              Parents.updated_date,
+                              Parents.is_prepared,
+                              Parents.is_for_validation,
+                              Parents.user_id,
+                              Parents.mrs_date_needed,
+                              User.First_approver_id,
+                              User.First_approver_name,
+                              User.Second_approver_id,
+                              User.Second_approver_name,
+                              User.Third_approver_id,
+                              User.Third_approver_name,
+                              User.Fourth_approver_id,
+                              User.Fourth_approver_name,
+                              total_request_count = (from Childs in db.Material_request_logs
+                                                     where Parents.mrs_id == Childs.mrs_id
+                                                     && Childs.is_active.Equals(true)
+                                                     select Parents).Count(),
+
+
+
+                              material_request_logs =
+                                               from Childs in db.Material_request_logs
+                                               where Parents.mrs_id == Childs.mrs_id && Childs.is_active.Equals(true)
+                                               select new
+                                               {
+                                                 Childs.id,
+                                                 Childs.mrs_id,
+                                                 Childs.mrs_item_code,
+                                                 Childs.mrs_item_description,
+                                                 Childs.mrs_order_qty,
+                                                 Childs.mrs_uom,
+                                                 Childs.mrs_served_qty,
+                                                 Childs.mrs_remarks,
+                                                 Childs.mrs_date_requested,
+                                                 Childs.is_active,
+                                                 Childs.is_prepared,
+                                                 Childs.is_prepared_date,
+                                                 Childs.is_prepared_by,
+                                                 Childs.is_wh_checker_cancel
+
+
+
+                                               }
+                            })
+
+                      .ToListAsync();
+
+        return Ok(result);
+
+
+        //End
+
+      }
+
+
       else
       {
         //return NoContent();
@@ -376,10 +553,10 @@ namespace MvcTaskManager.Controllers
                             where Parents.mrs_id == Parents.mrs_id
                             
                               && Parents.user_id == user_id
-                              && (User.First_approver_id == user_id
-                               || User.Second_approver_id == user_id
-                                || User.Third_approver_id == user_id
-                                 || User.Fourth_approver_id == user_id)
+                              || User.First_approver_id == user_id
+                              || User.Second_approver_id == user_id
+                              || User.Third_approver_id == user_id
+                              || User.Fourth_approver_id == user_id
                          
                               && Parents.is_active.Equals(true)
                                         && Parents.is_approved_by != null
@@ -467,13 +644,15 @@ namespace MvcTaskManager.Controllers
 
 
       string UserRole = "";
+      bool IsRequestor = false;
 
       var CheckifUserIsAdmin = await (from User in db.Users
 
                                       where User.User_Identity == user_idx
                                       select new
                                       {
-                                        UserRole = User.UserRole
+                                        UserRole = User.UserRole,
+                                        IsRequestor = User.Requestor
                                       })
 
                        .ToListAsync();
@@ -481,6 +660,7 @@ namespace MvcTaskManager.Controllers
       foreach (var item in CheckifUserIsAdmin)
       {
         UserRole = item.UserRole;
+        IsRequestor = item.IsRequestor;
       }
 
 
@@ -494,11 +674,7 @@ namespace MvcTaskManager.Controllers
                             where Parents.mrs_id == Parents.mrs_id
                               //&& Parents.is_approved_by != null
                               && Parents.is_active.Equals(false)
-                            //&& Parents.user_id == user_id
-                            //|| User.First_approver_id == user_id
-                            // || User.Second_approver_id == user_id
-                            //  || User.Third_approver_id == user_id
-                            //   || User.Fourth_approver_id == user_id
+               
 
 
                             select new
@@ -573,6 +749,97 @@ namespace MvcTaskManager.Controllers
 
         return Ok(result);
       }
+      else if (IsRequestor == true)
+      {
+        var result = await (from Parents in db.Material_request_master
+                            join User in db.Users on Parents.user_id equals User.User_Identity
+                            join Department in db.Department on Parents.department_id equals Department.department_id
+
+                            where Parents.mrs_id == Parents.mrs_id
+                            //&& Parents.is_approved_by != null
+
+                            && Parents.user_id == user_idx
+                            //|| User.First_approver_id == user_idx
+                            //|| User.Second_approver_id == user_idx
+                            //|| User.Third_approver_id == user_idx
+                            //|| User.Fourth_approver_id == user_idx
+                            && Parents.is_active.Equals(false)
+
+                            select new
+                            {
+                              Parents.mrs_id,
+                              Parents.mrs_req_desc,
+                              Parents.mrs_requested_date,
+                              Parents.mrs_requested_by,
+                              Parents.department_id,
+                              Department.department_name,
+                              Parents.is_cancel_by,
+                              Parents.is_cancel_reason,
+                              Parents.is_cancel_date,
+                              Parents.is_active,
+                              Parents.is_approved_by,
+                              Parents.is_approved_date,
+                              Parents.updated_by,
+                              Parents.updated_date,
+                              Parents.is_prepared,
+                              Parents.is_for_validation,
+                              Parents.user_id,
+                              Parents.mrs_date_needed,
+                              User.First_approver_id,
+                              User.First_approver_name,
+                              User.Second_approver_id,
+                              User.Second_approver_name,
+                              User.Third_approver_id,
+                              User.Third_approver_name,
+                              User.Fourth_approver_id,
+                              User.Fourth_approver_name,
+                              total_request_count = (from Childs in db.Material_request_logs
+                                                     where Parents.mrs_id == Childs.mrs_id
+                                                     && Childs.is_active.Equals(true)
+                                                     select Parents).Count(),
+
+
+
+                              material_request_logs =
+                                               from Childs in db.Material_request_logs
+                                               where Parents.mrs_id == Childs.mrs_id && Childs.is_active.Equals(true)
+                                               select new
+                                               {
+                                                 Childs.id,
+                                                 Childs.mrs_id,
+                                                 Childs.mrs_item_code,
+                                                 Childs.mrs_item_description,
+                                                 Childs.mrs_order_qty,
+                                                 Childs.mrs_uom,
+                                                 Childs.mrs_served_qty,
+                                                 Childs.mrs_remarks,
+                                                 Childs.mrs_date_requested,
+                                                 Childs.is_active,
+                                                 Childs.is_prepared,
+                                                 Childs.is_prepared_date,
+                                                 Childs.is_prepared_by,
+                                                 Childs.is_wh_checker_cancel
+
+
+
+                                               }
+                            })
+
+                    .ToListAsync();
+
+        if (result.Count > 0)
+        {
+
+        }
+        else
+        {
+          return NoContent();
+        }
+
+        return Ok(result);
+      }
+
+
       else
       {
         //return NoContent();
@@ -584,10 +851,10 @@ namespace MvcTaskManager.Controllers
                               //&& Parents.is_approved_by != null
                          
                             && Parents.user_id == user_idx
-                            && (User.First_approver_id == user_idx
+                            || User.First_approver_id == user_idx
                             || User.Second_approver_id == user_idx
                             || User.Third_approver_id == user_idx
-                            || User.Fourth_approver_id == user_idx)
+                            || User.Fourth_approver_id == user_idx
                             && Parents.is_active.Equals(false)
 
                             select new

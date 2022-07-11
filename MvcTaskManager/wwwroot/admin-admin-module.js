@@ -21489,7 +21489,6 @@ class ProjectsComponent {
     getChecklist() {
         this.qcService.getQcChecklist().subscribe((response) => {
             this.qcchecklist = response;
-            console.log(response);
         });
     }
     mapArrayData(ProjectID) {
@@ -22263,7 +22262,7 @@ class ProjectsComponent {
                 this.projects[this.editIndex] = p;
                 this.InsertANewPartialReceiving();
                 // this.InsertPartialDatainMasterTable();
-                //  remove muna itossss
+                //  remove muna ito
                 this.editProject.projectID = null;
                 this.editProject.projectName = null;
                 this.editProject.dateOfStart = null;
