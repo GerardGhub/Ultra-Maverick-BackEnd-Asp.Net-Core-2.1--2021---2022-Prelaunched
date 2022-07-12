@@ -121,13 +121,13 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<CheckListParameters>> Put([FromBody] CheckListParameters RequestParam)
     {
 
-      var DataInfo = await db.Checklist_paramaters
-        .Where(temp => temp.cp_description == RequestParam.cp_description).ToListAsync();
+      //var DataInfo = await db.Checklist_paramaters
+      //  .Where(temp => temp.cp_description == RequestParam.cp_description).ToListAsync();
 
-      if (DataInfo.Count > 0)
-      {
-        return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
-      }
+      //if (DataInfo.Count > 0)
+      //{
+      //  return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      //}
 
       CheckListParameters existingDataStatus = await db.Checklist_paramaters.Where(temp => temp.cp_params_id == RequestParam.cp_params_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
@@ -135,8 +135,8 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.cp_description = RequestParam.cp_description;
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = RequestParam.updated_by;
-        existingDataStatus.parent_chck_id_fk = RequestParam.parent_chck_id_fk;
-        existingDataStatus.parent_chck_id = RequestParam.parent_chck_id_fk;
+        //existingDataStatus.parent_chck_id_fk = RequestParam.parent_chck_id_fk;
+        //existingDataStatus.parent_chck_id = RequestParam.parent_chck_id_fk;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }

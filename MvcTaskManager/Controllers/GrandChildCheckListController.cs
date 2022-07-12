@@ -76,13 +76,13 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<GrandChildCheckList>> Put([FromBody] GrandChildCheckList GrandChildRequestParam)
     {
 
-      var ParentCheckListDataInfo = await db.Grandchild_checklist
-        .Where(temp => temp.gc_description == GrandChildRequestParam.gc_description).ToListAsync();
+      //var ParentCheckListDataInfo = await db.Grandchild_checklist
+      //  .Where(temp => temp.gc_description == GrandChildRequestParam.gc_description).ToListAsync();
 
-      if (ParentCheckListDataInfo.Count > 0)
-      {
-        return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
-      }
+      //if (ParentCheckListDataInfo.Count > 0)
+      //{
+      //  return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      //}
 
 
       var CheckChildForeignKey = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(GrandChildRequestParam.gc_child_key)
@@ -105,8 +105,8 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = GrandChildRequestParam.updated_by;
         existingDataStatus.is_manual = GrandChildRequestParam.is_manual;
-        existingDataStatus.parent_chck_id_fk = GrandChildRequestParam.parent_chck_id_fk;
-        existingDataStatus.parent_chck_id = GrandChildRequestParam.parent_chck_id_fk;
+        //existingDataStatus.parent_chck_id_fk = GrandChildRequestParam.parent_chck_id_fk;
+        //existingDataStatus.parent_chck_id = GrandChildRequestParam.parent_chck_id_fk;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
