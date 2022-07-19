@@ -83,7 +83,7 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var GetGranchildDescription = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.gc_id)
+      var GetGranchildDescription = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
       ).ToListAsync();
 
 
@@ -114,7 +114,6 @@ namespace MvcTaskManager.Controllers
         Cp_params_id = existingProject.cp_params_id,
         Cp_description = existingProject.cp_description,
         Cp_gchild_key = existingProject.cp_gchild_key,
-        //Cp_bool_status = existingProject.cp_bool_status,
         Is_active = existingProject.is_active,
         Cp_added_by = existingProject.cp_added_by,
         Cp_date_added = existingProject.cp_date_added,
