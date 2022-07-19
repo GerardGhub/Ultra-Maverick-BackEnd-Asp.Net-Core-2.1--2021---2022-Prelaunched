@@ -13,6 +13,7 @@ namespace MvcTaskManager.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int gc_id { get; set; }
     public int cc_id { get; set; }
+    public string cc_description { get; set; }
     public string gc_child_key { get; set; }
     public string parent_chck_details { get; set; }
     public string gc_bool_status { get; set; }
@@ -36,6 +37,8 @@ namespace MvcTaskManager.Models
     }
     public ICollection<DynamicChecklistLogger> DynamicChecklistLoggers { get; set; }
     public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
+ 
 
 
   }

@@ -267,11 +267,11 @@ namespace MvcTaskManager.Controllers
 
         ListViewModel.Add(new CheckListParametersViewModel()
         {
-          Cp_description = form.cp_description,
+          Gc_id = form.gc_id,
           Cp_params_id = form.cp_params_id,
-          Cp_gchild_key = form.cp_gchild_key,
+          Cp_description = form.cp_description,
+          Parent_chck_id_fk = form.parent_chck_id_fk,
           Parent_chck_details = form.parent_chck_details,
-          //Cp_bool_status = form.cp_bool_status,
           Cp_added_by = form.cp_added_by,
           Cp_date_added = form.cp_date_added,
           Updated_at = form.updated_at,
@@ -279,7 +279,7 @@ namespace MvcTaskManager.Controllers
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
           Is_active = form.is_active,
-          Parent_chck_id_fk = form.parent_chck_id_fk
+          Cp_gchild_key = form.cp_gchild_key,
 
 
         });

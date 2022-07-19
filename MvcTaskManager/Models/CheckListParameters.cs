@@ -13,6 +13,7 @@ namespace MvcTaskManager.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int cp_params_id { get; set; }
     public int gc_id { get; set; }
+    public string gc_description { get; set; }
     public string cp_gchild_key { get; set; }
     public string parent_chck_details { get; set; }
 

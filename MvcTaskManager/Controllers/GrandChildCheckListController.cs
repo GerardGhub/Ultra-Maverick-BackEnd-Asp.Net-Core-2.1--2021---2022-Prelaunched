@@ -26,7 +26,9 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetGrandChildCheckList ()
     {
 
-      List<GrandChildCheckList> allGrandChildCheckList = await db.Grandchild_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<GrandChildCheckList> allGrandChildCheckList = await db.Grandchild_checklist
+        //.Include("ChildChecklists")
+        .Where(temp => temp.is_active.Equals(true)).ToListAsync();
 
 
       List<GrandChildCheckListViewModel> ListViewModel = new List<GrandChildCheckListViewModel>();
@@ -45,10 +47,14 @@ namespace MvcTaskManager.Controllers
 
         ListViewModel.Add(new GrandChildCheckListViewModel()
         {
-          Gc_description = form.gc_description,
+
           Gc_id = form.gc_id,
-          Gc_child_key = form.gc_child_key,
+          Gc_description = form.gc_description,
+          Cc_id = form.cc_id,
+          Cc_Description = form.cc_description,
+          Parent_chck_id_fk = form.parent_chck_id_fk,
           Parent_chck_details = form.parent_chck_details,
+          Gc_child_key =  form.gc_child_key,
           Gc_bool_status = form.gc_bool_status,
           Gc_added_by = form.gc_added_by,
           Gc_date_added = form.gc_date_added,
@@ -57,8 +63,7 @@ namespace MvcTaskManager.Controllers
           Deactivated_at = form.deactivated_at,
           Deactivated_by = form.deactivated_by,
           Is_active = form.is_active,
-          Is_manual = form.is_manual,
-          Parent_chck_id_fk = form.parent_chck_id_fk
+          Is_manual = form.is_manual
 
 
         });
@@ -231,9 +236,6 @@ namespace MvcTaskManager.Controllers
       }
 
 
-     
-
-
 
       var CheckChildForeignKey = await db.Child_checklist.Where(temp => temp.cc_id.ToString() == ChildRequestParam.gc_child_key
       ).ToListAsync();
@@ -256,7 +258,10 @@ namespace MvcTaskManager.Controllers
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
 
- 
+    
+
+
+
       // Start of Getting the Parent Description Key
       var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(ChildRequestParam.gc_child_key)
     ).ToListAsync();
@@ -264,17 +269,20 @@ namespace MvcTaskManager.Controllers
 
       string ParentKeyDescription = "";
       int ParentPrimaryKey = 0;
+      string ChildDescription = "";
       foreach (var form in ChildParentKeyGetandSet)
       {
         ParentKeyDescription = form.parent_chck_details;
         ParentPrimaryKey = form.parent_chck_id;
+        ChildDescription = form.cc_description;
       }
 
+      ChildRequestParam.cc_description = ChildDescription;
       ChildRequestParam.parent_chck_details = ParentKeyDescription;
       ChildRequestParam.parent_chck_id = ParentPrimaryKey;
       ChildRequestParam.parent_chck_id_fk = ParentPrimaryKey;
       ChildRequestParam.cc_id = Convert.ToInt32(ChildRequestParam.gc_child_key);
-      //End of getting the Child Key
+
 
       db.Grandchild_checklist.Add(ChildRequestParam);
       await db.SaveChangesAsync();

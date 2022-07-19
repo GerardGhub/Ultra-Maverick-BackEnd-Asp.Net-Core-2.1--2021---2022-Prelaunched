@@ -8,7 +8,9 @@ namespace MvcTaskManager.Models
   public class GrandChildCheckListViewModel
   {
     public int Gc_id { get; set; }
+    public string Gc_description { get; set; }
     public int Cc_id { get; set; }
+    public string Cc_Description { get; set; }
     public string Gc_child_key { get; set; }
     public string Parent_chck_details { get; set; }
     public string Gc_bool_status { get; set; }
@@ -19,9 +21,10 @@ namespace MvcTaskManager.Models
     public string Updated_by { get; set; }
     public string Deactivated_by { get; set; }
     public string Deactivated_at { get; set; }
-    public string Gc_description { get; set; }
     public string Is_manual { get; set; }
     public int Parent_chck_id_fk { get; set; }
     public int Parent_chck_id { get; set; }
+
+
   }
 }
