@@ -82,6 +82,20 @@ namespace MvcTaskManager.Controllers
         ParentPrimaryKey = form.parent_chck_id;
       }
 
+
+      var GetGranchildDescription = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.gc_id)
+      ).ToListAsync();
+
+
+      string GCDescription = "";
+  
+      foreach (var form in GetGranchildDescription)
+      {
+
+        GCDescription = form.gc_description;
+      }
+
+      RequestParam.gc_description = GCDescription;
       RequestParam.parent_chck_details = ParentKeyDescription;
       RequestParam.parent_chck_id = ParentPrimaryKey;
       RequestParam.parent_chck_id_fk = ParentPrimaryKey;
@@ -268,6 +282,7 @@ namespace MvcTaskManager.Controllers
         ListViewModel.Add(new CheckListParametersViewModel()
         {
           Gc_id = form.gc_id,
+          Gc_description = form.gc_description,
           Cp_params_id = form.cp_params_id,
           Cp_description = form.cp_description,
           Parent_chck_id_fk = form.parent_chck_id_fk,
