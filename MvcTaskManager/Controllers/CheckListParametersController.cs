@@ -263,8 +263,8 @@ namespace MvcTaskManager.Controllers
     {
 
       List<CheckListParameters> allParametersCheckList =
-        await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true)).ToListAsync();
-
+        await db.Checklist_paramaters.ToListAsync();
+      //await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true)).ToListAsync();
       List<CheckListParametersViewModel> ListViewModel = new List<CheckListParametersViewModel>();
       if (allParametersCheckList.Count > 0)
       {
