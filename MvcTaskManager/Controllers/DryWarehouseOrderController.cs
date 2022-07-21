@@ -25,13 +25,49 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/dry_wh_orders_checklist_distinct")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<List<DryWhOrder>> GetDistinctPreparedOrders()
+    public async Task<ActionResult<DryWhOrder>> GetDistinctPreparedOrders()
     {
-      string Activated = "1";
-      string DeActivated = "0";
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new {p.is_approved_prepa_date, p.fox}).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
-      && temp.is_for_validation.Contains(DeActivated) && temp.is_approved != null && temp.is_prepared != null && temp.is_wh_approved == null || temp.force_prepared_status != null).ToListAsync();
-      return StoreOrderCheckList;
+      //string Activated = "1";
+      //string DeActivated = "0";
+      //List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new {p.is_approved_prepa_date, p.fox}).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
+      //&& temp.is_for_validation.Contains(DeActivated)
+      //&& temp.is_approved != null
+      //&& temp.is_prepared != null
+      //&& temp.is_wh_approved == null
+      //|| temp.force_prepared_status != null).ToListAsync();
+      //return StoreOrderCheckList;
+
+      var result = await (from DryWhOrder in db.Dry_wh_orders
+                            //join User in db.Users on Parents.user_id equals User.User_Identity
+                            //join Department in db.Department on Parents.department_id equals Department.department_id
+
+                          where DryWhOrder.primary_id == DryWhOrder.primary_id
+                            //&& Parents.is_approved_by == null
+                            && DryWhOrder.is_active.Equals(true)
+
+
+
+                          select new
+                          {
+                            DryWhOrder.primary_id,
+                            DryWhOrder.is_approved_prepa_date,
+                            DryWhOrder.store_name
+                            //,
+
+                            //total_request_count = (from DryWhOrder in db.Material_request_logs
+                            //                       where Parents.mrs_id == Childs.mrs_id
+                            //                       && Childs.is_active.Equals(true)
+                            //                       select Parents).Count(),
+
+
+
+
+                          })
+
+               .ToListAsync();
+
+      return Ok(result);
+
 
 
     }
@@ -42,9 +78,9 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<List<DryWhOrder>> GetDistinctPreparedOrderPartialCancel()
     {
-      string Activated = "1";
+
       string DeActivated = "0";
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
+      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
         && temp.is_for_validation.Contains(DeActivated)
         && temp.is_approved != null && temp.is_prepared != null
         && temp.is_wh_approved == null
@@ -63,8 +99,12 @@ namespace MvcTaskManager.Controllers
     {
       string Activated = "1";
       string DeActivated = "0";
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
-        && temp.is_for_validation.Contains(DeActivated) && temp.is_approved != null && temp.is_prepared != null && temp.is_wh_approved != null || temp.force_prepared_status != null).ToListAsync();
+      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      && temp.is_for_validation.Contains(DeActivated)
+      && temp.is_approved != null
+      && temp.is_prepared != null
+      && temp.is_wh_approved != null
+      || temp.force_prepared_status != null).ToListAsync();
       return StoreOrderCheckList;
 
     }
@@ -77,11 +117,14 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<List<DryWhOrder>> GetStoreOrders()
     {
-      string Activated = "1";
-      string DeActivated = "0";
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date }).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
-        && temp.is_for_validation.Contains(DeActivated) && temp.is_approved != null && temp.is_prepared == null || temp.force_prepared_status != null).ToListAsync();
-      return StoreOrderCheckList;
+        string Activated = "1";
+        string DeActivated = "0";
+        List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+        && temp.is_for_validation.Contains(DeActivated)
+        && temp.is_approved != null
+        && temp.is_prepared == null
+        || temp.force_prepared_status != null).ToListAsync();
+        return StoreOrderCheckList;
     }
 
 
@@ -98,7 +141,7 @@ namespace MvcTaskManager.Controllers
 
     string Activated = "1";
     string DeActivated = "0";
-    List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.total_state_repack_cancelled_qty }).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
+    List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.total_state_repack_cancelled_qty }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
     && temp.is_for_validation.Contains(DeActivated) && temp.is_approved != null && temp.is_prepared != null && temp.is_wh_approved == null && temp.total_state_repack_cancelled_qty != null && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
     return StoreOrderCheckList;
     }
@@ -111,7 +154,7 @@ namespace MvcTaskManager.Controllers
     {
       string Activated = "1";
    
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.Where(temp => temp.is_active.Contains(Activated) && temp.is_wh_checker_cancel.Contains(Activated)).ToListAsync();
+      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.is_wh_checker_cancel.Contains(Activated)).ToListAsync();
       return StoreOrderCheckList;
 
     }
@@ -136,7 +179,7 @@ namespace MvcTaskManager.Controllers
       string FoxStoreCode = searchIndex;
       if (searchBy == "store_name")
 
-        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Contains(is_activated)
+        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true)
         && temp.is_approved_prepa_date.Contains(ApprovedPreparationDate)
         && temp.fox.Contains(FoxStoreCode)
         && temp.is_wh_checker_cancel == null
@@ -156,7 +199,7 @@ namespace MvcTaskManager.Controllers
           Route = project.route,
           Area = project.area,
           Category = project.category,
-          Is_active = project.is_active,
+          Is_active = project.is_active.ToString(),
           Is_for_validation = project.is_for_validation,
           Is_approved = project.is_approved,
           Is_prepared = project.is_prepared,
@@ -191,15 +234,14 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> SearchPartialCancel(string searchBy, string searchText, string searchIndex)
     {
 
-      //string data_is_pending = "1";
-      string is_activated = "1";
+
       List<DryWhOrder> projects = null;
 
       string ApprovedPreparationDate = searchText;
       string FoxStoreCode = searchIndex;
       if (searchBy == "store_name")
 
-        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Contains(is_activated) && temp.is_approved_prepa_date.Contains(ApprovedPreparationDate) && temp.fox.Contains(FoxStoreCode) && temp.is_wh_checker_cancel != null).ToListAsync();
+        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.is_approved_prepa_date.Contains(ApprovedPreparationDate) && temp.fox.Contains(FoxStoreCode) && temp.is_wh_checker_cancel != null).ToListAsync();
 
 
       List<DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
@@ -214,7 +256,7 @@ namespace MvcTaskManager.Controllers
           Route = project.route,
           Area = project.area,
           Category = project.category,
-          Is_active = project.is_active,
+          Is_active = project.is_active.ToString(),
           Is_for_validation = project.is_for_validation,
           Is_approved = project.is_approved,
           Is_prepared = project.is_prepared,

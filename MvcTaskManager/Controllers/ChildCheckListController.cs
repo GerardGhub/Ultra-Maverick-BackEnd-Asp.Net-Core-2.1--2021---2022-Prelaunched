@@ -196,7 +196,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetChildCheckList(int parent_fk)
     {
 
-      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.is_active.Equals(true) && temp.cc_parent_key == parent_fk).ToListAsync();
+      List<ChildCheckList> allChildCheckList = await db.Child_checklist.Where(temp => temp.cc_parent_key == parent_fk).ToListAsync();
 
 
       List<ChildCheckListViewModel> ListViewModel = new List<ChildCheckListViewModel>();

@@ -189,47 +189,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ParentCheckList>> GetDynamicChecklist()
     {
 
-      //List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
-
-
-      //var DynamicCheckList = await db.Parent_checklist
-
-      //  .Include(a => a.ChildCheckLists)
-      //  .ThenInclude(a1 => a1.GrandChildCheckLists)
-      //  .ThenInclude(a2 => a2.CheckListParameters)
-
-
-      //  .Where(d => d.is_active.Equals(true))
-      //  .ToListAsync();
-
-      //if (DynamicCheckList == null)
-      //{
-      //  return NotFound();
-      //}
-
-      //List<ParentCheckList> ViewModel = new List<ParentCheckList>();
-
-      //foreach (var material in DynamicCheckList)
-      //{
-      //  ViewModel.Add(new ParentCheckList()
-      //  {
-      //    parent_chck_id = material.parent_chck_id,
-      //    parent_chck_details = material.parent_chck_details,
-      //    parent_chck_added_by = material.parent_chck_added_by,
-      //    parent_chck_date_added = material.parent_chck_date_added,
-      //    is_active = material.is_active,
-      //    ChildCheckLists = material.ChildCheckLists
-
-
-
-
-
-      //  });
-
-      //}
-
-
-      //return Ok(ViewModel);
+   
 
       var result = await (from ParentCheckList in db.Parent_checklist
                           //join User in db.Users on Parents.user_id equals User.User_Identity

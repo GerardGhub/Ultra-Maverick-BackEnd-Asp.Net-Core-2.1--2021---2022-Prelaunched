@@ -17,7 +17,7 @@ namespace MvcTaskManager.Models
     public string route { get; set; }
     public string area { get; set; }
     public string category { get; set; }
-    public string is_active { get; set; }
+    public bool is_active { get; set; }
     public string is_for_validation { get; set; }
     public string is_approved { get; set; }
     public string is_prepared { get; set; }
