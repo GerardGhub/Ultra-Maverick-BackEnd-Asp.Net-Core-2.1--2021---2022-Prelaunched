@@ -68,6 +68,7 @@ namespace MvcTaskManager.Identity
 
     public DbSet<InternalOrderActivationRemarks> internal_order_activation_remarks { get; set; }
     public DbSet<Allocation_Logs> Allocation_Logs { get; set; }
+    public DbSet<DryWhOrderParent> Dry_Wh_Order_Parent { get; set; }
     //public DbSet<CheckListParameters> AspNetRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

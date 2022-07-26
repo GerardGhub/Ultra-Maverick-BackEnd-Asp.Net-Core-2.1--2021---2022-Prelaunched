@@ -49,5 +49,7 @@ namespace MvcTaskManager.Models
     public string logic_return_date { get; set; }
     public string logic_return_reason { get; set; }
 
+    public int FK_dry_wh_orders_parent_id { get; set; }
+
   }
 }
