@@ -67,6 +67,7 @@ namespace MvcTaskManager.Identity
     public DbSet<DynamicChecklistLogger> dynamic_checklist_logger { get; set; }
 
     public DbSet<InternalOrderActivationRemarks> internal_order_activation_remarks { get; set; }
+    public DbSet<Allocation_Logs> Allocation_Logs { get; set; }
     //public DbSet<CheckListParameters> AspNetRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

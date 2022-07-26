@@ -47,13 +47,46 @@ namespace MvcTaskManager.Controllers
       }
 
 
-      var CheckListParamsDataInfo = await db.Checklist_paramaters.Where(temp => temp.cp_description == RequestParam.cp_description
-      ).ToListAsync();
+      var CheckListParamsDataInfo = await db.Checklist_paramaters
+        .Where(temp => temp.cp_description == RequestParam.cp_description).ToListAsync();
 
-      if (CheckListParamsDataInfo.Count > 0)
+      if (RequestParam.cp_description == "yes")
       {
-        return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+
       }
+      else if (RequestParam.cp_description == "manual")
+      {
+
+      }
+      else
+      {
+
+        if (CheckListParamsDataInfo.Count > 0)
+        {
+          return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+        }
+     
+
+      }
+
+      //if (CheckListParamsDataInfo.Count > 0)
+      //{
+
+      //  var CheckListParamsDataInfoForYes = await db.Checklist_paramaters
+      //    .Where(temp => temp.cp_description == RequestParam.cp_description
+      //      ).ToListAsync();
+
+      //  return BadRequest(CheckListParamsDataInfo.Count());
+
+      //  //return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      //}
+      //else
+      //{
+      //  return Ok("Bading");
+      //}
+
+
+
 
       //  // Start of Getting the Child Key
       //  var GChildParentKeyGetandSet = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.cp_gchild_key)

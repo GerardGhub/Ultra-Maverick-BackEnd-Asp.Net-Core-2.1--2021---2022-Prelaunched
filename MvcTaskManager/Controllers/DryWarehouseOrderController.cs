@@ -25,10 +25,10 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/dry_wh_orders_checklist_distinct")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ActionResult<DryWhOrder>> GetDistinctPreparedOrders()
+    public async Task<ActionResult> GetDistinctPreparedOrders()
     {
       //string Activated = "1";
-      //string DeActivated = "0";
+      string DeActivated = "0";
       //List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new {p.is_approved_prepa_date, p.fox}).Select(g => g.First()).Where(temp => temp.is_active.Contains(Activated)
       //&& temp.is_for_validation.Contains(DeActivated)
       //&& temp.is_approved != null
@@ -37,36 +37,90 @@ namespace MvcTaskManager.Controllers
       //|| temp.force_prepared_status != null).ToListAsync();
       //return StoreOrderCheckList;
 
-      var result = await (from DryWhOrder in db.Dry_wh_orders
-                            //join User in db.Users on Parents.user_id equals User.User_Identity
-                            //join Department in db.Department on Parents.department_id equals Department.department_id
-
-                          where DryWhOrder.primary_id == DryWhOrder.primary_id
-                            //&& Parents.is_approved_by == null
-                            && DryWhOrder.is_active.Equals(true)
 
 
+      List<DryWhOrder> obj = new List<DryWhOrder>();
+      var results = (from a in db.Dry_wh_orders
+                     join b in db.Allocation_Logs on a.primary_id equals b.order_key
+               
+                     where
+                     a.is_for_validation.Contains(DeActivated) &&
+                     a.is_approved != null &&
+                     a.is_wh_approved == null &&
+                     a.is_active.Equals(true)
+                     || a.force_prepared_status != null
+                     //&& a.is_prepared != null
+                     //&& b.is_active.Equals(true) && c.is_active.Equals(true)
 
-                          select new
-                          {
-                            DryWhOrder.primary_id,
-                            DryWhOrder.is_approved_prepa_date,
-                            DryWhOrder.store_name
-                            //,
+                     //&& a.user_id == user_id
 
-                            //total_request_count = (from DryWhOrder in db.Material_request_logs
-                            //                       where Parents.mrs_id == Childs.mrs_id
-                            //                       && Childs.is_active.Equals(true)
-                            //                       select Parents).Count(),
+                     group a by new
+                     {
+                       a.is_approved_prepa_date,
+                       a.store_name,
+                       a.route,
+                       a.area,
+                       a.fox,                  
+                       a.category,
+                       a.is_active
+            
 
 
 
+                     } into total
 
-                          })
+                     select new
+             
+                     {
 
-               .ToListAsync();
+                       is_approved_prepa_date = total.Key.is_approved_prepa_date,
+                       store_name = total.Key.store_name,
+                       route = total.Key.route,
+                       area = total.Key.area,
+                       fox = total.Key.fox,
+                       category = total.Key.category,
+                       is_active = total.Key.is_active,
+                       qty = total.Sum(x => Convert.ToInt32(x.qty)),
+                       prepared_allocated_qty = total.Sum(x => Convert.ToInt32(x.prepared_allocated_qty)),
+                       total_state_repack = total.Count(),
+                  
+                       TotalPreparedItems = ( from Order in db.Dry_wh_orders
+                                             where total.Key.fox == Order.fox
+                                             && total.Key.is_approved_prepa_date == Order.is_approved_prepa_date
+                                             && total.Key.store_name == Order.store_name
+                                             && total.Key.route == Order.route
+                                             && Order.is_active.Equals(true)
+                                             && Order.is_prepared != null
+                                             select Order).Count()
+                    
+                
 
-      return Ok(result);
+                     }
+
+
+
+                    );
+
+
+      var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems).ToListAsync();
+
+
+      //return Ok(view_trim);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(GetAllPreparedItems);
+      });
+
+      if (GetAllPreparedItems.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
+
 
 
 
@@ -115,16 +169,101 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/store_orders")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<List<DryWhOrder>> GetStoreOrders()
+    public async Task<IActionResult> GetStoreOrders()
     {
-        string Activated = "1";
+
         string DeActivated = "0";
-        List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-        && temp.is_for_validation.Contains(DeActivated)
-        && temp.is_approved != null
-        && temp.is_prepared == null
-        || temp.force_prepared_status != null).ToListAsync();
-        return StoreOrderCheckList;
+      //List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      //&& temp.is_for_validation.Contains(DeActivated)
+      //&& temp.is_approved != null
+      //&& temp.is_prepared == null
+      //|| temp.force_prepared_status != null).ToListAsync();
+      //return StoreOrderCheckList;
+
+ 
+
+
+
+      List<DryWhOrder> obj = new List<DryWhOrder>();
+      var results = (from a in db.Dry_wh_orders
+                     join b in db.Allocation_Logs on a.primary_id equals b.order_key
+
+                     where
+                     a.is_for_validation.Contains(DeActivated) &&
+                     a.is_approved != null &&
+                     a.is_wh_approved == null &&
+                     a.is_active.Equals(true)
+                     || a.force_prepared_status != null
+                     //&& a.is_prepared != null
+                     //&& b.is_active.Equals(true) && c.is_active.Equals(true)
+
+                     //&& a.user_id == user_id
+
+                     group a by new
+                     {
+                       a.is_approved_prepa_date,
+                       a.store_name,
+                       a.route,
+                       a.area,
+                       a.fox,
+                       a.category,
+                       a.is_active
+
+
+
+
+                     } into total
+
+                     select new
+
+                     {
+
+                       is_approved_prepa_date = total.Key.is_approved_prepa_date,
+                       store_name = total.Key.store_name,
+                       route = total.Key.route,
+                       area = total.Key.area,
+                       fox = total.Key.fox,
+                       category = total.Key.category,
+                       is_active = total.Key.is_active,
+                       qty = total.Sum(x => Convert.ToInt32(x.qty)),
+                       prepared_allocated_qty = total.Sum(x => Convert.ToInt32(x.prepared_allocated_qty)),
+                       TotalItems = total.Count(),
+                       TotalPreparedItems = (from Order in db.Dry_wh_orders
+                                             where total.Key.fox == Order.fox
+                                             && total.Key.is_approved_prepa_date == Order.is_approved_prepa_date
+                                             && total.Key.store_name == Order.store_name
+                                             && total.Key.route == Order.route
+                                             && Order.is_active.Equals(true)
+                                             && Order.is_prepared != null
+                                             select Order).Count()
+
+
+
+                     }
+
+
+
+                    );
+
+
+      var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems).ToListAsync();
+
+
+      //return Ok(view_trim);
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(GetAllPreparedItems);
+      });
+
+      if (GetAllPreparedItems.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
     }
 
 
