@@ -589,7 +589,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> PutReturnPreparedItemCountState([FromBody] DryWhOrder project)
     {
-      DryWhOrder existingProject = await db.Dry_wh_orders.Where(temp => temp.is_approved_prepa_date == project.is_approved_prepa_date && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
+      DryWhOrder existingProject = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == project.FK_dry_wh_orders_parent_id && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
       if (existingProject != null)
       {
 
@@ -601,7 +601,7 @@ namespace MvcTaskManager.Controllers
 
        await db.SaveChangesAsync();
 
-        DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.is_approved_prepa_date == project.is_approved_prepa_date && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
+        DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == project.FK_dry_wh_orders_parent_id && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
         DryWhOrderViewModel projectViewModel = new DryWhOrderViewModel()
         {
 
@@ -643,11 +643,19 @@ namespace MvcTaskManager.Controllers
         DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == storeOrders.FK_dry_wh_orders_parent_id && temp.primary_id == storeOrders.primary_id).FirstOrDefaultAsync();
         DryWhOrderViewModel projectViewModel = new DryWhOrderViewModel()
         {
+          Primary_id = existingProject2.primary_id,
+          Is_approved_prepa_date = existingProject2.is_approved_prepa_date,
+          Store_name = existingProject2.store_name,
+          Route = existingProject2.route,
+          Area = existingProject2.area,
+          Category = existingProject2.category,
+          Is_active = existingProject2.is_active.ToString(),
+          Item_code = existingProject.item_code,
+          Description = existingProject2.description,
           Is_wh_checker_cancel = existingProject2.is_wh_checker_cancel,
           Is_wh_checker_cancel_by = existingProject2.is_wh_checker_cancel_by,
           Is_wh_checker_cancel_date = existingProject2.is_wh_checker_cancel_date,
-          Is_wh_checker_cancel_reason = existingProject2.is_wh_checker_cancel_reason,
-          Total_state_repack_cancelled_qty = existingProject2.total_state_repack_cancelled_qty
+          Is_wh_checker_cancel_reason = existingProject2.is_wh_checker_cancel_reason
 
 
 
