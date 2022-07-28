@@ -38,7 +38,7 @@ namespace MvcTaskManager.ViewModels
     public string Is_wh_checker_cancel_reason { get; set; }
 
     public string Dispossal_status { get; set; }
-    public int? Wh_checker_move_order_no { get; set; }
+    public string Wh_checker_move_order_no { get; set; }
     public int? Total_state_repack_cancelled_qty { get; set; }
 
     public string Logic_return_by { get; set; }
