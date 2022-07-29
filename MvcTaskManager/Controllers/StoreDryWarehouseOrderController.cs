@@ -376,7 +376,8 @@ namespace MvcTaskManager.Controllers
           Total_state_repack = project.total_state_repack,
           Qty = project.qty,
           Prepared_allocated_qty = project.prepared_allocated_qty,
-          Total_state_repack_cancelled_qty = project.total_state_repack_cancelled_qty
+          Total_state_repack_cancelled_qty = project.total_state_repack_cancelled_qty,
+          FK_dry_wh_orders_parent_id = project.FK_dry_wh_orders_parent_id.ToString()
         
 
 
@@ -396,17 +397,17 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/store_orders_partial_cancel/search/{searchby}/{searchtext}/{searchindex}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> SearchPartialCancel(string searchBy, string searchText, string searchIndex)
+    public async Task<IActionResult> SearchPartialCancel(string searchBy, int searchText, string searchIndex)
     {
 
 
       List<DryWhOrder> projects = null;
 
-      string ApprovedPreparationDate = searchText;
+      int FKDryStoreOrderID = searchText;
       string FoxStoreCode = searchIndex;
       if (searchBy == "store_name")
 
-        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.is_approved_prepa_date.Contains(ApprovedPreparationDate) && temp.fox.Contains(FoxStoreCode) && temp.is_wh_checker_cancel != null).ToListAsync();
+        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.FK_dry_wh_orders_parent_id == FKDryStoreOrderID && temp.fox.Contains(FoxStoreCode) && temp.is_wh_checker_cancel != null).ToListAsync();
 
 
       List<DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
@@ -436,7 +437,8 @@ namespace MvcTaskManager.Controllers
           Is_wh_checker_cancel_reason = project.is_wh_checker_cancel_reason,
           Is_wh_checker_cancel_by = project.is_wh_checker_cancel_by,
           Is_wh_checker_cancel_date = project.is_wh_checker_cancel_date,
-          Total_state_repack_cancelled_qty = project.total_state_repack_cancelled_qty
+          Total_state_repack_cancelled_qty = project.total_state_repack_cancelled_qty,
+          FK_dry_wh_orders_parent_id = project.FK_dry_wh_orders_parent_id.ToString()
 
 
 

@@ -201,8 +201,8 @@ namespace MvcTaskManager.ViewModels
     public string Is_wh_reject_approval_by { get; set; }
     public string Is_wh_reject_approval_date { get; set; }
 
-    public int ClientLocationID { get; set; }
-        public ClientLocation ClientLocation { get; set; }
+    //public int ClientLocationID { get; set; }
+    //    public ClientLocation ClientLocation { get; set; }
     }
 }
 

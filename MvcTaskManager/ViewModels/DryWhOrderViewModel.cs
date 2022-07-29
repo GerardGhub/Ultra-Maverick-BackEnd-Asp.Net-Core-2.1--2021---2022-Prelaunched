@@ -44,6 +44,7 @@ namespace MvcTaskManager.ViewModels
     public string Logic_return_by { get; set; }
     public string Logic_return_date { get; set; }
     public string Logic_return_reason { get; set; }
+    public string FK_dry_wh_orders_parent_id { get; set; }
 
   }
 }

@@ -49,7 +49,7 @@ namespace MvcTaskManager.Controllers
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
         
-          ClientLocationID = project.ClientLocationID,
+          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -237,7 +237,7 @@ namespace MvcTaskManager.Controllers
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
           //ClientLocation = project.ClientLocation,
-          ClientLocationID = project.ClientLocationID,
+          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -435,7 +435,7 @@ namespace MvcTaskManager.Controllers
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
           //ClientLocation = project.ClientLocation,
-          ClientLocationID = project.ClientLocationID,
+          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -633,7 +633,8 @@ namespace MvcTaskManager.Controllers
       foreach (var project in projects)
       {
         projectsViewModel.Add(new ProjectViewModel() { ProjectID = project.ProjectID, Po_number = project.Po_number, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
-          ClientLocationID = project.ClientLocationID, Status = project.Status, Actual_delivery = project.Actual_delivery});
+
+          Status = project.Status, Actual_delivery = project.Actual_delivery});
       }
 
       return Ok(projectsViewModel);
@@ -651,7 +652,8 @@ namespace MvcTaskManager.Controllers
       if (project != null)
       {
         ProjectViewModel projectViewModel = new ProjectViewModel() { ProjectID = project.ProjectID, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
-           ClientLocationID = project.ClientLocationID, Status = project.Status };
+        
+          Status = project.Status };
         return Ok(projectViewModel);
       }
       else
@@ -765,7 +767,7 @@ namespace MvcTaskManager.Controllers
         existingProject.TeamSize = project.TeamSize;
         existingProject.Active = project.Active;
         existingProject.is_activated = project.is_activated;
-        existingProject.ClientLocationID = project.ClientLocationID;
+        //existingProject.ClientLocationID = project.ClientLocationID;
         existingProject.Status = project.Status;
         existingProject.Supplier = project.Supplier;
         existingProject.item_code = project.item_code;
@@ -930,7 +932,7 @@ namespace MvcTaskManager.Controllers
           ProjectID = existingProject2.ProjectID,
           ProjectName = existingProject2.ProjectName,
           TeamSize = existingProject2.TeamSize,
-          ClientLocationID = existingProject2.ClientLocationID,
+          //ClientLocationID = existingProject2.ClientLocationID,
           DateOfStart = existingProject2.DateOfStart.ToString("dd/MM/yyyy"),
           Active = existingProject2.Active,
           is_activated = existingProject2.is_activated,

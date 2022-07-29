@@ -181,7 +181,7 @@ namespace MvcTaskManager.Models
     public string Returned_date { get; set; }
     public string Returned_by { get; set; }
     public string Returned_reason { get; set; }
-    public int ClientLocationID { get; set; }
+    //public int ClientLocationID { get; set; }
     public string QCReceivingDate { get; set; }
     //Xprity
     public int Days_expiry_setup { get; set; }

@@ -93,26 +93,16 @@ namespace MvcTaskManager.Controllers
       //).ToListAsync();
 
 
-      //  int ParentKey = 0;
-      //  foreach (var form in GChildParentKeyGetandSet)
-      //  {
-      //    ParentKey = Convert.ToInt32(form.parent_chck_id_fk);
-      //  }
-
-      //  RequestParam.parent_chck_id_fk = ParentKey;
-      //  //End of getting the Child Key
-
-      // Start of Getting the Parent Description Key
       var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(RequestParam.cp_gchild_key)
     ).ToListAsync();
 
 
       string ParentKeyDescription = "";
-      int ParentPrimaryKey = 0;
+
       foreach (var form in ChildParentKeyGetandSet)
       {
-        ParentKeyDescription = form.parent_chck_details;
-        ParentPrimaryKey = form.parent_chck_id;
+      ParentKeyDescription = form.parent_chck_details;
+  
       }
 
 
@@ -121,11 +111,12 @@ namespace MvcTaskManager.Controllers
 
 
       string GCDescription = "";
-  
+      int ParentPrimaryKey = 0;
       foreach (var form in GetGranchildDescription)
       {
 
         GCDescription = form.gc_description;
+        ParentPrimaryKey = form.parent_chck_id;
       }
 
       RequestParam.gc_description = GCDescription;

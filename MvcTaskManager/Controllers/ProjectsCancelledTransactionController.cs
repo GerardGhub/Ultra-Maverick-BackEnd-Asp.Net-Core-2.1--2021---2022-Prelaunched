@@ -43,7 +43,7 @@ namespace MvcTaskManager.Controllers
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
           //ClientLocation = project.ClientLocation,
-          ClientLocationID = project.ClientLocationID,
+          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
