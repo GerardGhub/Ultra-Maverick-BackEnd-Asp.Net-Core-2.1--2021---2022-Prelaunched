@@ -20,7 +20,7 @@ namespace MvcTaskManager.Models
     public bool is_active { get; set; }
     public string is_for_validation { get; set; }
     public string is_approved { get; set; }
-    public string is_prepared { get; set; }
+    public bool is_prepared { get; set; }
     public string force_prepared_status { get; set; }
     public string fox { get; set; }
     public string item_code { get; set; }
