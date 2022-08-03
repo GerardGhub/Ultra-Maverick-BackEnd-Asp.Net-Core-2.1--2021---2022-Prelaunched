@@ -172,7 +172,7 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/dry_wh_orders_distinct_store_dispatching")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<List<DryWhOrderParent>> GetDistinctDispatchingOrders()
+    public async Task<ActionResult<DryWhOrderParent>> GetDistinctDispatchingOrders()
     {
       //public async Task<List<DryWhOrder>> GetDistinctDispatchingOrders()
       //string DeActivated = "0";
@@ -187,19 +187,50 @@ namespace MvcTaskManager.Controllers
       //return StoreOrderCheckList;
 
 
-      string DeActivated = "0";
-      List<DryWhOrderParent> StoreOrderCheckList = await db.Dry_Wh_Order_Parent
- 
-        .Where(temp => temp.Is_active.Equals(true)
-      && temp.Is_for_validation.Contains(DeActivated)
-      && temp.Is_approved.Equals(true)
-      && temp.Is_prepared.Equals(true)
-      && temp.Is_wh_approved.Equals(true)
-      || temp.Force_prepared_status != null).ToListAsync();
-      return StoreOrderCheckList;
+      //string DeActivated = "0";
+      //List<DryWhOrderParent> StoreOrderCheckList = await db.Dry_Wh_Order_Parent
+
+      //  .Where(temp => temp.Is_active.Equals(true)
+      //&& temp.Is_for_validation.Contains(DeActivated)
+      //&& temp.Is_approved.Equals(true)
+      //&& temp.Is_prepared.Equals(true)
+      //&& temp.Is_wh_approved.Equals(true)
+      //|| temp.Force_prepared_status != null).ToListAsync();
+      //return StoreOrderCheckList;
 
 
+      var forStoreDispathing = from p in db.Dry_Wh_Order_Parent
+                               join c in db.Dry_wh_orders on p.Id equals c.FK_dry_wh_orders_parent_id into g
+                               where p.Is_active.Equals(true)
+                               && p.Is_for_validation.Contains("0")
+                               && p.Is_approved.Equals(true)
+                               && p.Is_prepared.Equals(true)
+                               && p.Is_wh_approved.Equals(true)
+                               || p.Force_prepared_status != null
+                               select new
+                               {
+                                 Id = p.Id,
+                                 Is_approved_prepa_date = p.Is_approved_prepa_date,
+                                 Approved_preparation = p.Approved_preparation,
+                                 Fox = p.Fox,
+                                 Store_name = p.Store_name,
+                                 Route = p.Route,
+                                 Area = p.Area,
+                                 Category = p.Category,
+                                 Is_active = p.Is_active,
+                                 Is_for_validation = p.Is_for_validation,
+                                 Is_approved = p.Is_approved,
+                                 Is_prepared = p.Is_prepared,
+                                 Forced_prepared_status = p.Force_prepared_status,
+                                 Is_wh_approved = p.Is_wh_approved,
+                                 Is_wh_approved_by = p.Is_wh_approved_by,
+                                 Is_wh_approved_date = p.Is_wh_approved_date,
+                                 Wh_checker_move_order_no = p.Wh_checker_move_order_no,
+                                 Total_state_repack = g.Count(c => c.is_active)
+                               };
 
+
+      return Ok(forStoreDispathing);
 
 
     }
@@ -328,7 +359,7 @@ namespace MvcTaskManager.Controllers
     && temp.is_approved != null
     && temp.is_prepared.Equals(true)
     && temp.is_wh_approved == null
-    && temp.total_state_repack_cancelled_qty != null
+    //&& temp.total_state_repack_cancelled_qty != null
     && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
     return StoreOrderCheckList;
     }
@@ -416,19 +447,21 @@ namespace MvcTaskManager.Controllers
 
 
     [HttpGet]
-    [Route("api/store_orders_partial_cancel/search/{searchby}/{searchtext}/{searchindex}")]
+    //[Route("api/store_orders_partial_cancel/search/{searchby}/{searchtext}/{searchindex}")]
+    [Route("api/store_orders_partial_cancel/search/{searchId}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> SearchPartialCancel(string searchBy, int searchText, string searchIndex)
+    public async Task<IActionResult> SearchPartialCancel(int searchId)
     {
 
 
       List<DryWhOrder> projects = null;
 
-      int FKDryStoreOrderID = searchText;
-      string FoxStoreCode = searchIndex;
-      if (searchBy == "store_name")
 
-        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.FK_dry_wh_orders_parent_id == FKDryStoreOrderID && temp.fox.Contains(FoxStoreCode) && temp.is_wh_checker_cancel != null).ToListAsync();
+      int FKDryStoreOrderID = searchId;
+      //string FoxStoreCode = searchIndex;
+      //if (searchBy == "store_name")
+
+      projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.FK_dry_wh_orders_parent_id == FKDryStoreOrderID  && temp.is_wh_checker_cancel != null).ToListAsync();
 
 
       List<DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
