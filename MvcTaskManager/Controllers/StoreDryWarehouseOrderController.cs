@@ -78,7 +78,7 @@ namespace MvcTaskManager.Controllers
                        //qty = total.Sum(x => Convert.ToInt32(x.qty)),
                        //prepared_allocated_qty = total.Sum(x => Convert.ToInt32(x.prepared_allocated_qty)),
                        //total_state_repack = total.Sum(x => Convert.ToInt32(x.is_active)),
-          
+
                        total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
                        //total_state_repack = total.Count(),
                        //total_state_repack = total.Count(),
@@ -97,7 +97,7 @@ namespace MvcTaskManager.Controllers
                                                                       && total.Key.Route == Order.route
                                                                       && Order.is_active.Equals(true)
                                                                       && Order.is_wh_checker_cancel.Contains("1")
-                                                                      
+
                                                                       select Order).Count(),
                        TotalRejectItems = (from Order in db.Dry_wh_orders
                                            where total.Key.Fox == Order.fox
@@ -106,7 +106,7 @@ namespace MvcTaskManager.Controllers
                                            && total.Key.Route == Order.route
                                            && Order.is_active.Equals(true)
                                            && Order.is_wh_checker_cancel.Contains("1")
-                                         
+
                                            select Order).Count()
 
 
@@ -249,7 +249,7 @@ namespace MvcTaskManager.Controllers
       List<DryWhOrderParent> obj = new List<DryWhOrderParent>();
       var results = (from a in db.Dry_Wh_Order_Parent
                        //join b in db.Allocation_Logs on a.primary_id equals b.order_key
-                       join b in db.Dry_wh_orders on a.Id equals b.FK_dry_wh_orders_parent_id
+                     join b in db.Dry_wh_orders on a.Id equals b.FK_dry_wh_orders_parent_id
 
                      where
                      a.Id == b.FK_dry_wh_orders_parent_id &&
@@ -259,7 +259,7 @@ namespace MvcTaskManager.Controllers
                      a.Is_wh_approved.Equals(false) &&
                      a.Is_active.Equals(true) &&
                      a.Is_prepared.Equals(false)
-                     
+
                      || a.Force_prepared_status != null
 
 
@@ -273,7 +273,7 @@ namespace MvcTaskManager.Controllers
                        a.Fox,
                        a.Category,
                        a.Is_active,
-                       TotalItems = b.is_active 
+                       TotalItems = b.is_active
 
 
 
@@ -292,7 +292,7 @@ namespace MvcTaskManager.Controllers
                        fox = total.Key.Fox,
                        category = total.Key.Category,
                        is_active = total.Key.Is_active,
-                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),                 
+                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
                        TotalPreparedItems = (from Order in db.Dry_wh_orders
                                              where total.Key.Fox == Order.fox
                                              && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
@@ -300,7 +300,7 @@ namespace MvcTaskManager.Controllers
                                              && total.Key.Route == Order.route
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared != null
-                                          
+
                                              select Order).Count() - 1
 
 
@@ -350,18 +350,18 @@ namespace MvcTaskManager.Controllers
     public async Task<List<DryWhOrder>> GetDistinctPreparedCancelledOrders()
     {
 
- 
-    string DeActivated = "0";
-    List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders
-        .GroupBy(p => new { p.is_approved_prepa_date, p.total_state_repack_cancelled_qty })
-        .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-    && temp.is_for_validation.Contains(DeActivated)
-    && temp.is_approved != null
-    && temp.is_prepared.Equals(true)
-    && temp.is_wh_approved == null
-    //&& temp.total_state_repack_cancelled_qty != null
-    && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
-    return StoreOrderCheckList;
+
+      string DeActivated = "0";
+      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders
+          .GroupBy(p => new { p.is_approved_prepa_date, p.total_state_repack_cancelled_qty })
+          .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+      && temp.is_for_validation.Contains(DeActivated)
+      && temp.is_approved != null
+      && temp.is_prepared.Equals(true)
+      && temp.is_wh_approved == null
+      //&& temp.total_state_repack_cancelled_qty != null
+      && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
+      return StoreOrderCheckList;
     }
 
 
@@ -371,7 +371,7 @@ namespace MvcTaskManager.Controllers
     public async Task<List<DryWhOrder>> GetStoreOrderMaterialPerItems()
     {
       string Activated = "1";
-   
+
       List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders
       .Where(temp => temp.is_active.Equals(true)
       && temp.is_wh_checker_cancel.Contains(Activated)).ToListAsync();
@@ -397,14 +397,14 @@ namespace MvcTaskManager.Controllers
       int FK_dry_wh_orders_parent_id = searchText;
       //if (searchBy == "store_name")
 
-        projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true)
-        && temp.FK_dry_wh_orders_parent_id == FK_dry_wh_orders_parent_id
-        && temp.is_wh_checker_cancel == null
-        && temp.prepared_allocated_qty != null
-        ).ToListAsync();
+      projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true)
+      && temp.FK_dry_wh_orders_parent_id == FK_dry_wh_orders_parent_id
+      && temp.is_wh_checker_cancel == null
+      && temp.prepared_allocated_qty != null
+      ).ToListAsync();
 
-     
-      List <DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
+
+      List<DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
       foreach (var project in projects)
       {
         WarehouseStoreOrderContructor.Add(new DryWhOrderViewModel()
@@ -430,7 +430,7 @@ namespace MvcTaskManager.Controllers
           Prepared_allocated_qty = project.prepared_allocated_qty,
           Total_state_repack_cancelled_qty = project.total_state_repack_cancelled_qty,
           FK_dry_wh_orders_parent_id = project.FK_dry_wh_orders_parent_id.ToString()
-        
+
 
 
 
@@ -441,7 +441,7 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    
+
 
 
 
@@ -461,7 +461,7 @@ namespace MvcTaskManager.Controllers
       //string FoxStoreCode = searchIndex;
       //if (searchBy == "store_name")
 
-      projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.FK_dry_wh_orders_parent_id == FKDryStoreOrderID  && temp.is_wh_checker_cancel != null).ToListAsync();
+      projects = await db.Dry_wh_orders.Where(temp => temp.is_active.Equals(true) && temp.FK_dry_wh_orders_parent_id == FKDryStoreOrderID && temp.is_wh_checker_cancel != null).ToListAsync();
 
 
       List<DryWhOrderViewModel> WarehouseStoreOrderContructor = new List<DryWhOrderViewModel>();
@@ -513,17 +513,17 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Put([FromBody] DryWhOrderParent storeOrders)
     {
-      DryWhOrderParent existingProject = await db.Dry_Wh_Order_Parent.Where(temp => temp.Id == storeOrders.Id && temp.Is_prepared.Equals(true) ).FirstOrDefaultAsync();
+      DryWhOrderParent existingProject = await db.Dry_Wh_Order_Parent.Where(temp => temp.Id == storeOrders.Id && temp.Is_prepared.Equals(true)).FirstOrDefaultAsync();
       if (existingProject != null)
       {
         existingProject.Is_wh_approved = storeOrders.Is_wh_approved;
         existingProject.Is_wh_approved_by = storeOrders.Is_wh_approved_by;
         existingProject.Is_wh_approved_date = storeOrders.Is_wh_approved_date;
         existingProject.Wh_checker_move_order_no = storeOrders.Wh_checker_move_order_no;
-       
-      
 
-       await db.SaveChangesAsync();
+
+
+        await db.SaveChangesAsync();
 
         DryWhOrderParent existingProject2 = await db.Dry_Wh_Order_Parent.Where(temp => temp.Id == storeOrders.Id).FirstOrDefaultAsync();
         DryWhOrderParentViewModel projectViewModel = new DryWhOrderParentViewModel()
@@ -537,11 +537,11 @@ namespace MvcTaskManager.Controllers
           Category = existingProject2.Category,
           Is_active = existingProject2.Is_active,
           Fox = existingProject2.Fox,
-          Is_wh_approved= existingProject2.Is_wh_approved.ToString(),
+          Is_wh_approved = existingProject2.Is_wh_approved.ToString(),
           Is_wh_approved_by = existingProject2.Is_wh_approved_by,
           Is_wh_approved_date = existingProject2.Is_wh_approved_date,
           Wh_checker_move_order_no = existingProject2.Wh_checker_move_order_no.ToString()
-         
+
 
 
         };
@@ -609,7 +609,7 @@ namespace MvcTaskManager.Controllers
       DryWhOrder existingProject = await db.Dry_wh_orders.Where(temp => temp.is_approved_prepa_date == project.is_approved_prepa_date && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
       if (existingProject != null)
       {
-   
+
         existingProject.logic_return_by = project.logic_return_by;
         existingProject.logic_return_date = project.logic_return_date;
         existingProject.logic_return_reason = project.logic_return_reason;
@@ -622,7 +622,7 @@ namespace MvcTaskManager.Controllers
         DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.is_approved_prepa_date == project.is_approved_prepa_date && temp.primary_id == project.primary_id).FirstOrDefaultAsync();
         DryWhOrderViewModel projectViewModel = new DryWhOrderViewModel()
         {
- 
+
           Logic_return_by = existingProject2.logic_return_by,
           Logic_return_date = existingProject2.logic_return_date,
           Logic_return_reason = existingProject2.logic_return_reason,
@@ -659,7 +659,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-       await db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
         DryWhOrder existingProject2 = await db.Dry_wh_orders
         .Where(temp => temp.FK_dry_wh_orders_parent_id == project.FK_dry_wh_orders_parent_id
@@ -683,7 +683,43 @@ namespace MvcTaskManager.Controllers
     }
 
 
+    [HttpPut]
+    [Route("api/store_orders/CancelParentTransaction")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> CancelParentTransaction([FromBody] DryWhOrderParent ParentSource)
+    {
+      DryWhOrderParent ExistingParentSource = await db.Dry_Wh_Order_Parent
+      .Where(temp => temp.Id == ParentSource.Id)
+      .FirstOrDefaultAsync();
 
+      if (ExistingParentSource != null)
+      {
+        ExistingParentSource.Is_active = false;
+        ExistingParentSource.Is_cancel_by = ParentSource.Is_cancel_by;
+        ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date = DateTime.Now;
+
+        await db.SaveChangesAsync();
+        DryWhOrderParent ExistingParentSource2 = await  db.Dry_Wh_Order_Parent
+          .Where(temp => temp.Id == ParentSource.Id)
+          .FirstOrDefaultAsync();
+        DryWhOrderParentViewModel ParentViewModel = new DryWhOrderParentViewModel()
+        {
+          Store_name = ExistingParentSource2.Store_name,
+          Route = ExistingParentSource2.Route,
+          Area = ExistingParentSource2.Category,
+          Is_approved_prepa_date = ExistingParentSource2.Is_approved_prepa_date,
+          Is_active = ExistingParentSource2.Is_active,
+          Is_cancel_by = ExistingParentSource2.Is_cancel_by,
+          Is_cancel_date = ExistingParentSource2.Is_cancel_date
+        };
+        return Ok(ParentViewModel);
+      }
+      else
+      {
+        return null;
+      }
+
+    }
 
 
     [HttpPut]

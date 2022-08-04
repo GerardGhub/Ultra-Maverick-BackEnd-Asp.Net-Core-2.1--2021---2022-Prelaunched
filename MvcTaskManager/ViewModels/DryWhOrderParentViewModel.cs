@@ -15,6 +15,8 @@ namespace MvcTaskManager.ViewModels
     public string Area { get; set; }
     public string Category { get; set; }
     public bool Is_active { get; set; }
+    public string Is_cancel_by { get; set; }
+    public DateTime Is_cancel_date { get; set; }
     public string Is_for_validation { get; set; }
     public bool Is_approved { get; set; }
     public bool Is_prepared { get; set; }

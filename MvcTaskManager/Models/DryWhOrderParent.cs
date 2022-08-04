@@ -28,6 +28,8 @@ namespace MvcTaskManager.Models
     public string Is_wh_approved_by { get; set; }
     public string Is_wh_approved_date { get; set; }
     public string Wh_checker_move_order_no { get; set; }
+    public string Is_cancel_by { get; set; }
+    public DateTime Is_cancel_date { get; set; } 
 
   }
 }
