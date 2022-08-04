@@ -209,23 +209,23 @@ namespace MvcTaskManager.Controllers
                                || p.Force_prepared_status != null
                                select new
                                {
-                                 Id = p.Id,
-                                 Is_approved_prepa_date = p.Is_approved_prepa_date,
-                                 Approved_preparation = p.Approved_preparation,
-                                 Fox = p.Fox,
-                                 Store_name = p.Store_name,
-                                 Route = p.Route,
-                                 Area = p.Area,
-                                 Category = p.Category,
-                                 Is_active = p.Is_active,
-                                 Is_for_validation = p.Is_for_validation,
-                                 Is_approved = p.Is_approved,
-                                 Is_prepared = p.Is_prepared,
-                                 Forced_prepared_status = p.Force_prepared_status,
-                                 Is_wh_approved = p.Is_wh_approved,
-                                 Is_wh_approved_by = p.Is_wh_approved_by,
-                                 Is_wh_approved_date = p.Is_wh_approved_date,
-                                 Wh_checker_move_order_no = p.Wh_checker_move_order_no,
+                                 p.Id,
+                                 p.Is_approved_prepa_date,
+                                 p.Approved_preparation,
+                                 p.Fox,
+                                 p.Store_name,
+                                 p.Route,
+                                 p.Area,
+                                 p.Category,
+                                 p.Is_active,
+                                 p.Is_for_validation,
+                                 p.Is_approved,
+                                 p.Is_prepared,
+                                 p.Force_prepared_status,
+                                 p.Is_wh_approved,
+                                 p.Is_wh_approved_by,
+                                 p.Is_wh_approved_date,
+                                 p.Wh_checker_move_order_no,
                                  Total_state_repack = g.Count(c => c.is_active)
                                };
 
@@ -284,7 +284,7 @@ namespace MvcTaskManager.Controllers
 
                      {
 
-                       Id = total.Key.Id,
+                       total.Key.Id,
                        is_approved_prepa_date = total.Key.Is_approved_prepa_date,
                        store_name = total.Key.Store_name,
                        route = total.Key.Route,
@@ -692,27 +692,23 @@ namespace MvcTaskManager.Controllers
       .Where(temp => temp.Id == ParentSource.Id)
       .FirstOrDefaultAsync();
 
+      ParentSource.Is_cancel_date = DateTime.Now;
+
+
+
       if (ExistingParentSource != null)
       {
         ExistingParentSource.Is_active = false;
         ExistingParentSource.Is_cancel_by = ParentSource.Is_cancel_by;
-        ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date = DateTime.Now;
+        ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date;
 
         await db.SaveChangesAsync();
-        DryWhOrderParent ExistingParentSource2 = await  db.Dry_Wh_Order_Parent
+        DryWhOrderParent ExistingParentSource2 = await db.Dry_Wh_Order_Parent
           .Where(temp => temp.Id == ParentSource.Id)
           .FirstOrDefaultAsync();
-        DryWhOrderParentViewModel ParentViewModel = new DryWhOrderParentViewModel()
-        {
-          Store_name = ExistingParentSource2.Store_name,
-          Route = ExistingParentSource2.Route,
-          Area = ExistingParentSource2.Category,
-          Is_approved_prepa_date = ExistingParentSource2.Is_approved_prepa_date,
-          Is_active = ExistingParentSource2.Is_active,
-          Is_cancel_by = ExistingParentSource2.Is_cancel_by,
-          Is_cancel_date = ExistingParentSource2.Is_cancel_date
-        };
-        return Ok(ParentViewModel);
+
+        return Ok(ExistingParentSource2);
+    
       }
       else
       {
