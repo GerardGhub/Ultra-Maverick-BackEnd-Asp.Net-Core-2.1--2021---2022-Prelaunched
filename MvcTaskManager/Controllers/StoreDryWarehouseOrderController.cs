@@ -701,6 +701,7 @@ namespace MvcTaskManager.Controllers
         ExistingParentSource.Is_active = false;
         ExistingParentSource.Is_cancel_by = ParentSource.Is_cancel_by;
         ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date;
+        ExistingParentSource.Is_cancelled_reason = ParentSource.Is_cancelled_reason;
 
         await db.SaveChangesAsync();
         DryWhOrderParent ExistingParentSource2 = await db.Dry_Wh_Order_Parent
