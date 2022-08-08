@@ -29,69 +29,235 @@ namespace MvcTaskManager.Controllers
     {
       //List<DryWareHouseReceiving> projects = db.tblDryWHReceiving.Where(temp => temp.is_active.Equals(true)
 
-      int CancelledByQAStatus = 3;
-      List<DryWareHouseReceiving> projects = await db.TblDryWHReceiving.Where(temp => temp.is_active == 1
 
-      && temp.lab_request_by != null
-      && temp.lab_result_released_by == null
-      != temp.qa_approval_status.Contains(CancelledByQAStatus.ToString())
-      ).ToListAsync();
+      string DeActivated = "0";
 
 
-      List<DryWareHouseReceivingViewModel> projectsViewModel = new List<DryWareHouseReceivingViewModel>();
-      foreach (var project in projects)
-      {
-        //int dayDiff = (project.Expiration_date_string - DateTime.Now).Days;
-        int dayDiffExpiryDaysAging = (project.lab_exp_date_extension - DateTime.Now).Days;
-        //if(project.qa_approval_date == null)
-        //{
-        //  int LaboratoryAging = ((DateTime.Now - DateTime.Now)).Days;
-        //}
-        //else
-        //{
-        //  int LaboratoryAging = ((TimeSpan)(project.qa_approval_date - DateTime.Now)).Days;
-        //}
-        int LaboratoryAging = ((TimeSpan)(project.qa_approval_date - DateTime.Now)).Days;
-        projectsViewModel.Add(new DryWareHouseReceivingViewModel()
-        {
-          Id = project.id,
-          Lab_access_code = project.lab_access_code,
-          Index_id_partial = project.index_id_partial,
-          //Item_code = project.DateOfStart.ToString("dd/MM/yyyy"),
-          Item_code = project.item_code,
-          Item_description = project.item_description,
-          Category = project.category,
-          Uom = project.uom,
-          Qty_received = project.qty_received,
-          Historical_lab_transact_count = project.historical_lab_transact_count,
-          Lab_status = project.lab_status,
-          //Expiry_days_aging = project.expiry_days_aging,
-          Client_requestor = project.client_requestor,
-          Lab_request_date = project.lab_request_date,
-          Lab_request_by = project.lab_request_by,
-          Po_number = project.po_number,
-          Qa_approval_status = project.qa_approval_status,
-          Qa_approval_by = project.qa_approval_by,
-          Qa_approval_date = project.qa_approval_date.ToString("MM/dd/yyyy"),
-          Lab_result_released_by = project.lab_result_released_by,
-          Lab_result_released_date = project.lab_result_released_date,
-          Lab_result_remarks = project.lab_result_remarks,
-          Lab_sub_remarks = project.lab_sub_remarks,
-          Is_active = project.is_active.ToString(),
-          Lab_exp_date_extension = project.lab_exp_date_extension.ToString("MM/dd/yyyy"),
+      List<DryWareHouseReceiving> obj = new List<DryWareHouseReceiving>();
+      var results = (from a in db.TblDryWHReceiving
+                     join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key
+                     join c in db.Dry_wh_lab_test_req_logs on a.id equals c.fk_receiving_id
 
-          //Sample
-          Expiry_days_aging = dayDiffExpiryDaysAging,
-          Lab_approval_aging_days = LaboratoryAging,
-          Supplier = project.supplier,
-          Po_date = project.po_date,
-          Pr_no = project.pr_no,
-          Pr_date = project.pr_date
-          //DaysBeforeExpired = dayDiff
+                     where
+                     a.id == b.Prepa_Source_Key &&
+                     a.id == c.fk_receiving_id &&
+                     b.Is_Active.Equals(true)
+                     &&
+                     a.is_active == 1 &&
+                     a.lab_request_by != null
+                     &&
+                     a.lab_result_released_by == null !=
+                     a.qa_approval_status.Contains("3")
 
-        });
-      }
-      return Ok(projectsViewModel);
+
+                     group a by new
+                     {
+                       a.id,
+                       a.lab_access_code,
+                       a.item_code,
+                       a.item_description,
+                       a.category,
+                       a.is_active,
+                       a.uom,
+                       a.po_number,
+                       a.po_date,
+                       a.pr_no,
+                       a.pr_date,
+                       a.supplier,
+                       b.Prepa_Allocated_Qty,
+                       a.qty_received,
+                       a.lab_status,
+                       a.historical_lab_transact_count,
+                       a.client_requestor,
+                       a.lab_exp_date_extension,
+                       a.lab_request_date,
+                       a.lab_request_by,
+                       a.qa_approval_status,
+                       a.qa_approval_by,
+                       a.qa_approval_date,
+                       a.lab_result_released_by,
+                       a.lab_result_released_date,
+                       a.lab_result_remarks,
+                       a.lab_sub_remarks,
+                       a.lab_approval_aging_days,
+                       a.laboratory_procedure,
+                       a.lab_cancel_by,
+                       a.lab_cancel_date,
+                       a.lab_cancel_remarks,
+                       a.Sample_Qty
+
+
+
+
+                     } into total
+
+           
+                  select new
+
+                     {
+                       Id = total.Key.id,
+                       lab_access_code = total.Key.lab_access_code,
+                       item_code = total.Key.item_code,
+                       item_description = total.Key.item_description,
+                       category = total.Key.category,
+                       po_number = total.Key.po_number,
+                       po_date = total.Key.po_date,
+                       pr_no = total.Key.pr_no,
+                       pr_date = total.Key.pr_date,
+                       supplier = total.Key.supplier,
+                       uom = total.Key.uom,
+                       is_active = total.Key.is_active,
+                       lab_status = total.Key.lab_status,
+                       lab_request_date = total.Key.lab_request_date,
+                       lab_request_by = total.Key.lab_request_by,
+                       historical_lab_transact_count = total.Key.historical_lab_transact_count,
+                       client_requestor = total.Key.client_requestor,
+                       qa_approval_status = total.Key.qa_approval_status,
+                       qa_approval_by = total.Key.qa_approval_by,
+                       qa_approval_date = total.Key.qa_approval_date,
+                       lab_result_released_by = total.Key.lab_result_released_by,
+                       lab_result_released_date = total.Key.lab_result_released_date,
+                       lab_result_remarks = total.Key.lab_result_remarks,
+                       lab_sub_remarks = total.Key.lab_result_remarks,
+                       lab_exp_date_extension = total.Key.lab_exp_date_extension,
+                       lab_approval_aging_days = total.Key.lab_approval_aging_days,
+                       laboratory_procedure = total.Key.laboratory_procedure,
+                       lab_cancel_by = total.Key.lab_cancel_by,
+                       lab_cancel_date = total.Key.lab_cancel_date,
+                       lab_cancel_remarks = total.Key.lab_cancel_remarks,
+                       sample_qty = total.Key.Sample_Qty,
+
+
+                       expiry_days_aging = (total.Key.lab_exp_date_extension - DateTime.Now).Days, 
+                       qty_received = Convert.ToInt32(total.Key.qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
+                       
+                    
+
+
+
+                     }
+
+
+
+                    );
+
+
+      return Ok(results);
+
+
+      //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
+
+
+    
+      //var result = await System.Threading.Tasks.Task.Run(() =>
+      //{
+      //  return Ok(GetAllPreparedItems);
+      //});
+
+      //if (GetAllPreparedItems.Count() > 0)
+      //{
+      //  return (result);
+      //}
+      //else
+      //{
+
+      //  return NoContent();
+      //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      //return;
+      //int CancelledByQAStatus = 3;
+      //List<DryWareHouseReceiving> projects = await db.TblDryWHReceiving.Where(temp => temp.is_active == 1
+
+      //&& temp.lab_request_by != null
+      //&& temp.lab_result_released_by == null
+      //!= temp.qa_approval_status.Contains(CancelledByQAStatus.ToString())
+      //).ToListAsync();
+
+
+      //List<DryWareHouseReceivingViewModel> projectsViewModel = new List<DryWareHouseReceivingViewModel>();
+      //foreach (var project in projects)
+      //{
+      //  //int dayDiff = (project.Expiration_date_string - DateTime.Now).Days;
+      //  int dayDiffExpiryDaysAging = (project.lab_exp_date_extension - DateTime.Now).Days;
+      //  //if(project.qa_approval_date == null)
+      //  //{
+      //  //  int LaboratoryAging = ((DateTime.Now - DateTime.Now)).Days;
+      //  //}
+      //  //else
+      //  //{
+      //  //  int LaboratoryAging = ((TimeSpan)(project.qa_approval_date - DateTime.Now)).Days;
+      //  //}
+      //  int LaboratoryAging = ((TimeSpan)(project.qa_approval_date - DateTime.Now)).Days;
+      //  projectsViewModel.Add(new DryWareHouseReceivingViewModel()
+      //  {
+      //    Id = project.id,
+      //    Lab_access_code = project.lab_access_code,
+      //    Index_id_partial = project.index_id_partial,
+      //    //Item_code = project.DateOfStart.ToString("dd/MM/yyyy"),
+      //    Item_code = project.item_code,
+      //    Item_description = project.item_description,
+      //    Category = project.category,
+      //    Uom = project.uom,
+      //    Qty_received = project.qty_received,
+      //    Historical_lab_transact_count = project.historical_lab_transact_count,
+      //    Lab_status = project.lab_status,
+      //    //Expiry_days_aging = project.expiry_days_aging,
+      //    Client_requestor = project.client_requestor,
+      //    Lab_request_date = project.lab_request_date,
+      //    Lab_request_by = project.lab_request_by,
+      //    Po_number = project.po_number,
+      //    Qa_approval_status = project.qa_approval_status,
+      //    Qa_approval_by = project.qa_approval_by,
+      //    Qa_approval_date = project.qa_approval_date.ToString("MM/dd/yyyy"),
+      //    Lab_result_released_by = project.lab_result_released_by,
+      //    Lab_result_released_date = project.lab_result_released_date,
+      //    Lab_result_remarks = project.lab_result_remarks,
+      //    Lab_sub_remarks = project.lab_sub_remarks,
+      //    Is_active = project.is_active.ToString(),
+      //    Lab_exp_date_extension = project.lab_exp_date_extension.ToString("MM/dd/yyyy"),
+
+      //    //Sample
+      //    Expiry_days_aging = dayDiffExpiryDaysAging,
+      //    Lab_approval_aging_days = LaboratoryAging,
+      //    Supplier = project.supplier,
+      //    Po_date = project.po_date,
+      //    Pr_no = project.pr_no,
+      //    Pr_date = project.pr_date,
+      //    Sample_Qty = project.Sample_Qty.ToString()
+      //    //DaysBeforeExpired = dayDiff
+
+      //  });
+      //}
+      //return Ok(projectsViewModel);
 
 
 

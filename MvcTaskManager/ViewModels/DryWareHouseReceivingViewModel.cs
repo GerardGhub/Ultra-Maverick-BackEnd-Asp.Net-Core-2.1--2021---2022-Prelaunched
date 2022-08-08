@@ -49,7 +49,7 @@ namespace MvcTaskManager.ViewModels
     public string Lab_cancel_by { get; set; }
     public string Lab_cancel_date { get; set; }
     public string Lab_cancel_remarks { get; set; }
-
+    public string Sample_Qty { get; set; }
  
 
   }

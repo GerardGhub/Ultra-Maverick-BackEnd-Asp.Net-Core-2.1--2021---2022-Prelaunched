@@ -312,7 +312,7 @@ namespace MvcTaskManager.Controllers
                                                                               GrandChilds.is_active,
                                                                               GrandChilds.is_manual,
                                                                               dynamicChecklistLoggers =
-                                       from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                       from dynamicChecklistLoggers in db.Dynamic_checklist_logger
                                              where GrandChilds.gc_id == dynamicChecklistLoggers.gc_id && dynamicChecklistLoggers.ProjectID == ProjectID
                                              select new
                                              {
@@ -344,7 +344,7 @@ namespace MvcTaskManager.Controllers
                                                      Params.cp_status,
                                                      Params.manual_description,
                                                      dynamicChecklistLoggers =
-                                                   from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                                   from dynamicChecklistLoggers in db.Dynamic_checklist_logger
                                                    where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id && dynamicChecklistLoggers.ProjectID == ProjectID
                                                    select new
                                                    {
@@ -454,7 +454,7 @@ namespace MvcTaskManager.Controllers
                                                                               GrandChilds.parent_chck_details,
                                                                               GrandChilds.is_active,
                                                                               dynamicChecklistLoggers =
-                                       from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                       from dynamicChecklistLoggers in db.Dynamic_checklist_logger
                                        where GrandChilds.gc_id == dynamicChecklistLoggers.gc_id && GrandChilds.is_active.Equals(true)
                                        select new
                                        {
@@ -484,7 +484,7 @@ namespace MvcTaskManager.Controllers
                                                      Params.cp_status,
                                                      Params.manual_description,
                                                      dynamicChecklistLoggers =
-                                                   from dynamicChecklistLoggers in db.dynamic_checklist_logger
+                                                   from dynamicChecklistLoggers in db.Dynamic_checklist_logger
                                                    where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id 
                                                    select new
                                                    {

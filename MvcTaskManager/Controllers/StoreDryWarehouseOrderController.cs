@@ -769,22 +769,22 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/store_orders/cancelitems/readline")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> PutCancelPreparedItemReadLine([FromBody] Store_Preparation_LogsModel storePreparation)
+    public async Task<IActionResult> PutCancelPreparedItemReadLine([FromBody] Store_Preparation_Logs storePreparation)
     {
 
-      List<Store_Preparation_LogsModel> existingProject = await db.Store_Preparation_Logs.Where(temp => temp.order_source_key == storePreparation.order_source_key ).ToListAsync();
+      List<Store_Preparation_Logs> existingProject = await db.Store_Preparation_Logs.Where(temp => temp.Order_Source_Key == storePreparation.Order_Source_Key ).ToListAsync();
       if (existingProject != null)
       {
-        storePreparation.is_active = storePreparation.is_active;
+        storePreparation.Is_Active = storePreparation.Is_Active;
 
 
 
         await db.SaveChangesAsync();
 
-        List<Store_Preparation_LogsModel> existingProject2 = await db.Store_Preparation_Logs.Where(temp => temp.order_source_key == storePreparation.order_source_key).ToListAsync();
+        List<Store_Preparation_Logs> existingProject2 = await db.Store_Preparation_Logs.Where(temp => temp.Order_Source_Key == storePreparation.Order_Source_Key).ToListAsync();
         Store_Preparation_Logs_View_Model projectViewModel = new Store_Preparation_Logs_View_Model()
         {
-          Is_active = storePreparation.is_active
+          Is_Active = storePreparation.Is_Active.ToString()
 
 
 

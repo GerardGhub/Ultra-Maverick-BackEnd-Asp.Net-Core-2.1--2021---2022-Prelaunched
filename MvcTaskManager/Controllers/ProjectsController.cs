@@ -304,7 +304,7 @@ namespace MvcTaskManager.Controllers
                   }
 
                   items.ProjectID = FirstSummary;
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
                
 
@@ -357,7 +357,7 @@ namespace MvcTaskManager.Controllers
                   }
 
                   items.ProjectID = FirstSummary;
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -412,11 +412,11 @@ namespace MvcTaskManager.Controllers
 
               if (GrandChildParametersnum == GrandChildKeyParameter.Count)
               {
-                //item1.child_desc = QcChecklistForm.Length.ToString();
 
-                foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
+
+                foreach (DynamicChecklistLogger items in ListLogger)
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -461,7 +461,7 @@ namespace MvcTaskManager.Controllers
 
                   foreach (DynamicChecklistLogger items in QcChecklistForm)
                   {
-                    db.dynamic_checklist_logger.Add(items); // add muna ito
+                    db.Dynamic_checklist_logger.Add(items); // add muna ito
                   }
                 }
                 else
@@ -496,7 +496,7 @@ namespace MvcTaskManager.Controllers
 
                   foreach (DynamicChecklistLogger items in QcChecklistForm)
                   {
-                    db.dynamic_checklist_logger.Add(items); // add muna ito
+                    db.Dynamic_checklist_logger.Add(items); // add muna ito
                   }
                 }
                 else
@@ -568,7 +568,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -601,11 +601,11 @@ namespace MvcTaskManager.Controllers
               //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
               if (GrandChildnum == GrandChildKey.Count)
               {
-                //item1.child_desc = QcChecklistForm.Length.ToString();
+    
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -662,7 +662,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -699,7 +699,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -756,7 +756,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -793,7 +793,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -850,7 +850,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -883,11 +883,11 @@ namespace MvcTaskManager.Controllers
               //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
               if (GrandChildnum == GrandChildKey.Count)
               {
-                //item1.child_desc = QcChecklistForm.Length.ToString();
+              
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -943,7 +943,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -980,7 +980,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else
@@ -1036,7 +1036,7 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  db.dynamic_checklist_logger.Add(items);
+                  db.Dynamic_checklist_logger.Add(items);
                 }
 
 
@@ -1069,11 +1069,11 @@ namespace MvcTaskManager.Controllers
               //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
               if (GrandChildnum == GrandChildKey.Count)
               {
-                //item1.child_desc = QcChecklistForm.Length.ToString();
+
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  db.dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items); // add muna ito
                 }
               }
               else

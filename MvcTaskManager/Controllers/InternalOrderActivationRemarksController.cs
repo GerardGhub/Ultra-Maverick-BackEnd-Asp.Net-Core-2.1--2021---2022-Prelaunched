@@ -27,7 +27,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> Get()
     {
       List<InternalOrderActivationRemarks> MrsActivationRemarks =
-      await db.internal_order_activation_remarks
+      await db.Internal_order_activation_remarks
       .Where(temp => temp.soar_is_active.Equals(true) && temp.soar_type.Contains("Cancel")).ToListAsync();
       List<InternalOrderActivationRemarksViewModel> projectsViewModel = new List<InternalOrderActivationRemarksViewModel>();
       foreach (var dept in MrsActivationRemarks)
@@ -61,7 +61,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetReturn()
     {
       List<InternalOrderActivationRemarks> MrsActivationRemarks =
-      await db.internal_order_activation_remarks
+      await db.Internal_order_activation_remarks
       .Where(temp => temp.soar_is_active.Equals(true) && temp.soar_type.Contains("Return")).ToListAsync();
       List<InternalOrderActivationRemarksViewModel> projectsViewModel = new List<InternalOrderActivationRemarksViewModel>();
       foreach (var dept in MrsActivationRemarks)
