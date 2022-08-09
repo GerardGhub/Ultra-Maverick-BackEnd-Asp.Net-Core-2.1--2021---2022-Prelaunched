@@ -30,7 +30,6 @@ namespace MvcTaskManager.Controllers
       //List<DryWareHouseReceiving> projects = db.tblDryWHReceiving.Where(temp => temp.is_active.Equals(true)
 
 
-      string DeActivated = "0";
 
 
       List<DryWareHouseReceiving> obj = new List<DryWareHouseReceiving>();
@@ -40,7 +39,7 @@ namespace MvcTaskManager.Controllers
 
                      where
                      a.id == b.Prepa_Source_Key &&
-                     a.id == c.fk_receiving_id &&
+                     //a.id == c.fk_receiving_id &&
                      b.Is_Active.Equals(true)
                      &&
                      a.is_active == 1 &&
@@ -142,13 +141,29 @@ namespace MvcTaskManager.Controllers
                     );
 
 
-      return Ok(results);
+   
 
+
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(results);
+      });
+
+
+      if (results.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
 
       //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
 
 
-    
+
       //var result = await System.Threading.Tasks.Task.Run(() =>
       //{
       //  return Ok(GetAllPreparedItems);
@@ -429,13 +444,16 @@ namespace MvcTaskManager.Controllers
     }
 
 
+
+
+
+
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest/LabResultApproval")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetLabResultForApproval()
     {
 
-      //string data_is_pending = "1";
       string is_activated = "1";
       string LaboratoryResult = "LAB RESULT";
 
@@ -453,7 +471,7 @@ namespace MvcTaskManager.Controllers
 
       ).ToListAsync();
 
-      //&& temp.is_approved != null
+   
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
       foreach (var project in projects)
       {
@@ -615,11 +633,12 @@ namespace MvcTaskManager.Controllers
     public async Task<DryWareHouseReceiving> Put([FromBody] DryWareHouseReceiving labTestQAStaffApprovalParams)
     {
       DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == labTestQAStaffApprovalParams.id).FirstOrDefaultAsync();
+      labTestQAStaffApprovalParams.qa_approval_status = "1";
       if (existingDataStatus != null)
       {
         existingDataStatus.qa_approval_by = labTestQAStaffApprovalParams.qa_approval_by;
         existingDataStatus.qa_approval_status = labTestQAStaffApprovalParams.qa_approval_status;
-        existingDataStatus.qa_approval_date = labTestQAStaffApprovalParams.qa_approval_date;
+        existingDataStatus.qa_approval_date = DateTime.Now;
         existingDataStatus.lab_status = labTestQAStaffApprovalParams.lab_status;
         await db.SaveChangesAsync();
         return existingDataStatus;
@@ -631,21 +650,55 @@ namespace MvcTaskManager.Controllers
     }
 
 
+
+
+
+    [HttpPut]
+    [Route("api/DryWareHouseReceivingForLabTest/SettingLabAccessCode")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> PutQALabAccessCode([FromBody] DryWareHouseReceiving[] labTestQAStaffApprovalParams)
+    {
+
+      foreach (DryWareHouseReceiving items in labTestQAStaffApprovalParams)
+      {
+
+        
+        var existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
+        if (existingDataStatus != null)
+        {
+          existingDataStatus.lab_access_code = items.lab_access_code;
+          await db.SaveChangesAsync();
+          return Ok(existingDataStatus);
+        }
+        else
+        {
+          return null;
+        }
+
+      }
+      return Ok(labTestQAStaffApprovalParams);
+      //await db.SaveChangesAsync();
+      //return Ok(QcChecklistForm);
+
+    }
+
+
+
+
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/QAReleasingResult")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<DryWareHouseReceiving> PutQAResults([FromBody] DryWareHouseReceiving labTestQAStaffApprovalParams)
     {
-      string LaboratoryStatus = "LAB RESULT";
+      labTestQAStaffApprovalParams.lab_status = "LAB RESULT";
       DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == labTestQAStaffApprovalParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_result_released_by = labTestQAStaffApprovalParams.lab_result_released_by;
-        existingDataStatus.lab_result_released_date = labTestQAStaffApprovalParams.lab_result_released_date;
-        existingDataStatus.lab_status = LaboratoryStatus;
-        //labTestQAStaffApprovalParams.lab_status;
-        existingDataStatus.lab_result_remarks = labTestQAStaffApprovalParams.lab_result_remarks;
-        existingDataStatus.lab_sub_remarks = labTestQAStaffApprovalParams.lab_sub_remarks;
+        existingDataStatus.lab_result_released_date = DateTime.Now.ToString();
+        existingDataStatus.lab_status = labTestQAStaffApprovalParams.lab_status;
+        //existingDataStatus.lab_result_remarks = labTestQAStaffApprovalParams.lab_result_remarks;
+        //existingDataStatus.lab_sub_remarks = labTestQAStaffApprovalParams.lab_sub_remarks;
         existingDataStatus.lab_exp_date_extension = labTestQAStaffApprovalParams.lab_exp_date_extension;
         existingDataStatus.laboratory_procedure = labTestQAStaffApprovalParams.laboratory_procedure;
       
@@ -665,10 +718,11 @@ namespace MvcTaskManager.Controllers
     public async Task<DryWareHouseReceiving> PutCancelQAResults([FromBody] DryWareHouseReceiving labTestCancelParams)
     {
       DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == labTestCancelParams.id).FirstOrDefaultAsync();
+      labTestCancelParams.qa_approval_status = "3";
       if (existingDataStatus != null)
       {
         existingDataStatus.lab_cancel_by = labTestCancelParams.lab_cancel_by;
-        existingDataStatus.lab_cancel_date = labTestCancelParams.lab_cancel_date;
+        existingDataStatus.lab_cancel_date = DateTime.Now.ToString();
         existingDataStatus.lab_cancel_remarks = labTestCancelParams.lab_cancel_remarks;
         existingDataStatus.qa_approval_status = labTestCancelParams.qa_approval_status;
         await db.SaveChangesAsync();
@@ -693,7 +747,7 @@ namespace MvcTaskManager.Controllers
       {
         existingDataStatus.qa_supervisor_is_approve_status = labTestQASuperVisorApprovalParams.qa_supervisor_is_approve_status;
         existingDataStatus.qa_supervisor_is_approve_by = labTestQASuperVisorApprovalParams.qa_supervisor_is_approve_by;
-        existingDataStatus.qa_supervisor_is_approve_date = labTestQASuperVisorApprovalParams.qa_supervisor_is_approve_date;
+        existingDataStatus.qa_supervisor_is_approve_date = DateTime.Now.ToString();
        await db.SaveChangesAsync();
         return existingDataStatus;
       }

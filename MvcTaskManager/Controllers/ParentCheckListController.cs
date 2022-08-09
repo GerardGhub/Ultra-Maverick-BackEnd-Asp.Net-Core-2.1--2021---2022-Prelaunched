@@ -119,7 +119,7 @@ namespace MvcTaskManager.Controllers
       db.Parent_checklist.Add(parentRequestParam);
       await db.SaveChangesAsync();
 
-      ParentCheckList existingProject = await db.Parent_checklist.Where(temp => temp.parent_chck_id == parentRequestParam.parent_chck_id).FirstOrDefaultAsync();
+      ParentCheckList existingProject = await db.Parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details).FirstOrDefaultAsync();
 
       ParentCheckListViewModel ParentViewModel = new ParentCheckListViewModel()
       {
@@ -145,7 +145,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetParentCheckListById(int parent_identity)
     {
 
-      List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true) && temp.parent_chck_id == parent_identity).ToListAsync();
+      List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.parent_chck_id == parent_identity).ToListAsync();
 
 
       List<ParentCheckListViewModel> MaterialRequestViewModel = new List<ParentCheckListViewModel>();
@@ -535,7 +535,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetParentCheckList()
     {
 
-      List<ParentCheckList> AllParentData = await db.Parent_checklist.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      List<ParentCheckList> AllParentData = await db.Parent_checklist.ToListAsync();
 
 
       List<ParentCheckListViewModel> MaterialRequestViewModel = new List<ParentCheckListViewModel>();

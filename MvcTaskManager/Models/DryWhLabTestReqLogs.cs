@@ -61,7 +61,7 @@ namespace MvcTaskManager.Models
     public string qa_supervisor_is_cancelled_by { get; set; }
     public string qa_supervisor_is_cancelled_date { get; set; }
     public string qa_supervisor_cancelled_remarks { get; set; }
-    public double Sample_Qty { get; set; }
+    public int Sample_Qty { get; set; }
 
     [ForeignKey("fk_receiving_id")]
     public virtual DryWareHouseReceiving DryWareHouseReceiving { get; set; }
