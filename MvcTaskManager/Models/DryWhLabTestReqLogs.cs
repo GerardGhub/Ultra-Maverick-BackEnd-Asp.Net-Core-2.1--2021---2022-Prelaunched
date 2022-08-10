@@ -23,7 +23,7 @@ namespace MvcTaskManager.Models
     public string aging { get; set; }
     public string remarks { get; set; }
     public int fk_receiving_id { get; set; }
-    public string is_active { get; set; }
+    public bool is_active { get; set; }
     public string added_by { get; set; }
     public DateTime date_added { get; set; }
     public string qa_approval_by { get; set; }
@@ -62,6 +62,10 @@ namespace MvcTaskManager.Models
     public string qa_supervisor_is_cancelled_date { get; set; }
     public string qa_supervisor_cancelled_remarks { get; set; }
     public int Sample_Qty { get; set; }
+
+    public bool Tsqa_Approval_Status { get; set; }
+    public string Tsqa_Approval_By { get; set; }
+    public DateTime? Tsqa_Approval_Date { get; set; }
 
     [ForeignKey("fk_receiving_id")]
     public virtual DryWareHouseReceiving DryWareHouseReceiving { get; set; }

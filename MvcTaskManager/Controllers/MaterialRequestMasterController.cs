@@ -37,7 +37,7 @@ namespace MvcTaskManager.Controllers
       int ApproverTwo = 0;
       int ApproverThree = 0;
       int ApproverFour = 0;
-      int SelectedApprover = 0;
+ 
 
       var CheckifUserIsAdmin = await (from User in db.Users
                                         

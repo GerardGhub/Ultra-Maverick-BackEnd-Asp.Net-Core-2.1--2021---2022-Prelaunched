@@ -20,7 +20,7 @@ namespace MvcTaskManager.ViewModels
     public string Aging { get; set; }
     public string Remarks { get; set; }
     public int Fk_receiving_id { get; set; }
-    public string Is_active { get; set; }
+    public bool Is_active { get; set; }
     public string Added_by { get; set; }
     public string Date_added { get; set; }
     public string Qa_approval_by { get; set; }
@@ -63,6 +63,11 @@ namespace MvcTaskManager.ViewModels
     public string Qa_supervisor_is_cancelled_by { get; set; }
     public string Qa_supervisor_is_cancelled_date { get; set; }
     public string Qa_supervisor_cancelled_remarks { get; set; }
+
+    public bool Tsqa_Approval_Status { get; set; }
+    public string Tsqa_Approval_By { get; set; }
+    public string Tsqa_Approval_Date { get; set; }
+    public int Sample_Qty { get; set; }
 
   }
 }

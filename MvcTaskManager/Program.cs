@@ -21,7 +21,7 @@ namespace MvcTaskManager
             WebHost.CreateDefaultBuilder(args)
               //.UseContentRoot(Directory.GetCurrentDirectory())
               .UseKestrel()
-          
+
               //.UseIISIntegration()
 
                 .UseStartup<Startup>();

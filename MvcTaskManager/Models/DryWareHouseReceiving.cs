@@ -61,6 +61,11 @@ namespace MvcTaskManager.Models
     public string lab_exp_date_request { get; set; }
     public int Sample_Qty { get; set; }
 
+    public bool Tsqa_Approval_Status { get; set; }
+    public string Tsqa_Approval_By { get; set; }
+    public DateTime? Tsqa_Approval_Date { get; set; }
+
+
     [ForeignKey("is_active")]
     public virtual tblNearlyExpiryMgmtModel tblNearlyExpiryMgmtModel { get; set; }
 
