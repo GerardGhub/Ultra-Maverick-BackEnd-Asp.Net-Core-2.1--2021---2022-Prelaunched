@@ -238,20 +238,20 @@ namespace MvcTaskManager.Controllers
                                                     GrandChildChecklist.is_manual,
                          checkListParameters =
                              from CheckListParams in db.Checklist_paramaters
-                             where GrandChildChecklist.gc_id == CheckListParams.gc_id && CheckListParams.is_active.Equals(true)
+                             where GrandChildChecklist.gc_id == CheckListParams.Gc_id && CheckListParams.Is_active.Equals(true)
                              select new
                              {
-                               CheckListParams.cp_params_id,
-                               CheckListParams.cp_description,
-                               CheckListParams.gc_id,
-                               CheckListParams.cp_gchild_key,
-                               CheckListParams.parent_chck_details,
-                               CheckListParams.cp_added_by,
-                               CheckListParams.cp_date_added,
-                               CheckListParams.is_active,
-                               CheckListParams.parent_chck_id,
-                               CheckListParams.cp_status,
-                               CheckListParams.manual_description
+                               CheckListParams.Cp_params_id,
+                               CheckListParams.Cp_description,
+                               CheckListParams.Gc_id,
+                               CheckListParams.Cp_gchild_key,
+                               CheckListParams.Parent_chck_details,
+                               CheckListParams.Cp_added_by,
+                               CheckListParams.Cp_date_added,
+                               CheckListParams.Is_active,
+                               CheckListParams.Parent_chck_id,
+                               CheckListParams.Cp_status,
+                               CheckListParams.Manual_description
                             
                              }
 
@@ -332,20 +332,20 @@ namespace MvcTaskManager.Controllers
                                                                             },
                                                      checkListParameters =
                                                    from Params in db.Checklist_paramaters
-                                                   where Parent.parent_chck_id == Params.parent_chck_id && Params.is_active.Equals(true)
+                                                   where Parent.parent_chck_id == Params.Parent_chck_id && Params.Is_active.Equals(true)
                                                    select new
                                                    {
-                                                     Params.cp_params_id,
-                                                     Params.cp_description,
-                                                     Params.parent_chck_id,
-                                                     Params.parent_chck_details,
-                                                     Params.gc_id,
-                                                     Params.is_active,
-                                                     Params.cp_status,
-                                                     Params.manual_description,
+                                                     Params.Cp_params_id,
+                                                     Params.Cp_description,
+                                                     Params.Parent_chck_id,
+                                                     Params.Parent_chck_details,
+                                                     Params.Gc_id,
+                                                     Params.Is_active,
+                                                     Params.Cp_status,
+                                                     Params.Manual_description,
                                                      dynamicChecklistLoggers =
                                                    from dynamicChecklistLoggers in db.Dynamic_checklist_logger
-                                                   where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id && dynamicChecklistLoggers.ProjectID == ProjectID
+                                                   where Params.Cp_params_id == dynamicChecklistLoggers.cp_params_id && dynamicChecklistLoggers.ProjectID == ProjectID
                                                    select new
                                                    {
                                                      dynamicChecklistLoggers.id,
@@ -472,20 +472,20 @@ namespace MvcTaskManager.Controllers
                                                                             },
                                                      checkListParameters =
                                                    from Params in db.Checklist_paramaters
-                                                   where Parent.parent_chck_id == Params.parent_chck_id && Parent.is_active.Equals(true)
+                                                   where Parent.parent_chck_id == Params.Parent_chck_id && Parent.is_active.Equals(true)
                                                    select new
                                                    {
-                                                     Params.cp_params_id,
-                                                     Params.cp_description,
-                                                     Params.parent_chck_id,
-                                                     Params.parent_chck_details,
-                                                     Params.gc_id,
-                                                     Params.is_active,
-                                                     Params.cp_status,
-                                                     Params.manual_description,
+                                                     Params.Cp_params_id,
+                                                     Params.Cp_description,
+                                                     Params.Parent_chck_id,
+                                                     Params.Parent_chck_details,
+                                                     Params.Gc_id,
+                                                     Params.Is_active,
+                                                     Params.Cp_status,
+                                                     Params.Manual_description,
                                                      dynamicChecklistLoggers =
                                                    from dynamicChecklistLoggers in db.Dynamic_checklist_logger
-                                                   where Params.cp_params_id == dynamicChecklistLoggers.cp_params_id 
+                                                   where Params.Cp_params_id == dynamicChecklistLoggers.cp_params_id 
                                                    select new
                                                    {
                                                      dynamicChecklistLoggers.id,

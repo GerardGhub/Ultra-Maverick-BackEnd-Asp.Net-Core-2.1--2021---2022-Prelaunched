@@ -264,21 +264,20 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
-                //New Lang Sample
-                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
-                temp.cp_params_id == items.cp_params_id).ToListAsync();
+              
+                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.Is_active.Equals(true) &&
+                temp.Cp_params_id == items.cp_params_id).ToListAsync();
                 foreach (var list in DynamicChecklist_cp_description)
                 {
-                  items.cp_description = list.cp_description;
+                  items.cp_description = list.Cp_description;
                 }
 
                 items.ProjectID = FirstSummary;
@@ -296,11 +295,11 @@ namespace MvcTaskManager.Controllers
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
                   //New Lang Sample
-                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
-                  temp.cp_params_id == items.cp_params_id).ToListAsync();
+                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.Is_active.Equals(true) &&
+                  temp.Cp_params_id == items.cp_params_id).ToListAsync();
                   foreach (var list in DynamicChecklist_cp_description)
                   {
-                    items.cp_description = list.cp_description;
+                    items.cp_description = list.Cp_description;
                   }
 
                   items.ProjectID = FirstSummary;
@@ -317,21 +316,21 @@ namespace MvcTaskManager.Controllers
 
  
             }
-            //Seperator for else in Grand Child in Parent 1
+     
    
             if (GrandChildKey.Count >= 2)
             {
-              //return BadRequest(new { message = GrandChildKey.Count });
+       
        
               int GrandChildnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
-                //New Lang Sample
-                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
-                temp.cp_params_id == items.cp_params_id).ToListAsync();
+         
+                var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.Is_active.Equals(true) &&
+                temp.Cp_params_id == items.cp_params_id).ToListAsync();
                 foreach (var list in DynamicChecklist_cp_description)
                 {
-                  items.cp_description = list.cp_description;
+                  items.cp_description = list.Cp_description;
                 }
 
                 if (items.parent_id == item1.cc_parent_key)
@@ -341,23 +340,23 @@ namespace MvcTaskManager.Controllers
                 }
               }
 
-              //return BadRequest(GrandChildnum);           if (QcChecklistForm.Length.ToString() == GrandChildKey.Count.ToString())
+
               if (GrandChildnum == GrandChildKey.Count)
               {
-                //item1.child_desc = QcChecklistForm.Length.ToString();
+             
 
                 foreach (DynamicChecklistLogger items in QcChecklistForm)
                 {
-                  //New Lang Sample
-                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.is_active.Equals(true) &&
-                  temp.cp_params_id == items.cp_params_id).ToListAsync();
+                  
+                  var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.Is_active.Equals(true) &&
+                  temp.Cp_params_id == items.cp_params_id).ToListAsync();
                   foreach (var list in DynamicChecklist_cp_description)
                   {
-                    items.cp_description = list.cp_description;
+                    items.cp_description = list.Cp_description;
                   }
 
                   items.ProjectID = FirstSummary;
-                  db.Dynamic_checklist_logger.Add(items); // add muna ito
+                  db.Dynamic_checklist_logger.Add(items);
                 }
               }
               else
@@ -383,7 +382,7 @@ namespace MvcTaskManager.Controllers
           var ChildKey = await db.Child_checklist.Where(temp =>
        temp.is_active.Equals(true) && temp.cc_parent_key == item.parent_chck_id).ToListAsync();
 
-          //return BadRequest(ChildKey.Count());  //BreakPoint
+         
 
 
           foreach (var item1 in ChildKey)
@@ -394,12 +393,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+            
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -438,7 +436,7 @@ namespace MvcTaskManager.Controllers
 
               //Start of the Process
               var GrandChildKeyParameters = await db.Checklist_paramaters.Where(temp =>
-            temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+            temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               //return BadRequest(new { message = GrandChildKeyParameters.Count });
               if (GrandChildKey.Count >= GrandChildKeyParameters.Count)
@@ -546,12 +544,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+          
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -640,12 +637,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+  
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -734,12 +730,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+      
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -828,12 +823,10 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -921,12 +914,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+ 
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
@@ -1014,12 +1006,11 @@ namespace MvcTaskManager.Controllers
             if (GrandChildKey.Count == 1)
             {
               var GrandChildKeyParameter = await db.Checklist_paramaters.Where(temp =>
-              temp.is_active.Equals(true) && temp.parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
+              temp.Is_active.Equals(true) && temp.Parent_chck_id_fk == Convert.ToInt32(item1.cc_parent_key)).ToListAsync();
 
               var ListLogger = new List<DynamicChecklistLogger>();
 
-              //return BadRequest(GrandChildKey.Count());
-              //if Grandchild is equal to 1 show some fucking results ;;
+             
               int GrandChildParametersnum = 0;
               foreach (DynamicChecklistLogger items in QcChecklistForm)
               {
