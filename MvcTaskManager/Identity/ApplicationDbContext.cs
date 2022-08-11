@@ -71,6 +71,7 @@ namespace MvcTaskManager.Identity
     public DbSet<DryWhOrderParent> Dry_Wh_Order_Parent { get; set; }
     public DbSet<Internal_Preparation_Logs> Internal_Preparation_Logs { get; set; }
     public DbSet<Store_Preparation_Logs> Store_Preparation_Logs { get; set; }
+    public DbSet<CancelledLabTestTransactionStatus> CancelledLabTestTransactionStatus { get; set; }
 
 
     //public DbSet<CheckListParameters> AspNetRoles { get; set; }
@@ -98,7 +99,7 @@ namespace MvcTaskManager.Identity
     //            new Country() { CountryID = 2, CountryName = "United States" },
     //            new Country() { CountryID = 3, CountryName = "Indonesia" },
     //            new Country() { CountryID = 4, CountryName = "Brazil" }
-             
+
     //        );
 
     //        modelBuilder.Entity<TaskPriority>().HasData(
@@ -117,7 +118,7 @@ namespace MvcTaskManager.Identity
     //         );
 
     //    }
-    }
+  }
 }
 
 
