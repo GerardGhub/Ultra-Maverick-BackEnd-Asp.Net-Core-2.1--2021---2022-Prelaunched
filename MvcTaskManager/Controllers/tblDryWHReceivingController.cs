@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MvcTaskManager.Identity;
@@ -9,17 +10,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MvcTaskManager.Controllers
 {
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
-    public tblDryWHReceivingController(ApplicationDbContext db)
+    private static IWebHost _webHost;
+    public tblDryWHReceivingController(ApplicationDbContext db, IWebHost webHost)
     {
       this.db = db;
+      _webHost = webHost;
     }
 
+    //public async Task<string> Upload([FromForm] UploadFile obj)
+    //{
+    //  if (obj.files.Length > 0)
+    //  {
+
+    //    try
+    //    {
+    //      if (!Directory.Exists(_webHost.Web))
+    //    }
+    //    catch (Exception)
+    //    {
+
+    //      throw;
+    //    }
+
+
+    //  }
+    //}
 
 
     [HttpGet]
@@ -210,6 +232,48 @@ namespace MvcTaskManager.Controllers
 
 
     }
+ 
+
+    [HttpPost]
+    [Route("api/DryWareHouseReceivingForLabTest/AttachResult")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> Post([FromBody] ParentCheckList parentRequestParam)
+    {
+
+      //if (parentRequestParam.parent_chck_details == null || parentRequestParam.parent_chck_details == ""
+      //  || parentRequestParam.parent_chck_added_by == null || parentRequestParam.parent_chck_added_by == "")
+      //{
+      //  return BadRequest(new { message = "Fill up the required fields" });
+      //}
+
+      //var ParentCheckListDataInfo = await db.Parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details
+      //).ToListAsync();
+
+      //if (ParentCheckListDataInfo.Count > 0)
+      //{
+      //  return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
+      //}
+
+
+      //db.Parent_checklist.Add(parentRequestParam);
+      //await db.SaveChangesAsync();
+
+      ParentCheckList existingProject = await db.Parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details).FirstOrDefaultAsync();
+
+      ParentCheckListViewModel ParentViewModel = new ParentCheckListViewModel()
+      {
+
+        Parent_chck_id = existingProject.parent_chck_id,
+        Parent_chck_details = existingProject.parent_chck_details,
+        Parent_chck_added_by = existingProject.parent_chck_added_by,
+        Parent_chck_date_added = existingProject.parent_chck_date_added,
+        Is_active = existingProject.is_active
+      };
+
+      return Ok(ParentViewModel);
+
+    }
+
 
 
 
@@ -647,6 +711,8 @@ namespace MvcTaskManager.Controllers
         return null;
       }
     }
+
+
 
 
     [HttpPut]
