@@ -652,7 +652,7 @@ namespace MvcTaskManager.Controllers
                        where
                        a.Is_active.Equals(true)
                        && b.is_active.Equals(true)
-                       //&& c.is_active.Equals(true)
+                       //&& c.is_active.Equals(true)/
                        && d.is_active.Equals(true)
                        orderby a.Date_added descending
                        select new 
