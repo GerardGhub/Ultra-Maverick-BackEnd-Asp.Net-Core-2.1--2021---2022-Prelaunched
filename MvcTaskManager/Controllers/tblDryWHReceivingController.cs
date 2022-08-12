@@ -17,11 +17,11 @@ namespace MvcTaskManager.Controllers
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
-    private static IWebHost _webHost;
-    public tblDryWHReceivingController(ApplicationDbContext db, IWebHost webHost)
+    
+    public tblDryWHReceivingController(ApplicationDbContext db)
     {
       this.db = db;
-      _webHost = webHost;
+    
     }
 
     //public async Task<string> Upload([FromForm] UploadFile obj)
@@ -47,138 +47,138 @@ namespace MvcTaskManager.Controllers
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetForLabTest()
     {
-      //List<DryWareHouseReceiving> projects = db.tblDryWHReceiving.Where(temp => temp.is_active.Equals(true)
+
+      string StringSequence = "3";
+
+      var results = await (from a in db.TblDryWHReceiving
+                           join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key into pb
+                           from b in pb.DefaultIfEmpty()
+                           join c in db.Dry_wh_lab_test_req_logs on a.id equals c.fk_receiving_id into pc
+                           from c in pc.DefaultIfEmpty()
+
+
+                           where
+
+                           b.Is_Active.Equals(true) &&
+                           //c.Tsqa_Approval_Status.Equals(false) &&
+
+                           a.Is_active == 1 &&
+                           a.Lab_request_by != null
+                           &&
+                           a.Lab_result_released_by == null
+                           !=
+                           a.Qa_approval_status.Contains(StringSequence)
+
+
+                           group a by new
+                           {
+                             a.id,
+                             a.lab_access_code,
+                             a.Item_code,
+                             a.Item_description,
+                             a.Category,
+                             a.Is_active,
+                             a.Uom,
+                             a.Po_number,
+                             a.Po_date,
+                             a.pr_no,
+                             a.pr_date,
+                             a.Supplier,
+                             b.Prepa_Allocated_Qty,
+                             a.Qty_received,
+                             a.Lab_status,
+                             a.Historical_lab_transact_count,
+                             a.Client_requestor,
+                             a.Lab_exp_date_extension,
+                             a.Lab_request_date,
+                             a.Lab_request_by,
+                             a.Qa_approval_status,
+                             a.Qa_approval_by,
+                             a.Qa_approval_date,
+                             a.Lab_result_released_by,
+                             a.Lab_result_released_date,
+                             a.Lab_result_remarks,
+                             a.Lab_sub_remarks,
+                             a.Lab_approval_aging_days,
+                             a.Laboratory_procedure,
+                             a.Lab_cancel_by,
+                             a.Lab_cancel_date,
+                             a.Lab_cancel_remarks,
+                             a.Sample_Qty
 
 
 
 
-      List<DryWareHouseReceiving> obj = new List<DryWareHouseReceiving>();
-      var results = (from a in db.TblDryWHReceiving
-                     join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key into ps
-                     join c in db.Dry_wh_lab_test_req_logs on a.id equals c.fk_receiving_id
-                     from b in ps.DefaultIfEmpty()
-
-                     where
-                     //a.id == b.Prepa_Source_Key &&
-                     //a.id == c.fk_receiving_id
-                     b.Is_Active.Equals(true) &&
-                     c.Tsqa_Approval_Status.Equals(false) &&
-
-                     a.Is_active == 1 &&
-                     a.Lab_request_by != null
-                     &&
-                     a.Lab_result_released_by == null
-                     !=
-                     a.Qa_approval_status.Contains("3")
+                           } into total
 
 
-                     group a by new
-                     {
-                       a.id,
-                       a.lab_access_code,
-                       a.Item_code,
-                       a.Item_description,
-                       a.Category,
-                       a.Is_active,
-                       a.Uom,
-                       a.Po_number,
-                       a.Po_date,
-                       a.pr_no,
-                       a.pr_date,
-                       a.Supplier,
-                       b.Prepa_Allocated_Qty,
-                       a.Qty_received,
-                       a.Lab_status,
-                       a.Historical_lab_transact_count,
-                       a.Client_requestor,
-                       a.Lab_exp_date_extension,
-                       a.Lab_request_date,
-                       a.Lab_request_by,
-                       a.Qa_approval_status,
-                       a.Qa_approval_by,
-                       a.Qa_approval_date,
-                       a.Lab_result_released_by,
-                       a.Lab_result_released_date,
-                       a.Lab_result_remarks,
-                       a.Lab_sub_remarks,
-                       a.Lab_approval_aging_days,
-                       a.Laboratory_procedure,
-                       a.Lab_cancel_by,
-                       a.Lab_cancel_date,
-                       a.Lab_cancel_remarks,
-                       a.Sample_Qty
+                           select new
+
+                           {
+                             total.Key.id,
+                             total.Key.lab_access_code,
+                             total.Key.Item_code,
+                             total.Key.Item_description,
+                             total.Key.Category,
+                             total.Key.Po_number,
+                             total.Key.Po_date,
+                             total.Key.pr_no,
+                             total.Key.pr_date,
+                             total.Key.Supplier,
+                             total.Key.Uom,
+                             total.Key.Is_active,
+                             total.Key.Lab_status,
+                             total.Key.Lab_request_date,
+                             total.Key.Lab_request_by,
+                             total.Key.Historical_lab_transact_count,
+                             total.Key.Client_requestor,
+                             total.Key.Qa_approval_status,
+                             total.Key.Qa_approval_by,
+                             total.Key.Qa_approval_date,
+                             total.Key.Lab_result_released_by,
+                             total.Key.Lab_result_released_date,
+                             total.Key.Lab_result_remarks,
+                             total.Key.Lab_sub_remarks,
+                             total.Key.Lab_exp_date_extension,
+                             total.Key.Lab_approval_aging_days,
+                             total.Key.Laboratory_procedure,
+                             total.Key.Lab_cancel_by,
+                             total.Key.Lab_cancel_date,
+                             total.Key.Lab_cancel_remarks,
+                             sample_qty = total.Key.Sample_Qty,
+                             qty_received = Convert.ToInt32(total.Key.Qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
+                             expiry_days_aging = (total.Key.Lab_exp_date_extension - DateTime.Now).Days
 
 
+                           }
+                     ).ToListAsync();
 
 
-                     } into total
+      return Ok(results);
 
-           
-                  select new
-
-                     {
-                       total.Key.id,
-                       total.Key.lab_access_code,
-                       total.Key.Item_code,
-                       total.Key.Item_description,
-                       total.Key.Category,
-                       total.Key.Po_number,
-                       total.Key.Po_date,
-                       total.Key.pr_no,
-                       total.Key.pr_date,
-                       total.Key.Supplier,
-                       total.Key.Uom,
-                       total.Key.Is_active,
-                       total.Key.Lab_status,
-                       total.Key.Lab_request_date,
-                       total.Key.Lab_request_by,
-                       total.Key.Historical_lab_transact_count,
-                       total.Key.Client_requestor,
-                       total.Key.Qa_approval_status,
-                       total.Key.Qa_approval_by,
-                       total.Key.Qa_approval_date,
-                       total.Key.Lab_result_released_by,
-                       total.Key.Lab_result_released_date,
-                       total.Key.Lab_result_remarks,
-                       total.Key.Lab_sub_remarks,
-                       total.Key.Lab_exp_date_extension,
-                       total.Key.Lab_approval_aging_days,
-                       total.Key.Laboratory_procedure,
-                       total.Key.Lab_cancel_by,
-                       total.Key.Lab_cancel_date,
-                       total.Key.Lab_cancel_remarks,
-                       sample_qty = total.Key.Sample_Qty,              
-                       qty_received = Convert.ToInt32(total.Key.Qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
-                       expiry_days_aging = (total.Key.Lab_exp_date_extension - DateTime.Now).Days
-                       
-
-                  }
-
-
-
-                    );
+                    
 
 
    
 
 
-      var result = await System.Threading.Tasks.Task.Run(() =>
-      {
-        return Ok(results);
-      });
+      //var result = await System.Threading.Tasks.Task.Run(() =>
+      //{
+      //  return Ok(results);
+      //});
 
 
-      if (results.Count() > 0)
-      {
-        return (result);
-      }
-      else
-      {
+      //if (results.Count() > 0)
+      //{
+      //  return (result);
+      //}
+      //else
+      //{
 
-        return NoContent();
-      }
+      //  return NoContent();
+      //}
 
       //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
 
@@ -350,7 +350,7 @@ namespace MvcTaskManager.Controllers
 
       ).ToListAsync();
 
-      //&& temp.is_approved != null
+
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
       foreach (var project in projects)
       {
@@ -361,7 +361,6 @@ namespace MvcTaskManager.Controllers
             {
 
             LabStatus = "LAB RECEIVED";
-            //project.DryWareHouseReceiving.lab_status
             }
             else
             {

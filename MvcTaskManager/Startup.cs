@@ -94,9 +94,11 @@ namespace MvcTaskManager
       app.UseStaticFiles();
 
       app.UseDeveloperExceptionPage();
-            app.UseAuthentication();
-           
       app.UseRouting();
+      app.UseCors();
+      app.UseAuthentication();
+      app.UseAuthorization();
+   
       //app.UseMvc();
  
       //start
