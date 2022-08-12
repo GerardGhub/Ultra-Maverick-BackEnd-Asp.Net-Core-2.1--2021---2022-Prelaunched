@@ -11,9 +11,9 @@ namespace MvcTaskManager.Controllers
 {
     public class RouterLoggerController : Controller
     {
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public RouterLoggerController(IHostingEnvironment hostingEnvironment)
+        public RouterLoggerController(IWebHostEnvironment hostingEnvironment)
         {
             this._hostingEnvironment = hostingEnvironment;
         }
@@ -24,12 +24,12 @@ namespace MvcTaskManager.Controllers
         {
             string logMessage = null;
             using (StreamReader streamReader = new StreamReader(Request.Body, Encoding.ASCII))
-            {
-                logMessage = streamReader.ReadToEnd() + "\n";
+      {
+        logMessage = streamReader.ReadToEnd() + "\n";
             }
-            //string filePath = this._hostingEnvironment.ContentRootPath + "\\RouterLogger.txt";
-            //System.IO.File.AppendAllText(filePath, logMessage);
-            return Ok();
+      string filePath = this._hostingEnvironment.ContentRootPath + "\\RouterLogger.txt";
+      System.IO.File.AppendAllText(filePath, logMessage);
+      return Ok();
         }
     }
 }

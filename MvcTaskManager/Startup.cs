@@ -22,7 +22,7 @@ namespace MvcTaskManager
     public class Startup
     {
         public IConfiguration Configuration { get; set; }
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder().SetBasePath(env.ContentRootPath).AddJsonFile("appsettings.json");
             Configuration = builder.Build();
@@ -89,13 +89,16 @@ namespace MvcTaskManager
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseAuthentication();
-            app.UseStaticFiles();
-            app.UseMvc();
+      app.UseStaticFiles();
 
+      app.UseDeveloperExceptionPage();
+            app.UseAuthentication();
+           
+      app.UseRouting();
+      //app.UseMvc();
+ 
       //start
       app.UseSwagger();
 
@@ -103,102 +106,112 @@ namespace MvcTaskManager
       {
         c.SwaggerEndpoint("v1/swagger.json", "My API V1");
       });
+
+      app.UseEndpoints(endpoints => {
+        endpoints.MapControllers();
+      });
       //end
 
-      IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
-            using (IServiceScope scope = serviceScopeFactory.CreateScope())
-            {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+      //IServiceScopeFactory serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+      //      using (IServiceScope scope = serviceScopeFactory.CreateScope())
+      //      {
+      //          var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+      //          var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-                //Create Admin Role
-                if (!(await roleManager.RoleExistsAsync("Admin")))
-                {
-                    var role = new ApplicationRole();
-                    role.Name = "Admin";
-                    await roleManager.CreateAsync(role);
-                }
+      //          //Create Admin Role
+      //          if (!(await roleManager.RoleExistsAsync("Admin")))
+      //          {
+      //              var role = new ApplicationRole();
+      //              role.Name = "Admin";
+      //              await roleManager.CreateAsync(role);
+      //          }
 
-                //Create Admin User
-             if ((await userManager.FindByNameAsync("admin")) == null)
-                {
-                    var user = new ApplicationUser();
-                    user.UserName = "admin";
-                    user.Email = "admin@gmail.com";
-                    var userPassword = "Admin123#";
-                    var chkUser = await userManager.CreateAsync(user, userPassword);
-                    if (chkUser.Succeeded)
-                    {
-                        await userManager.AddToRoleAsync(user, "Admin");
-                    }
-                }
-                if (!(await userManager.IsInRoleAsync(await userManager.FindByNameAsync("admin"), "Admin")))
-                {
-                    await userManager.AddToRoleAsync(await userManager.FindByNameAsync("admin"), "Admin");
-                }
+      //          //Create Admin User
+      //       if ((await userManager.FindByNameAsync("admin")) == null)
+      //          {
+      //              var user = new ApplicationUser();
+      //              user.UserName = "admin";
+      //              user.Email = "admin@gmail.com";
+      //              var userPassword = "Admin123#";
+      //              var chkUser = await userManager.CreateAsync(user, userPassword);
+      //              if (chkUser.Succeeded)
+      //              {
+      //                  await userManager.AddToRoleAsync(user, "Admin");
+      //              }
+      //          }
+      //          if (!(await userManager.IsInRoleAsync(await userManager.FindByNameAsync("admin"), "Admin")))
+      //          {
+      //              await userManager.AddToRoleAsync(await userManager.FindByNameAsync("admin"), "Admin");
+      //          }
 
-                //Create Employee Role
-                if (!(await roleManager.RoleExistsAsync("Employee")))
-                {
-                    var role = new ApplicationRole();
-                    role.Name = "Employee";
-                    await roleManager.CreateAsync(role);
-                }
+      //          //Create Employee Role
+      //          if (!(await roleManager.RoleExistsAsync("Employee")))
+      //          {
+      //              var role = new ApplicationRole();
+      //              role.Name = "Employee";
+      //              await roleManager.CreateAsync(role);
+      //          }
 
-                //Create Supervisor Role
-                if (!(await roleManager.RoleExistsAsync("Supervisor")))
-                {
-                  var role = new ApplicationRole();
-                  role.Name = "QASupervisor";
-                  await roleManager.CreateAsync(role);
-                }
-              //Create QC Supervisor Role
-              if (!(await roleManager.RoleExistsAsync("QCSupervisor")))
-              {
-                var role = new ApplicationRole();
-                role.Name = "QCSupervisor";
-                await roleManager.CreateAsync(role);
-              }
-
-
-        //Create QC Staff Role
-        if (!(await roleManager.RoleExistsAsync("QC Staff")))
-        {
-          var role = new ApplicationRole();
-          role.Name = "QC Staff";
-          await roleManager.CreateAsync(role);
-        }
-
-        //Create QA Staff Role
-        if (!(await roleManager.RoleExistsAsync("QA Staff")))
-        {
-          var role = new ApplicationRole();
-          role.Name = "QA Staff";
-          await roleManager.CreateAsync(role);
-        }
+      //          //Create Supervisor Role
+      //          if (!(await roleManager.RoleExistsAsync("Supervisor")))
+      //          {
+      //            var role = new ApplicationRole();
+      //            role.Name = "QASupervisor";
+      //            await roleManager.CreateAsync(role);
+      //          }
+      //        //Create QC Supervisor Role
+      //        if (!(await roleManager.RoleExistsAsync("QCSupervisor")))
+      //        {
+      //          var role = new ApplicationRole();
+      //          role.Name = "QCSupervisor";
+      //          await roleManager.CreateAsync(role);
+      //        }
 
 
-        //Create Warehouse Checker Role
-        if (!(await roleManager.RoleExistsAsync("WarehouseChecker")))
-              {
-                var role = new ApplicationRole();
-                role.Name = "WarehouseChecker";
-                await roleManager.CreateAsync(role);
-              }
+      //  //Create QC Staff Role
+      //  if (!(await roleManager.RoleExistsAsync("QC Staff")))
+      //  {
+      //    var role = new ApplicationRole();
+      //    role.Name = "QC Staff";
+      //    await roleManager.CreateAsync(role);
+      //  }
 
-                //Create Logistic Checker Role
-                if (!(await roleManager.RoleExistsAsync("LogisticChecker")))
-                {
-                  var role = new ApplicationRole();
-                  role.Name = "LogisticChecker";
-                  await roleManager.CreateAsync(role);
-                }
-      }
+      //  //Create QA Staff Role
+      //  if (!(await roleManager.RoleExistsAsync("QA Staff")))
+      //  {
+      //    var role = new ApplicationRole();
+      //    role.Name = "QA Staff";
+      //    await roleManager.CreateAsync(role);
+      //  }
 
-            app.Run(async (context) =>
-            {
-                await context.Response.WriteAsync("Hello World!");
-            });
-        }
+
+      //  //Create Warehouse Checker Role
+      //  if (!(await roleManager.RoleExistsAsync("WarehouseChecker")))
+      //        {
+      //          var role = new ApplicationRole();
+      //          role.Name = "WarehouseChecker";
+      //          await roleManager.CreateAsync(role);
+      //        }
+
+      //          //Create Logistic Checker Role
+      //          if (!(await roleManager.RoleExistsAsync("LogisticChecker")))
+      //          {
+      //            var role = new ApplicationRole();
+      //            role.Name = "LogisticChecker";
+      //            await roleManager.CreateAsync(role);
+      //          }
+      //}
+
+      //      app.Run(async (context) =>
+      //      {
+      //          await context.Response.WriteAsync("Hello World!");
+      //      });
+
+
+
+
+
+
     }
+  }
 }

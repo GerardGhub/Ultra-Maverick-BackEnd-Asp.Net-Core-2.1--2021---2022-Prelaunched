@@ -6,24 +6,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace MvcTaskManager
 {
     public class Program
     {
-        public static void Main(string[] args)
+   
+
+    public static IHostBuilder CreateHostBuilder(string[] args) =>
+    Host.CreateDefaultBuilder(args)
+
+        .ConfigureWebHostDefaults(webBuilder =>
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+          webBuilder.ConfigureKestrel(serverOptions =>
+          {
+            // Set properties and call methods on options
+          })
+          .UseKestrel(options =>
+          {
+            options.AllowSynchronousIO = true;
+          })
+          .UseStartup<Startup>();
+        });
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-              //.UseContentRoot(Directory.GetCurrentDirectory())
-              .UseKestrel()
 
-              //.UseIISIntegration()
-
-                .UseStartup<Startup>();
+    public static void Main(string[] args)
+    {
+      CreateHostBuilder(args).Build().Run();
     }
+
+  }
 }
