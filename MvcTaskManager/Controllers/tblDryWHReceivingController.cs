@@ -17,11 +17,11 @@ namespace MvcTaskManager.Controllers
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
-    private static IWebHost _webHost;
-    public tblDryWHReceivingController(ApplicationDbContext db, IWebHost webHost)
+
+    public tblDryWHReceivingController(ApplicationDbContext db)
     {
       this.db = db;
-      _webHost = webHost;
+  
     }
 
     //public async Task<string> Upload([FromForm] UploadFile obj)
