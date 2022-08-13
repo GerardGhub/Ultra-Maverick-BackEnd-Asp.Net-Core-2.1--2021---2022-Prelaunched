@@ -174,29 +174,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<DryWhOrderParent>> GetDistinctDispatchingOrders()
     {
-      //public async Task<List<DryWhOrder>> GetDistinctDispatchingOrders()
-      //string DeActivated = "0";
-      //List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders
-      //.GroupBy(p => new { p.is_approved_prepa_date, p.fox })
-      //.Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-      //&& temp.is_for_validation.Contains(DeActivated)
-      //&& temp.is_approved != null
-      //&& temp.is_prepared.Equals(true)
-      //&& temp.is_wh_approved != null
-      //|| temp.force_prepared_status != null).ToListAsync();
-      //return StoreOrderCheckList;
 
-
-      //string DeActivated = "0";
-      //List<DryWhOrderParent> StoreOrderCheckList = await db.Dry_Wh_Order_Parent
-
-      //  .Where(temp => temp.Is_active.Equals(true)
-      //&& temp.Is_for_validation.Contains(DeActivated)
-      //&& temp.Is_approved.Equals(true)
-      //&& temp.Is_prepared.Equals(true)
-      //&& temp.Is_wh_approved.Equals(true)
-      //|| temp.Force_prepared_status != null).ToListAsync();
-      //return StoreOrderCheckList;
 
 
       var forStoreDispathing = from p in db.Dry_Wh_Order_Parent

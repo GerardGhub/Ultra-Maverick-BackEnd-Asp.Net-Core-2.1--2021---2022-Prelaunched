@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -65,6 +66,16 @@ namespace MvcTaskManager.Models
     public DateTime? Tsqa_Approval_Date { get; set; }
 
     public string LabTest_CancelledReason { get; set; }
+
+
+    public bool Qa_supervisor_is_approve_status { get; set; }
+
+    public string Qa_supervisor_is_approve_date { get; set; }
+
+    [NotMapped]
+    public IFormFile files { get; set; }
+    public string FileName { get; set; }
+    public string FilePath { get; set; }
 
     [ForeignKey("is_active")]
     public virtual tblNearlyExpiryMgmtModel TblNearlyExpiryMgmtModel { get; set; }
