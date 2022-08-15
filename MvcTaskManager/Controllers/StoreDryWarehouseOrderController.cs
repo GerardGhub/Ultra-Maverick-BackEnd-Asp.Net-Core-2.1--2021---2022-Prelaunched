@@ -425,7 +425,6 @@ namespace MvcTaskManager.Controllers
 
 
     [HttpGet]
-    //[Route("api/store_orders_partial_cancel/search/{searchby}/{searchtext}/{searchindex}")]
     [Route("api/store_orders_partial_cancel/search/{searchId}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> SearchPartialCancel(int searchId)
