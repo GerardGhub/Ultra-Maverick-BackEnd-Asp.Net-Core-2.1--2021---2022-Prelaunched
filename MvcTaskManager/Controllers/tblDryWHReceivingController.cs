@@ -283,10 +283,6 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetLabResult()
     {
 
-
-
-
-
       List<DryWhLabTestReqLogs> projects = null;
       projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
         .Where(temp => temp.Is_active.Equals(true)
@@ -294,9 +290,11 @@ namespace MvcTaskManager.Controllers
         //&& temp.DryWareHouseReceiving.lab_status.Contains(LaboratoryReceived)
 
 
-          && (temp.Qa_supervisor_is_approve_status.Equals(true) || temp.Tsqa_Approval_Status.Equals(true))
-          && temp.lab_result_received_by != null
-          && temp.lab_access_code == null
+          && temp.Qa_supervisor_is_approve_status.Equals(true)
+          && temp.Tsqa_Approval_Status.Equals(true)
+          //&& temp.lab_result_received_by != null
+          && temp.lab_result_received_by == null
+      &&   temp.lab_access_code == String.Empty
 
       ).ToListAsync();
 
@@ -621,12 +619,13 @@ namespace MvcTaskManager.Controllers
 
         && temp.DryWareHouseReceiving.Lab_status.Contains(LaboratoryResult)
 
-          && temp.lab_sub_remarks == null
-
-
-
+        && temp.lab_sub_remarks == null
+        && temp.Tsqa_Approval_Status.Equals(false)
 
       ).ToListAsync();
+
+
+ 
 
 
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
@@ -639,7 +638,7 @@ namespace MvcTaskManager.Controllers
         {
 
           LabStatus = "LAB RECEIVED";
-          //project.DryWareHouseReceiving.lab_status
+  
         }
         else
         {
@@ -650,6 +649,7 @@ namespace MvcTaskManager.Controllers
         {
 
           Lab_req_id = project.Lab_req_id,
+          Fk_receiving_id = project.Fk_receiving_id,
           Item_code = project.Item_code,
           Item_desc = project.Item_desc,
           Category = project.Category,
@@ -660,7 +660,7 @@ namespace MvcTaskManager.Controllers
           Historical = project.Historical,
           Aging = project.Aging,
           Remarks = project.Remarks,
-          Fk_receiving_id = project.Fk_receiving_id,
+ 
           //Is_active = project.is_active,
           Added_by = project.Added_by,
           Date_added = project.Date_added.ToString("MM/dd/yyyy"),
