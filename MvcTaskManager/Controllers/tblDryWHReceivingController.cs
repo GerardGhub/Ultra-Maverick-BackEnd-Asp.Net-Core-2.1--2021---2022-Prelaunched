@@ -15,6 +15,8 @@ using System.IO;
 
 namespace MvcTaskManager.Controllers
 {
+
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
@@ -26,46 +28,10 @@ namespace MvcTaskManager.Controllers
       _webHostEnvironment = webHostEnvironment;
     }
 
-    //[HttpPost]
-    //[Route("api/DryWareHouseReceivingForLabTest/AttachResult")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //public async Task<string> Upload([FromForm] UploadFile obj)
-    //{
-    //  if (obj.files.Length > 0)
-    //  {
-
-    //    try
-    //    {
-    //      if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
-    //      {
-    //        Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
-    //      }
-
-    //      using (FileStream filestream =System.IO.File.Create(_webHostEnvironment.WebRootPath+ "\\Images\\"+obj.files.FileName))
-    //      {
-    //        obj.files.CopyTo(filestream);
-    //        filestream.Flush();
-    //        return "\\Images\\" + obj.files.FileName;
-    //      }
-    //    }
-    //    catch (Exception ex)
-    //    {
-
-    //      return ex.ToString();
-    //    }
-
-
-    //  }
-    //  else
-    //  {
-    //    return "Upload Failed";
-    //  }
-    //}
 
 
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetForLabTest()
     {
 
@@ -182,46 +148,6 @@ namespace MvcTaskManager.Controllers
 
     }
 
-
-    //[HttpPost]
-    //[Route("api/DryWareHouseReceivingForLabTest/AttachResult")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //public async Task<IActionResult> Post([FromBody] ParentCheckList parentRequestParam)
-    //{
-
-    //  //if (parentRequestParam.parent_chck_details == null || parentRequestParam.parent_chck_details == ""
-    //  //  || parentRequestParam.parent_chck_added_by == null || parentRequestParam.parent_chck_added_by == "")
-    //  //{
-    //  //  return BadRequest(new { message = "Fill up the required fields" });
-    //  //}
-
-    //  //var ParentCheckListDataInfo = await db.Parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details
-    //  //).ToListAsync();
-
-    //  //if (ParentCheckListDataInfo.Count > 0)
-    //  //{
-    //  //  return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
-    //  //}
-
-
-    //  //db.Parent_checklist.Add(parentRequestParam);
-    //  //await db.SaveChangesAsync();
-
-    //  ParentCheckList existingProject = await db.Parent_checklist.Where(temp => temp.parent_chck_details == parentRequestParam.parent_chck_details).FirstOrDefaultAsync();
-
-    //  ParentCheckListViewModel ParentViewModel = new ParentCheckListViewModel()
-    //  {
-
-    //    Parent_chck_id = existingProject.parent_chck_id,
-    //    Parent_chck_details = existingProject.parent_chck_details,
-    //    Parent_chck_added_by = existingProject.parent_chck_added_by,
-    //    Parent_chck_date_added = existingProject.parent_chck_date_added,
-    //    Is_active = existingProject.is_active
-    //  };
-
-    //  return Ok(ParentViewModel);
-
-    //}
 
 
 
@@ -835,8 +761,10 @@ namespace MvcTaskManager.Controllers
       
       if (labTestQAStaffApprovalParams.files.Length > 0)
       {
+        try
+        {
 
-
+   
         if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
         {
           Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
@@ -849,10 +777,17 @@ namespace MvcTaskManager.Controllers
           //return "\\Images\\" + labTestQAStaffApprovalParams.files.FileName;
         }
 
+        }
+        catch (Exception ex)
+        {
+
+          throw;
+        }
+
 
 
       }
-
+      //return labTestQAStaffApprovalParams;
 
 
       labTestQAStaffApprovalParams.Lab_status = "LAB RESULT";
