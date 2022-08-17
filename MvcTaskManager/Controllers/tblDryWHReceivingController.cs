@@ -467,8 +467,8 @@ namespace MvcTaskManager.Controllers
 
         && temp.DryWareHouseReceiving.Lab_status.Contains(LaboratoryResult)
 
-        && temp.lab_sub_remarks == null
-        && temp.Tsqa_Approval_Status.Equals(false)
+        && (temp.lab_sub_remarks == null
+        || temp.Tsqa_Approval_Status.Equals(false))
 
       ).ToListAsync();
 
@@ -569,7 +569,6 @@ namespace MvcTaskManager.Controllers
 
 
       int ReceivedID = searchText;
-      //if (searchBy == "store_name")       
 
       projects = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.is_received_status.Contains(is_activated) && temp.Fk_receiving_id == ReceivedID).ToListAsync();
 
@@ -686,9 +685,7 @@ namespace MvcTaskManager.Controllers
 
       
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
-      {
-
-        
+      {    
         var existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.Lab_req_id == items.Lab_req_id).FirstOrDefaultAsync();
         if (existingDataStatus != null)
         {
@@ -700,13 +697,6 @@ namespace MvcTaskManager.Controllers
         {
           return null;
         }
-
-
- 
-
-
-
-
 
       }
       return Ok(labTestLabAccessCodeParams);
@@ -722,24 +712,24 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/QAReleasingResult")]
     public async Task<DryWareHouseReceiving> PutQAResults([FromForm] DryWareHouseReceiving labTestQAStaffApprovalParams)
     {
-      
+
       if (labTestQAStaffApprovalParams.files.Length > 0)
       {
         try
         {
 
-   
-        if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
-        {
-          Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
-        }
 
-        using (FileStream filestream = System.IO.File.Create(_webHostEnvironment.WebRootPath + "\\Images\\" + labTestQAStaffApprovalParams.files.FileName))
-        {
-          labTestQAStaffApprovalParams.files.CopyTo(filestream);
-          filestream.Flush();
-          //return "\\Images\\" + labTestQAStaffApprovalParams.files.FileName;
-        }
+          if (!Directory.Exists(_webHostEnvironment.WebRootPath + "\\Images\\"))
+          {
+            Directory.CreateDirectory(_webHostEnvironment.WebRootPath + "\\Images\\");
+          }
+
+          using (FileStream filestream = System.IO.File.Create(_webHostEnvironment.WebRootPath + "\\Images\\" + labTestQAStaffApprovalParams.files.FileName))
+          {
+            labTestQAStaffApprovalParams.files.CopyTo(filestream);
+            filestream.Flush();
+            //return "\\Images\\" + labTestQAStaffApprovalParams.files.FileName;
+          }
 
         }
         catch (Exception ex)
@@ -755,7 +745,9 @@ namespace MvcTaskManager.Controllers
 
 
       labTestQAStaffApprovalParams.Lab_status = "LAB RESULT";
-      DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == labTestQAStaffApprovalParams.id).FirstOrDefaultAsync();
+      DryWareHouseReceiving existingDataStatus =
+        await db.TblDryWHReceiving
+        .Where(temp => temp.id == labTestQAStaffApprovalParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.Lab_result_released_by = labTestQAStaffApprovalParams.Lab_result_released_by;
@@ -785,7 +777,8 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/CancelledQAReleasingResult")]
     public async Task<DryWareHouseReceiving> PutCancelQAResults([FromBody] DryWareHouseReceiving labTestCancelParams)
     {
-      DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving.Where(temp => temp.id == labTestCancelParams.id).FirstOrDefaultAsync();
+      DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving
+        .Where(temp => temp.id == labTestCancelParams.id).FirstOrDefaultAsync();
       labTestCancelParams.Qa_approval_status = "3";
       if (existingDataStatus != null)
       {

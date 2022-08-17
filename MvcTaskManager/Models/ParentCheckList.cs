@@ -10,7 +10,7 @@ namespace MvcTaskManager.Models
   public class ParentCheckList
   {
     [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
     public int parent_chck_id { get; set; }
     [Required]
     public string parent_chck_details { get; set; }
@@ -23,18 +23,25 @@ namespace MvcTaskManager.Models
     public string deactivated_at { get; set; }
     public string deactivated_by { get; set; }
 
-  
 
-    //public ICollection<ChildCheckList> ChildCheckLists { get; set; }
+
+
     public ParentCheckList()
     {
       ChildCheckLists = new HashSet<ChildCheckList>();
-      //DynamicChecklistLoggers = new HashSet<DynamicChecklistLogger>();
-
     }
     public ICollection<ChildCheckList> ChildCheckLists { get; set; }
     public ICollection<GrandChildCheckList> GrandChildCheckLists { get; set; }
-    public ICollection<CheckListParameters> CheckListParameters{ get; set; }
+    public ICollection<CheckListParameters> CheckListParameters { get; set; }
+
+
+
+
+
+
+
+
+
 
 
     //[ForeignKey("parent_chck_id")]

@@ -17,9 +17,10 @@ namespace MvcTaskManager.Models
     [Required]
     public int cc_parent_key { get; set; }
     [Required]
-
     public string parent_chck_details { get; set; }
     public string cc_bool_status { get; set; }
+
+    
     public int parent_chck_id { get; set; }
     public string cc_added_by { get; set; }
     public string cc_date_added { get; set; } = DateTime.Now.ToString();
