@@ -47,22 +47,12 @@ span.mat-button-wrapper {
 .dashboardActive {
   color: #3f51b5;
 }
-.mat-form-field-wrapper.ng-tns-c95-8 {
-  width: 300px !important;
-}
 .swal2-popup.swal2-modal.swal2-icon-error.swal2-show {
   width: 300px !important;
   height: 280px !important;
 }
 .inputLoginField {
   width: 180px;
-}
-.loginBtn {
-  border-radius: 20px;
-  width: 100%;
-  border: none;
-  color: white;
-  height: 30px;
 }
 .mat-body, .mat-body-1, .mat-typography {
   font: 400 13px/20px Roboto, sans-serif !important;
@@ -73,14 +63,6 @@ span.mat-button-wrapper {
   padding-bottom: 1em;
   font-size: large;
 }
-.loginIconDiv {
-  height: 60px;
-  width: 60px;
-  margin: auto;
-  border-radius: 30px;
-  background-image: url('icon.png');
-  background-size: contain;
-}
 .umLogo {
   width: 80px;
   height: 80px;
@@ -89,9 +71,6 @@ span.mat-button-wrapper {
   background-repeat: no-repeat;
   margin-top: 2.9em;
   margin-left: 1.2em;
-}
-.loginDiv {
-  padding-top: 100px;
 }
 .notifDiv {
   background-color: #047952;
@@ -151,14 +130,14 @@ span.mat-button-wrapper {
   padding-right: 0.5em;
 }
 .addbtnStyle {
-  background-color: #319b95;
+  background-color: #36474f;
   color: white;
   border-radius: 0.5em !important;
   border: none !important;
   min-height: 2em !important;
 }
 .addbtnStyle:hover {
-  background-color: #65aca8;
+  background-color: #676767;
   color: white;
 }
 .searchBtnStyle {
