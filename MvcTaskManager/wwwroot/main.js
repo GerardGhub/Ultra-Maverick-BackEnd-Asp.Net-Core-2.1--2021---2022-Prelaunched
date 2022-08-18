@@ -11543,7 +11543,7 @@ LoginComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineCom
     } }, decls: 35, vars: 11, consts: [[1, "login-form"], [1, "loginHeaderDiv"], [1, "loginIconDiv"], [3, "formGroup"], [1, "form-row"], [1, "form-group", "col-md-12"], ["floatLabel", "auto", "appearance", "outline", "color", "primary", 1, "full-width"], ["type", "text", "matInput", "", "placeholder", "Username", "name", "UserName", "formControlName", "username", 3, "ngModel", "errorStateMatcher", "ngModelChange"], ["align", "end"], ["matPrefix", ""], [3, "innerHTML", 4, "ngIf"], ["type", "password", "matInput", "", "placeholder", "Password", "name", "Password", "formControlName", "password", 3, "type", "ngModel", "errorStateMatcher", "ngModelChange", "keyup"], ["id", "eyeball", "matSuffix", "", 3, "click"], [1, "loginbtn"], ["mat-raised-button", "", "type", "submit", 1, "loginBtn", 3, "click"], [1, "login-footer"], [3, "innerHTML"]], template: function LoginComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2, "Login User");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2, "Login Users");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](3, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](4, "form", 3);

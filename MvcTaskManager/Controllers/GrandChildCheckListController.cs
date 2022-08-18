@@ -107,11 +107,10 @@ namespace MvcTaskManager.Controllers
       if (existingDataStatus != null)
       {
         existingDataStatus.gc_description = GrandChildRequestParam.gc_description;
-        existingDataStatus.updated_at = DateTime.Now.ToString();
+        existingDataStatus.updated_at = GrandChildRequestParam.updated_at = DateTime.Now.ToString();
         existingDataStatus.updated_by = GrandChildRequestParam.updated_by;
         existingDataStatus.is_manual = GrandChildRequestParam.is_manual;
-        //existingDataStatus.parent_chck_id_fk = GrandChildRequestParam.parent_chck_id_fk;
-        //existingDataStatus.parent_chck_id = GrandChildRequestParam.parent_chck_id_fk;
+
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
