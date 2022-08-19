@@ -48,7 +48,8 @@ namespace MvcTaskManager.Controllers
 
 
       var CheckListParamsDataInfo = await db.Checklist_paramaters
-        .Where(temp => temp.Cp_description == RequestParam.Cp_description).ToListAsync();
+        .Where(temp => temp.Cp_description == RequestParam.Cp_description
+        && temp.Cp_gchild_key == RequestParam.Cp_gchild_key).ToListAsync();
 
       if (RequestParam.Cp_description == "yes")
       {
@@ -58,6 +59,8 @@ namespace MvcTaskManager.Controllers
       {
 
       }
+
+
       else
       {
 
@@ -69,23 +72,23 @@ namespace MvcTaskManager.Controllers
 
       }
 
-  
 
 
 
 
 
-      var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(RequestParam.Cp_gchild_key)
-    ).ToListAsync();
+
+      //  var ChildParentKeyGetandSet = await db.Child_checklist.Where(temp => temp.cc_id == Convert.ToInt32(RequestParam.Cp_gchild_key)
+      //).ToListAsync();
 
 
       string ParentKeyDescription = "";
 
-      foreach (var form in ChildParentKeyGetandSet)
-      {
-      ParentKeyDescription = form.parent_chck_details;
-  
-      }
+      //  foreach (var form in ChildParentKeyGetandSet)
+      //  {
+      //  ParentKeyDescription = form.parent_chck_details;
+
+      //  }
 
 
       var GetGranchildDescription = await db.Grandchild_checklist.Where(temp => temp.gc_id == Convert.ToInt32(RequestParam.Cp_gchild_key)
@@ -99,6 +102,7 @@ namespace MvcTaskManager.Controllers
 
         GCDescription = form.gc_description;
         ParentPrimaryKey = form.parent_chck_id;
+        ParentKeyDescription = form.parent_chck_details;
       }
 
       RequestParam.Gc_description = GCDescription;
@@ -110,6 +114,7 @@ namespace MvcTaskManager.Controllers
 
 
       db.Checklist_paramaters.Add(RequestParam);
+
       await db.SaveChangesAsync();
 
       CheckListParameters existingProject = await db.Checklist_paramaters.Where(temp => temp.Cp_params_id == RequestParam.Cp_params_id).FirstOrDefaultAsync();
@@ -173,7 +178,8 @@ namespace MvcTaskManager.Controllers
     {
 
 
-      CheckListParameters existingDataStatus = await db.Checklist_paramaters.Where(temp => temp.Cp_params_id == RequestParam.Cp_params_id).FirstOrDefaultAsync();
+      CheckListParameters existingDataStatus = await db.Checklist_paramaters
+        .Where(temp => temp.Cp_params_id == RequestParam.Cp_params_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.Is_active = false;
@@ -194,7 +200,8 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<CheckListParameters>> PutActivate([FromBody] CheckListParameters RequestParam)
     {
-      CheckListParameters existingDataStatus = await db.Checklist_paramaters.Where(temp => temp.Cp_params_id == RequestParam.Cp_params_id).FirstOrDefaultAsync();
+      CheckListParameters existingDataStatus = await db.Checklist_paramaters
+        .Where(temp => temp.Cp_params_id == RequestParam.Cp_params_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.Is_active = true;
@@ -240,7 +247,6 @@ namespace MvcTaskManager.Controllers
           Cp_params_id = form.Cp_params_id,
           Cp_gchild_key = form.Cp_gchild_key,
           Parent_chck_details = form.Parent_chck_details,
-          //Cp_bool_status = form.cp_bool_status,
           Cp_added_by = form.Cp_added_by,
           Cp_date_added = form.Cp_date_added,
           Updated_at = form.Updated_at,
