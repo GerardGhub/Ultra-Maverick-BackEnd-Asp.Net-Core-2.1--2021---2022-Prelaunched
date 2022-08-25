@@ -757,7 +757,6 @@ namespace MvcTaskManager.Controllers
     [Route("api/ProjectsPartialPo")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Put([FromBody] Project project)
-    //public IActionResult Put([FromBody] RMProjectsPartialPo project)
     {
       RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
       if (existingProject != null)
@@ -767,7 +766,7 @@ namespace MvcTaskManager.Controllers
         existingProject.TeamSize = project.TeamSize;
         existingProject.Active = project.Active;
         existingProject.is_activated = project.is_activated;
-        //existingProject.ClientLocationID = project.ClientLocationID;
+      
         existingProject.Status = project.Status;
         existingProject.Supplier = project.Supplier;
         existingProject.item_code = project.item_code;
@@ -1087,8 +1086,8 @@ namespace MvcTaskManager.Controllers
           Is_approved_XP = existingProject.Is_approved_XP,
           Is_approved_by = existingProject.Is_approved_by,
           Is_approved_date = existingProject.Is_approved_date,
-                 //Rejection Approval of QC Supervisor
-        Is_wh_reject_approval = existingProject.Is_wh_reject_approval,
+          //Rejection Approval of QC Supervisor
+          Is_wh_reject_approval = existingProject.Is_wh_reject_approval,
           Is_wh_reject_approval_by = existingProject.Is_wh_reject_approval_by,
           Is_wh_reject_approval_date = existingProject.Is_wh_reject_approval_date
 

@@ -24,7 +24,7 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/projects")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Get()
     {
   
@@ -43,8 +43,6 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          //ClientLocation = project.ClientLocation,
-          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -223,6 +221,8 @@ namespace MvcTaskManager.Controllers
 
       var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
 
+      //return BadRequest(TotalPartialReceiving);
+
        int FirstSummary = TotalPartialReceiving.Count + 1;
 
       foreach (var item in QcChecklistForm)
@@ -233,7 +233,7 @@ namespace MvcTaskManager.Controllers
         }
       }
 
-
+  
      
      
 
@@ -1692,20 +1692,8 @@ namespace MvcTaskManager.Controllers
       {
         existingProject.ProjectName = project.ProjectName;
         existingProject.DateOfStart = project.DateOfStart;
-        //existingProject.TeamSize = project.TeamSize;
-        //existingProject.Active = project.Active;
         existingProject.is_activated = project.is_activated;
-        //existingProject.ClientLocationID = project.ClientLocationID;
         existingProject.Status = project.Status;
-        //existingProject.Supplier = project.Supplier;
-        //existingProject.item_code = project.item_code;
-        //existingProject.Po_number = project.Po_number;
-        //existingProject.Po_date = project.Po_date;
-        //existingProject.Pr_number = project.Pr_number;
-        //existingProject.Pr_date = project.Pr_date;
-        ////existingProject.Qty_order = project.Qty_order;
-        //existingProject.Qty_uom = project.Qty_uom;
-        //existingProject.Mfg_date = project.Mfg_date;
         existingProject.Expiration_date = project.Expiration_date;
         existingProject.Expected_delivery = project.Expected_delivery;
         existingProject.Actual_delivery = project.Actual_delivery;

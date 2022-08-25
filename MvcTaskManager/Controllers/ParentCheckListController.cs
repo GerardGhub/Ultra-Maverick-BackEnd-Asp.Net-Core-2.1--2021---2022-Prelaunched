@@ -189,7 +189,9 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ParentCheckList>> GetDynamicChecklist()
     {
 
-   
+      //var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
+
+      //return BadRequest(TotalPartialReceiving);
 
       var result = await (from ParentCheckList in db.Parent_checklist
                           //join User in db.Users on Parents.user_id equals User.User_Identity
