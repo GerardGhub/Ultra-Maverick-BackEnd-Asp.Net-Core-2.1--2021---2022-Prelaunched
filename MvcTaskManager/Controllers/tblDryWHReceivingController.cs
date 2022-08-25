@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace MvcTaskManager.Controllers
 {
+
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
@@ -46,185 +48,114 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<IActionResult> Get()
+    public async Task<IActionResult> GetForLabTest()
     {
-      //List<DryWareHouseReceiving> projects = db.tblDryWHReceiving.Where(temp => temp.is_active.Equals(true)
+
+      string StringSequence = "3";
+
+      var results = await (from a in db.TblDryWHReceiving
+                           join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key into pb
+                           from b in pb.DefaultIfEmpty()
+                           join c in db.Dry_wh_lab_test_req_logs on a.id equals c.Fk_receiving_id into pc
+                           from c in pc.DefaultIfEmpty()
+
+
+                           where
+
+                           (b.Is_Active.Equals(true)
+                            || c.Tsqa_Approval_Status.Equals(false)) &&
+
+                           a.Is_active == 1 &&
+                           a.Lab_request_by != null &&
+                           a.Lab_result_released_by == null !=
+                           a.Qa_approval_status.Contains(StringSequence)
+
+
+                           group a by new
+                           {
+                             a.id,
+                             a.lab_access_code,
+                             a.Item_code,
+                             a.Item_description,
+                             a.Category,
+                             a.Is_active,
+                             a.Uom,
+                             a.Po_number,
+                             a.Po_date,
+                             a.pr_no,
+                             a.pr_date,
+                             a.Supplier,
+                             b.Prepa_Allocated_Qty,
+                             a.Qty_received,
+                             a.Lab_status,
+                             a.Historical_lab_transact_count,
+                             a.Client_requestor,
+                             a.Lab_exp_date_extension,
+                             a.Lab_request_date,
+                             a.Lab_request_by,
+                             a.Qa_approval_status,
+                             a.Qa_approval_by,
+                             a.Qa_approval_date,
+                             a.Lab_result_released_by,
+                             a.Lab_result_released_date,
+                             a.Lab_result_remarks,
+                             a.Lab_sub_remarks,
+                             a.Lab_approval_aging_days,
+                             a.Laboratory_procedure,
+                             a.Lab_cancel_by,
+                             a.Lab_cancel_date,
+                             a.Lab_cancel_remarks,
+                             a.Sample_Qty
 
 
 
 
-      List<DryWareHouseReceiving> obj = new List<DryWareHouseReceiving>();
-      var results = (from a in db.TblDryWHReceiving
-                     join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key into ps
-                     join c in db.Dry_wh_lab_test_req_logs on a.id equals c.fk_receiving_id
-                     from b in ps.DefaultIfEmpty()
-
-                     where
-                     //a.id == b.Prepa_Source_Key &&
-                     //a.id == c.fk_receiving_id
-                     b.Is_Active.Equals(true) &&
-                     c.Tsqa_Approval_Status.Equals(false) &&
-
-                     a.Is_active == 1 &&
-                     a.Lab_request_by != null
-                     &&
-                     a.Lab_result_released_by == null
-                     !=
-                     a.Qa_approval_status.Contains("3")
+                           } into total
 
 
-                     group a by new
-                     {
-                       a.id,
-                       a.lab_access_code,
-                       a.Item_code,
-                       a.Item_description,
-                       a.Category,
-                       a.Is_active,
-                       a.Uom,
-                       a.Po_number,
-                       a.Po_date,
-                       a.pr_no,
-                       a.pr_date,
-                       a.Supplier,
-                       b.Prepa_Allocated_Qty,
-                       a.Qty_received,
-                       a.Lab_status,
-                       a.Historical_lab_transact_count,
-                       a.Client_requestor,
-                       a.Lab_exp_date_extension,
-                       a.Lab_request_date,
-                       a.Lab_request_by,
-                       a.Qa_approval_status,
-                       a.Qa_approval_by,
-                       a.Qa_approval_date,
-                       a.Lab_result_released_by,
-                       a.Lab_result_released_date,
-                       a.Lab_result_remarks,
-                       a.Lab_sub_remarks,
-                       a.Lab_approval_aging_days,
-                       a.Laboratory_procedure,
-                       a.Lab_cancel_by,
-                       a.Lab_cancel_date,
-                       a.Lab_cancel_remarks,
-                       a.Sample_Qty
+                           select new
+
+                           {
+                             total.Key.id,
+                             total.Key.lab_access_code,
+                             total.Key.Item_code,
+                             total.Key.Item_description,
+                             total.Key.Category,
+                             total.Key.Po_number,
+                             total.Key.Po_date,
+                             total.Key.pr_no,
+                             total.Key.pr_date,
+                             total.Key.Supplier,
+                             total.Key.Uom,
+                             total.Key.Is_active,
+                             total.Key.Lab_status,
+                             total.Key.Lab_request_date,
+                             total.Key.Lab_request_by,
+                             total.Key.Historical_lab_transact_count,
+                             total.Key.Client_requestor,
+                             total.Key.Qa_approval_status,
+                             total.Key.Qa_approval_by,
+                             total.Key.Qa_approval_date,
+                             total.Key.Lab_result_released_by,
+                             total.Key.Lab_result_released_date,
+                             total.Key.Lab_result_remarks,
+                             total.Key.Lab_sub_remarks,
+                             total.Key.Lab_exp_date_extension,
+                             total.Key.Lab_approval_aging_days,
+                             total.Key.Laboratory_procedure,
+                             total.Key.Lab_cancel_by,
+                             total.Key.Lab_cancel_date,
+                             total.Key.Lab_cancel_remarks,
+                             sample_qty = total.Key.Sample_Qty,
+                             qty_received = Convert.ToInt32(total.Key.Qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
+                             expiry_days_aging = (total.Key.Lab_exp_date_extension - DateTime.Now).Days
 
 
+                           }
+                     ).ToListAsync();
 
 
-                     } into total
-
-           
-                  select new
-
-                     {
-                       total.Key.id,
-                       total.Key.lab_access_code,
-                       total.Key.Item_code,
-                       total.Key.Item_description,
-                       total.Key.Category,
-                       total.Key.Po_number,
-                       total.Key.Po_date,
-                       total.Key.pr_no,
-                       total.Key.pr_date,
-                       total.Key.Supplier,
-                       total.Key.Uom,
-                       total.Key.Is_active,
-                       total.Key.Lab_status,
-                       total.Key.Lab_request_date,
-                       total.Key.Lab_request_by,
-                       total.Key.Historical_lab_transact_count,
-                       total.Key.Client_requestor,
-                       total.Key.Qa_approval_status,
-                       total.Key.Qa_approval_by,
-                       total.Key.Qa_approval_date,
-                       total.Key.Lab_result_released_by,
-                       total.Key.Lab_result_released_date,
-                       total.Key.Lab_result_remarks,
-                       total.Key.Lab_sub_remarks,
-                       total.Key.Lab_exp_date_extension,
-                       total.Key.Lab_approval_aging_days,
-                       total.Key.Laboratory_procedure,
-                       total.Key.Lab_cancel_by,
-                       total.Key.Lab_cancel_date,
-                       total.Key.Lab_cancel_remarks,
-                       sample_qty = total.Key.Sample_Qty,              
-                       qty_received = Convert.ToInt32(total.Key.Qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
-                       expiry_days_aging = (total.Key.Lab_exp_date_extension - DateTime.Now).Days
-                       
-
-                  }
-
-
-
-                    );
-
-
-   
-
-
-      var result = await System.Threading.Tasks.Task.Run(() =>
-      {
-        return Ok(results);
-      });
-
-
-      if (results.Count() > 0)
-      {
-        return (result);
-      }
-      else
-      {
-
-        return NoContent();
-      }
-
-      //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
-
-
-
-      //var result = await System.Threading.Tasks.Task.Run(() =>
-      //{
-      //  return Ok(GetAllPreparedItems);
-      //});
-
-      //if (GetAllPreparedItems.Count() > 0)
-      //{
-      //  return (result);
-      //}
-      //else
-      //{
-
-      //  return NoContent();
-      //}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      return Ok(results);
 
 
 
@@ -232,7 +163,198 @@ namespace MvcTaskManager.Controllers
 
 
     }
- 
+
+
+
+    //[HttpGet]
+    //[Route("api/DryWareHouseReceivingForLabTest")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //public async Task<IActionResult> Get()
+    //{
+    //  //List<DryWareHouseReceiving> projects = db.tblDryWHReceiving.Where(temp => temp.is_active.Equals(true)
+
+
+
+
+    //  List<DryWareHouseReceiving> obj = new List<DryWareHouseReceiving>();
+    //  var results = (from a in db.TblDryWHReceiving
+    //                 join b in db.Store_Preparation_Logs on a.id equals b.Prepa_Source_Key into ps
+    //                 join c in db.Dry_wh_lab_test_req_logs on a.id equals c.fk_receiving_id
+    //                 from b in ps.DefaultIfEmpty()
+
+    //                 where
+    //                 //a.id == b.Prepa_Source_Key &&
+    //                 //a.id == c.fk_receiving_id
+    //                 b.Is_Active.Equals(true) &&
+    //                 c.Tsqa_Approval_Status.Equals(false) &&
+
+    //                 a.Is_active == 1 &&
+    //                 a.Lab_request_by != null
+    //                 &&
+    //                 a.Lab_result_released_by == null
+    //                 !=
+    //                 a.Qa_approval_status.Contains("3")
+
+
+    //                 group a by new
+    //                 {
+    //                   a.id,
+    //                   a.lab_access_code,
+    //                   a.Item_code,
+    //                   a.Item_description,
+    //                   a.Category,
+    //                   a.Is_active,
+    //                   a.Uom,
+    //                   a.Po_number,
+    //                   a.Po_date,
+    //                   a.pr_no,
+    //                   a.pr_date,
+    //                   a.Supplier,
+    //                   b.Prepa_Allocated_Qty,
+    //                   a.Qty_received,
+    //                   a.Lab_status,
+    //                   a.Historical_lab_transact_count,
+    //                   a.Client_requestor,
+    //                   a.Lab_exp_date_extension,
+    //                   a.Lab_request_date,
+    //                   a.Lab_request_by,
+    //                   a.Qa_approval_status,
+    //                   a.Qa_approval_by,
+    //                   a.Qa_approval_date,
+    //                   a.Lab_result_released_by,
+    //                   a.Lab_result_released_date,
+    //                   a.Lab_result_remarks,
+    //                   a.Lab_sub_remarks,
+    //                   a.Lab_approval_aging_days,
+    //                   a.Laboratory_procedure,
+    //                   a.Lab_cancel_by,
+    //                   a.Lab_cancel_date,
+    //                   a.Lab_cancel_remarks,
+    //                   a.Sample_Qty
+
+
+
+
+    //                 } into total
+
+
+    //              select new
+
+    //                 {
+    //                   total.Key.id,
+    //                   total.Key.lab_access_code,
+    //                   total.Key.Item_code,
+    //                   total.Key.Item_description,
+    //                   total.Key.Category,
+    //                   total.Key.Po_number,
+    //                   total.Key.Po_date,
+    //                   total.Key.pr_no,
+    //                   total.Key.pr_date,
+    //                   total.Key.Supplier,
+    //                   total.Key.Uom,
+    //                   total.Key.Is_active,
+    //                   total.Key.Lab_status,
+    //                   total.Key.Lab_request_date,
+    //                   total.Key.Lab_request_by,
+    //                   total.Key.Historical_lab_transact_count,
+    //                   total.Key.Client_requestor,
+    //                   total.Key.Qa_approval_status,
+    //                   total.Key.Qa_approval_by,
+    //                   total.Key.Qa_approval_date,
+    //                   total.Key.Lab_result_released_by,
+    //                   total.Key.Lab_result_released_date,
+    //                   total.Key.Lab_result_remarks,
+    //                   total.Key.Lab_sub_remarks,
+    //                   total.Key.Lab_exp_date_extension,
+    //                   total.Key.Lab_approval_aging_days,
+    //                   total.Key.Laboratory_procedure,
+    //                   total.Key.Lab_cancel_by,
+    //                   total.Key.Lab_cancel_date,
+    //                   total.Key.Lab_cancel_remarks,
+    //                   sample_qty = total.Key.Sample_Qty,              
+    //                   qty_received = Convert.ToInt32(total.Key.Qty_received) - total.Sum(x => Convert.ToInt32(total.Key.Prepa_Allocated_Qty)),
+    //                   expiry_days_aging = (total.Key.Lab_exp_date_extension - DateTime.Now).Days
+
+
+    //              }
+
+
+
+    //                );
+
+
+
+
+
+    //  var result = await System.Threading.Tasks.Task.Run(() =>
+    //  {
+    //    return Ok(results);
+    //  });
+
+
+    //  if (results.Count() > 0)
+    //  {
+    //    return (result);
+    //  }
+    //  else
+    //  {
+
+    //    return NoContent();
+    //  }
+
+    //  //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
+
+
+
+    //  //var result = await System.Threading.Tasks.Task.Run(() =>
+    //  //{
+    //  //  return Ok(GetAllPreparedItems);
+    //  //});
+
+    //  //if (GetAllPreparedItems.Count() > 0)
+    //  //{
+    //  //  return (result);
+    //  //}
+    //  //else
+    //  //{
+
+    //  //  return NoContent();
+    //  //}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //}
+
 
     [HttpPost]
     [Route("api/DryWareHouseReceivingForLabTest/AttachResult")]
@@ -285,7 +407,7 @@ namespace MvcTaskManager.Controllers
     {
 
 
-      List<DryWareHouseReceiving> projects = await db.TblDryWHReceiving.Include("tblNearlyExpiryMgmtModel").Where(temp => temp.Is_active == 1
+      List<DryWareHouseReceiving> projects = await db.TblDryWHReceiving.Include("TblNearlyExpiryMgmtModel").Where(temp => temp.Is_active == 1
       && temp.FK_Sub_Category_IsExpirable == 1
 
       && (temp.Lab_exp_date_extension - DateTime.Now).Days < temp.TblNearlyExpiryMgmtModel.p_nearly_expiry_desc
@@ -334,19 +456,13 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetLabResult()
     {
 
-   
-
-
-
+  
       List<DryWhLabTestReqLogs> projects = null;
       projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
-        .Where(temp => temp.is_active.Equals(true)
+        .Where(temp => temp.Is_active.Equals(true)
 
-        //&& temp.DryWareHouseReceiving.lab_status.Contains(LaboratoryReceived)
-
-
-          && temp.qa_supervisor_is_approve_status.Equals(true)
-          && temp.lab_result_received_by != null
+          && temp.Qa_supervisor_is_approve_status.Equals(true)
+          && temp.Lab_result_received_by != null
 
       ).ToListAsync();
 
@@ -354,8 +470,8 @@ namespace MvcTaskManager.Controllers
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
       foreach (var project in projects)
       {
-        int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.lab_request_date)).Days;
-        int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.bbd).Days;
+        int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.Lab_request_date)).Days;
+        int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.Bbd).Days;
         string LabStatus = "";
             if (project.DryWareHouseReceiving.Lab_status == null)
             {
@@ -371,57 +487,57 @@ namespace MvcTaskManager.Controllers
         WarehouseReceivingContructor.Add(new DryWhLabTestReqLogsViewModel()
         {
 
-          Lab_req_id = project.lab_req_id,
-          Item_code = project.item_code,
-          Item_desc = project.item_desc,
-          Category = project.category,
-          Qty_received = project.qty_received,
-          Remaining_qty = project.remaining_qty,
+          Lab_req_id = project.Lab_req_id,
+          Item_code = project.Item_code,
+          Item_desc = project.Item_desc,
+          Category = project.Category,
+          Qty_received = project.Qty_received,
+          Remaining_qty = project.Remaining_qty,
           Days_to_expired = dayDiffExpiryDaysAging.ToString(),
           Lab_status = LabStatus,
-          Historical = project.historical,
-          Aging = project.aging,
-          Remarks = project.remarks,
-          Fk_receiving_id = project.fk_receiving_id,
-          Is_active = project.is_active,
-          Added_by = project.added_by,
-          Date_added = project.date_added.ToString("MM/dd/yyyy"),
-          Qa_approval_by = project.qa_approval_by,
-          Qa_approval_status = project.qa_approval_status,
+          Historical = project.Historical,
+          Aging = project.Aging,
+          Remarks = project.Remarks,
+          Fk_receiving_id = project.Fk_receiving_id,
+          Is_active = project.Is_active,
+          Added_by = project.Added_by,
+          Date_added = project.Date_added.ToString("MM/dd/yyyy"),
+          Qa_approval_by = project.Qa_approval_by,
+          Qa_approval_status = project.Qa_approval_status,
           Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString("MM/dd/yyyy"),
 
-          Lab_result_released_by = project.lab_result_released_by,
-          Lab_result_released_date = project.lab_result_released_date,
-          Lab_result_remarks = project.lab_result_remarks,
-          Lab_sub_remarks = project.lab_sub_remarks,
+          Lab_result_released_by = project.Lab_result_released_by,
+          Lab_result_released_date = project.Lab_result_released_date,
+          Lab_result_remarks = project.Lab_result_remarks,
+          Lab_sub_remarks = project.Lab_sub_remarks,
           Lab_exp_date_extension = project.DryWareHouseReceiving.Lab_exp_date_extension.ToString("MM/dd/yyyy"),
-          Laboratory_procedure = project.laboratory_procedure,
+          Laboratory_procedure = project.Laboratory_procedure,
           Lab_request_date = project.DryWareHouseReceiving.Lab_request_date,
-          Lab_result_received_by = project.lab_result_received_by,
-          Lab_result_received_date = project.lab_result_received_date,
-          Lab_request_by = project.lab_request_by,
-          Is_received_status = project.is_received_status,
+          Lab_result_received_by = project.Lab_result_received_by,
+          Lab_result_received_date = project.Lab_result_received_date,
+          Lab_request_by = project.Lab_request_by,
+          Is_received_status = project.Is_received_status,
 
-          Po_date = project.po_date,
-          Po_number = project.po_number,
-          Pr_date = project.pr_date,
-          Pr_number = project.pr_number,
+          Po_date = project.Po_date,
+          Po_number = project.Po_number,
+          Pr_date = project.Pr_date,
+          Pr_number = project.Pr_number,
 
-          Lab_access_code = project.lab_access_code,
-          Bbd = project.bbd.ToString("MM/dd/yyyy"),
+          Lab_access_code = project.Lab_access_code,
+          Bbd = project.Bbd.ToString("MM/dd/yyyy"),
           Lab_approval_aging_days = LaboratoryAging,
           Client_requestor = project.DryWareHouseReceiving.Client_requestor,
           Supplier = project.DryWareHouseReceiving.Supplier,
 
-          Qa_supervisor_is_approve_status = project.qa_supervisor_is_approve_status,
-          Qa_supervisor_is_approve_by = project.qa_supervisor_is_approve_by,
-          Qa_supervisor_is_approve_date = project.qa_supervisor_is_approve_date,
+          Qa_supervisor_is_approve_status = project.Qa_supervisor_is_approve_status,
+          Qa_supervisor_is_approve_by = project.Qa_supervisor_is_approve_by,
+          Qa_supervisor_is_approve_date = project.Qa_supervisor_is_approve_date,
 
 
-          Qa_supervisor_is_cancelled_status = project.qa_supervisor_is_cancelled_status,
-          Qa_supervisor_is_cancelled_by = project.qa_supervisor_is_cancelled_by,
-          Qa_supervisor_is_cancelled_date = project.qa_supervisor_is_cancelled_date,
-          Qa_supervisor_cancelled_remarks = project.qa_supervisor_cancelled_remarks,
+          Qa_supervisor_is_cancelled_status = project.Qa_supervisor_is_cancelled_status,
+          Qa_supervisor_is_cancelled_by = project.Qa_supervisor_is_cancelled_by,
+          Qa_supervisor_is_cancelled_date = project.Qa_supervisor_is_cancelled_date,
+          Qa_supervisor_cancelled_remarks = project.Qa_supervisor_cancelled_remarks,
 
           Tsqa_Approval_By = project.Tsqa_Approval_By,
           Tsqa_Approval_Date = project.Tsqa_Approval_Date.ToString(),
@@ -455,11 +571,11 @@ namespace MvcTaskManager.Controllers
      
       List<DryWhLabTestReqLogs> projects = null;
       projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
-        .Where(temp => temp.is_active.Equals(true)
+        .Where(temp => temp.Is_active.Equals(true)
 
         && temp.DryWareHouseReceiving.Lab_status.Contains(LaboratoryResult)
 
-          && temp.lab_sub_remarks == null 
+          && temp.Lab_sub_remarks == null 
 
 
 
@@ -470,8 +586,8 @@ namespace MvcTaskManager.Controllers
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
       foreach (var project in projects)
       {
-        int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.lab_request_date)).Days;
-        int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.bbd).Days;
+        int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.Lab_request_date)).Days;
+        int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.Bbd).Days;
         string LabStatus = "";
         if (project.DryWareHouseReceiving.Lab_status == null)
         {
@@ -487,56 +603,56 @@ namespace MvcTaskManager.Controllers
         WarehouseReceivingContructor.Add(new DryWhLabTestReqLogsViewModel()
         {
 
-          Lab_req_id = project.lab_req_id,
-          Item_code = project.item_code,
-          Item_desc = project.item_desc,
-          Category = project.category,
-          Qty_received = project.qty_received,
-          Remaining_qty = project.remaining_qty,
+          Lab_req_id = project.Lab_req_id,
+          Item_code = project.Item_code,
+          Item_desc = project.Item_desc,
+          Category = project.Category,
+          Qty_received = project.Qty_received,
+          Remaining_qty = project.Remaining_qty,
           Days_to_expired = dayDiffExpiryDaysAging.ToString(),
           Lab_status = LabStatus,
-          Historical = project.historical,
-          Aging = project.aging,
-          Remarks = project.remarks,
-          Fk_receiving_id = project.fk_receiving_id,
-          //Is_active = project.is_active,
-          Added_by = project.added_by,
-          Date_added = project.date_added.ToString("MM/dd/yyyy"),
-          Qa_approval_by = project.qa_approval_by,
-          Qa_approval_status = project.qa_approval_status,
+          Historical = project.Historical,
+          Aging = project.Aging,
+          Remarks = project.Remarks,
+          Fk_receiving_id = project.Fk_receiving_id,
+          Is_active = project.Is_active,
+          Added_by = project.Added_by,
+          Date_added = project.Date_added.ToString("MM/dd/yyyy"),
+          Qa_approval_by = project.Qa_approval_by,
+          Qa_approval_status = project.Qa_approval_status,
           Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString(),
-          Lab_result_released_by = project.lab_result_released_by,
-          Lab_result_released_date = project.lab_result_released_date,
-          Lab_result_remarks = project.lab_result_remarks,
-          Lab_sub_remarks = project.lab_sub_remarks,
+          Lab_result_released_by = project.Lab_result_released_by,
+          Lab_result_released_date = project.Lab_result_released_date,
+          Lab_result_remarks = project.Lab_result_remarks,
+          Lab_sub_remarks = project.Lab_sub_remarks,
           Lab_exp_date_extension = project.DryWareHouseReceiving.Lab_exp_date_extension.ToString(),
-          Laboratory_procedure = project.laboratory_procedure,
+          Laboratory_procedure = project.Laboratory_procedure,
           Lab_request_date = project.DryWareHouseReceiving.Lab_request_date,
-          Lab_result_received_by = project.lab_result_received_by,
-          Lab_result_received_date = project.lab_result_received_date,
-          Lab_request_by = project.lab_request_by,
-          Is_received_status = project.is_received_status,
+          Lab_result_received_by = project.Lab_result_received_by,
+          Lab_result_received_date = project.Lab_result_received_date,
+          Lab_request_by = project.Lab_request_by,
+          Is_received_status = project.Is_received_status,
 
-          Po_date = project.po_date,
-          Po_number = project.po_number,
-          Pr_date = project.pr_date,
-          Pr_number = project.pr_number,
+          Po_date = project.Po_date,
+          Po_number = project.Po_number,
+          Pr_date = project.Pr_date,
+          Pr_number = project.Pr_number,
 
-          Lab_access_code = project.lab_access_code,
-          Bbd = project.bbd.ToString("MM/dd/yyyy"),
+          Lab_access_code = project.Lab_access_code,
+          Bbd = project.Bbd.ToString("MM/dd/yyyy"),
           Lab_approval_aging_days = LaboratoryAging,
           Client_requestor = project.DryWareHouseReceiving.Client_requestor,
           Supplier = project.DryWareHouseReceiving.Supplier,
 
-          Qa_supervisor_is_approve_status = project.qa_supervisor_is_approve_status,
-          Qa_supervisor_is_approve_by = project.qa_supervisor_is_approve_by,
-          Qa_supervisor_is_approve_date = project.qa_supervisor_is_approve_date,
+          Qa_supervisor_is_approve_status = project.Qa_supervisor_is_approve_status,
+          Qa_supervisor_is_approve_by = project.Qa_supervisor_is_approve_by,
+          Qa_supervisor_is_approve_date = project.Qa_supervisor_is_approve_date,
 
 
-          Qa_supervisor_is_cancelled_status = project.qa_supervisor_is_cancelled_status,
-          Qa_supervisor_is_cancelled_by = project.qa_supervisor_is_cancelled_by,
-          Qa_supervisor_is_cancelled_date = project.qa_supervisor_is_cancelled_date,
-          Qa_supervisor_cancelled_remarks = project.qa_supervisor_cancelled_remarks
+          Qa_supervisor_is_cancelled_status = project.Qa_supervisor_is_cancelled_status,
+          Qa_supervisor_is_cancelled_by = project.Qa_supervisor_is_cancelled_by,
+          Qa_supervisor_is_cancelled_date = project.Qa_supervisor_is_cancelled_date,
+          Qa_supervisor_cancelled_remarks = project.Qa_supervisor_cancelled_remarks
 
         });
       }
@@ -562,7 +678,9 @@ namespace MvcTaskManager.Controllers
       int ReceivedID = searchText;
       //if (searchBy == "store_name")       
 
-      projects = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.is_received_status.Contains(is_activated) && temp.fk_receiving_id == ReceivedID).ToListAsync();
+      projects = await db.Dry_wh_lab_test_req_logs
+        .Where(temp => temp.Is_received_status
+        .Contains(is_activated) && temp.Fk_receiving_id == ReceivedID).ToListAsync();
 
 
       List<DryWhLabTestReqLogsViewModel> WarehouseStoreOrderContructor = new List<DryWhLabTestReqLogsViewModel>();
@@ -571,35 +689,35 @@ namespace MvcTaskManager.Controllers
         WarehouseStoreOrderContructor.Add(new DryWhLabTestReqLogsViewModel()
         {
 
-          Lab_req_id = project.lab_req_id,
-          Item_code = project.item_code,
-          Item_desc = project.item_desc,
-          Category = project.category,
-          Qty_received = project.qty_received,
-          Remaining_qty = project.remaining_qty,
-          Days_to_expired = project.days_to_expired.ToString(),
-          Lab_status = project.lab_status,
-          Historical = project.historical,
-          Aging = project.aging,
-          Remarks = project.remarks,
-          Fk_receiving_id = project.fk_receiving_id,
-          Is_active = project.is_active,
-          Added_by = project.added_by,
-          Date_added = project.date_added.ToString("MM/dd/yyyy"),
-          Qa_approval_by = project.qa_approval_by,
-          Qa_approval_status = project.qa_approval_status,
-          Qa_approval_date = project.qa_approval_date,
-          Lab_result_released_by = project.lab_result_released_by,
-          Lab_result_released_date = project.lab_result_released_date,
-          Lab_result_remarks = project.lab_result_remarks,
-          Lab_sub_remarks = project.lab_sub_remarks,
-          Lab_exp_date_extension = project.lab_exp_date_extension,
-          Laboratory_procedure = project.laboratory_procedure,
-          Lab_request_date = project.lab_request_date.ToString(),
-          Lab_result_received_by = project.lab_result_received_by,
-          Lab_result_received_date = project.lab_result_received_date,
-          Lab_request_by = project.lab_request_by,
-          Is_received_status = project.is_received_status
+          Lab_req_id = project.Lab_req_id,
+          Item_code = project.Item_code,
+          Item_desc = project.Item_desc,
+          Category = project.Category,
+          Qty_received = project.Qty_received,
+          Remaining_qty = project.Remaining_qty,
+          Days_to_expired = project.Days_to_expired.ToString(),
+          Lab_status = project.Lab_status,
+          Historical = project.Historical,
+          Aging = project.Aging,
+          Remarks = project.Remarks,
+          Fk_receiving_id = project.Fk_receiving_id,
+          Is_active = project.Is_active,
+          Added_by = project.Added_by,
+          Date_added = project.Date_added.ToString("MM/dd/yyyy"),
+          Qa_approval_by = project.Qa_approval_by,
+          Qa_approval_status = project.Qa_approval_status,
+          Qa_approval_date = project.Qa_approval_date,
+          Lab_result_released_by = project.Lab_result_released_by,
+          Lab_result_released_date = project.Lab_result_released_date,
+          Lab_result_remarks = project.Lab_result_remarks,
+          Lab_sub_remarks = project.Lab_sub_remarks,
+          Lab_exp_date_extension = project.Lab_exp_date_extension,
+          Laboratory_procedure = project.Laboratory_procedure,
+          Lab_request_date = project.Lab_request_date.ToString(),
+          Lab_result_received_by = project.Lab_result_received_by,
+          Lab_result_received_date = project.Lab_result_received_date,
+          Lab_request_by = project.Lab_request_by,
+          Is_received_status = project.Is_received_status
 
 
 
@@ -658,10 +776,11 @@ namespace MvcTaskManager.Controllers
       {
 
         
-        var existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.fk_receiving_id == items.fk_receiving_id).FirstOrDefaultAsync();
+        var existingDataStatus = await db.Dry_wh_lab_test_req_logs
+          .Where(temp => temp.Fk_receiving_id == items.Fk_receiving_id).FirstOrDefaultAsync();
         if (existingDataStatus != null)
         {
-          existingDataStatus.lab_access_code = items.lab_access_code;
+          existingDataStatus.Lab_access_code = items.Lab_access_code;
           await db.SaveChangesAsync();
           return Ok(existingDataStatus);
         }
@@ -745,15 +864,16 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<DryWhLabTestReqLogs> PutLabTestResultApproval([FromBody] DryWhLabTestReqLogs labTestQASuperVisorApprovalParams)
     {
-      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.lab_req_id == labTestQASuperVisorApprovalParams.lab_req_id).FirstOrDefaultAsync();
+      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs
+        .Where(temp => temp.Lab_req_id == labTestQASuperVisorApprovalParams.Lab_req_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.qa_supervisor_is_approve_status = labTestQASuperVisorApprovalParams.qa_supervisor_is_approve_status;
-        existingDataStatus.qa_supervisor_is_approve_by = labTestQASuperVisorApprovalParams.qa_supervisor_is_approve_by;
-        existingDataStatus.qa_supervisor_is_approve_date = DateTime.Now.ToString();
-        existingDataStatus.lab_result_remarks = labTestQASuperVisorApprovalParams.lab_result_remarks;
-        existingDataStatus.lab_sub_remarks = labTestQASuperVisorApprovalParams.lab_sub_remarks;
-        existingDataStatus.laboratory_procedure = labTestQASuperVisorApprovalParams.laboratory_procedure;
+        existingDataStatus.Qa_supervisor_is_approve_status = labTestQASuperVisorApprovalParams.Qa_supervisor_is_approve_status;
+        existingDataStatus.Qa_supervisor_is_approve_by = labTestQASuperVisorApprovalParams.Qa_supervisor_is_approve_by;
+        existingDataStatus.Qa_supervisor_is_approve_date = DateTime.Now.ToString();
+        existingDataStatus.Lab_result_remarks = labTestQASuperVisorApprovalParams.Lab_result_remarks;
+        existingDataStatus.Lab_sub_remarks = labTestQASuperVisorApprovalParams.Lab_sub_remarks;
+        existingDataStatus.Laboratory_procedure = labTestQASuperVisorApprovalParams.Laboratory_procedure;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -777,7 +897,8 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<DryWhLabTestReqLogs> PutLabTestResultTSQAApproval([FromBody] DryWhLabTestReqLogs labTestQASuperVisorApprovalParams)
     {
-      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.lab_req_id == labTestQASuperVisorApprovalParams.lab_req_id).FirstOrDefaultAsync();
+      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs
+        .Where(temp => temp.Lab_req_id == labTestQASuperVisorApprovalParams.Lab_req_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.Tsqa_Approval_Status = true;
@@ -799,13 +920,14 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<DryWhLabTestReqLogs> PutLabTestResultCancel([FromBody] DryWhLabTestReqLogs labTestQASuperVisorApprovalParams)
     {
-      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.lab_req_id == labTestQASuperVisorApprovalParams.lab_req_id).FirstOrDefaultAsync();
+      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs
+        .Where(temp => temp.Lab_req_id == labTestQASuperVisorApprovalParams.Lab_req_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.qa_supervisor_is_cancelled_status = labTestQASuperVisorApprovalParams.qa_supervisor_is_cancelled_status;
-        existingDataStatus.qa_supervisor_is_cancelled_by = labTestQASuperVisorApprovalParams.qa_supervisor_is_cancelled_by;
-        existingDataStatus.qa_supervisor_is_cancelled_date = labTestQASuperVisorApprovalParams.qa_supervisor_is_cancelled_date;
-        existingDataStatus.qa_supervisor_cancelled_remarks = labTestQASuperVisorApprovalParams.qa_supervisor_cancelled_remarks;
+        existingDataStatus.Qa_supervisor_is_cancelled_status = labTestQASuperVisorApprovalParams.Qa_supervisor_is_cancelled_status;
+        existingDataStatus.Qa_supervisor_is_cancelled_by = labTestQASuperVisorApprovalParams.Qa_supervisor_is_cancelled_by;
+        existingDataStatus.Qa_supervisor_is_cancelled_date = labTestQASuperVisorApprovalParams.Qa_supervisor_is_cancelled_date;
+        existingDataStatus.Qa_supervisor_cancelled_remarks = labTestQASuperVisorApprovalParams.Qa_supervisor_cancelled_remarks;
 
         await db.SaveChangesAsync();
         return existingDataStatus;

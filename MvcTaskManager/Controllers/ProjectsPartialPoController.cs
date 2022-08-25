@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 
 namespace MvcTaskManager.Controllers
 {
+
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
   public class ProjectsPartialPoController : Controller
   {
 
@@ -24,7 +27,6 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/ProjectsPartialPo")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Get()
     {
       //System.Threading.Thread.Sleep(1000);
@@ -48,8 +50,7 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-        
-          //ClientLocationID = project.ClientLocationID,
+    
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -213,11 +214,9 @@ namespace MvcTaskManager.Controllers
     //Warehouse Rejection Fetching Data
     [HttpGet]
     [Route("api/ProjectsPartialPo/WHReject")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult GetItemRejectAtWH()
     {
-      //System.Threading.Thread.Sleep(1000);
-      //List<Project> projects = db.Projects.Include("ClientLocation").ToList();
+
       string ProjectIsActivated = "1";
       string GoodRM = "0";
       string Approve = "1";
@@ -231,13 +230,10 @@ namespace MvcTaskManager.Controllers
         projectsViewModel.Add(new ProjectsPartialPoViewModel()
         {
           ProjectID = project.ProjectID,
-          //PrimaryID = project.PrimaryID,
           ProjectName = project.ProjectName,
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          //ClientLocation = project.ClientLocation,
-          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -407,7 +403,6 @@ namespace MvcTaskManager.Controllers
     //Expiration Approval
     [HttpGet]
     [Route("api/ProjectsPartialPo/ExpiryApproval")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult GetPoNearlyExpiry()
     {
       
@@ -416,12 +411,6 @@ namespace MvcTaskManager.Controllers
     
       List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated)
         && temp.Is_expired.Contains(ExpiredRM) != temp.Is_approved_XP.Contains(ExpiredRM)).ToList();
-
-
-      //List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Include("ClientLocation").Where(temp => temp.is_activated.Contains(ProjectIsActivated)
-      //&& DateTime.Now.AddDays(temp.Days_expiry_setup) >= temp.Expiration_date || temp.Is_expired.Contains(ExpiredRM) != temp.Is_approved_XP.Contains(ExpiredRM)).ToList();
-
-      //List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated)).ToList();
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
@@ -434,8 +423,6 @@ namespace MvcTaskManager.Controllers
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
           Active = project.Active,
-          //ClientLocation = project.ClientLocation,
-          //ClientLocationID = project.ClientLocationID,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -912,8 +899,7 @@ namespace MvcTaskManager.Controllers
         existingProject.Returned_date = project.Returned_date;
         existingProject.Returned_by = project.Returned_by;
         existingProject.Returned_reason = project.Returned_reason;
-        //QC Receiving Date Angular Binding Bugok Man
-        //existingProject.QCReceivingDate = project.QCReceivingDate;
+
         //Aproval opf the 
         existingProject.Is_approved_XP = project.Is_approved_XP;
         existingProject.Is_approved_by = project.Is_approved_by;
@@ -1101,23 +1087,6 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    //[HttpDelete]
-    //[Route("api/projects")]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    //public int Delete(int ProjectID)
-    //{
-    //  Project existingProject = db.Projects.Where(temp => temp.ProjectID == ProjectID).FirstOrDefault();
-    //  if (existingProject != null)
-    //  {
-    //    db.Projects.Remove(existingProject);
-    //    db.SaveChanges();
-    //    return ProjectID;
-    //  }
-    //  else
-    //  {
-    //    return -1;
-    //  }
-    //}
 
 
 
