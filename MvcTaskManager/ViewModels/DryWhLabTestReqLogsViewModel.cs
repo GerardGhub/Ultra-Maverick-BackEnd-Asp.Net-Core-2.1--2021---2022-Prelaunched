@@ -40,7 +40,7 @@ namespace MvcTaskManager.ViewModels
     public string Is_received_status { get; set; }
 
     public int Po_number { get; set; }
-    public int Pr_number { get; set; }
+    public int Pr_no { get; set; }
     [DisplayFormat(DataFormatString = "d/M/yyyy")]
     public string Po_date { get; set; }
     public string Pr_date { get; set; }
@@ -68,6 +68,7 @@ namespace MvcTaskManager.ViewModels
     public string Tsqa_Approval_By { get; set; }
     public string Tsqa_Approval_Date { get; set; }
     public int Sample_Qty { get; set; }
+    public string Uom { get; set; }
 
   }
 }

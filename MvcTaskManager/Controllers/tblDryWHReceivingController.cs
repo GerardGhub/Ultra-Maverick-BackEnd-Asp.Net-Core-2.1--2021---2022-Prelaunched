@@ -157,7 +157,7 @@ namespace MvcTaskManager.Controllers
           Po_date = project.Po_date,
           Po_number = project.Po_number,
           Pr_date = project.Pr_date,
-          Pr_number = project.Pr_number,
+          Pr_no = project.Pr_number,
 
           Lab_access_code = project.Lab_access_code,
           Bbd = project.Bbd.ToString("MM/dd/yyyy"),
@@ -204,12 +204,13 @@ namespace MvcTaskManager.Controllers
       }
       else
       {
-        return Ok("No Data Found");
+        return Ok("No Data Found1");
       }
 
-      List<Store_Preparation_Logs> StorePreparation = await db.Store_Preparation_Logs.ToListAsync();
+      List<DryWhLabTestReqLogs> DryWhLabTestReqLogs = await db.Dry_wh_lab_test_req_logs
+        .Where(temp => temp.Is_active.Equals(true)).ToListAsync();
 
-      if (StorePreparation.Count > 0)
+      if (DryWhLabTestReqLogs.Count > 0)
       {
 
       }
@@ -517,7 +518,7 @@ namespace MvcTaskManager.Controllers
           Po_date = project.Po_date,
           Po_number = project.Po_number,
           Pr_date = project.Pr_date,
-          Pr_number = project.Pr_number,
+          Pr_no = project.Pr_number,
 
           Lab_access_code = project.Lab_access_code,
           Bbd = project.Bbd.ToString("MM/dd/yyyy"),
@@ -538,7 +539,7 @@ namespace MvcTaskManager.Controllers
           Tsqa_Approval_By = project.Tsqa_Approval_By,
           Tsqa_Approval_Date = project.Tsqa_Approval_Date.ToString(),
           Tsqa_Approval_Status = project.Tsqa_Approval_Status,
-          Sample_Qty = project.Sample_Qty
+          Sample_Qty = project.DryWareHouseReceiving.Sample_Qty
 
         });
       }
@@ -617,22 +618,23 @@ namespace MvcTaskManager.Controllers
           Qa_approval_by = project.Qa_approval_by,
           Qa_approval_status = project.Qa_approval_status,
           Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString(),
-          Lab_result_released_by = project.Lab_result_released_by,
-          Lab_result_released_date = project.Lab_result_released_date,
+          Lab_result_released_by = project.DryWareHouseReceiving.Lab_result_released_by,
+          Lab_result_released_date = project.DryWareHouseReceiving.Lab_result_released_date,
           Lab_result_remarks = project.Lab_result_remarks,
           Lab_sub_remarks = project.Lab_sub_remarks,
           Lab_exp_date_extension = project.DryWareHouseReceiving.Lab_exp_date_extension.ToString(),
-          Laboratory_procedure = project.Laboratory_procedure,
+          Laboratory_procedure = project.DryWareHouseReceiving.Laboratory_procedure,
+          Uom = project.DryWareHouseReceiving.Uom,
           Lab_request_date = project.DryWareHouseReceiving.Lab_request_date,
           Lab_result_received_by = project.Lab_result_received_by,
           Lab_result_received_date = project.Lab_result_received_date,
-          Lab_request_by = project.Lab_request_by,
+          Lab_request_by = project.DryWareHouseReceiving.Lab_request_by,
           Is_received_status = project.Is_received_status,
 
-          Po_date = project.Po_date,
-          Po_number = project.Po_number,
-          Pr_date = project.Pr_date,
-          Pr_number = project.Pr_number,
+          Po_date = project.DryWareHouseReceiving.Po_date,
+          Po_number = project.DryWareHouseReceiving.Po_number,
+          Pr_date = project.DryWareHouseReceiving.pr_date,
+          Pr_no = project.DryWareHouseReceiving.pr_no,
 
           Lab_access_code = project.Lab_access_code,
           Bbd = project.Bbd.ToString("MM/dd/yyyy"),
