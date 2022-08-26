@@ -556,7 +556,6 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest/LabResultApproval")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetLabResultForApproval()
     {
 
@@ -590,7 +589,6 @@ namespace MvcTaskManager.Controllers
         {
 
           LabStatus = "LAB RECEIVED";
-          //project.DryWareHouseReceiving.lab_status
         }
         else
         {
