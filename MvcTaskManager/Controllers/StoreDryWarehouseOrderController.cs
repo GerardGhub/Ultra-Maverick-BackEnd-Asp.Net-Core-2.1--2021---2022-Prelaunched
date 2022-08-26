@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MvcTaskManager.Controllers
 {
+  [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class StoreDryWarehouseOrderController : Controller
   {
 
@@ -24,7 +25,7 @@ namespace MvcTaskManager.Controllers
 
     [HttpGet]
     [Route("api/dry_wh_orders_checklist_distinct")]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public async Task<ActionResult> GetDistinctPreparedOrders()
     {
 
@@ -75,13 +76,7 @@ namespace MvcTaskManager.Controllers
                        fox = total.Key.Fox,
                        category = total.Key.Category,
                        is_active = total.Key.Is_active,
-                       //qty = total.Sum(x => Convert.ToInt32(x.qty)),
-                       //prepared_allocated_qty = total.Sum(x => Convert.ToInt32(x.prepared_allocated_qty)),
-                       //total_state_repack = total.Sum(x => Convert.ToInt32(x.is_active)),
-
                        total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
-                       //total_state_repack = total.Count(),
-                       //total_state_repack = total.Count(),
                        TotalPreparedItems = (from Order in db.Dry_wh_orders
                                              where total.Key.Fox == Order.fox
                                              && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
@@ -118,15 +113,12 @@ namespace MvcTaskManager.Controllers
                     );
 
 
-      //var GetAllRejectItems = await results.Where(x => x.TotalRejectItems > 0).ToListAsync();
-
-      //return BadRequest(GetAllRejectItems);
 
 
       var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
 
 
-      //return Ok(view_trim);
+ 
       var result = await System.Threading.Tasks.Task.Run(() =>
       {
         return Ok(GetAllPreparedItems);

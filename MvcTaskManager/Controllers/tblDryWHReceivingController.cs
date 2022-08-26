@@ -895,8 +895,8 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/QASupervisorApproval")]
     public async Task<DryWhLabTestReqLogs> PutLabTestResultApproval([FromBody] DryWhLabTestReqLogs labTestQASuperVisorApprovalParams)
     {
-      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs
-        .Where(temp => temp.Lab_req_id == labTestQASuperVisorApprovalParams.Lab_req_id).FirstOrDefaultAsync();
+      labTestQASuperVisorApprovalParams.Qa_supervisor_is_approve_status = true;
+      DryWhLabTestReqLogs existingDataStatus = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.Lab_req_id == labTestQASuperVisorApprovalParams.Lab_req_id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
         existingDataStatus.Qa_supervisor_is_approve_status = labTestQASuperVisorApprovalParams.Qa_supervisor_is_approve_status;
@@ -913,12 +913,7 @@ namespace MvcTaskManager.Controllers
         return null;
       }
 
-
-
-
-
     }
-
 
 
 
