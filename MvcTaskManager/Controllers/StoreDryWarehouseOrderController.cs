@@ -292,7 +292,7 @@ namespace MvcTaskManager.Controllers
                                              && total.Key.Route == Order.route
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared != null
-
+                                             && Order.FK_dry_wh_orders_parent_id == total.Key.Id
                                              select Order).Count() - 1
 
 
@@ -302,7 +302,7 @@ namespace MvcTaskManager.Controllers
 
 
                     );
-
+      //return Ok(results);
 
 
 
