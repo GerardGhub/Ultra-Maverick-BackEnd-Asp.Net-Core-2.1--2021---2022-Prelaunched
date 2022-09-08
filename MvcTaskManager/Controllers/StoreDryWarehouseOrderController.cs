@@ -140,20 +140,114 @@ namespace MvcTaskManager.Controllers
 
     }
 
+    //public async Task<List<DryWhOrder>> GetDistinctPreparedOrderPartialCancel()
+    //{
 
+    //  string DeActivated = "0";
+    //  List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
+    //    && temp.is_for_validation.Contains(DeActivated)
+    //    && temp.is_approved != null && temp.is_prepared.Equals(true)
+    //    && temp.is_wh_approved == null
+    //    && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
+    //  return StoreOrderCheckList;
+
+
+    //}
     [HttpGet]
     [Route("api/dry_wh_orders_checklist_distinct_partial_cancel")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<List<DryWhOrder>> GetDistinctPreparedOrderPartialCancel()
+    public async Task<IActionResult> GetDistinctPreparedOrderPartialCancel()
     {
 
+
       string DeActivated = "0";
-      List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-        && temp.is_for_validation.Contains(DeActivated)
-        && temp.is_approved != null && temp.is_prepared.Equals(true)
-        && temp.is_wh_approved == null
-        && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
-      return StoreOrderCheckList;
+
+
+      List<DryWhOrderParent> obj = new List<DryWhOrderParent>();
+      var results = (from a in db.Dry_Wh_Order_Parent
+                     join b in db.Dry_wh_orders on a.Id equals b.FK_dry_wh_orders_parent_id
+
+                     where
+                     a.Id == b.FK_dry_wh_orders_parent_id &&
+                     b.is_active.Equals(true) &&
+                     a.Is_for_validation.Contains(DeActivated) &&
+                     a.Is_approved.Equals(true) &&
+                     a.Is_wh_approved.Equals(false) &&
+                     a.Is_active.Equals(true) &&
+                     a.Is_prepared.Equals(true)
+                     || a.Force_prepared_status != null
+                     && b.is_wh_checker_cancel != null
+
+                     group a by new
+                     {
+                       a.Id,
+                       a.Is_approved_prepa_date,
+                       a.Store_name,
+                       a.Route,
+                       a.Area,
+                       a.Fox,
+                       a.Category,
+                       a.Is_active,
+                       b.is_active,
+                       TotalItems = b.is_active
+
+                     } into total
+
+                     select new
+
+                     {
+                       Id = total.Key.Id,
+                       is_approved_prepa_date = total.Key.Is_approved_prepa_date,
+                       store_name = total.Key.Store_name,
+                       route = total.Key.Route,
+                       area = total.Key.Area,
+                       fox = total.Key.Fox,
+                       category = total.Key.Category,
+                       is_active = total.Key.Is_active,
+                       total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
+                       Total_state_repack_cancelled_qty = (from Order in db.Dry_wh_orders
+                                             where total.Key.Fox == Order.fox
+                                             && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
+                                             && total.Key.Store_name == Order.store_name
+                                             && total.Key.Route == Order.route
+                                             && Order.is_active.Equals(true)
+                                             && Order.is_prepared.Equals(true)
+                                             && Order.is_wh_checker_cancel != null
+                                             select Order).Count()
+
+
+
+
+                     }
+
+
+
+                    );
+
+
+      //return Ok(results);
+
+      //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
+
+      var GetAllPreparedItems = await results.Where(x => x.Total_state_repack_cancelled_qty != 0).ToListAsync();
+
+
+
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(GetAllPreparedItems);
+      });
+
+      if (GetAllPreparedItems.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
+
 
 
     }
@@ -281,9 +375,17 @@ namespace MvcTaskManager.Controllers
                                              && total.Key.Store_name == Order.store_name
                                              && total.Key.Route == Order.route
                                              && Order.is_active.Equals(true)
-                                             && Order.is_prepared != null
+                                             && Order.is_prepared.Equals(true)
                                              && Order.FK_dry_wh_orders_parent_id == total.Key.Id
-                                             select Order).Count() - 1 ,
+                                             select Order).Count() - (from Order in db.Dry_wh_orders
+                                                                      where total.Key.Fox == Order.fox
+                                                                      && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
+                                                                      && total.Key.Store_name == Order.store_name
+                                                                      && total.Key.Route == Order.route
+                                                                      && Order.is_active.Equals(true)
+                                                                      && Order.is_wh_checker_cancel.Contains("1")
+                                                                      //&& Order.FK_dry_wh_orders_parent_id == total.Key.Id
+                                                                      select Order).Count(),
                        TotalRejectItems = (from Order in db.Dry_wh_orders
                                             where total.Key.Fox == Order.fox
                                             && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
@@ -679,38 +781,77 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> CancelParentTransaction([FromBody] DryWhOrderParent ParentSource)
     {
-      DryWhOrderParent ExistingParentSource = await db.Dry_Wh_Order_Parent
-      .Where(temp => temp.Id == ParentSource.Id)
-      .FirstOrDefaultAsync();
-
-      ParentSource.Is_cancel_date = DateTime.Now;
 
 
 
-      if (ExistingParentSource != null)
+      var data = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == ParentSource.Id).ToListAsync();
+
+
+      //return Ok(data);
+      //items.Is_cancel_date = DateTime.Now;
+
+      foreach (var items in data)
       {
-        ExistingParentSource.Is_active = false;
-        ExistingParentSource.Is_cancel_by = ParentSource.Is_cancel_by;
-        ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date;
-        ExistingParentSource.Is_cancelled_reason = ParentSource.Is_cancelled_reason;
 
-        await db.SaveChangesAsync();
-        DryWhOrderParent ExistingParentSource2 = await db.Dry_Wh_Order_Parent
-          .Where(temp => temp.Id == ParentSource.Id)
-          .FirstOrDefaultAsync();
+   
+       var existingProject = await db.Dry_wh_orders.Where(temp => temp.primary_id == items.primary_id).FirstOrDefaultAsync();
+        if (existingProject != null)
+        {
+          existingProject.is_wh_checker_cancel = "1";
+          existingProject.is_wh_checker_cancel_by = ParentSource.Is_cancel_by;
+          existingProject.is_wh_checker_cancel_date = DateTime.Now.ToString();
+          existingProject.is_wh_checker_cancel_reason = ParentSource.Is_cancelled_reason;
+          existingProject.total_state_repack_cancelled_qty = 1;
+          //existingProject.is_prepared = false;
+          //existingProject.Is_Prepared_Date = null;
+          //existingProject.Is_Prepared_By = null;
+          //existingProject.Start_Time_Stamp = null;
+          //existingProject.Start_By_User_Id = null;
+          //existingProject.End_Time_Stamp_Per_Items = null;
+          //existingProject.total_state_repack = "0";
 
-        return Ok(ExistingParentSource2);
-    
+
+          await db.SaveChangesAsync();
+
+        }
+        else
+        {
+          return null;
+        }
+
+     
+
       }
-      else
-      {
-        return null;
-      }
+      return Ok(ParentSource);
+
+      //ParentSource.Is_cancel_date = DateTime.Now;
+
+
+
+      //if (ExistingParentSource != null)
+      //{
+      //  ExistingParentSource.Is_active = false;
+      //  ExistingParentSource.Is_cancel_by = ParentSource.Is_cancel_by;
+      //  ExistingParentSource.Is_cancel_date = ParentSource.Is_cancel_date;
+      //  ExistingParentSource.Is_cancelled_reason = ParentSource.Is_cancelled_reason;
+
+      //  await db.SaveChangesAsync();
+      //  DryWhOrderParent ExistingParentSource2 = await db.Dry_Wh_Order_Parent
+      //    .Where(temp => temp.Id == ParentSource.Id)
+      //    .FirstOrDefaultAsync();
+
+      //  return Ok(ExistingParentSource2);
+
+      //}
+      //else
+      //{
+      //  return null;
+      //}
 
     }
 
 
-    [HttpPut]
+      [HttpPut]
     [Route("api/store_orders/cancelindividualitems")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> PutCancelPreparedCancelledCountItem([FromBody] DryWhOrder storeOrders)

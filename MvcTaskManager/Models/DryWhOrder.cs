@@ -48,6 +48,11 @@ namespace MvcTaskManager.Models
     public string logic_return_by { get; set; }
     public string logic_return_date { get; set; }
     public string logic_return_reason { get; set; }
+    public string Is_Prepared_Date { get; set; }
+    public string Is_Prepared_By { get; set; }
+    public string Start_Time_Stamp { get; set; }
+    public string Start_By_User_Id { get; set; }
+    public string End_Time_Stamp_Per_Items { get; set; }
 
     public int FK_dry_wh_orders_parent_id { get; set; }
 
