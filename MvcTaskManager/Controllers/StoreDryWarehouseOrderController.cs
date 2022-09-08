@@ -46,7 +46,6 @@ namespace MvcTaskManager.Controllers
                      a.Is_prepared.Equals(true)
                      || a.Force_prepared_status != null
 
-
                      group a by new
                      {
                        a.Id,
@@ -59,9 +58,6 @@ namespace MvcTaskManager.Controllers
                        a.Is_active,
                        b.is_active,
                        TotalItems = b.is_active
-
-
-
 
                      } into total
 
@@ -92,17 +88,18 @@ namespace MvcTaskManager.Controllers
                                                                       && total.Key.Route == Order.route
                                                                       && Order.is_active.Equals(true)
                                                                       && Order.is_wh_checker_cancel.Contains("1")
-
-                                                                      select Order).Count(),
-                       TotalRejectItems = (from Order in db.Dry_wh_orders
-                                           where total.Key.Fox == Order.fox
-                                           && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
-                                           && total.Key.Store_name == Order.store_name
-                                           && total.Key.Route == Order.route
-                                           && Order.is_active.Equals(true)
-                                           && Order.is_wh_checker_cancel.Contains("1")
-
-                                           select Order).Count()
+                                                                     
+                                                                      select Order).Count()
+                       //                                               ,
+                       //TotalRejectItems = (from Order in db.Dry_wh_orders
+                       //                    where total.Key.Fox == Order.fox
+                       //                    && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
+                       //                    && total.Key.Store_name == Order.store_name
+                       //                    && total.Key.Route == Order.route
+                       //                    && Order.is_active.Equals(true)
+                       //                    && Order.is_wh_checker_cancel.Contains("1")
+                       //                    && Order.FK_dry_wh_orders_parent_id == total.Key.Id
+                       //                    select Order).Count()
 
 
 
@@ -115,7 +112,9 @@ namespace MvcTaskManager.Controllers
 
 
 
-      var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
+      //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
+
+      var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems).ToListAsync();
 
 
  
@@ -179,19 +178,10 @@ namespace MvcTaskManager.Controllers
       //return StoreOrderCheckList;
 
 
-      //string DeActivated = "0";
-      //List<DryWhOrderParent> StoreOrderCheckList = await db.Dry_Wh_Order_Parent
-
-      //  .Where(temp => temp.Is_active.Equals(true)
-      //&& temp.Is_for_validation.Contains(DeActivated)
-      //&& temp.Is_approved.Equals(true)
-      //&& temp.Is_prepared.Equals(true)
-      //&& temp.Is_wh_approved.Equals(true)
-      //|| temp.Force_prepared_status != null).ToListAsync();
-      //return StoreOrderCheckList;
+  
 
 
-      var forStoreDispathing = from p in db.Dry_Wh_Order_Parent
+      var forStoreDispathing = await(from p in db.Dry_Wh_Order_Parent
                                join c in db.Dry_wh_orders on p.Id equals c.FK_dry_wh_orders_parent_id into g
                                where p.Is_active.Equals(true)
                                && p.Is_for_validation.Contains("0")
@@ -219,7 +209,7 @@ namespace MvcTaskManager.Controllers
                                  p.Is_wh_approved_date,
                                  p.Wh_checker_move_order_no,
                                  Total_state_repack = g.Count(c => c.is_active)
-                               };
+                               }).ToListAsync();
 
 
       return Ok(forStoreDispathing);
@@ -253,7 +243,7 @@ namespace MvcTaskManager.Controllers
                      a.Is_prepared.Equals(false)
 
                      || a.Force_prepared_status != null
-
+                     || b.is_wh_checker_cancel.Contains("1")
 
                      group a by new
                      {
@@ -293,7 +283,16 @@ namespace MvcTaskManager.Controllers
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared != null
                                              && Order.FK_dry_wh_orders_parent_id == total.Key.Id
-                                             select Order).Count() - 1
+                                             select Order).Count() - 1 ,
+                       TotalRejectItems = (from Order in db.Dry_wh_orders
+                                            where total.Key.Fox == Order.fox
+                                            && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
+                                            && total.Key.Store_name == Order.store_name
+                                            && total.Key.Route == Order.route
+                                            && Order.is_active.Equals(true)
+                                            && Order.is_wh_checker_cancel.Contains("1")
+                                            //&& Order.FK_dry_wh_orders_parent_id == total.Key.Id
+                                            select Order).Count()
 
 
 
@@ -306,7 +305,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-      var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems).ToListAsync();
+      var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems || x.TotalPreparedItems != 0).ToListAsync();
 
 
 
