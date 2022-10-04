@@ -40,7 +40,7 @@ namespace MvcTaskManager.Controllers
             Item_code = dept.item_code,
             Item_description = dept.item_description,
             Item_class = dept.item_class,
-            Major_category = dept.major_category,
+            Major_category = dept.major_category.ToString(),
             Sub_category = dept.sub_category,
             Primary_unit = dept.primary_unit,
             Conversion = dept.conversion,
