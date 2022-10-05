@@ -111,8 +111,11 @@ namespace MvcTaskManager.Controllers
       string GoodRM = "0";
       string Approve = "1";
 
-      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo.Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
-      && temp.Is_wh_received.Contains(Approve) && (Convert.ToInt32(temp.Is_wh_reject) > 0) != temp.Is_wh_reject_approval.Contains(Approve) && temp.Is_wh_reject != "0").ToList();
+      List<RMProjectsPartialPo> projects = db.ProjectsPartialPo
+        .Where(temp => temp.is_activated.Contains(ProjectIsActivated)
+        && temp.Is_expired.Contains(GoodRM)
+      && temp.Is_wh_received.Contains(Approve)
+      && (Convert.ToInt32(temp.Is_wh_reject) > 0) != temp.Is_wh_reject_approval.Contains(Approve) && temp.Is_wh_reject != "0").ToList();
 
       List<ProjectsPartialPoViewModel> projectsViewModel = new List<ProjectsPartialPoViewModel>();
       foreach (var project in projects)
@@ -120,6 +123,7 @@ namespace MvcTaskManager.Controllers
         projectsViewModel.Add(new ProjectsPartialPoViewModel()
         {
           ProjectID = project.ProjectID,
+          //PrimaryID = project.PrimaryID, // Add Ne
           ProjectName = project.ProjectName,
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
@@ -394,7 +398,96 @@ namespace MvcTaskManager.Controllers
     }
 
 
-    //Nearly Expiry Approval
+
+
+
+    //Nearly Expiry Approval     public IActionResult Put([FromBody] Project project)
+    [HttpPut]
+    [Route("api/ProjectsPartialPo/WhReject/Approval")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public IActionResult PutApproval([FromBody] Project project)
+    {
+      RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+      if (existingProject != null)
+      {
+
+
+        project.Is_wh_reject_approval = "1";
+        //Aproval opf the 
+        existingProject.Is_wh_reject_approval = project.Is_wh_reject_approval;
+        existingProject.Is_wh_reject_approval_by = project.Is_wh_reject_approval_by;
+        existingProject.Is_wh_reject_approval_date = project.Is_wh_reject_approval_date = DateTime.UtcNow.ToString();
+
+        db.SaveChanges();
+
+        RMProjectsPartialPo existingProject2 = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
+        ProjectViewModel projectViewModel = new ProjectViewModel()
+        {
+          ProjectID = existingProject2.ProjectID,
+          ProjectName = existingProject2.ProjectName,
+          TeamSize = existingProject2.TeamSize,
+
+          DateOfStart = existingProject2.DateOfStart.ToString("dd/MM/yyyy"),
+          Active = existingProject2.Active,
+          is_activated = existingProject2.is_activated,
+          Status = existingProject2.Status,
+
+          Supplier = existingProject.Supplier,
+          item_code = existingProject.item_code,
+          Po_number = existingProject.Po_number,
+          Po_date = existingProject.Po_date,
+          Pr_number = existingProject.Pr_number,
+          Pr_date = existingProject.Pr_date,
+          Qty_order = existingProject.Qty_order,
+          Qty_uom = existingProject.Qty_uom,
+          Mfg_date = existingProject.Mfg_date,
+          Expiration_date = existingProject.Expiration_date
+        ,
+          Expected_delivery = existingProject.Expected_delivery,
+          Actual_delivery = existingProject.Actual_delivery,
+          Actual_remaining_receiving = existingProject.Actual_remaining_receiving,
+          Received_by_QA = existingProject.Received_by_QA,
+          Status_of_reject_one = existingProject.Status_of_reject_one,
+          Status_of_reject_two = existingProject.Status_of_reject_two,
+          Count_of_reject_one = existingProject.Count_of_reject_one,
+          Count_of_reject_two = existingProject.Count_of_reject_two,
+          Count_of_reject_three = existingProject.Count_of_reject_three,
+          Total_of_reject_mat = existingProject.Total_of_reject_mat,
+          //SECTION 1
+          //A
+
+          //Cancelled Po Summary
+          Cancelled_date = existingProject.Cancelled_date,
+          Canceled_by = existingProject.Canceled_by,
+          Cancelled_reason = existingProject.Cancelled_reason,
+
+          //Returned PO Summary
+          Returned_date = existingProject.Returned_date,
+          Returned_by = existingProject.Returned_by,
+          Returned_reason = existingProject.Returned_reason,
+
+          //QC Receiving Date
+          //QCReceivingDate = existingProject.QCReceivingDate
+          Is_approved_XP = existingProject.Is_approved_XP,
+          Is_approved_by = existingProject.Is_approved_by,
+          Is_approved_date = existingProject.Is_approved_date,
+          //Rejection Approval of QC Supervisor
+          Is_wh_reject_approval = existingProject.Is_wh_reject_approval,
+          Is_wh_reject_approval_by = existingProject.Is_wh_reject_approval_by,
+          Is_wh_reject_approval_date = existingProject.Is_wh_reject_approval_date
+
+        };
+        return Ok(projectViewModel);
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+    //Nearly Expiry Approval     public IActionResult Put([FromBody] Project project)
     [HttpPut]
     [Route("api/ProjectsPartialPo")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -403,12 +496,13 @@ namespace MvcTaskManager.Controllers
       RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
       if (existingProject != null)
       {
-   
 
+
+        project.Is_approved_XP = "1";
         //Aproval opf the 
         existingProject.Is_approved_XP = project.Is_approved_XP;
         existingProject.Is_approved_by = project.Is_approved_by;
-        existingProject.Is_approved_date = project.Is_approved_date;
+        existingProject.Is_approved_date = project.Is_approved_date = DateTime.UtcNow.ToString();
 
         db.SaveChanges();
 
