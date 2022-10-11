@@ -1300,21 +1300,10 @@ namespace MvcTaskManager.Controllers
 
       string ProjectIsActivated = "1";
       List<Project> projects = null;
-      if (searchBy == "ProjectID")
-        projects = db.Projects.Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
-      else if (searchBy == "ProjectName")
-        projects = db.Projects.Where(temp => temp.ProjectName.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      else if (searchBy == "Po_number")
+    
         //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) && temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
       projects = db.Projects.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      else if (searchBy == "item_code")
-        projects = db.Projects.Where(temp => temp.item_code.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      else if (searchBy == "item_description")
-        projects = db.Projects.Where(temp => temp.item_description.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      if (searchBy == "DateOfStart")
-        projects = db.Projects.Where(temp => temp.DateOfStart.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
-      if (searchBy == "TeamSize")
-        projects = db.Projects.Where(temp => temp.TeamSize.ToString().Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
@@ -1355,119 +1344,7 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_three = project.Count_of_reject_three,
           Total_of_reject_mat = project.Total_of_reject_mat,
           //SECTION 1
-          //A
-          A_delivery_van_desc = project.A_delivery_van_desc,
-          A_compliance = project.A_compliance,
-          A_remarks = project.A_remarks,
 
-          B_cooling_system_desc = project.B_cooling_system_desc,
-          B_compliance = project.B_compliance,
-          B_remarks = project.B_remarks,
-
-          C_inner_walls_desc = project.C_inner_walls_desc,
-          C_compliance = project.C_compliance,
-          C_remarks = project.C_remarks,
-
-          D_plastic_curtains_desc = project.D_plastic_curtains_desc,
-          D_compliance = project.D_compliance,
-          D_remarks = project.D_remarks,
-
-          E_thereno_pest_desc = project.E_thereno_pest_desc,
-          E_compliance = project.E_compliance,
-          E_remarks = project.E_remarks,
-          //SECTION 2
-          //A
-          A_clean_company_dos = project.A_clean_company_dos,
-          A_compliance_dos = project.A_compliance_dos,
-          A_remarks_dos = project.A_remarks_dos,
-
-          B_delivery_staff_symptoms_dos = project.B_delivery_staff_symptoms_dos,
-          B_compliance_dos = project.B_compliance_dos,
-          B_remarks_dos = project.B_remarks_dos,
-
-          C_inner_walls_clean_dos = project.C_inner_walls_clean_dos,
-          C_compliance_dos = project.C_compliance_dos,
-          C_remarks_dos = project.C_remarks_dos,
-
-          D_plastic_curtains_dos = project.D_plastic_curtains_dos,
-          D_compliance_dos = project.D_compliance_dos,
-          D_remarks_dos = project.D_remarks_dos,
-
-          E_no_accessories_dos = project.E_no_accessories_dos,
-          E_compliance_dos = project.E_compliance_dos,
-          E_remarks_dos = project.E_remarks_dos,
-
-          F_no_pests_sightings_dos = project.F_no_pests_sightings_dos,
-          F_remarks_dos = project.F_remarks_dos,
-          F_compliance_dos = project.F_compliance_dos,
-          //SECTION 3
-          //A
-          A_pallet_crates_tres = project.A_pallet_crates_tres,
-          A_compliance_tres = project.A_compliance_tres,
-          A_remarks_tres = project.A_remarks_tres,
-
-          B_product_contamination_tres = project.B_product_contamination_tres,
-          B_compliance_tres = project.B_compliance_tres,
-          B_remarks_tres = project.B_remarks_tres,
-
-          C_uncessary_items_tres = project.C_uncessary_items_tres,
-          C_compliance_tres = project.C_compliance_tres,
-          C_remarks_tres = project.C_remarks_tres,
-
-          D_products_cover_tres = project.D_products_cover_tres,
-          D_compliance_tres = project.D_compliance_tres,
-          D_remarks_tres = project.D_remarks_tres,
-          //SECTION 4
-          //A
-          A_certificate_coa_kwatro_desc = project.A_certificate_coa_kwatro_desc,
-          A_compliance_kwatro = project.A_compliance_kwatro,
-          A_remarks_kwatro = project.A_remarks_kwatro,
-          //B
-          B_po_kwatro_desc = project.B_po_kwatro_desc,
-          B_compliance_kwatro = project.B_compliance_kwatro,
-          B_remarks_kwatro = project.B_remarks_kwatro,
-          //C
-          C_msds_kwatro_desc = project.C_msds_kwatro_desc,
-          C_compliance_kwatro = project.C_compliance_kwatro,
-          C_remarks_kwatro = project.C_remarks_kwatro,
-          //D
-          D_food_grade_desc = project.D_food_grade_desc,
-          D_compliance_kwatro = project.D_compliance_kwatro,
-          D_remarks_kwatro = project.D_remarks_kwatro,
-          //SECTION 5
-          //A
-
-          A_qty_received_singko_singko = project.A_qty_received_singko_singko,
-          A_compliance_singko = project.A_compliance_singko,
-          A_remarks_singko = project.A_remarks_singko,
-          //B
-          B_mfg_date_desc_singko = project.B_mfg_date_desc_singko,
-          B_compliance_singko = project.B_compliance_singko,
-          B_remarks_singko = project.B_remarks_singko,
-          //C
-          C_expirydate_desc_singko = project.C_expirydate_desc_singko,
-          C_compliance_singko = project.C_compliance_singko,
-          C_remarks_singko = project.C_remarks_singko,
-          //D
-          D_packaging_desc_singko = project.D_packaging_desc_singko,
-          D_compliance_singko = project.D_compliance_singko,
-          D_remarks_singko = project.D_remarks_singko,
-          //E
-          E_no_contaminants_desc_singko = project.E_no_contaminants_desc_singko,
-          E_compliance_singko = project.E_compliance_singko,
-          E_remarks_singko = project.E_remarks_singko,
-          //F
-          F_qtyrejected_desc_singko = project.F_qtyrejected_desc_singko,
-          F_compliance_singko = project.F_compliance_singko,
-          F_remarks_singko = project.F_remarks_singko,
-          //G
-          G_rejected_reason_desc_singko = project.G_rejected_reason_desc_singko,
-          G_compliance_singko = project.G_compliance_singko,
-          G_remarks_singko = project.G_remarks_singko,
-          //H
-          H_lab_sample_desc_singko = project.H_lab_sample_desc_singko,
-          H_compliance_singko = project.H_compliance_singko,
-          H_remarks_singko = project.H_remarks_singko,
 
           //Cancelled
 
