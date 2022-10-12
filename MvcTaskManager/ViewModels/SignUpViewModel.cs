@@ -16,7 +16,7 @@ namespace MvcTaskManager.ViewModels
     [Required]
     public string LastName { get; set; }
 
-    public string Email { get; set; }
+
     public string UserName { get; set; }
 
      public string Password { get; set; }
@@ -37,7 +37,7 @@ namespace MvcTaskManager.ViewModels
     public int Unit_id { get; set; }
     [Required]
     public string Location { get; set; }
-    [Required]
+
     public string First_approver_name { get; set; }
 
     public int? First_approver_id { get; set; }
@@ -53,10 +53,10 @@ namespace MvcTaskManager.ViewModels
     public string Fourth_approver_name { get; set; }
 
     public int? Fourth_approver_id { get; set; }
-    public bool Is_active { get; set; }
+    //public bool Is_active { get; set; }
     public bool Approver { get; set; }
     public bool Requestor { get; set; }
-    public string EncryptPassword { get; set; }
+    //public string EncryptPassword { get; set; }
     public int User_Identity { get; set; }
 
     //public MaterialRequestRequirement MaterialRequest{ get; set; }

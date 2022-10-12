@@ -61,6 +61,20 @@ namespace MvcTaskManager
             services.AddScoped<ApplicationRoleStore>();
             services.AddScoped<ApplicationUserStore>();
 
+      //Password Validation
+      services.Configure<IdentityOptions>(options =>
+      {
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = true;
+        options.Password.RequiredLength = 5;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+
+
+      });
+
+
+
             //Configure JWT Authentication
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

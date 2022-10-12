@@ -204,6 +204,15 @@ namespace MvcTaskManager.Controllers
       }
 
 
+
+      //db.Users.AddAsync(signUpViewModel.FirstName,signUpViewModel.LastName);
+      //db.SaveChanges();
+
+
+
+
+      //return BadRequest(signUpViewModel);
+      
       var user = await _usersService.Register(signUpViewModel);
 
       if (user == null)

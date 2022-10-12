@@ -2545,7 +2545,7 @@ function UserAccountComponent_div_159_mat_option_13_Template(rf, ctx) { if (rf &
     const item_r37 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r37.employee_number);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r37.firstName + " " + item_r37.lastName));
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r37.firstName + " " + item_r37.lastName), " ");
 } }
 function UserAccountComponent_div_159_mat_option_21_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "mat-option", 104);
@@ -2634,7 +2634,7 @@ function UserAccountComponent_div_159_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](30, "div", 81);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](31, "mat-form-field", 47);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](32, "mat-label");
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](33, "Approver 3:");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](33, "Approver 4:");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](34, "mat-select", 108);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function UserAccountComponent_div_159_Template_mat_select_change_34_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r42); const ctx_r45 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r45.getNewFourthApproverId($event.target.value); });
@@ -2662,13 +2662,13 @@ function UserAccountComponent_div_159_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](8);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx_r7.approverList);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", false);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", false);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", false);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", true);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("hidden", false);
 } }
 function UserAccountComponent_option_215_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 104);
@@ -3064,12 +3064,18 @@ class UserAccountComponent {
     onClickActivate(item) {
         // alert('Activated');
     }
+    validateRejectedStatus(event) {
+        alert(event);
+    }
     // add user approver method
     getNewFirstApproverId(id) {
-        const result = this.approverList.filter((approver) => approver.employee_number == id);
+        alert("Gogo beb 1e");
+        alert(this.approverId1);
+        const result = this.approverList.filter((approver) => approver.employee_number == 2);
         this.search_approver = result;
         result.forEach((approver) => {
             this.first_approver_name = approver.firstName + ' ' + approver.lastName;
+            alert(this.first_approver_name);
         });
         this.registerUser.patchValue({
             first_approver_name: this.first_approver_name,
@@ -3191,13 +3197,20 @@ class UserAccountComponent {
                         this.AspNetUsers[this.editIndex] = response;
                         this.successMessage = 'Registered Successfully!';
                         this.registerUser.reset();
+                        alert("As");
                         console.log(response);
                         jquery__WEBPACK_IMPORTED_MODULE_3__('#closeRegistrationModal').trigger('click');
                         this.successToaster();
                     }, (error) => {
                         this.errorMessageFromResponse = error.error.message;
-                        console.log(error.error.message);
-                        this.errorToaster();
+                        console.log(this.errorMessageFromResponse);
+                        alert("A");
+                        console.warn(JSON.stringify(error.error.message));
+                        const string = JSON.stringify(error.error);
+                        const t = JSON.parse(string);
+                        console.info(t["First_approver_name"]);
+                        // this.errorToaster();
+                        this.toastr.error(this.errorMessageFromResponse, 'Message');
                     });
                 }
             });
