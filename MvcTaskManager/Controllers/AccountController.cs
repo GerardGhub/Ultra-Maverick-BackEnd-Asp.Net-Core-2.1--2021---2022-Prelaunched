@@ -432,7 +432,27 @@ namespace MvcTaskManager.Controllers
     public async Task<ApplicationUser> Put([FromBody] ApplicationUser labProc)
     {
 
-    
+      if (labProc.First_approver_name == "")
+      {
+        labProc.First_approver_id = null;
+        labProc.First_approver_name = null;
+      }
+      if (labProc.Second_approver_name == "")
+      {
+        labProc.Second_approver_id = null;
+        labProc.Second_approver_name = null;
+      }
+      if (labProc.Third_approver_name == "")
+      {
+        labProc.Third_approver_id = null;
+        labProc.Third_approver_name = null;
+      }
+      if (labProc.Fourth_approver_name =="")
+      {
+        labProc.Fourth_approver_name = null;
+        labProc.Fourth_approver_id = null;
+      }
+
 
       ApplicationUser existingDataStatus = await db.Users.Where(temp => temp.Id == labProc.Id).FirstOrDefaultAsync();
 
@@ -628,8 +648,12 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ApplicationUser> PutActivation([FromBody] ApplicationUser labProc)
     {
+      labProc.Approver = false;
+      labProc.Requestor = false;
       ApplicationUser existingDataStatus = await db.Users.Where(temp => temp.Id == labProc.Id).FirstOrDefaultAsync();
 
+      existingDataStatus.Approver = false;
+      existingDataStatus.Requestor = false;
       if (existingDataStatus != null)
       {
         existingDataStatus.Is_active = true;
@@ -659,8 +683,9 @@ namespace MvcTaskManager.Controllers
                        //join c in db.Position on a.Position_id equals c.position_name
                        join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
                        where
-                       a.Is_active.Equals(true)
-                       && b.is_active.Equals(true)
+                       //a.Is_active.Equals(true)
+                       //&&
+                       b.is_active.Equals(true)
                        //&& c.is_active.Equals(true)
                        && d.is_active.Equals(true)
                        orderby a.Date_added descending
