@@ -72,7 +72,8 @@ namespace MvcTaskManager.Identity
     public DbSet<Internal_Preparation_Logs> Internal_Preparation_Logs { get; set; }
     public DbSet<Store_Preparation_Logs> Store_Preparation_Logs { get; set; }
     public DbSet<CancelledLabTestTransactionStatus> CancelledLabTestTransactionStatus { get; set; }
-
+    public DbSet<RoleModules> RoleModules { get; set; }
+    public DbSet<Modules> Modules { get; set; }
 
     //public DbSet<CheckListParameters> AspNetRoles { get; set; }
 
