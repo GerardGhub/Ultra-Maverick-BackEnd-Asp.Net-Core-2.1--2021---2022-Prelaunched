@@ -648,12 +648,10 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ApplicationUser> PutActivation([FromBody] ApplicationUser labProc)
     {
-      labProc.Approver = false;
-      labProc.Requestor = false;
+
       ApplicationUser existingDataStatus = await db.Users.Where(temp => temp.Id == labProc.Id).FirstOrDefaultAsync();
 
-      existingDataStatus.Approver = false;
-      existingDataStatus.Requestor = false;
+
       if (existingDataStatus != null)
       {
         existingDataStatus.Is_active = true;
