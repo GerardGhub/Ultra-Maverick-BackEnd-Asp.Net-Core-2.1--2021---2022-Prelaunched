@@ -36,6 +36,7 @@ namespace MvcTaskManager.Controllers
                           join Role in db.Roles on  Parents.RoleId equals Role.Id
 
                           where Role.Name == RoleId
+                          && Parents.IsActive.Equals(true)
 
                           select new
                           {
