@@ -14,6 +14,7 @@ namespace MvcTaskManager.Models
     public string AddedBy { get; set; }
     public bool  IsActive { get; set; }
     public string ModifiedBy { get; set; }
+    public DateTime? ModifiedDate { get; set; }
     public string Reason { get; set; }
     public string MenuPath { get; set; }
   }
