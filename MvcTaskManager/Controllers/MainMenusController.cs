@@ -36,7 +36,7 @@ namespace MvcTaskManager.Controllers
     public async Task<MainMenus> Post([FromBody] MainMenus menu)
     {
       menu.DateAdded = DateTime.Now;
-      menu.IsActive = true;
+      menu.Isactive = true;
       db.MainMenus.Add(menu);
       await db.SaveChangesAsync();
 
@@ -51,11 +51,24 @@ namespace MvcTaskManager.Controllers
     public async Task<MainMenus> Put([FromBody] MainMenus menu)
     {
       menu.ModifiedDate = DateTime.Now;
+
+      if (menu.isactivereference == "Active")
+      {
+        menu.Isactive = true;
+      }
+      else
+      {
+        menu.Isactive = false;
+      }
+
       MainMenus existingDataStatus = await db.MainMenus.Where(temp => temp.Id == menu.Id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.ModuleName = menu.ModuleName;
-        existingDataStatus.ModifiedDate = menu.ModifiedDate;  
+        existingDataStatus.Modulename = menu.Modulename;
+        existingDataStatus.ModifiedDate = menu.ModifiedDate;
+        existingDataStatus.ModifiedBy = menu.ModifiedBy;
+        existingDataStatus.Isactive = menu.Isactive;
+        existingDataStatus.isactivereference = menu.isactivereference;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -64,6 +77,51 @@ namespace MvcTaskManager.Controllers
         return null;
       }
     }
+
+
+    [HttpPut]
+    [Route("api/MainMenus/Activate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MainMenus> PutActivate([FromBody] MainMenus menu)
+    {
+      menu.ModifiedDate = DateTime.Now;
+      MainMenus existingDataStatus = await db.MainMenus.Where(temp => temp.Id == menu.Id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.Isactive = true;
+        existingDataStatus.ModifiedDate = menu.ModifiedDate;
+        existingDataStatus.ModifiedBy = menu.ModifiedBy;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+    [HttpPut]
+    [Route("api/MainMenus/Deactivate")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MainMenus> PutDeactivate([FromBody] MainMenus menu)
+    {
+      menu.ModifiedDate = DateTime.Now;
+      MainMenus existingDataStatus = await db.MainMenus.Where(temp => temp.Id == menu.Id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.Isactive = false;
+        existingDataStatus.ModifiedDate = menu.ModifiedDate;
+        existingDataStatus.ModifiedBy = menu.ModifiedBy;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
 
 
 

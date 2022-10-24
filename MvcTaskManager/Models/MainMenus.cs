@@ -9,13 +9,14 @@ namespace MvcTaskManager.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    public string ModuleName { get; set; }
+    public string Modulename { get; set; }
     public DateTime DateAdded { get; set; }
     public string AddedBy { get; set; }
-    public bool  IsActive { get; set; }
+    public bool  Isactive { get; set; }
     public string ModifiedBy { get; set; }
     public DateTime? ModifiedDate { get; set; }
     public string Reason { get; set; }
     public string MenuPath { get; set; }
+    public string isactivereference { get; set; }
   }
 }
