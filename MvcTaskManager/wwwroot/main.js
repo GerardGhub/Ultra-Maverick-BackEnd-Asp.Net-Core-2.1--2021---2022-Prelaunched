@@ -8185,11 +8185,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AspNetRoles", function() { return AspNetRoles; });
 class AspNetRoles {
     constructor() {
-        this.Id = null;
-        this.name = null;
-        this.normalizedname = null;
-        this.concurrencystamp = null;
-        this.discriminator = null;
+        this.Id = "";
+        this.name = "";
+        this.normalizedname = "";
+        this.concurrencystamp = "";
+        this.discriminator = "";
+        this.isactive = "";
     }
 }
 
@@ -34633,21 +34634,23 @@ TblNearlyExpiryMgmtService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AspNetRolesComponent", function() { return AspNetRolesComponent; });
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
-/* harmony import */ var src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/pipes/filter.pipe */ "BhhM");
+/* harmony import */ var _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../pipes/filter.pipe */ "BhhM");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! jquery */ "EVdn");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "PSD3");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var src_app_models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! src/app/models/asp-net-roles */ "Jr5Z");
+/* harmony import */ var _models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../models/asp-net-roles */ "Jr5Z");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var src_app_services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/asp-net-roles.service */ "MLIl");
-/* harmony import */ var src_app_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/system-capability-status.service */ "lJP4");
+/* harmony import */ var _services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../services/asp-net-roles.service */ "MLIl");
+/* harmony import */ var _services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/system-capability-status.service */ "lJP4");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-toastr */ "5eHb");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/button */ "bTqV");
 /* harmony import */ var _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @angular/flex-layout/extended */ "znSr");
-/* harmony import */ var _pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../pipes/paging.pipe */ "tuZ1");
-/* harmony import */ var _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../pipes/sort.pipe */ "eLiO");
+/* harmony import */ var _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/material/icon */ "NFeN");
+/* harmony import */ var _pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../pipes/paging.pipe */ "tuZ1");
+/* harmony import */ var _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../pipes/sort.pipe */ "eLiO");
+
 
 
 
@@ -34669,110 +34672,126 @@ const _c1 = ["defaultTextBox_Edit"];
 const _c2 = ["RejectStatusDescription"];
 const _c3 = ["RejectStatusUpdate"];
 function AspNetRolesComponent_i_1_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](0, "i", 53);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](0, "i", 72);
 } }
-function AspNetRolesComponent_i_24_Template(rf, ctx) { if (rf & 1) {
-    const _r16 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 54);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_24_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r16); const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); ctx_r15.sortBy = "name"; return ctx_r15.sortOrder = "ASC"; });
+function AspNetRolesComponent_i_34_Template(rf, ctx) { if (rf & 1) {
+    const _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 73);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_34_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r22); const ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); ctx_r21.sortBy = "name"; return ctx_r21.sortOrder = "ASC"; });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
-function AspNetRolesComponent_i_25_Template(rf, ctx) { if (rf & 1) {
-    const _r18 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 55);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_25_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r18); const ctx_r17 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r17.sortOrder = "DESC"; });
+function AspNetRolesComponent_i_35_Template(rf, ctx) { if (rf & 1) {
+    const _r24 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 74);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_35_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r24); const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r23.sortOrder = "DESC"; });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
-function AspNetRolesComponent_i_26_Template(rf, ctx) { if (rf & 1) {
-    const _r20 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 56);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_26_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r20); const ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r19.sortOrder = "ASC"; });
+function AspNetRolesComponent_i_36_Template(rf, ctx) { if (rf & 1) {
+    const _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "i", 75);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_i_36_Template_i_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r26); const ctx_r25 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r25.sortOrder = "ASC"; });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
-function AspNetRolesComponent_tr_27_Template(rf, ctx) { if (rf & 1) {
+function AspNetRolesComponent_tr_43_Template(rf, ctx) { if (rf & 1) {
+    const _r30 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "tr");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Sa");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "td");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6, "ss");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "td", 76);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](8, "button", 77);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_tr_43_Template_button_click_8_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r30); const role_r27 = ctx.$implicit; const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r29.onEditClick($event, role_r27); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "mat-icon");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, " update");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "\u00A0 ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const clientLocation_r21 = ctx.$implicit;
+    const role_r27 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](clientLocation_r21.name);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](role_r27.name);
 } }
 const _c4 = function (a0) { return { "link-active-paging": a0 }; };
-function AspNetRolesComponent_ng_container_36_li_1_Template(rf, ctx) { if (rf & 1) {
-    const _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_36_li_1_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r26); const page_r24 = ctx.$implicit; const ctx_r25 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2); return ctx_r25.onPageIndexClicked(page_r24.pageIndex); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "a", 59);
+function AspNetRolesComponent_ng_container_52_li_1_Template(rf, ctx) { if (rf & 1) {
+    const _r34 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_52_li_1_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r34); const page_r32 = ctx.$implicit; const ctx_r33 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2); return ctx_r33.onPageIndexClicked(page_r32.pageIndex); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const page_r24 = ctx.$implicit;
-    const ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction1"](2, _c4, page_r24.pageIndex == ctx_r23.currentPageIndex));
+    const page_r32 = ctx.$implicit;
+    const ctx_r31 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction1"](2, _c4, page_r32.pageIndex == ctx_r31.currentPageIndex));
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](page_r24.pageIndex + 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](page_r32.pageIndex + 1);
 } }
-function AspNetRolesComponent_ng_container_36_Template(rf, ctx) { if (rf & 1) {
+function AspNetRolesComponent_ng_container_52_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](1, AspNetRolesComponent_ng_container_36_li_1_Template, 3, 4, "li", 57);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](1, AspNetRolesComponent_ng_container_52_li_1_Template, 3, 4, "li", 78);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerEnd"]();
 } if (rf & 2) {
     const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", ctx_r5.pages);
 } }
-function AspNetRolesComponent_ng_container_37_li_7_Template(rf, ctx) { if (rf & 1) {
+function AspNetRolesComponent_ng_container_53_li_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "li");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1, "\u00A0...\u00A0");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
-function AspNetRolesComponent_ng_container_37_li_8_Template(rf, ctx) { if (rf & 1) {
-    const _r30 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_37_li_8_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r30); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2); return ctx_r29.onPageIndexClicked(ctx_r29.currentPageIndex); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "a", 59);
+function AspNetRolesComponent_ng_container_53_li_8_Template(rf, ctx) { if (rf & 1) {
+    const _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_53_li_8_Template_li_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2); return ctx_r37.onPageIndexClicked(ctx_r37.currentPageIndex); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r28 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
+    const ctx_r36 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", "link-active-paging");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](ctx_r28.currentPageIndex + 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](ctx_r36.currentPageIndex + 1);
 } }
-function AspNetRolesComponent_ng_container_37_Template(rf, ctx) { if (rf & 1) {
-    const _r32 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+function AspNetRolesComponent_ng_container_53_Template(rf, ctx) { if (rf & 1) {
+    const _r40 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerStart"](0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_37_Template_li_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r32); const ctx_r31 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r31.onPageIndexClicked(0); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "a", 59);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_53_Template_li_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r40); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r39.onPageIndexClicked(0); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](3, "1");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](4, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_37_Template_li_click_4_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r32); const ctx_r33 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r33.onPageIndexClicked(1); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "a", 59);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](4, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_53_Template_li_click_4_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r40); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r41.onPageIndexClicked(1); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6, "2");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](7, AspNetRolesComponent_ng_container_37_li_7_Template, 2, 0, "li", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](8, AspNetRolesComponent_ng_container_37_li_8_Template, 3, 2, "li", 60);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](7, AspNetRolesComponent_ng_container_53_li_7_Template, 2, 0, "li", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](8, AspNetRolesComponent_ng_container_53_li_8_Template, 3, 2, "li", 81);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "li");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "\u00A0...\u00A0");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](11, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_37_Template_li_click_11_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r32); const ctx_r34 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r34.onPageIndexClicked(ctx_r34.pages.length - 2); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "a", 59);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](11, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_53_Template_li_click_11_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r40); const ctx_r42 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r42.onPageIndexClicked(ctx_r42.pages.length - 2); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](13);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](14, "li", 58);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_37_Template_li_click_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r32); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r35.onPageIndexClicked(ctx_r35.pages.length - 1); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](15, "a", 59);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](14, "li", 79);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_ng_container_53_Template_li_click_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r40); const ctx_r43 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r43.onPageIndexClicked(ctx_r43.pages.length - 1); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](15, "a", 80);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](16);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -34796,24 +34815,44 @@ function AspNetRolesComponent_ng_container_37_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](ctx_r6.pages.length);
 } }
-function AspNetRolesComponent_span_59_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 61);
+function AspNetRolesComponent_span_75_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 82);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1, "Status of Reject can't be blank");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
-function AspNetRolesComponent_option_68_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 62);
+function AspNetRolesComponent_option_84_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 83);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const SystemCapabilityStatus_r36 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", SystemCapabilityStatus_r36.current_system_status);
+    const SystemCapabilityStatus_r44 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", SystemCapabilityStatus_r44.current_system_status);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", SystemCapabilityStatus_r36.current_system_status, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", SystemCapabilityStatus_r44.current_system_status, " ");
 } }
-function AspNetRolesComponent_span_91_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 61);
+function AspNetRolesComponent_span_107_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 82);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1, "User Role can't be blank");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+} }
+function AspNetRolesComponent_span_147_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 82);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1, "Status can't be blank");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+} }
+function AspNetRolesComponent_option_157_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "option", 83);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const SystemCapabilityStatus_r45 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", SystemCapabilityStatus_r45.current_system_status);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", SystemCapabilityStatus_r45.current_system_status, " ");
+} }
+function AspNetRolesComponent_span_159_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "span", 82);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1, "Status can't be blank");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } }
 const _c5 = function (a0, a1) { return { "is-invalid": a0, "is-valid": a1 }; };
@@ -34824,10 +34863,10 @@ class AspNetRolesComponent {
         this.systemCapabilityStatusService = systemCapabilityStatusService;
         this.toastr = toastr;
         //Objects for Holding Model Data
-        this.clientLocations = [];
+        this.UserRole = [];
         this.showLoading = true;
         //Objects for Delete
-        this.deleteRejectStatus = new src_app_models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__["AspNetRoles"]();
+        this.deleteRejectStatus = new _models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__["AspNetRoles"]();
         this.editIndex = null;
         this.deleteIndex = null;
         //Properties for Searching
@@ -34840,38 +34879,64 @@ class AspNetRolesComponent {
         //Properties for Sorting
         this.sortBy = "Name";
         this.sortOrder = "ASC";
+        this.activeUser = "";
     }
     ngOnInit() {
         //Get data from database
-        this.aspNetRolesService.getListOfRole().subscribe((response) => {
-            this.clientLocations = response;
-            this.showLoading = false;
-            this.calculateNoOfPages();
-        });
+        this.getUserRole();
         //Create newForm
         this.newForm = this.formBuilder.group({
             id: this.formBuilder.control(null),
             reject_status_name: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
             is_active: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required])
         });
-        //Create editForm
+        // editForm
         this.editForm = this.formBuilder.group({
-            Id: this.formBuilder.control(null),
+            id: this.formBuilder.control(null),
             name: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
+            isactive: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
+            modifiedby: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
+            isactivereference: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
         });
         // Here
         this.samples = this.systemCapabilityStatusService.getSystemCapabilityStatus();
     }
+    getUserRole() {
+        this.aspNetRolesService.getListOfRole().subscribe((response) => {
+            this.UserRole = response;
+            this.showLoading = false;
+            this.calculateNoOfPages();
+        });
+    }
     calculateNoOfPages() {
         //Get no. of Pages
-        let filterPipe = new src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__["FilterPipe"]();
-        var noOfPages = Math.ceil(filterPipe.transform(this.clientLocations, this.searchBy, this.searchText).length / this.pageSize);
+        let filterPipe = new _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__["FilterPipe"]();
+        var noOfPages = Math.ceil(filterPipe.transform(this.UserRole, this.searchBy, this.searchText).length / this.pageSize);
         this.pages = [];
         //Generate pages
         for (let i = 0; i < noOfPages; i++) {
             this.pages.push({ pageIndex: i });
         }
         this.currentPageIndex = 0;
+    }
+    onFilterStatus(val) {
+        if (!val) {
+            this.getUserRole();
+        }
+        else {
+            if (val === "") {
+            }
+            else if (val === "true") {
+                val = true;
+            }
+            else if (val === "false") {
+                val = false;
+            }
+            const status = this.UserRole.filter(status => status.isactive === val);
+            this.UserRole = status;
+            // this.showLoading = false;
+            this.calculateNoOfPages();
+        }
     }
     onPageIndexClicked(ind) {
         //Set currentPageIndex
@@ -34906,13 +34971,13 @@ class AspNetRolesComponent {
             //Invoke the REST-API call
             this.aspNetRolesService.appendnewRole(this.newForm.value).subscribe((response) => {
                 //Add Response to Grid
-                var p = new src_app_models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__["AspNetRoles"]();
+                var p = new _models_asp_net_roles__WEBPACK_IMPORTED_MODULE_4__["AspNetRoles"]();
                 p.Id = response.Id;
                 p.name = response.name;
                 p.normalizedname = response.normalizedname;
                 p.concurrencystamp = response.concurrencystamp;
                 p.discriminator = response.discriminator;
-                this.clientLocations.push(p);
+                this.UserRole.push(p);
                 //Reset the newForm
                 this.newForm.reset();
                 jquery__WEBPACK_IMPORTED_MODULE_2__("#newClientLocationFormCancel").trigger("click");
@@ -34935,7 +35000,7 @@ class AspNetRolesComponent {
         setTimeout(() => {
             //Set data into editForm
             this.editForm.patchValue(StatusParam);
-            this.editIndex = this.clientLocations.indexOf(StatusParam);
+            this.editIndex = this.UserRole.indexOf(StatusParam);
             //Focus the ClientLocation textbox in editForm
             this.defaultTextBox_Edit.nativeElement.focus();
         }, 100);
@@ -34956,7 +35021,7 @@ class AspNetRolesComponent {
                     //Invoke the REST-API call
                     this.aspNetRolesService.modifyRole(this.editForm.value).subscribe((response) => {
                         //Update the response in Grid
-                        this.clientLocations[this.editIndex] = response;
+                        this.UserRole[this.editIndex] = response;
                         //Reset the editForm
                         this.editForm.reset();
                         jquery__WEBPACK_IMPORTED_MODULE_2__("#editClientLocationFormCancel").trigger("click");
@@ -34975,7 +35040,7 @@ class AspNetRolesComponent {
         this.deleteRejectStatus.normalizedname = RestApi.normalizedname;
         this.deleteRejectStatus.concurrencystamp = RestApi.concurrencystamp;
         this.deleteRejectStatus.discriminator = RestApi.discriminator;
-        this.deleteIndex = this.clientLocations.indexOf(RestApi);
+        this.deleteIndex = this.UserRole.indexOf(RestApi);
     }
     onDeleteConfirmClick() {
         // //Invoke the REST-API call
@@ -35000,7 +35065,7 @@ class AspNetRolesComponent {
         this.calculateNoOfPages();
     }
 }
-AspNetRolesComponent.ɵfac = function AspNetRolesComponent_Factory(t) { return new (t || AspNetRolesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_6__["AspNetRolesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__["SystemCapabilityStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"])); };
+AspNetRolesComponent.ɵfac = function AspNetRolesComponent_Factory(t) { return new (t || AspNetRolesComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_services_asp_net_roles_service__WEBPACK_IMPORTED_MODULE_6__["AspNetRolesService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__["SystemCapabilityStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"])); };
 AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({ type: AspNetRolesComponent, selectors: [["app-asp-net-roles"]], viewQuery: function AspNetRolesComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵviewQuery"](_c0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵviewQuery"](_c1, 1);
@@ -35012,189 +35077,269 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.defaultTextBox_Edit = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.RejectStatusDescription = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.RejectStatusUpdate = _t.first);
-    } }, decls: 114, vars: 41, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size:24px", 4, "ngIf"], [1, "row"], [1, "col-xl-12"], [1, "form-group", "row"], ["for", "drpSearchBy", 1, "col-form-label", "col-md-6", "col-lg-2", "offset-xl-1", "col-xl-2", "text-right"], [1, "col-md-6", "col-lg-4", "col-xl-3"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "ngModel", "ngModelChange"], ["value", "name"], ["for", "textSearchText", 1, "col-form-label", "col-md-6", "col-lg-2", "col-xl-1", "text-right"], [1, "input-group"], ["type", "text", "id", "txtSearchText", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "col-xl-8", "col-lg-9", "mx-auto"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-xl", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], ["class", "fa fa-sort hand-icon", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-up hand-icon text-primary", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-down hand-icon text-primary", 3, "click", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "col-12"], [1, "pagination", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1", "font-color-black"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1", "font-color-black"], ["novalidate", "novalidate", 3, "formGroup"], ["role", "dialog", "id", "newClientLocationModal", 1, "modal"], [1, "modal-dialog", "modal-md"], [1, "modal-content"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], ["for", "txtNewClientLocationName", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewreject_status_name", "placeholder", "Reject Status", "name", "reject_status_name", "formControlName", "reject_status_name", "autocomplete", "off", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", "", "RejectStatusDescription", ""], ["class", "text-danger", 4, "ngIf"], ["for", "drpEditClientLocation", 1, "col-sm-4", "col-form-label"], ["id", "txtNewis_active", "name", "is_active", "formControlName", "is_active", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", ""], ["value", "null"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["mat-stroked-button", "", "color", "primary", 3, "click"], ["role", "dialog", "id", "editClientLocationModal", 1, "modal"], ["for", "txtEditClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtEditname", "placeholder", "User Role", "name", "name", "autocomplete", "off", "formControlName", "name", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_Edit", "", "RejectStatusUpdate", ""], ["mat-stroked-button", "", "color", "primary"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["for", "txtDeleteClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtDeleteClientLocationName", "placeholder", "Client Location Name", "name", "ClientLocationName", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "300px", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "primary", "data-dismiss", "modal", 3, "click"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "24px"], [1, "fa", "fa-sort", "hand-icon", 3, "click"], [1, "fa", "fa-sort-up", "hand-icon", "text-primary", 3, "click"], [1, "fa", "fa-sort-down", "hand-icon", "text-primary", 3, "click"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [1, "text-danger"], [3, "value"]], template: function AspNetRolesComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 165, vars: 55, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size:24px", 4, "ngIf"], [1, "row"], [1, "col-sm-12"], [1, "d-flex"], [1, "p-2"], [1, "input-group", "searchBtnStyle"], [1, "input-group-prepend"], ["id", "basic-addon1", 1, "input-group-text"], [1, "fa", "fa-filter"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "change"], ["value", ""], ["value", "true"], ["value", "false"], [1, "fa", "fa-search"], ["type", "text", "placeholder", "Find here....", "id", "txtSearchText", "autocomplete", "off", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "ml-auto", "p-2"], ["data-toggle", "modal", "data-target", "#newDataModal1", "data-backdrop", "false", "data-keyboard", "false", 1, "addbtnStyle", 3, "click"], [1, "fa", "fa-plus"], [1, "col-xl-12"], [1, "col-xl-12", "col-lg-9", "mx-auto"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-sm", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], [1, "text-center", 2, "width", "20%"], ["class", "fa fa-sort hand-icon", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-up hand-icon text-primary", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-down hand-icon text-primary", 3, "click", 4, "ngIf"], [4, "ngFor", "ngForOf"], [1, "col-12"], [1, "pagination", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1", "font-color-black"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1", "font-color-black"], ["novalidate", "novalidate", 3, "formGroup"], ["role", "dialog", "id", "newClientLocationModal", 1, "modal"], [1, "modal-dialog", "modal-md"], [1, "modal-content"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewClientLocationName", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewreject_status_name", "placeholder", "Reject Status", "name", "reject_status_name", "formControlName", "reject_status_name", "autocomplete", "off", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", "", "RejectStatusDescription", ""], ["class", "text-danger", 4, "ngIf"], ["for", "drpEditClientLocation", 1, "col-sm-4", "col-form-label"], ["id", "txtNewis_active", "name", "is_active", "formControlName", "is_active", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", ""], ["value", "null"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["mat-stroked-button", "", "color", "primary", 3, "click"], ["role", "dialog", "id", "editClientLocationModal", 1, "modal"], ["for", "txtEditClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtEditname", "placeholder", "User Role", "name", "name", "autocomplete", "off", "formControlName", "name", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_Edit", "", "RejectStatusUpdate", ""], ["mat-stroked-button", "", "color", "primary"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["for", "txtDeleteClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtDeleteClientLocationName", "placeholder", "Client Location Name", "name", "ClientLocationName", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "300px", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "primary", "data-dismiss", "modal", 3, "click"], ["role", "dialog", "id", "editModal1", 1, "modal"], [1, "modal-header", "bg-all", "text-white"], ["for", "txtEdit", 1, "col-sm-4", "col-form-label"], ["type", "text", "autocomplete", "off", "id", "txtrole", "placeholder", "Role", "name", "name", "formControlName", "name", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_Edit", ""], ["id", "txtis_active_status_status", "name", "isactivereference", "formControlName", "isactivereference", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", "", "UpdateDesc", ""], ["mat-stroked-button", "", "color", "accent", "id", "editCancelModal", "data-dismiss", "modal", "type", "button", 1, "mr-1"], ["mat-stroked-button", "", "color", "primary", 3, "disabled", "click"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "24px"], [1, "fa", "fa-sort", "hand-icon", 3, "click"], [1, "fa", "fa-sort-up", "hand-icon", "text-primary", 3, "click"], [1, "fa", "fa-sort-down", "hand-icon", "text-primary", 3, "click"], [1, "text-center"], ["mat-stroked-button", "", "color", "primary", "data-toggle", "modal", "data-target", "#editModal1", "data-backdrop", "false", "data-keyboard", "false", 1, "editbtnStyle", 3, "click"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [1, "text-danger"], [3, "value"]], template: function AspNetRolesComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "h5");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](1, AspNetRolesComponent_i_1_Template, 1, 0, "i", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](4, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "label", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6, "Search by:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](6, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](8, "span", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](9, "span", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "div", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](8, "select", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AspNetRolesComponent_Template_select_ngModelChange_8_listener($event) { return ctx.searchBy = $event; });
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "option", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "Role");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "ng ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](10, "select", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function AspNetRolesComponent_Template_select_change_10_listener($event) { return ctx.onFilterStatus($event.target.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](11, "option", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, "All");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](13, "option", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](14, "Active");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](12, "label", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](13, "Search:");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](15, "option", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](16, "InActive");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](14, "div", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](15, "div", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "input", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AspNetRolesComponent_Template_input_ngModelChange_16_listener($event) { return ctx.searchText = $event; })("keyup", function AspNetRolesComponent_Template_input_keyup_16_listener($event) { return ctx.onSearchTextChange($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](17, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](18, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](19, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](20, "span", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](21, "span", 13);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](17, "div", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](18, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](19, "div", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](20, "table", 12);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](21, "tr", 13);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](22, "th");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](23, " Role ");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](24, AspNetRolesComponent_i_24_Template, 1, 0, "i", 14);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](25, AspNetRolesComponent_i_25_Template, 1, 0, "i", 15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](26, AspNetRolesComponent_i_26_Template, 1, 0, "i", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](22, "input", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AspNetRolesComponent_Template_input_ngModelChange_22_listener($event) { return ctx.searchText = $event; })("keyup", function AspNetRolesComponent_Template_input_keyup_22_listener($event) { return ctx.onSearchTextChange($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](27, AspNetRolesComponent_tr_27_Template, 3, 1, "tr", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](28, "paging");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](29, "sort");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](30, "filter");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](23, "div", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](24, "button", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_24_listener($event) { return ctx.onNewClick($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](25, "span", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](26, " Add New Data");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](31, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](32, "ul", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](33, "li", 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_li_click_33_listener() { return ctx.onPageIndexClicked(ctx.currentPageIndex - 1); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](34, "a", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](35, "Prev");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](27, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](28, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](29, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](30, "table", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](31, "tr", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](32, "th", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](33, " Role ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](34, AspNetRolesComponent_i_34_Template, 1, 0, "i", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](35, AspNetRolesComponent_i_35_Template, 1, 0, "i", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](36, AspNetRolesComponent_i_36_Template, 1, 0, "i", 25);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](36, AspNetRolesComponent_ng_container_36_Template, 2, 1, "ng-container", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](37, AspNetRolesComponent_ng_container_37_Template, 17, 16, "ng-container", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](38, "li", 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_li_click_38_listener() { return ctx.onPageIndexClicked(ctx.currentPageIndex + 1); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](39, "a", 23);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](40, "Next");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](37, "th", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](38, "Added By");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](39, "th", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](40, "Date Added");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](41, "th", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](42, "Actions");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](43, AspNetRolesComponent_tr_43_Template, 12, 1, "tr", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](44, "paging");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](45, "sort");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](46, "filter");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](41, "form", 24);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](42, "div", 25);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](43, "div", 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](44, "div", 27);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](45, "div", 28);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](46, "div", 29);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](47, "Append Rejected Status");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](48, "button", 30);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](49, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](50, "\u00D7");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](47, "div", 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](48, "ul", 28);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](49, "li", 29);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_li_click_49_listener() { return ctx.onPageIndexClicked(ctx.currentPageIndex - 1); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](50, "a", 30);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](51, "Prev");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](51, "div", 31);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](52, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](53, "label", 32);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](54, "Rejected Status");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](55, "div", 33);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](56, "input", 34, 35);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](59, AspNetRolesComponent_span_59_Template, 2, 0, "span", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](52, AspNetRolesComponent_ng_container_52_Template, 2, 1, "ng-container", 31);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](53, AspNetRolesComponent_ng_container_53_Template, 17, 16, "ng-container", 31);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](54, "li", 29);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_li_click_54_listener() { return ctx.onPageIndexClicked(ctx.currentPageIndex + 1); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](55, "a", 32);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](56, "Next");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](60, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](61, "label", 37);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](62, "Status ");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](63, "div", 33);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](64, "select", 38, 39);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](66, "option", 40);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](67, "Please Select");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](68, AspNetRolesComponent_option_68_Template, 2, 2, "option", 41);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](69, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](57, "form", 33);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](58, "div", 34);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](59, "div", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](60, "div", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](61, "div", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](62, "div", 38);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](63, "Append Rejected Status");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](64, "button", 39);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](65, "span");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](66, "\u00D7");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](70, "div", 42);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](71, "button", 43);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_71_listener() { return ctx.onSaveClick(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](72, "Save");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](67, "div", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](68, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](69, "label", 42);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](70, "Rejected Status");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](71, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](72, "input", 44, 45);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](75, AspNetRolesComponent_span_75_Template, 2, 0, "span", 46);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](76, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](77, "label", 47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](78, "Status ");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](79, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](80, "select", 48, 49);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](82, "option", 50);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](83, "Please Select");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](73, "form", 24);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](74, "div", 44);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](75, "div", 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](76, "div", 27);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](77, "div", 28);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](78, "div", 29);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](79, "Edit Role");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](84, AspNetRolesComponent_option_84_Template, 2, 2, "option", 51);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](85, "async");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](80, "button", 30);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](81, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](82, "\u00D7");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](83, "div", 31);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](84, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](85, "label", 45);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](86, "Role");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](86, "div", 52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](87, "button", 53);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_87_listener() { return ctx.onSaveClick(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](88, "Save");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](87, "div", 33);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](88, "input", 46, 47);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](91, AspNetRolesComponent_span_91_Template, 2, 0, "span", 36);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](92, "div", 42);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](93, "button", 48);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](94, "Update");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](89, "form", 33);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](90, "div", 54);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](91, "div", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](92, "div", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](93, "div", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](94, "div", 38);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](95, "Edit Role");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](96, "button", 39);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](97, "span");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](98, "\u00D7");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](95, "form");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](96, "div", 49);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](97, "div", 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](98, "div", 27);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](99, "div", 28);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](100, "div", 29);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](101, "Delete Rejection Status");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](99, "div", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](100, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](101, "label", 55);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](102, "Role");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](102, "button", 30);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](103, "span");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](104, "\u00D7");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](103, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](104, "input", 56, 57);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](107, AspNetRolesComponent_span_107_Template, 2, 0, "span", 46);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](105, "div", 31);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](106, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](107, "label", 50);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](108, "Client Location Name");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](108, "div", 52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](109, "button", 58);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](110, "Update");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](109, "div", 33);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](110, "input", 51);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AspNetRolesComponent_Template_input_ngModelChange_110_listener($event) { return ctx.deleteRejectStatus.name = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](111, "div", 42);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](112, "button", 52);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_112_listener() { return ctx.onDeleteConfirmClick(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](113, "Delete");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](111, "form");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](112, "div", 59);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](113, "div", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](114, "div", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](115, "div", 37);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](116, "div", 38);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](117, "Delete Rejection Status");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](118, "button", 39);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](119, "span");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](120, "\u00D7");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](121, "div", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](122, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](123, "label", 60);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](124, "Client Location Name");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](125, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](126, "input", 61);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function AspNetRolesComponent_Template_input_ngModelChange_126_listener($event) { return ctx.deleteRejectStatus.name = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](127, "div", 52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](128, "button", 62);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_128_listener() { return ctx.onDeleteConfirmClick(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](129, "Delete");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](130, "form", 33);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](131, "div", 63);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](132, "div", 35);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](133, "div", 36);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](134, "div", 64);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](135, "div", 38);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](136, "Edit Information");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](137, "button", 39);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](138, "span");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](139, "\u00D7");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](140, "div", 40);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](141, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](142, "label", 65);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](143, "Role");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](144, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](145, "input", 66, 67);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](147, AspNetRolesComponent_span_147_Template, 2, 0, "span", 46);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](148, "div", 41);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](149, "label", 47);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](150, "Status ");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](151, "div", 43);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](152, "select", 68, 69);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](155, "option", 50);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](156, "Please Select");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](157, AspNetRolesComponent_option_157_Template, 2, 2, "option", 51);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](158, "async");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](159, AspNetRolesComponent_span_159_Template, 2, 0, "span", 46);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](160, "div", 52);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](161, "button", 70);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](162, "Cancel");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](163, "button", 71);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function AspNetRolesComponent_Template_button_click_163_listener() { return ctx.onUpdateClick(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Update");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -35204,18 +35349,16 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.showLoading);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx.searchBy);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](21);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx.searchText);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](8);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.sortBy != "name");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.sortBy == "name" && ctx.sortOrder == "ASC");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.sortBy == "name" && ctx.sortOrder == "DESC");
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](28, 18, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](29, 22, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](30, 26, ctx.clientLocations, ctx.searchBy, ctx.searchText), ctx.sortBy, ctx.sortOrder), ctx.currentPageIndex, ctx.pageSize));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](44, 24, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](45, 28, _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](46, 32, ctx.UserRole, ctx.searchBy, ctx.searchText), ctx.sortBy, ctx.sortOrder), ctx.currentPageIndex, ctx.pageSize));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](9);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.pages.length <= 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
@@ -35223,22 +35366,36 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("formGroup", ctx.newForm);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](32, _c5, ctx.newForm.get("reject_status_name").invalid && (ctx.newForm.get("reject_status_name").dirty || ctx.newForm.get("reject_status_name").touched || ctx.newForm.valid), ctx.newForm.get("reject_status_name").valid && (ctx.newForm.get("reject_status_name").dirty || ctx.newForm.get("reject_status_name").touched || ctx.newForm.valid)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](40, _c5, ctx.newForm.get("reject_status_name").invalid && (ctx.newForm.get("reject_status_name").dirty || ctx.newForm.get("reject_status_name").touched || ctx.newForm.valid), ctx.newForm.get("reject_status_name").valid && (ctx.newForm.get("reject_status_name").dirty || ctx.newForm.get("reject_status_name").touched || ctx.newForm.valid)));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.newForm.get("reject_status_name").invalid && (ctx.newForm.get("reject_status_name").dirty || ctx.newForm.get("reject_status_name").touched || ctx.newForm.valid) && (ctx.newForm.get("reject_status_name").errors == null ? null : ctx.newForm.get("reject_status_name").errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](35, _c5, ctx.newForm.get("is_active").invalid && (ctx.newForm.get("is_active").dirty || ctx.newForm.get("is_active").touched || ctx.newForm.valid), ctx.newForm.get("is_active").valid && (ctx.newForm.get("is_active").dirty || ctx.newForm.get("is_active").touched || ctx.newForm.valid)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](43, _c5, ctx.newForm.get("is_active").invalid && (ctx.newForm.get("is_active").dirty || ctx.newForm.get("is_active").touched || ctx.newForm.valid), ctx.newForm.get("is_active").valid && (ctx.newForm.get("is_active").dirty || ctx.newForm.get("is_active").touched || ctx.newForm.valid)));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](69, 30, ctx.samples));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](85, 36, ctx.samples));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("formGroup", ctx.editForm);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](15);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](38, _c5, ctx.editForm.get("name").invalid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid), ctx.editForm.get("name").valid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](46, _c5, ctx.editForm.get("name").invalid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid), ctx.editForm.get("name").valid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid)));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.editForm.get("name").invalid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid) && (ctx.editForm.get("name").errors == null ? null : ctx.editForm.get("name").errors.required));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](19);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx.deleteRejectStatus.name);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatAnchor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_11__["DefaultClassDirective"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"]], pipes: [_pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_12__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_13__["SortPipe"], src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]], styles: [".font-color-black[_ngcontent-%COMP%] {\n  color: black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFxhc3AtbmV0LXJvbGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtBQUNGIiwiZmlsZSI6ImFzcC1uZXQtcm9sZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9udC1jb2xvci1ibGFjayB7XG4gIGNvbG9yOiBibGFjaztcbn1cbiJdfQ== */"] });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("formGroup", ctx.editForm);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](49, _c5, ctx.editForm.get("name").invalid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid), ctx.editForm.get("name").valid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.editForm.get("name").invalid && (ctx.editForm.get("name").dirty || ctx.editForm.get("name").touched || ctx.editForm.valid) && (ctx.editForm.get("name").errors == null ? null : ctx.editForm.get("name").errors.required));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngClass", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpureFunction2"](52, _c5, ctx.editForm.get("isactivereference").invalid && (ctx.editForm.get("isactivereference").dirty || ctx.editForm.get("isactivereference").touched || ctx.editForm.valid), ctx.editForm.get("isactivereference").valid && (ctx.editForm.get("isactivereference").dirty || ctx.editForm.get("isactivereference").touched || ctx.editForm.valid)));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](158, 38, ctx.samples));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.editForm.get("isactivereference").invalid && (ctx.editForm.get("isactivereference").dirty || ctx.editForm.get("isactivereference").touched || ctx.editForm.valid) && (ctx.editForm.get("isactivereference").errors == null ? null : ctx.editForm.get("isactivereference").errors.required));
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("disabled", !ctx.editForm.valid);
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatAnchor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_11__["DefaultClassDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIcon"]], pipes: [_pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_13__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_14__["SortPipe"], _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_1__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]], styles: [".font-color-black[_ngcontent-%COMP%] {\n  color: black;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFxhc3AtbmV0LXJvbGVzLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsWUFBQTtBQUNGIiwiZmlsZSI6ImFzcC1uZXQtcm9sZXMuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZm9udC1jb2xvci1ibGFjayB7XG4gIGNvbG9yOiBibGFjaztcbn1cbiJdfQ== */"] });
 
 
 /***/ }),
