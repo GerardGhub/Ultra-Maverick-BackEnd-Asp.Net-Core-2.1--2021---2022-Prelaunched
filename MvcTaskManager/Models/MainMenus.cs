@@ -9,7 +9,7 @@ namespace MvcTaskManager.Models
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
-    public string Modulename { get; set; }
+    public string Mainmodulename { get; set; }
     public DateTime DateAdded { get; set; }
     public string AddedBy { get; set; }
     public bool  Isactive { get; set; }

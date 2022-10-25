@@ -11269,25 +11269,25 @@ class AppComponent {
                 this.roleModulesSummary.forEach((status) => {
                     // console.log(status);
                     // alert(status.moduleName);
-                    if (status.moduleName === 'qc-receiving-route') {
+                    if (status.modulename === 'qc-receiving-route') {
                         this.QCReceiving = 1;
                     }
-                    else if (status.moduleName === 'wh-receiving-route') {
+                    else if (status.modulename === 'wh-receiving-route') {
                         this.WhReceiving = 1;
                     }
-                    else if (status.moduleName === 'approval-route') {
+                    else if (status.modulename === 'approval-route') {
                         this.Approval = 1;
                     }
-                    else if (status.moduleName === 'labtest-route') {
+                    else if (status.modulename === 'labtest-route') {
                         this.LabTest = 1;
                     }
-                    else if (status.moduleName === 'preparation-route') {
+                    else if (status.modulename === 'preparation-route') {
                         this.Preparation = 1;
                     }
-                    else if (status.moduleName === 'onlinemrs-route') {
+                    else if (status.modulename === 'onlinemrs-route') {
                         this.OnlineMrs = 1;
                     }
-                    else if (status.moduleName === 'setup-route') {
+                    else if (status.modulename === 'setup-route') {
                         this.SetUp = 1;
                     }
                 });

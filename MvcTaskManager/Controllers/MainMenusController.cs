@@ -37,6 +37,7 @@ namespace MvcTaskManager.Controllers
     {
       menu.DateAdded = DateTime.Now;
       menu.Isactive = true;
+      menu.isactivereference = "Active";
       db.MainMenus.Add(menu);
       await db.SaveChangesAsync();
 
@@ -64,7 +65,7 @@ namespace MvcTaskManager.Controllers
       MainMenus existingDataStatus = await db.MainMenus.Where(temp => temp.Id == menu.Id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.Modulename = menu.Modulename;
+        existingDataStatus.Mainmodulename = menu.Mainmodulename;
         existingDataStatus.ModifiedDate = menu.ModifiedDate;
         existingDataStatus.ModifiedBy = menu.ModifiedBy;
         existingDataStatus.Isactive = menu.Isactive;
