@@ -8,6 +8,9 @@ namespace MvcTaskManager.Identity
     {
     public bool Isactive { get; set; }
     public string Isactivereference { get; set; }
+    public string Addedby { get; set; }
+    public string Modifiedby { get; set; }
+    public DateTime? Modifieddate { get; set; }
     }
 }
 

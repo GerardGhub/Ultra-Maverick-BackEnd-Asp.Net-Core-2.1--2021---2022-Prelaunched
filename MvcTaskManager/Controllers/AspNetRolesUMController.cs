@@ -33,6 +33,26 @@ namespace MvcTaskManager.Controllers
     }
 
 
+    [HttpPost]
+    [Route("api/AspNetRoles")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ApplicationRole> Post([FromBody] ApplicationRole menu)
+    {
+      //menu.DateAdded = DateTime.Now;
+      menu.Isactive = true;
+      menu.Isactivereference = "Active";
+
+      menu.NormalizedName = menu.Name.ToUpper();
+
+      db.ApplicationRoles.Add(menu);
+      await db.SaveChangesAsync();
+
+      ApplicationRole existingData = await db.ApplicationRoles.Where(temp => temp.Id == menu.Id).FirstOrDefaultAsync();
+      return menu;
+    }
+
+
+
 
     [HttpGet]
     [Route("api/AspNetRoles/searchbyid/{id}")]
@@ -55,11 +75,17 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ApplicationRole> Put([FromBody] ApplicationRole Role)
     {
+      Role.NormalizedName = Role.Name.ToUpper();
+      var Status = (Role.Isactivereference == "Active") ? Role.Isactive = true : Role.Isactive = false;
       ApplicationRole existingRoles = await db.ApplicationRoles.Where(temp => temp.Id == Role.Id).FirstOrDefaultAsync();
       if (existingRoles != null)
       {
         existingRoles.Name = Role.Name;
-        //existingRejectedStatus.is_active = rejectstats.is_active;
+        existingRoles.NormalizedName = Role.NormalizedName;
+        existingRoles.Isactivereference = Role.Isactivereference;
+        existingRoles.Isactive = Role.Isactive;
+        existingRoles.Modifiedby = Role.Modifiedby;
+        existingRoles.Modifieddate = DateTime.Now;
         await db.SaveChangesAsync();
         return existingRoles;
       }
