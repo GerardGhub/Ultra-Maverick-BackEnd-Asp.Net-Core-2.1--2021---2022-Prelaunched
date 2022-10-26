@@ -41,7 +41,7 @@ namespace MvcTaskManager.Controllers
       //menu.DateAdded = DateTime.Now;
       menu.Isactive = true;
       menu.Isactivereference = "Active";
-
+      menu.Dateadded = DateTime.Now;
       menu.NormalizedName = menu.Name.ToUpper();
 
       db.ApplicationRoles.Add(menu);

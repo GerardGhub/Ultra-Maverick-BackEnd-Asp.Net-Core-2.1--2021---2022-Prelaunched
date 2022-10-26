@@ -11,6 +11,7 @@ namespace MvcTaskManager.Identity
     public string Addedby { get; set; }
     public string Modifiedby { get; set; }
     public DateTime? Modifieddate { get; set; }
+    public DateTime Dateadded { get; set; }
     }
 }
 

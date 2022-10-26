@@ -34701,10 +34701,10 @@ function AspNetRolesComponent_tr_45_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Sa");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "td");
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6, "ss");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "td");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](8);
@@ -34723,7 +34723,11 @@ function AspNetRolesComponent_tr_45_Template(rf, ctx) { if (rf & 1) {
     const role_r23 = ctx.$implicit;
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](role_r23.name);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](role_r23.addedby);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](role_r23.dateadded);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](role_r23.isactive);
 } }
 const _c4 = function (a0) { return { "link-active-paging": a0 }; };
@@ -34860,8 +34864,8 @@ class AspNetRolesComponent {
         this.showLoading = true;
         //Objects for Delete
         this.deleteRejectStatus = new _models_asp_net_roles__WEBPACK_IMPORTED_MODULE_3__["AspNetRoles"]();
-        this.editIndex = null;
-        this.deleteIndex = null;
+        this.editIndex = 0;
+        this.deleteIndex = 0;
         //Properties for Searching
         this.searchBy = "Name";
         this.searchText = "";
@@ -35133,7 +35137,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](44, "Actions");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](45, AspNetRolesComponent_tr_45_Template, 14, 2, "tr", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](45, AspNetRolesComponent_tr_45_Template, 14, 4, "tr", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](46, "paging");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](47, "sort");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](48, "filter");
