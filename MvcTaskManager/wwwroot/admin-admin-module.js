@@ -1204,40 +1204,6 @@ ClientLocationsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_4__["ɵ�
 
 /***/ }),
 
-/***/ "86Rl":
-/*!************************************************!*\
-  !*** ./src/app/services/main-menus.service.ts ***!
-  \************************************************/
-/*! exports provided: MainMenusService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MainMenusService", function() { return MainMenusService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
-
-
-class MainMenusService {
-    constructor(httpClient) {
-        this.httpClient = httpClient;
-    }
-    getMainMenus() {
-        return this.httpClient.get("/api/MainMenus", { responseType: "json" });
-    }
-    insertNewData(newDataStatus) {
-        return this.httpClient.post("/api/MainMenus", newDataStatus, { responseType: "json" });
-    }
-    updateData(existingDataStatus) {
-        return this.httpClient.put("/api/MainMenus", existingDataStatus, { responseType: "json" });
-    }
-}
-MainMenusService.ɵfac = function MainMenusService_Factory(t) { return new (t || MainMenusService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
-MainMenusService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: MainMenusService, factory: MainMenusService.ɵfac, providedIn: 'root' });
-
-
-/***/ }),
-
 /***/ "8dlv":
 /*!*******************************************************************************!*\
   !*** ./src/app/admin/components/task-priorities/task-priorities.component.ts ***!
