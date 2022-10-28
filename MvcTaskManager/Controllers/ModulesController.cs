@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System;
+using Microsoft.CodeAnalysis;
 
 namespace MvcTaskManager.Controllers
 {
@@ -64,6 +65,31 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<Modules> Post([FromBody] Modules module)
     {
+
+      //var GetUserRole = await db.ApplicationRoles.Where(src => src.Isactive.Equals(true)).ToListAsync();
+
+
+      //RoleModules roleModules = new RoleModules();
+
+      //foreach (var item in GetUserRole)
+      //{
+
+      //  roleModules.Isactive = true;
+      //  roleModules.RoleId = item.Id;
+      //  roleModules.ModuleId = module.Mainmenuid;
+      //  db.RoleModules.Add(roleModules);
+      //  await db.SaveChangesAsync();
+
+
+
+
+      //}
+      //db.RoleModules.Remove(roleModules);
+
+      //this.Sample();
+      ////this.Sample2();
+      //return module;
+
       module.DateAdded = DateTime.Now;
       module.Isactive = true;
       module.isactivereference = "Active";
@@ -74,6 +100,29 @@ namespace MvcTaskManager.Controllers
      .Where(temp => temp.Id == module.Id)
      .FirstOrDefaultAsync();
       return module;
+    }
+
+    private void Sample()
+    {
+      RoleModules roleModules = new RoleModules();
+
+      roleModules.Isactive = true;
+      roleModules.RoleId = "33";
+      roleModules.ModuleId = 222;
+      db.RoleModules.Add(roleModules);
+      db.SaveChangesAsync();
+
+    }
+    private void Sample2()
+    {
+      RoleModules roleModules1 = new RoleModules();
+
+      roleModules1.Isactive = true;
+      roleModules1.RoleId = "332";
+      roleModules1.ModuleId = 222;
+      db.RoleModules.Add(roleModules1);
+      db.SaveChangesAsync();
+
     }
 
 

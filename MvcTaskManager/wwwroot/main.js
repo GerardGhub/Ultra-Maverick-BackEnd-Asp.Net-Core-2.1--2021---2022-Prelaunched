@@ -7161,10 +7161,10 @@ class UserAccountService {
         return this.httpClient.get("/api/RoleModules/RoleId/" + roleid + "/" + moduleId, { responseType: "json" });
     }
     updateUserRoleListById(deactivateDetails) {
-        return this.httpClient.put('/api/RoleModules', deactivateDetails, { responseType: "json" });
+        return this.httpClient.put('/api/RoleModules/Deactivate', deactivateDetails, { responseType: "json" });
     }
     updateUserRoleListByIdActivate(activateDetails) {
-        return this.httpClient.put('/api/RoleModules/Deactivate', activateDetails, { responseType: "json" });
+        return this.httpClient.put('/api/RoleModules', activateDetails, { responseType: "json" });
     }
 }
 UserAccountService.ɵfac = function UserAccountService_Factory(t) { return new (t || UserAccountService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };
@@ -35217,6 +35217,11 @@ class AspNetRolesComponent {
             id: this.formBuilder.control(null),
             moduleId: this.formBuilder.control(null),
             modifiedby: this.formBuilder.control(null),
+            RoleId: this.formBuilder.control(null)
+            // name: this.formBuilder.control(null, [Validators.required]),
+            // isactive: this.formBuilder.control(null, [Validators.required]),
+            // modifiedby: this.formBuilder.control(null, [Validators.required]),
+            // isactivereference: this.formBuilder.control(null, [Validators.required]),
         });
         // Here
         this.samples = this.systemCapabilityStatusService.getSystemCapabilityStatus();
@@ -35233,6 +35238,7 @@ class AspNetRolesComponent {
         this.userAccountService.getUserRoleListById(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
             if (response) {
                 this.RoleModule = response;
+                console.error(response);
                 this.getModulesUntagged();
             }
         });
@@ -35397,7 +35403,8 @@ class AspNetRolesComponent {
             this.editFormTaggedModule.patchValue({
                 moduleId: this.activeModuleId,
                 id: StatusParam.id,
-                modifiedby: this.loginService.currentUserName
+                modifiedby: this.loginService.currentUserName,
+                RoleId: this.RoleId.nativeElement.value
             });
             // console.warn(this.editFormTaggedModule.value);
             this.editIndex = this.RoleModule.indexOf(StatusParam);
@@ -35405,7 +35412,7 @@ class AspNetRolesComponent {
         }, 100);
         var Status = this.DescriptionUpdate.nativeElement.value;
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
-            title: 'Are you sure that you want to modify?',
+            title: 'Are you sure that you want to modify 1?',
             text: Status,
             icon: 'warning',
             showCancelButton: true,
@@ -35433,7 +35440,8 @@ class AspNetRolesComponent {
             this.editFormTaggedModule.patchValue({
                 moduleId: this.activeModuleId,
                 id: StatusParam.id,
-                modifiedby: this.loginService.currentUserName
+                modifiedby: this.loginService.currentUserName,
+                RoleId: this.RoleId.nativeElement.value
             });
             // console.warn(this.editFormTaggedModule.value);
             this.editIndex = this.RoleModule.indexOf(StatusParam);
@@ -35768,7 +35776,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](162, "Sub Menu");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](163, "th", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Untag");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Tag");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](165, AspNetRolesComponent_tr_165_Template, 12, 3, "tr", 26);

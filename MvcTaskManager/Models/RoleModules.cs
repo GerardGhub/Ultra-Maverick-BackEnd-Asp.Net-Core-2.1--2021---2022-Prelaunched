@@ -14,6 +14,7 @@ namespace MvcTaskManager.Models
     public bool Isactive { get; set; }
     public DateTime? Modifieddate { get; set; }
     public string Modifiedby { get; set; }
+    public int Mainmoduleidentity { get; set; }
 
   }
 }
