@@ -15,6 +15,8 @@ namespace MvcTaskManager.Models
     public DateTime? Modifieddate { get; set; }
     public string Modifiedby { get; set; }
     public int Mainmoduleidentity { get; set; }
+    public DateTime DateAdded { get; set; } = DateTime.Now;
+    public string Addedby { get; set; }
 
   }
 }

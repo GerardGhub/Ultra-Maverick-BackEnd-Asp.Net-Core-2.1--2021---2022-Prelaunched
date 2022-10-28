@@ -84,7 +84,8 @@ namespace MvcTaskManager.Controllers
                             RoleModule.Isactive,
                             Modules.Submenuname,
                             Modules.Modulename,
-                            Modules.Id,
+                            //Modules.Id,
+                            RoleModule.Id,
                             MainMenu.Mainmodulename,
                             Role.Name,
                             RoleModule.Mainmoduleidentity
@@ -101,16 +102,17 @@ namespace MvcTaskManager.Controllers
       }
       else
       {
-        return BadRequest("B");
-        var result2 = await (from RoleModule in db.RoleModules
-                            join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
-                            join Role in db.Roles on RoleModule.RoleId equals Role.Id
-                            join MainMenu in db.MainMenus on Modules.Mainmenuid equals MainMenu.Id
 
-                            where
+        var result2 = await (from RoleModule in db.RoleModules
+                            
+                             join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
+                            join Role in db.Roles on RoleModule.RoleId equals Role.Id
+                  
+                             join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id
+                             where
                             //Role.Id == RoleId
                             //&&
-                            RoleModule.ModuleId == MainModuleId
+                            RoleModule.Mainmoduleidentity == MainModuleId
                             //&& RoleModule.Isactive.Equals(true)
                             && Modules.Isactive.Equals(true)
                             && MainMenu.Isactive.Equals(true)
@@ -226,20 +228,24 @@ namespace MvcTaskManager.Controllers
 
 
 
-        //RoleModules roleModules = new RoleModules();
-        //roleModules.Isactive = true;
-        //roleModules.RoleId = Role.RoleId;
-        //roleModules.ModuleId = Role.ModuleId;
-        //db.RoleModules.Add(roleModules);
-        //await db.SaveChangesAsync();
-
-        RoleModules roleModules = new RoleModules();
-        roleModules.Isactive = true;
-        roleModules.RoleId = Role.RoleId;
-        roleModules.ModuleId = Role.ModuleId;
-        db.RoleModules.Add(roleModules);
-        await db.SaveChangesAsync();
-
+        
+        //RoleModules validateRoleIdAndModuleId = await db.RoleModules.Where(temp => temp.RoleId == Role.RoleId
+        //&& temp.ModuleId == Role.ModuleId).FirstOrDefaultAsync();
+        //if (validateRoleIdAndModuleId != null)
+        //{
+        //}
+        //else
+        //{
+        //  RoleModules roleModules = new RoleModules();
+        //  roleModules.Isactive = true;
+        //  roleModules.RoleId = Role.RoleId;
+        //  roleModules.DateAdded = DateTime.Now;
+        //  roleModules.Addedby = Role.Modifiedby;
+        //  roleModules.ModuleId = Role.ModuleId;
+        //  roleModules.Mainmoduleidentity = Role.Mainmoduleidentity;
+        //  db.RoleModules.Add(roleModules);
+        //  await db.SaveChangesAsync();
+        //}
 
         return existingRoles;
       }
@@ -265,6 +271,23 @@ namespace MvcTaskManager.Controllers
         await db.SaveChangesAsync();
 
 
+        RoleModules validateRoleIdAndModuleId = await db.RoleModules.Where(temp => temp.RoleId == Role.RoleId
+        && temp.ModuleId == Role.ModuleId).FirstOrDefaultAsync();
+        if (validateRoleIdAndModuleId != null)
+        {
+        }
+        else
+        {
+          RoleModules roleModules = new RoleModules();
+          roleModules.Isactive = false;
+          roleModules.RoleId = Role.RoleId;
+          roleModules.DateAdded = DateTime.Now;
+          roleModules.Addedby = Role.Modifiedby;
+          roleModules.ModuleId = Role.ModuleId;
+          roleModules.Mainmoduleidentity = Role.Mainmoduleidentity;
+          db.RoleModules.Add(roleModules);
+          await db.SaveChangesAsync();
+        }
         //RoleModules roleModules = new RoleModules();
         //roleModules.Isactive = false;
         //roleModules.RoleId = Role.RoleId;

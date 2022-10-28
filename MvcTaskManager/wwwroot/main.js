@@ -35193,8 +35193,8 @@ class AspNetRolesComponent {
         this.activeUser = "";
         //Combo Box for User Role Binding
         this.activeModuleId = "";
-        this.totalRoleModulesRowCount = 0;
-        this.totalRoleModulesUntaggedRowCount = 0;
+        this.totalRoleModulesUntaggedNewRowCount = 0;
+        this.totalRoleModulesTaggedRowCount = 0;
     }
     ngOnInit() {
         //Get data from database
@@ -35217,7 +35217,8 @@ class AspNetRolesComponent {
             id: this.formBuilder.control(null),
             moduleId: this.formBuilder.control(null),
             modifiedby: this.formBuilder.control(null),
-            RoleId: this.formBuilder.control(null)
+            RoleId: this.formBuilder.control(null),
+            mainmoduleidentity: this.formBuilder.control(null)
             // name: this.formBuilder.control(null, [Validators.required]),
             // isactive: this.formBuilder.control(null, [Validators.required]),
             // modifiedby: this.formBuilder.control(null, [Validators.required]),
@@ -35246,11 +35247,11 @@ class AspNetRolesComponent {
     getModulesUntagged() {
         const untaggedData = this.RoleModule.filter(status => status.isactive === false);
         this.RoleModuleUnTagged = untaggedData;
-        this.totalRoleModulesUntaggedRowCount = untaggedData.length;
+        this.totalRoleModulesTaggedRowCount = untaggedData.length;
         this.calculateNoOfPagesUntagged();
         const taggedData = this.RoleModule.filter(status => status.isactive === true);
         this.RoleModule = taggedData;
-        this.totalRoleModulesRowCount = taggedData.length;
+        this.totalRoleModulesUntaggedNewRowCount = taggedData.length;
         this.calculateNoOfPagesTagged();
     }
     getNewFourthApproverId(roleid) {
@@ -35404,7 +35405,8 @@ class AspNetRolesComponent {
                 moduleId: this.activeModuleId,
                 id: StatusParam.id,
                 modifiedby: this.loginService.currentUserName,
-                RoleId: this.RoleId.nativeElement.value
+                RoleId: this.RoleId.nativeElement.value,
+                mainmoduleidentity: this.activeModuleId
             });
             // console.warn(this.editFormTaggedModule.value);
             this.editIndex = this.RoleModule.indexOf(StatusParam);
@@ -35412,7 +35414,7 @@ class AspNetRolesComponent {
         }, 100);
         var Status = this.DescriptionUpdate.nativeElement.value;
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
-            title: 'Are you sure that you want to modify 1?',
+            title: 'Are you sure that you want to tag?',
             text: Status,
             icon: 'warning',
             showCancelButton: true,
@@ -35441,7 +35443,8 @@ class AspNetRolesComponent {
                 moduleId: this.activeModuleId,
                 id: StatusParam.id,
                 modifiedby: this.loginService.currentUserName,
-                RoleId: this.RoleId.nativeElement.value
+                RoleId: this.RoleId.nativeElement.value,
+                mainmoduleidentity: this.activeModuleId
             });
             // console.warn(this.editFormTaggedModule.value);
             this.editIndex = this.RoleModule.indexOf(StatusParam);
@@ -35449,7 +35452,7 @@ class AspNetRolesComponent {
         }, 100);
         var Status = this.DescriptionUpdate.nativeElement.value;
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
-            title: 'Are you sure that you want to modify?',
+            title: 'Are you sure that you want to untagged?',
             text: Status,
             icon: 'warning',
             showCancelButton: true,
@@ -35733,7 +35736,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](136, "Sub Menu");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](137, "th", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](138, "Untag");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](138, "Tag");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](139, AspNetRolesComponent_tr_139_Template, 12, 3, "tr", 26);
@@ -35776,7 +35779,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](162, "Sub Menu");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](163, "th", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Tag");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Untag");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](165, AspNetRolesComponent_tr_165_Template, 12, 3, "tr", 26);
@@ -35921,7 +35924,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](20);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](123, 47, ctx.MainMenu));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("List of tagged modules: ", ctx.totalRoleModulesRowCount, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("List of untagged modules: ", ctx.totalRoleModulesUntaggedNewRowCount, "");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](140, 49, ctx.RoleModule, ctx.currentPageIndexModuleTagged, ctx.pageSize));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
@@ -35929,7 +35932,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngIf", ctx.pagesTagged.length > 10);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("List of untagged modules: ", ctx.totalRoleModulesUntaggedRowCount, "");
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"]("List of tagged modules: ", ctx.totalRoleModulesTaggedRowCount, "");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](12);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind3"](166, 53, ctx.RoleModuleUnTagged, ctx.currentPageIndexModuleUntagged, ctx.pageSize));
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](7);
