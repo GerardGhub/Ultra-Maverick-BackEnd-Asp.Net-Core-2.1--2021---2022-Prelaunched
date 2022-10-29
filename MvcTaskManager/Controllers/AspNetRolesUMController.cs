@@ -36,10 +36,21 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/AspNetRoles")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ApplicationRole> Post([FromBody] ApplicationRole menu)
+    public async Task<ActionResult<ApplicationRole>> Post([FromBody] ApplicationRole menu)
     {
-      //menu.DateAdded = DateTime.Now;
-      menu.Isactive = true;
+
+      ApplicationRole existingDataStatus = (ApplicationRole)await db.Roles
+        .Where(temp => temp.Name == menu.Name)
+        .FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        return BadRequest(new { message = "Data Already Exist" });
+      }
+
+      //   return BadRequest(new { message = "Transaction number is not exist" });
+
+
+        menu.Isactive = true;
       menu.Isactivereference = "Active";
       menu.Dateadded = DateTime.Now;
       menu.NormalizedName = menu.Name.ToUpper();
@@ -73,8 +84,20 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/AspNetRoles")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ApplicationRole> Put([FromBody] ApplicationRole Role)
+    public async Task<ActionResult<ApplicationRole>> Put([FromBody] ApplicationRole Role)
     {
+
+      ApplicationRole existingDataStatus = (ApplicationRole)await db.Roles
+  .Where(temp => temp.Name == Role.Name)
+  .FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        return BadRequest(new { message = "Data Already Exist" });
+      }
+
+
+
+
       Role.NormalizedName = Role.Name.ToUpper();
       var Status = (Role.Isactivereference == "Active") ? Role.Isactive = true : Role.Isactive = false;
       ApplicationRole existingRoles = await db.ApplicationRoles.Where(temp => temp.Id == Role.Id).FirstOrDefaultAsync();

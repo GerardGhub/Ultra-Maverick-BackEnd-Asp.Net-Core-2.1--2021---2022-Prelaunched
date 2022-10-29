@@ -35191,6 +35191,7 @@ class AspNetRolesComponent {
         this.sortBy = "Name";
         this.sortOrder = "ASC";
         this.activeUser = "";
+        this.errorMessageFromResponse = '';
         //Combo Box for User Role Binding
         this.activeModuleId = "";
         this.totalRoleModulesUntaggedNewRowCount = 0;
@@ -35372,6 +35373,8 @@ class AspNetRolesComponent {
                         // this.calculateNoOfPages();
                         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire('Append!', 'Your data is Saved on production', 'success');
                     }, (error) => {
+                        this.errorMessageFromResponse = error.error.message;
+                        this.errorToaster();
                         console.log(error);
                     });
                 }
@@ -35381,6 +35384,9 @@ class AspNetRolesComponent {
         else {
             this.FieldOutRequiredField();
         }
+    }
+    errorToaster() {
+        this.toastr.error(this.errorMessageFromResponse, 'Message');
     }
     FieldOutRequiredField() {
         this.toastr.warning('Field out the required fields!', 'Notifications');
@@ -35498,6 +35504,8 @@ class AspNetRolesComponent {
                             this.getUserRole();
                         }, 300);
                     }, (error) => {
+                        this.errorMessageFromResponse = error.error.message;
+                        this.errorToaster();
                         console.log(error);
                     });
                 }
