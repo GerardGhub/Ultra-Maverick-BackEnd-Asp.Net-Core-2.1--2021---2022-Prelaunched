@@ -87,8 +87,8 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ApplicationRole>> Put([FromBody] ApplicationRole Role)
     {
 
-    ApplicationRole existingDataStatus = (ApplicationRole)await db.Roles
-    .Where(temp => temp.Name == Role.Name)
+    ApplicationRole existingDataStatus = await db.ApplicationRoles
+    .Where(temp => temp.Name == Role.Name && temp.Isactivereference == Role.Isactivereference  )
     .FirstOrDefaultAsync();
     if (existingDataStatus != null)
     {

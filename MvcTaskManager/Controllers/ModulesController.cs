@@ -124,7 +124,7 @@ namespace MvcTaskManager.Controllers
 
       Modules requestPayload = (Modules)await db.Modules
     .Where(temp => temp.Mainmenuid == module.Mainmenuid && temp.Submenuname == module.Submenuname &&
-    temp.Modulename == module.Modulename)
+    temp.Modulename == module.Modulename && temp.isactivereference == module.isactivereference)
     .FirstOrDefaultAsync();
       if (requestPayload != null)
       {
