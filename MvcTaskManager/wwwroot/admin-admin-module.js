@@ -18181,6 +18181,7 @@ class ModulesComponent {
         this.sortBy = "submenuname";
         this.sortOrder = "ASC";
         this.activeUser = "";
+        this.errorMessageFromResponse = "";
         this.loginUserName = "";
     }
     ngOnInit() {
@@ -18192,6 +18193,7 @@ class ModulesComponent {
             modulename: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
             submenuname: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
             addedby: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]),
+            mainmenuid: this.formBuilder.control(null, [_angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required])
         });
         // editForm
         this.editForm = this.formBuilder.group({
@@ -18267,9 +18269,10 @@ class ModulesComponent {
                         setTimeout(() => {
                             this.getModuleLists();
                         }, 300);
-                        // this.calculateNoOfPages();
                         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire('Append!', 'Your data is Saved on production', 'success');
                     }, (error) => {
+                        this.errorMessageFromResponse = error.error.message;
+                        this.errorToaster();
                         console.log(error);
                     });
                 }
@@ -18279,6 +18282,9 @@ class ModulesComponent {
         else {
             this.FieldOutRequiredField();
         }
+    }
+    errorToaster() {
+        this.toastr.error(this.errorMessageFromResponse, 'Message');
     }
     FieldOutRequiredField() {
         this.toastr.warning('Field out the required fields!', 'Notifications');
@@ -18321,6 +18327,8 @@ class ModulesComponent {
                             this.getModuleLists();
                         }, 300);
                     }, (error) => {
+                        this.errorMessageFromResponse = error.error.message;
+                        this.errorToaster();
                         console.log(error);
                     });
                 }

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using Microsoft.CodeAnalysis;
+using System.Data;
 
 namespace MvcTaskManager.Controllers
 {
@@ -63,7 +64,7 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/Modules")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<Modules> Post([FromBody] Modules module)
+    public async Task<ActionResult<Modules>> Post([FromBody] Modules module)
     {
 
       //var GetUserRole = await db.ApplicationRoles.Where(src => src.Isactive.Equals(true)).ToListAsync();
@@ -90,6 +91,17 @@ namespace MvcTaskManager.Controllers
       ////this.Sample2();
       //return module;
 
+      Modules existingDataStatus = (Modules)await db.Modules
+    .Where(temp => temp.Mainmenuid == module.Mainmenuid && temp.Submenuname == module.Submenuname &&
+    temp.Modulename == module.Modulename)
+    .FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        return BadRequest(new { message = "Data Already Exist" });
+      }
+
+
+
       module.DateAdded = DateTime.Now;
       module.Isactive = true;
       module.isactivereference = "Active";
@@ -102,35 +114,25 @@ namespace MvcTaskManager.Controllers
       return module;
     }
 
-    private void Sample()
-    {
-      RoleModules roleModules = new RoleModules();
-
-      roleModules.Isactive = true;
-      roleModules.RoleId = "33";
-      roleModules.ModuleId = 222;
-      db.RoleModules.Add(roleModules);
-      db.SaveChangesAsync();
-
-    }
-    private void Sample2()
-    {
-      RoleModules roleModules1 = new RoleModules();
-
-      roleModules1.Isactive = true;
-      roleModules1.RoleId = "332";
-      roleModules1.ModuleId = 222;
-      db.RoleModules.Add(roleModules1);
-      db.SaveChangesAsync();
-
-    }
 
 
     [HttpPut]
     [Route("api/Modules")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<Modules> Put([FromBody] Modules module)
+    public async Task<ActionResult<Modules>> Put([FromBody] Modules module)
     {
+
+      Modules requestPayload = (Modules)await db.Modules
+    .Where(temp => temp.Mainmenuid == module.Mainmenuid && temp.Submenuname == module.Submenuname &&
+    temp.Modulename == module.Modulename)
+    .FirstOrDefaultAsync();
+      if (requestPayload != null)
+      {
+        return BadRequest(new { message = "Data Already Exist" });
+      }
+
+
+
       module.ModifiedDate = DateTime.Now;
 
       if (module.isactivereference == "Active")
