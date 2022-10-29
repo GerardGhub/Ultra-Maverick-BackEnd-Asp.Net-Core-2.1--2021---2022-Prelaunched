@@ -87,15 +87,13 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<ApplicationRole>> Put([FromBody] ApplicationRole Role)
     {
 
-      ApplicationRole existingDataStatus = (ApplicationRole)await db.Roles
-  .Where(temp => temp.Name == Role.Name)
-  .FirstOrDefaultAsync();
-      if (existingDataStatus != null)
-      {
-        return BadRequest(new { message = "Data Already Exist" });
-      }
-
-
+    ApplicationRole existingDataStatus = (ApplicationRole)await db.Roles
+    .Where(temp => temp.Name == Role.Name)
+    .FirstOrDefaultAsync();
+    if (existingDataStatus != null)
+    {
+    return BadRequest(new { message = "Data Already Exist" });
+    }
 
 
       Role.NormalizedName = Role.Name.ToUpper();

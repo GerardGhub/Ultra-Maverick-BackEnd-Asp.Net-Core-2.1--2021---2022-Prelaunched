@@ -6,6 +6,7 @@ using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,8 +34,17 @@ namespace MvcTaskManager.Controllers
     [HttpPost]
     [Route("api/MainMenus")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<MainMenus> Post([FromBody] MainMenus menu)
+    public async Task<ActionResult<MainMenus>> Post([FromBody] MainMenus menu)
     {
+
+    MainMenus existingDataStatus = (MainMenus)await db.MainMenus
+    .Where(temp => temp.Mainmodulename == menu.Mainmodulename)
+    .FirstOrDefaultAsync();
+    if (existingDataStatus != null)
+    {
+    return BadRequest(new { message = "Data Already Exist" });
+    }
+
       menu.DateAdded = DateTime.Now;
       menu.Isactive = true;
       menu.isactivereference = "Active";
@@ -49,8 +59,17 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/MainMenus")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<MainMenus> Put([FromBody] MainMenus menu)
+    public async Task<ActionResult<MainMenus>> Put([FromBody] MainMenus menu)
     {
+
+    MainMenus requestPayload = (MainMenus)await db.MainMenus
+    .Where(temp => temp.Mainmodulename == menu.Mainmodulename)
+    .FirstOrDefaultAsync();
+    if (requestPayload != null)
+    {
+    return BadRequest(new { message = "Data Already Exist" });
+    }
+
       menu.ModifiedDate = DateTime.Now;
 
       if (menu.isactivereference == "Active")
