@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System;
 using Microsoft.CodeAnalysis;
 using System.Data;
+using MvcTaskManager.ViewModels;
 
 namespace MvcTaskManager.Controllers
 {
@@ -66,30 +67,14 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<Modules>> Post([FromBody] Modules module)
     {
+      int CountModules = 0;
+      //var TotalModules = await db.Modules.ToListAsync();
+      //TotalModules = TotalModules.FIls
 
-      //var GetUserRole = await db.ApplicationRoles.Where(src => src.Isactive.Equals(true)).ToListAsync();
+      //CountModules = TotalModules.Count + 1;
 
+      //return BadRequest(CountModules);
 
-      //RoleModules roleModules = new RoleModules();
-
-      //foreach (var item in GetUserRole)
-      //{
-
-      //  roleModules.Isactive = true;
-      //  roleModules.RoleId = item.Id;
-      //  roleModules.ModuleId = module.Mainmenuid;
-      //  db.RoleModules.Add(roleModules);
-      //  await db.SaveChangesAsync();
-
-
-
-
-      //}
-      //db.RoleModules.Remove(roleModules);
-
-      //this.Sample();
-      ////this.Sample2();
-      //return module;
 
       Modules existingDataStatus = (Modules)await db.Modules
     .Where(temp => temp.Mainmenuid == module.Mainmenuid && temp.Submenuname == module.Submenuname &&
@@ -99,6 +84,10 @@ namespace MvcTaskManager.Controllers
       {
         return BadRequest(new { message = "Data Already Exist" });
       }
+
+      var TotalModules = await db.Modules.ToListAsync();
+
+      CountModules = TotalModules.Count + 1;
 
 
 
@@ -111,6 +100,19 @@ namespace MvcTaskManager.Controllers
       Modules existingData = await db.Modules
      .Where(temp => temp.Id == module.Id)
      .FirstOrDefaultAsync();
+
+
+
+      RoleModules roleModules = new RoleModules();
+      roleModules.Isactive = true;
+      roleModules.RoleId = "b48c6444-e3d5-4177-ba85-66c35796171d";
+      roleModules.DateAdded = DateTime.Now;
+      roleModules.Addedby = module.AddedBy;
+      roleModules.ModuleId =CountModules;
+      roleModules.Mainmoduleidentity = module.Mainmenuid;
+      db.RoleModules.Add(roleModules);
+      await db.SaveChangesAsync();
+
       return module;
     }
 

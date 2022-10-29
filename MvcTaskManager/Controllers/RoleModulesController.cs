@@ -27,25 +27,29 @@ namespace MvcTaskManager.Controllers
 
     public async Task<ActionResult<RoleModules>> GetByRoleName(string RoleId)
     {
-      var result = await (from RoleModules in db.RoleModules
-                          join Modules in db.Modules on RoleModules.ModuleId equals Modules.Mainmenuid
-                          join Role in db.Roles on  RoleModules.RoleId equals Role.Id
-                          join MainMenu in db.MainMenus on  Modules.Mainmenuid equals MainMenu.Id
+      var result = await (from RoleModule in db.RoleModules
+
+                          join Module in db.Modules on RoleModule.ModuleId equals Module.Id
+                          join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id
+                          join MainMenu in db.MainMenus on Module.Mainmenuid equals MainMenu.Id
+
+
+               
 
                           where Role.Name == RoleId
-                          && RoleModules.Isactive.Equals(false)
-                          && Modules.Isactive.Equals(true)
-                          && MainMenu.Isactive.Equals(true)
-                          
+
+                                               && Module.Isactive.Equals(true)
+                                               && MainMenu.Isactive.Equals(true)
+                                               && RoleModule.Isactive.Equals(false)
 
                           select new
                           {
-                            RoleModules.Id,
-                            RoleModules.RoleId,
-                            RoleModules.ModuleId,
-                            RoleModules.Isactive,
-                            Modules.Submenuname,
-                            Modules.Modulename,
+                            RoleModule.Id,
+                            RoleModule.RoleId,
+                            RoleModule.ModuleId,
+                            RoleModule.Isactive,
+                            Module.Submenuname,
+                            Module.Modulename,
                             Role.Name
                            
                           })
@@ -67,7 +71,7 @@ namespace MvcTaskManager.Controllers
                             ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
 
                           join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
-                          join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id
+                          join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2 from MainMenu in ps2.DefaultIfEmpty()
                           join Role in db.Roles on RoleModule.RoleId equals Role.Id into ps
                           from Role in ps.DefaultIfEmpty()
                           where

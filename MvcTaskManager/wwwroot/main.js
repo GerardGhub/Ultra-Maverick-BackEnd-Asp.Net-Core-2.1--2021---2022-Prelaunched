@@ -11092,8 +11092,6 @@ function AppComponent_ng_container_70_Template(rf, ctx) { if (rf & 1) {
 const _c15 = function () { return ["/about"]; };
 const _c16 = function () { return ["/booking"]; };
 const _c17 = function () { return ["/bookings-list"]; };
-// import { stat } from 'fs';
-// // import { stat } from 'fs';
 class AppComponent {
     constructor(dashboardService, loginService, domSanitizer, routerLoggerService, router, forLabtestService, labtestForApprovalService, whCheckerDashboardService, preparedOrderService, cancelledOrderService, userAccountService) {
         this.dashboardService = dashboardService;
@@ -11138,6 +11136,9 @@ class AppComponent {
         this.Preparation = 0;
         this.OnlineMrs = 0;
         this.SetUp = 0;
+        //Child of QC Receiving
+        this.PoReceiving = 0;
+        this.CancelledPo = 0;
     }
     ngOnInit() {
         this.loginService.detectIfAlreadyLoggedIn();
@@ -11319,6 +11320,12 @@ class AppComponent {
                     }
                     else if (status.modulename === 'setup-route') {
                         this.SetUp = 1;
+                    }
+                    else if (status.modulename === 'po-receiving-route') {
+                        this.PoReceiving = 1;
+                    }
+                    else if (status.modulename == "cancelled-po-route") {
+                        this.CancelledPo = 1;
                     }
                 });
             }
