@@ -7160,6 +7160,9 @@ class UserAccountService {
     getUserRoleListById(roleid, moduleId) {
         return this.httpClient.get("/api/RoleModules/RoleId/" + roleid + "/" + moduleId, { responseType: "json" });
     }
+    getUserRoleByAdminId(roleid, moduleId) {
+        return this.httpClient.get("/api/RoleModules/RoleId/Admin/" + roleid + "/" + moduleId, { responseType: "json" });
+    }
     updateUserRoleListById(deactivateDetails) {
         return this.httpClient.put('/api/RoleModules/Deactivate', deactivateDetails, { responseType: "json" });
     }
@@ -11146,7 +11149,6 @@ class AppComponent {
             if (response) {
                 this.roleModulesSummary = response;
                 this.totalRoleModulesRowCount = response.length;
-                alert(this.activeUserRoleId);
                 this.roleModulesSummary.forEach((status) => {
                     // console.log(status);
                     // alert(status.moduleName);
@@ -22669,8 +22671,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jquery */ "EVdn");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/pipes/filter.pipe */ "BhhM");
-/* harmony import */ var src_app_models_project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/models/project */ "AuN9");
+/* harmony import */ var _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../pipes/filter.pipe */ "BhhM");
+/* harmony import */ var _models_project__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../models/project */ "AuN9");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "PSD3");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! moment */ "wd/R");
@@ -22679,11 +22681,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_projects_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/projects.service */ "CoJz");
 /* harmony import */ var _services_client_locations_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../services/client-locations.service */ "4D4e");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ngx-toastr */ "5eHb");
-/* harmony import */ var src_app_services_login_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/services/login.service */ "EFyh");
-/* harmony import */ var src_app_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/services/rejected-status.service */ "EVuK");
-/* harmony import */ var src_app_services_allowable_percentage_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/services/allowable-percentage.service */ "oVX2");
-/* harmony import */ var src_app_services_cancelled_potransaction_status_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/services/cancelled-potransaction-status.service */ "r8+Z");
-/* harmony import */ var src_app_services_projects_partial_po_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! src/app/services/projects-partial-po.service */ "H9Nn");
+/* harmony import */ var _services_login_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../services/login.service */ "EFyh");
+/* harmony import */ var _services_rejected_status_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../services/rejected-status.service */ "EVuK");
+/* harmony import */ var _services_allowable_percentage_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../services/allowable-percentage.service */ "oVX2");
+/* harmony import */ var _services_cancelled_potransaction_status_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../services/cancelled-potransaction-status.service */ "r8+Z");
+/* harmony import */ var _services_projects_partial_po_service__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../services/projects-partial-po.service */ "H9Nn");
 /* harmony import */ var _services_partialPOmodule_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/partialPOmodule.service */ "oA/z");
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../../app.component */ "Sy1n");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @angular/router */ "tyNb");
@@ -23460,11 +23462,11 @@ class ProjectsPartialPoComponent {
         this.projects = [];
         this.showLoading = true;
         this.ChecklistViewing = [];
-        this.newProject = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
-        this.editProject = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
-        this.editIndex = null;
-        this.deleteProject = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
-        this.deleteIndex = null;
+        this.newProject = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+        this.editProject = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+        this.editIndex = 0;
+        this.deleteProject = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+        this.deleteIndex = 0;
         this.searchBy = 'ProjectName';
         this.searchText = '';
         this.activeUser = '';
@@ -23472,7 +23474,7 @@ class ProjectsPartialPoComponent {
         this.currentPageIndex = 0;
         this.pages = [];
         this.pageSize = 7;
-        this.totalPoRowCount = null;
+        this.totalPoRowCount = 0;
         //sample
         this.msgrejectremarksno1 = 0;
         this.msgrejectremarksno2 = 0;
@@ -23838,7 +23840,7 @@ class ProjectsPartialPoComponent {
     }
     calculateNoOfPages() {
         //Get no. of Pages
-        let filterPipe = new src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"]();
+        let filterPipe = new _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"]();
         var resultProjects = filterPipe.transform(this.projects, this.searchBy, this.searchText);
         var noOfPages = Math.ceil(resultProjects.length / this.pageSize);
         this.pages = [];
@@ -23868,7 +23870,7 @@ class ProjectsPartialPoComponent {
             this.newProject.is_activated = '1';
             this.projectsService.insertProject(this.newProject).subscribe((response) => {
                 //Add Project to Grid
-                var p = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+                var p = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
                 p.projectID = response.projectID;
                 p.projectName = response.projectName;
                 p.dateOfStart = response.dateOfStart;
@@ -23908,33 +23910,32 @@ class ProjectsPartialPoComponent {
                 this.newProject.teamSize = null;
                 this.newProject.active = false;
                 // this.newProject.clientLocationID = null;
-                this.newProject.status = null;
-                this.newProject.is_activated = null;
-                this.newProject.supplier = null;
-                this.newProject.item_code = null;
-                this.newProject.po_number = null;
-                this.newProject.po_date = null;
-                this.newProject.pr_number = null;
-                this.newProject.pr_date = null;
-                this.newProject.qty_uom = null;
-                this.newProject.qty_order = null;
-                this.newProject.mfg_date = null;
-                this.newProject.expiration_date = null;
-                this.newProject.expected_delivery = null;
-                this.newProject.actual_delivery = null;
-                this.newProject.actual_remaining_receiving = null;
-                this.newProject.received_by_QA = null;
-                this.newProject.status_of_reject_one = null;
-                this.newProject.status_of_reject_two = null;
-                this.newProject.status_of_reject_three = null;
-                this.newProject.count_of_reject_one = null;
-                this.newProject.count_of_reject_two = null;
-                this.newProject.count_of_reject_three = null;
-                this.newProject.total_of_reject_mat = null;
-                this.newProject.a_compliance = null;
-                this.newProject.a_remarks = null;
+                this.newProject.status = "";
+                this.newProject.is_activated = "";
+                this.newProject.supplier = "";
+                this.newProject.item_code = "";
+                this.newProject.po_number = "";
+                this.newProject.po_date = "";
+                this.newProject.pr_number = "";
+                this.newProject.pr_date = "";
+                this.newProject.qty_uom = "";
+                this.newProject.qty_order = "";
+                this.newProject.mfg_date = "";
+                this.newProject.expiration_date = "";
+                this.newProject.expected_delivery = "";
+                this.newProject.actual_delivery = "";
+                this.newProject.actual_remaining_receiving = 0;
+                this.newProject.received_by_QA = "";
+                this.newProject.status_of_reject_one = "";
+                this.newProject.status_of_reject_two = "";
+                this.newProject.status_of_reject_three = "";
+                this.newProject.count_of_reject_one = "";
+                this.newProject.count_of_reject_two = "";
+                this.newProject.count_of_reject_three = "";
+                this.newProject.total_of_reject_mat = "";
+                this.newProject.a_compliance = "";
+                this.newProject.a_remarks = "";
                 jquery__WEBPACK_IMPORTED_MODULE_1__('#newFormCancel').trigger('click');
-                // this.ngOnInit();
                 this.calculateNoOfPages();
             }, (error) => {
                 console.log(error);
@@ -24038,7 +24039,7 @@ class ProjectsPartialPoComponent {
         this.editProject.is_activated = this.Deactivator;
         this.editProject.canceled_by = this.activeUser;
         this.projectsPartialPoService.cancelProject(this.editProject).subscribe((response) => {
-            var p = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+            var p = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
             p.projectID = response.projectID;
             p.projectName = response.projectName;
             p.dateOfStart = response.dateOfStart;
@@ -24079,40 +24080,40 @@ class ProjectsPartialPoComponent {
             this.projects[this.editIndex] = p;
             this.UpdateMasterTransactionsActualReceivingofCancel();
             // this.InsertANewPartialReceiving();
-            this.editProject.projectID = null;
-            this.editProject.projectName = null;
-            this.editProject.dateOfStart = null;
-            this.editProject.teamSize = null;
-            this.editProject.supplier = null;
+            this.editProject.projectID = 0;
+            this.editProject.projectName = "";
+            this.editProject.dateOfStart = "";
+            this.editProject.teamSize = 0;
+            this.editProject.supplier = "";
             this.editProject.active = false;
-            this.editProject.status = null;
-            this.editProject.item_code = null;
-            this.editProject.item_description = null;
-            this.editProject.po_number = null;
-            this.editProject.po_date = null;
-            this.editProject.pr_number = null;
-            this.editProject.pr_date = null;
-            this.editProject.qty_order = null;
-            this.editProject.qty_uom = null;
-            this.editProject.mfg_date = null;
-            this.editProject.expiration_date = null;
-            this.editProject.expected_delivery = null;
-            this.editProject.actual_delivery = null;
-            this.editProject.actual_remaining_receiving = null;
-            this.editProject.received_by_QA = null;
-            this.editProject.status_of_reject_one = null;
-            this.editProject.status_of_reject_two = null;
-            this.editProject.status_of_reject_three = null;
-            this.editProject.count_of_reject_one = null;
-            this.editProject.count_of_reject_two = null;
-            this.editProject.count_of_reject_three = null;
-            this.editProject.total_of_reject_mat = null;
+            this.editProject.status = "";
+            this.editProject.item_code = "";
+            this.editProject.item_description = "";
+            this.editProject.po_number = "";
+            this.editProject.po_date = "";
+            this.editProject.pr_number = "";
+            this.editProject.pr_date = "";
+            this.editProject.qty_order = "";
+            this.editProject.qty_uom = "";
+            this.editProject.mfg_date = "";
+            this.editProject.expiration_date = "";
+            this.editProject.expected_delivery = "";
+            this.editProject.actual_delivery = "";
+            this.editProject.actual_remaining_receiving = 0;
+            this.editProject.received_by_QA = "";
+            this.editProject.status_of_reject_one = "";
+            this.editProject.status_of_reject_two = "";
+            this.editProject.status_of_reject_three = "";
+            this.editProject.count_of_reject_one = "";
+            this.editProject.count_of_reject_two = "";
+            this.editProject.count_of_reject_three = "";
+            this.editProject.total_of_reject_mat = "";
             //Section A
             //A
             //Add
             this.editProject.cancelled_date = null;
-            this.editProject.canceled_by = null;
-            this.editProject.cancelled_reason = null;
+            this.editProject.canceled_by = "";
+            this.editProject.cancelled_reason = "";
             this.showCancelledSuccess();
             this.ngOnInit();
             jquery__WEBPACK_IMPORTED_MODULE_1__('#editFormCancel').trigger('click');
@@ -24128,7 +24129,7 @@ class ProjectsPartialPoComponent {
     InsertANewPartialReceiving() {
         if (this.editForm.valid) {
             this.projectsPartialPoService.insertProject2(this.editProject).subscribe((response) => {
-                var p = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+                var p = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
                 p.primaryID = response.primaryID;
                 p.projectID = response.projectID;
                 p.projectName = response.projectName;
@@ -24678,7 +24679,7 @@ class ProjectsPartialPoComponent {
             +ActualRemainingReceiving + +ActualDelivered;
         //
         this.projectsService.updateProjectReturn(this.editProject).subscribe((response) => {
-            var p = new src_app_models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
+            var p = new _models_project__WEBPACK_IMPORTED_MODULE_3__["Project"]();
             p.projectID = response.projectID;
             p.projectName = response.projectName;
             p.dateOfStart = response.dateOfStart;
@@ -24752,96 +24753,6 @@ class ProjectsPartialPoComponent {
             this.deleteProject.e_remarks = null;
             //Section 2
             //A
-            this.deleteProject.a_clean_company_dos = null;
-            this.deleteProject.a_compliance_dos = null;
-            this.deleteProject.a_remarks_dos = null;
-            //B
-            this.deleteProject.b_delivery_staff_symptoms_dos = null;
-            this.deleteProject.b_compliance_dos = null;
-            this.deleteProject.b_remarks_dos = null;
-            //C
-            this.deleteProject.c_inner_walls_clean_dos = null;
-            this.deleteProject.c_compliance_dos = null;
-            this.deleteProject.c_remarks_dos = null;
-            //D
-            this.deleteProject.d_plastic_curtains_dos = null;
-            this.deleteProject.d_compliance_dos = null;
-            this.deleteProject.d_remarks_dos = null;
-            //E
-            this.deleteProject.e_no_accessories_dos = null;
-            this.deleteProject.e_compliance_dos = null;
-            this.deleteProject.e_remarks_dos = null;
-            //F
-            this.deleteProject.f_compliance_dos = null;
-            this.deleteProject.f_no_pests_sightings_dos = null;
-            this.deleteProject.f_remarks_dos = null;
-            //Section 3
-            //A
-            this.deleteProject.a_pallet_crates_tres = null;
-            this.deleteProject.a_compliance_tres = null;
-            this.deleteProject.a_remarks_tres = null;
-            //B
-            this.deleteProject.b_product_contamination_tres = null;
-            this.deleteProject.b_compliance_tres = null;
-            this.deleteProject.b_remarks_tres = null;
-            //C
-            this.deleteProject.c_uncessary_items_tres = null;
-            this.deleteProject.c_compliance_tres = null;
-            this.deleteProject.c_remarks_tres = null;
-            //D
-            this.deleteProject.d_products_cover_tres = null;
-            this.deleteProject.d_compliance_tres = null;
-            this.deleteProject.d_remarks_tres = null;
-            //Section 4
-            //A
-            this.deleteProject.a_certificate_coa_kwatro_desc = null;
-            this.deleteProject.a_compliance_kwatro = null;
-            this.deleteProject.a_remarks_kwatro = null;
-            //B
-            this.deleteProject.b_po_kwatro_desc = null;
-            this.deleteProject.b_compliance_kwatro = null;
-            this.deleteProject.b_remarks_kwatro = null;
-            //C
-            this.deleteProject.c_msds_kwatro_desc = null;
-            this.deleteProject.c_compliance_kwatro = null;
-            this.deleteProject.c_remarks_kwatro = null;
-            //D
-            this.deleteProject.d_food_grade_desc = null;
-            this.deleteProject.d_compliance_kwatro = null;
-            this.deleteProject.d_remarks_kwatro = null;
-            //Section 5
-            //A
-            this.deleteProject.a_qty_received_singko_singko = null;
-            this.deleteProject.a_compliance_singko = null;
-            this.deleteProject.a_remarks_singko = null;
-            //B
-            this.deleteProject.b_mfg_date_desc_singko = null;
-            this.deleteProject.b_compliance_singko = null;
-            this.deleteProject.b_remarks_singko = null;
-            //C
-            this.deleteProject.c_expirydate_desc_singko = null;
-            this.deleteProject.c_compliance_singko = null;
-            this.deleteProject.c_remarks_singko = null;
-            //D
-            this.deleteProject.d_packaging_desc_singko = null;
-            this.deleteProject.d_compliance_singko = null;
-            this.deleteProject.d_remarks_singko = null;
-            //E
-            this.deleteProject.e_no_contaminants_desc_singko = null;
-            this.deleteProject.e_compliance_singko = null;
-            this.deleteProject.e_remarks_singko = null;
-            //F
-            this.deleteProject.f_qtyrejected_desc_singko = null;
-            this.deleteProject.f_compliance_singko = null;
-            this.deleteProject.f_remarks_singko = null;
-            //G
-            this.deleteProject.g_rejected_reason_desc_singko = null;
-            this.deleteProject.g_compliance_singko = null;
-            this.deleteProject.g_remarks_singko = null;
-            //H
-            this.deleteProject.h_lab_sample_desc_singko = null;
-            this.deleteProject.h_compliance_singko = null;
-            this.deleteProject.h_remarks_singko = null;
             this.calculateNoOfPages();
         }, (error) => {
             console.log(error);
@@ -25134,7 +25045,6 @@ class ProjectsPartialPoComponent {
         }
     }
     ConfirmNoofReject(event) {
-        // alert("You Press a key in the Keyboard");
         if (this.confirmReject.nativeElement.value == '') {
             this.rejectIsnotMactchSpanTag.nativeElement.innerHTML = '';
         }
@@ -25142,7 +25052,6 @@ class ProjectsPartialPoComponent {
             if (this.totalofReject.nativeElement.value ==
                 this.confirmReject.nativeElement.value) {
                 // this.rejectNo3.nativeElement.value="0";
-                // console.warn("Empty Quantity in the textInput! ")
                 // this.rejectIsnotMactchSpanTag.nativeElement.innerHTML = "Pexa Marian";
                 this.rejectIsnotMactchSpanTag.nativeElement.innerHTML = '';
             }
@@ -25153,7 +25062,7 @@ class ProjectsPartialPoComponent {
         }
     }
 }
-ProjectsPartialPoComponent.ɵfac = function ProjectsPartialPoComponent_Factory(t) { return new (t || ProjectsPartialPoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_projects_service__WEBPACK_IMPORTED_MODULE_7__["ProjectsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_client_locations_service__WEBPACK_IMPORTED_MODULE_8__["ClientLocationsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_9__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_login_service__WEBPACK_IMPORTED_MODULE_10__["LoginService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_11__["RejectedStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_allowable_percentage_service__WEBPACK_IMPORTED_MODULE_12__["AllowablePercentageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_cancelled_potransaction_status_service__WEBPACK_IMPORTED_MODULE_13__["CancelledPOTransactionStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](src_app_services_projects_partial_po_service__WEBPACK_IMPORTED_MODULE_14__["ProjectsPartialPoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_partialPOmodule_service__WEBPACK_IMPORTED_MODULE_15__["PartialPoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_app_component__WEBPACK_IMPORTED_MODULE_16__["AppComponent"])); };
+ProjectsPartialPoComponent.ɵfac = function ProjectsPartialPoComponent_Factory(t) { return new (t || ProjectsPartialPoComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_projects_service__WEBPACK_IMPORTED_MODULE_7__["ProjectsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_client_locations_service__WEBPACK_IMPORTED_MODULE_8__["ClientLocationsService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_9__["ToastrService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_login_service__WEBPACK_IMPORTED_MODULE_10__["LoginService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_11__["RejectedStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_allowable_percentage_service__WEBPACK_IMPORTED_MODULE_12__["AllowablePercentageService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_cancelled_potransaction_status_service__WEBPACK_IMPORTED_MODULE_13__["CancelledPOTransactionStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_projects_partial_po_service__WEBPACK_IMPORTED_MODULE_14__["ProjectsPartialPoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_services_partialPOmodule_service__WEBPACK_IMPORTED_MODULE_15__["PartialPoService"]), _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdirectiveInject"](_app_component__WEBPACK_IMPORTED_MODULE_16__["AppComponent"])); };
 ProjectsPartialPoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵdefineComponent"]({ type: ProjectsPartialPoComponent, selectors: [["app-projects-partial-po"]], viewQuery: function ProjectsPartialPoComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵviewQuery"](_c0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵviewQuery"](_c1, 1);
@@ -26175,7 +26084,7 @@ ProjectsPartialPoComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_6__["�
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("ngForOf", _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵpipeBind1"](485, 128, ctx.CancelPoSummary));
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_6__["ɵɵproperty"]("disabled", !ctx.editProject.cancelled_reason);
-    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_17__["RouterLinkWithHref"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTabGroup"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"], _directives_client_location_status_validator_directive__WEBPACK_IMPORTED_MODULE_20__["ClientLocationStatusValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["PatternValidator"], _directives_project_idunique_validator_directive__WEBPACK_IMPORTED_MODULE_21__["ProjectIDUniqueValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_22__["DefaultClassDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], src_app_directives_team_size_validator_directive__WEBPACK_IMPORTED_MODULE_23__["TeamSizeValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["RadioControlValueAccessor"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatFormField"], _angular_material_input__WEBPACK_IMPORTED_MODULE_25__["MatInput"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatLabel"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_26__["MatIcon"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatPrefix"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerInput"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatHint"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerToggle"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatSuffix"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerToggleIcon"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepicker"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgForOf"], _angular_material_select__WEBPACK_IMPORTED_MODULE_28__["MatSelect"], _angular_material_button__WEBPACK_IMPORTED_MODULE_29__["MatButton"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTab"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTabLabel"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_material_button__WEBPACK_IMPORTED_MODULE_29__["MatAnchor"], _angular_material_badge__WEBPACK_IMPORTED_MODULE_30__["MatBadge"], _angular_material_core__WEBPACK_IMPORTED_MODULE_31__["MatOption"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_19__["AsyncPipe"], _pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_32__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_33__["SortPipe"], src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["DecimalPipe"]], styles: [".hideObject[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.projectcard[_ngcontent-%COMP%] {\n  height: 450px;\n}\n\n.reject0[_ngcontent-%COMP%] {\n  display: none;\n}\n\n  .cdk-overlay-container {\n  z-index: 1200 !important;\n}\n\n.zerobadge0[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.font-color-black[_ngcontent-%COMP%] {\n  color: black;\n}\n\n.required-field[_ngcontent-%COMP%] {\n  color: red;\n}\n\n.text-green[_ngcontent-%COMP%] {\n  color: #36474f;\n}\n\ndiv#headingOne[_ngcontent-%COMP%] {\n  padding: 1px;\n  background-color: #36474f;\n}\n\n.checklist-text-color[_ngcontent-%COMP%] {\n  color: white;\n  font-size: 10px;\n}\n\n.tbl-text[_ngcontent-%COMP%] {\n  font: 12px Roboto, \"Helvetica Neue\", sans-serif;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFxwcm9qZWN0cy1wYXJ0aWFsLXBvLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtBQUNGOztBQUNBO0VBQ0UsYUFBQTtBQUVGOztBQUFBO0VBQ0UsYUFBQTtBQUdGOztBQUFBO0VBQ0Usd0JBQUE7QUFHRjs7QUFBQTtFQUNFLGFBQUE7QUFHRjs7QUFEQTtFQUNFLFlBQUE7QUFJRjs7QUFEQTtFQUNFLFVBQUE7QUFJRjs7QUFEQTtFQUNFLGNBQUE7QUFJRjs7QUFEQTtFQUNFLFlBQUE7RUFDQSx5QkFBQTtBQUlGOztBQURBO0VBQ0UsWUFBQTtFQUNBLGVBQUE7QUFJRjs7QUFEQTtFQUNFLCtDQUFBO0FBSUYiLCJmaWxlIjoicHJvamVjdHMtcGFydGlhbC1wby5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5oaWRlT2JqZWN0IHtcbiAgZGlzcGxheTogbm9uZTtcbn1cbi5wcm9qZWN0Y2FyZCB7XG4gIGhlaWdodDogNDUwcHg7XG59XG4ucmVqZWN0MCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgei1pbmRleDogMTIwMCAhaW1wb3J0YW50O1xufVxuXG4uemVyb2JhZGdlMCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4uZm9udC1jb2xvci1ibGFjayB7XG4gIGNvbG9yOiBibGFjaztcbn1cblxuLnJlcXVpcmVkLWZpZWxkIHtcbiAgY29sb3I6IHJlZDtcbn1cblxuLnRleHQtZ3JlZW57XG4gIGNvbG9yOiAjMzY0NzRmO1xufVxuXG5kaXYjaGVhZGluZ09uZSB7XG4gIHBhZGRpbmc6IDFweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzM2NDc0Zjtcbn1cblxuLmNoZWNrbGlzdC10ZXh0LWNvbG9ye1xuICBjb2xvcjogd2hpdGU7XG4gIGZvbnQtc2l6ZTogMTBweDtcbn1cblxuLnRibC10ZXh0e1xuICBmb250OiAxMnB4IFJvYm90bywgXCJIZWx2ZXRpY2EgTmV1ZVwiLCBzYW5zLXNlcmlmIDtcbn1cbiJdfQ== */"] });
+    } }, directives: [_angular_router__WEBPACK_IMPORTED_MODULE_17__["RouterLinkWithHref"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTabGroup"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"], _directives_client_location_status_validator_directive__WEBPACK_IMPORTED_MODULE_20__["ClientLocationStatusValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["RequiredValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["PatternValidator"], _directives_project_idunique_validator_directive__WEBPACK_IMPORTED_MODULE_21__["ProjectIDUniqueValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_22__["DefaultClassDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MinLengthValidator"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], src_app_directives_team_size_validator_directive__WEBPACK_IMPORTED_MODULE_23__["TeamSizeValidatorDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["CheckboxControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["RadioControlValueAccessor"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatFormField"], _angular_material_input__WEBPACK_IMPORTED_MODULE_25__["MatInput"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatLabel"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_26__["MatIcon"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatPrefix"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerInput"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatHint"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerToggle"], _angular_material_form_field__WEBPACK_IMPORTED_MODULE_24__["MatSuffix"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepickerToggleIcon"], _angular_material_datepicker__WEBPACK_IMPORTED_MODULE_27__["MatDatepicker"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["NgForOf"], _angular_material_select__WEBPACK_IMPORTED_MODULE_28__["MatSelect"], _angular_material_button__WEBPACK_IMPORTED_MODULE_29__["MatButton"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTab"], _angular_material_tabs__WEBPACK_IMPORTED_MODULE_18__["MatTabLabel"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_material_button__WEBPACK_IMPORTED_MODULE_29__["MatAnchor"], _angular_material_badge__WEBPACK_IMPORTED_MODULE_30__["MatBadge"], _angular_material_core__WEBPACK_IMPORTED_MODULE_31__["MatOption"]], pipes: [_angular_common__WEBPACK_IMPORTED_MODULE_19__["AsyncPipe"], _pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_32__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_33__["SortPipe"], _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_19__["DecimalPipe"]], styles: [".hideObject[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.projectcard[_ngcontent-%COMP%] {\n  height: 450px;\n}\n\n.reject0[_ngcontent-%COMP%] {\n  display: none;\n}\n\n  .cdk-overlay-container {\n  z-index: 1200 !important;\n}\n\n.zerobadge0[_ngcontent-%COMP%] {\n  display: none;\n}\n\n.font-color-black[_ngcontent-%COMP%] {\n  color: black;\n}\n\n.required-field[_ngcontent-%COMP%] {\n  color: red;\n}\n\n.text-green[_ngcontent-%COMP%] {\n  color: #36474f;\n}\n\ndiv#headingOne[_ngcontent-%COMP%] {\n  padding: 1px;\n  background-color: #36474f;\n}\n\n.checklist-text-color[_ngcontent-%COMP%] {\n  color: white;\n  font-size: 10px;\n}\n\n.tbl-text[_ngcontent-%COMP%] {\n  font: 12px Roboto, \"Helvetica Neue\", sans-serif;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uXFwuLlxcLi5cXC4uXFxwcm9qZWN0cy1wYXJ0aWFsLXBvLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBQTtBQUNGOztBQUNBO0VBQ0UsYUFBQTtBQUVGOztBQUFBO0VBQ0UsYUFBQTtBQUdGOztBQUFBO0VBQ0Usd0JBQUE7QUFHRjs7QUFBQTtFQUNFLGFBQUE7QUFHRjs7QUFEQTtFQUNFLFlBQUE7QUFJRjs7QUFEQTtFQUNFLFVBQUE7QUFJRjs7QUFEQTtFQUNFLGNBQUE7QUFJRjs7QUFEQTtFQUNFLFlBQUE7RUFDQSx5QkFBQTtBQUlGOztBQURBO0VBQ0UsWUFBQTtFQUNBLGVBQUE7QUFJRjs7QUFEQTtFQUNFLCtDQUFBO0FBSUYiLCJmaWxlIjoicHJvamVjdHMtcGFydGlhbC1wby5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5oaWRlT2JqZWN0IHtcbiAgZGlzcGxheTogbm9uZTtcbn1cbi5wcm9qZWN0Y2FyZCB7XG4gIGhlaWdodDogNDUwcHg7XG59XG4ucmVqZWN0MCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG5cbjo6bmctZGVlcCAuY2RrLW92ZXJsYXktY29udGFpbmVyIHtcbiAgei1pbmRleDogMTIwMCAhaW1wb3J0YW50O1xufVxuXG4uemVyb2JhZGdlMCB7XG4gIGRpc3BsYXk6IG5vbmU7XG59XG4uZm9udC1jb2xvci1ibGFjayB7XG4gIGNvbG9yOiBibGFjaztcbn1cblxuLnJlcXVpcmVkLWZpZWxkIHtcbiAgY29sb3I6IHJlZDtcbn1cblxuLnRleHQtZ3JlZW57XG4gIGNvbG9yOiAjMzY0NzRmO1xufVxuXG5kaXYjaGVhZGluZ09uZSB7XG4gIHBhZGRpbmc6IDFweDtcbiAgYmFja2dyb3VuZC1jb2xvcjogIzM2NDc0Zjtcbn1cblxuLmNoZWNrbGlzdC10ZXh0LWNvbG9ye1xuICBjb2xvcjogd2hpdGU7XG4gIGZvbnQtc2l6ZTogMTBweDtcbn1cblxuLnRibC10ZXh0e1xuICBmb250OiAxMnB4IFJvYm90bywgXCJIZWx2ZXRpY2EgTmV1ZVwiLCBzYW5zLXNlcmlmIDtcbn1cbiJdfQ== */"] });
 
 
 /***/ }),
@@ -35118,11 +35027,11 @@ class AspNetRolesComponent {
         });
     }
     getUserRoleModules() {
-        alert(this.RoleId.nativeElement.value);
+        // alert(this.RoleId.nativeElement.value);
         this.userAccountService.getUserRoleListById(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
             if (response) {
                 this.RoleModule = response;
-                console.error(response);
+                // console.error(response);
                 this.getModulesUntagged();
             }
         });
@@ -35136,6 +35045,17 @@ class AspNetRolesComponent {
         this.RoleModule = taggedData;
         this.totalRoleModulesUntaggedNewRowCount = taggedData.length;
         this.calculateNoOfPagesTagged();
+        if (this.totalRoleModulesTaggedRowCount == this.totalRoleModulesUntaggedNewRowCount) {
+            this.userAccountService.getUserRoleByAdminId(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
+                if (response) {
+                    this.RoleModule = response;
+                    const taggedData = this.RoleModule.filter(status => status.isactive === false);
+                    this.RoleModule = taggedData;
+                    this.totalRoleModulesUntaggedNewRowCount = taggedData.length;
+                    this.calculateNoOfPagesTagged();
+                }
+            });
+        }
     }
     getNewFourthApproverId(roleid) {
         this.activeModuleId = roleid;

@@ -14723,12 +14723,9 @@ class ProjectsComponent {
         this.getPOcancelledList();
         this.PoReceiving = this.appComponent.PoReceiving;
         this.CancelledPo = this.appComponent.CancelledPo;
-        // alert(this.PoReceiving);
     }
     any(event) {
         this.ChildForm = "22434";
-        alert("BUje");
-        // this.getPOrecievingList();
     }
     any2(event) {
         this.important();
@@ -14805,7 +14802,6 @@ class ProjectsComponent {
         this.ChildForm = "4000";
         this.dualbindingchanges++;
         this.ChildForm = this.dualbindingchanges.toString();
-        // alert(this.samplelang);
     }
     myFunctionOne() {
         console.log('Call Function One from Component One');
@@ -15638,7 +15634,6 @@ class ProjectsComponent {
             p.actual_remaining_receiving = response.actual_remaining_receiving;
             p.received_by_QA = response.received_by_QA;
             this.projects.push(p);
-            // alert("Gerard 1");
         }, (error) => {
             console.log(error);
         });

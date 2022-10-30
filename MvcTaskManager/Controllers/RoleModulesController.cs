@@ -100,6 +100,54 @@ namespace MvcTaskManager.Controllers
 
                       .ToListAsync();
 
+
+        //return BadRequest("A");
+        return Ok(result);
+      
+
+
+    }
+
+
+    [HttpGet]
+    [Route("api/RoleModules/RoleId/Admin/{RoleId}/{MainModuleId}")]
+    public async Task<ActionResult<RoleModules>> GetByRoleAdminID(string RoleId, int MainModuleId)
+    {
+      var result = await (from RoleModule in db.RoleModules
+                            //join Modules in db.Modules on RoleModule.Mainmoduleidentity equals Modules.Mainmenuid
+                            ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
+
+                          join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
+                          join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2
+                          from MainMenu in ps2.DefaultIfEmpty()
+                          join Role in db.Roles on RoleModule.RoleId equals Role.Id into ps
+                          from Role in ps.DefaultIfEmpty()
+                          where
+                          //&& RoleModule.ModuleId  == ModuleId
+                          RoleModule.Mainmoduleidentity == MainModuleId
+                          //&& RoleModule.Isactive.Equals(true)
+                          && Modules.Isactive.Equals(true)
+                          && MainMenu.Isactive.Equals(true)
+                          && RoleModule.RoleId == RoleId
+                          select new
+                          {
+                            //RoleModule.Id,
+                            RoleModule.RoleId,
+                            RoleModule.ModuleId,
+                            RoleModule.Isactive,
+                            Modules.Submenuname,
+                            Modules.Modulename,
+                            //Modules.Id,
+                            RoleModule.Id,
+                            MainMenu.Mainmodulename,
+                            Role.Name,
+                            RoleModule.Mainmoduleidentity
+
+
+                          })
+
+                      .ToListAsync();
+
       if (result.Count > 0)
       {
         //return BadRequest("A");
@@ -107,35 +155,35 @@ namespace MvcTaskManager.Controllers
       }
       else
       {
-
+        //return BadRequest("Axx");
         var result2 = await (from RoleModule in db.RoleModules
-                            
+
                              join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
-                            join Role in db.Roles on RoleModule.RoleId equals Role.Id
-                  
+                             join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id
+
                              join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id
                              where
-                            //Role.Id == RoleId
-                            //&&
+                            Role.Id == "b48c6444-e3d5-4177-ba85-66c35796171d"
+                            &&
                             RoleModule.Mainmoduleidentity == MainModuleId
                             //&& RoleModule.Isactive.Equals(true)
                             && Modules.Isactive.Equals(true)
                             && MainMenu.Isactive.Equals(true)
 
-                            select new
-                            {
-                              //RoleModule.Id,
-                              RoleModule.RoleId,
-                              RoleModule.ModuleId,
-                              RoleModule.Isactive,
-                              Modules.Submenuname,
-                              Modules.Modulename,
-                              Modules.Id,
-                              MainMenu.Mainmodulename,
-                              Role.Name
+                             select new
+                             {
+                               //RoleModule.Id,
+                               RoleModule.RoleId,
+                               RoleModule.ModuleId,
+                               RoleModule.Isactive,
+                               Modules.Submenuname,
+                               Modules.Modulename,
+                               Modules.Id,
+                               MainMenu.Mainmodulename,
+                               Role.Name
 
 
-                            })
+                             })
 
                 .ToListAsync();
 
