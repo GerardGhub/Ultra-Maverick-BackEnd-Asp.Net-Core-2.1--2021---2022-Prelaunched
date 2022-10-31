@@ -8,6 +8,7 @@ using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace MvcTaskManager.Controllers
@@ -29,7 +30,7 @@ namespace MvcTaskManager.Controllers
     {
       var result = await (from RoleModule in db.RoleModules
 
-                          join Module in db.Modules on RoleModule.ModuleId equals Module.Id
+                          join Module in db.Modules on RoleModule.Moduleid equals Module.Id
                           join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id
                           join MainMenu in db.MainMenus on Module.Mainmenuid equals MainMenu.Id
 
@@ -46,7 +47,7 @@ namespace MvcTaskManager.Controllers
                           {
                             RoleModule.Id,
                             RoleModule.RoleId,
-                            RoleModule.ModuleId,
+                            RoleModule.Moduleid,
                             RoleModule.Isactive,
                             Module.Submenuname,
                             Module.Modulename,
@@ -56,7 +57,9 @@ namespace MvcTaskManager.Controllers
 
                       .ToListAsync();
 
-      return Ok(result);
+     
+        return Ok(result);
+
 
 
     }
@@ -70,7 +73,7 @@ namespace MvcTaskManager.Controllers
                             //join Modules in db.Modules on RoleModule.Mainmoduleidentity equals Modules.Mainmenuid
                             ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
 
-                          join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
+                          join Modules in db.Modules on RoleModule.Moduleid equals Modules.Id
                           join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2 from MainMenu in ps2.DefaultIfEmpty()
                           join Role in db.Roles on RoleModule.RoleId equals Role.Id into ps
                           from Role in ps.DefaultIfEmpty()
@@ -85,7 +88,7 @@ namespace MvcTaskManager.Controllers
                           {
                             //RoleModule.Id,
                             RoleModule.RoleId,
-                            RoleModule.ModuleId,
+                            RoleModule.Moduleid,
                             RoleModule.Isactive,
                             Modules.Submenuname,
                             Modules.Modulename,
@@ -100,10 +103,15 @@ namespace MvcTaskManager.Controllers
 
                       .ToListAsync();
 
-
+      //if (result.Count > 0)
+      //{
         //return BadRequest("A");
         return Ok(result);
-      
+      //}
+      //else
+      //{
+      //  return BadRequest("A");
+      //}
 
 
     }
@@ -117,23 +125,26 @@ namespace MvcTaskManager.Controllers
                             //join Modules in db.Modules on RoleModule.Mainmoduleidentity equals Modules.Mainmenuid
                             ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
 
-                          join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
+                          join Modules in db.Modules on RoleModule.Moduleid equals Modules.Id
                           join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2
                           from MainMenu in ps2.DefaultIfEmpty()
-                          join Role in db.Roles on RoleModule.RoleId equals Role.Id into ps
+                          join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id into ps
+                    
                           from Role in ps.DefaultIfEmpty()
+
                           where
                           //&& RoleModule.ModuleId  == ModuleId
                           RoleModule.Mainmoduleidentity == MainModuleId
                           //&& RoleModule.Isactive.Equals(true)
                           && Modules.Isactive.Equals(true)
                           && MainMenu.Isactive.Equals(true)
-                          && RoleModule.RoleId == RoleId
+                          && RoleModule.RoleId == "b48c6444-e3d5-4177-ba85-66c35796171d"
+                          
                           select new
                           {
                             //RoleModule.Id,
                             RoleModule.RoleId,
-                            RoleModule.ModuleId,
+                            RoleModule.Moduleid,
                             RoleModule.Isactive,
                             Modules.Submenuname,
                             Modules.Modulename,
@@ -158,7 +169,7 @@ namespace MvcTaskManager.Controllers
         //return BadRequest("Axx");
         var result2 = await (from RoleModule in db.RoleModules
 
-                             join Modules in db.Modules on RoleModule.ModuleId equals Modules.Id
+                             join Modules in db.Modules on RoleModule.Moduleid equals Modules.Id
                              join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id
 
                              join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id
@@ -174,7 +185,7 @@ namespace MvcTaskManager.Controllers
                              {
                                //RoleModule.Id,
                                RoleModule.RoleId,
-                               RoleModule.ModuleId,
+                               RoleModule.Moduleid,
                                RoleModule.Isactive,
                                Modules.Submenuname,
                                Modules.Modulename,
@@ -202,7 +213,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<RoleModules>> GetByBaseRoleID(string RoleId, int ModuleId)
     {
       var result = await (from RoleModule in db.RoleModules
-                          join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
+                          join Modules in db.Modules on RoleModule.Moduleid equals Modules.Mainmenuid
                           join Role in db.Roles on RoleModule.RoleId equals Role.Id
                           join MainMenu in db.MainMenus on Modules.Mainmenuid equals MainMenu.Id
 
@@ -210,7 +221,7 @@ namespace MvcTaskManager.Controllers
 
                           Role.Id == RoleId
                     &&
-                    RoleModule.ModuleId == ModuleId
+                    RoleModule.Moduleid == ModuleId
                           //&& RoleModule.Isactive.Equals(true)
                           && Modules.Isactive.Equals(true)
                           && MainMenu.Isactive.Equals(true)
@@ -219,7 +230,7 @@ namespace MvcTaskManager.Controllers
                           {
                             //RoleModule.Id,
                             RoleModule.RoleId,
-                            RoleModule.ModuleId,
+                            RoleModule.Moduleid,
                             RoleModule.Isactive,
                             Modules.Submenuname,
                             Modules.Modulename,
@@ -232,14 +243,14 @@ namespace MvcTaskManager.Controllers
 
                       .ToListAsync();
 
-      if (result.Count > 0 )
-      {
-        //return BadRequest("A");
-      }
-      else
-      {
+      //if (result.Count > 0 )
+      //{
+      //  //return BadRequest("A");
+      //}
+      //else
+      //{
 
-      }
+      //}
 
       return Ok(result);
 
@@ -325,7 +336,7 @@ namespace MvcTaskManager.Controllers
 
 
         RoleModules validateRoleIdAndModuleId = await db.RoleModules.Where(temp => temp.RoleId == Role.RoleId
-        && temp.ModuleId == Role.ModuleId).FirstOrDefaultAsync();
+        && temp.Moduleid == Role.Moduleid).FirstOrDefaultAsync();
         if (validateRoleIdAndModuleId != null)
         {
         }
@@ -336,7 +347,7 @@ namespace MvcTaskManager.Controllers
           roleModules.RoleId = Role.RoleId;
           roleModules.DateAdded = DateTime.Now;
           roleModules.Addedby = Role.Modifiedby;
-          roleModules.ModuleId = Role.ModuleId;
+          roleModules.Moduleid = Role.Moduleid;
           roleModules.Mainmoduleidentity = Role.Mainmoduleidentity;
           db.RoleModules.Add(roleModules);
           await db.SaveChangesAsync();

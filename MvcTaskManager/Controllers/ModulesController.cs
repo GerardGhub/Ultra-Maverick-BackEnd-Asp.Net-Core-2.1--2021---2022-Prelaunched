@@ -108,7 +108,7 @@ namespace MvcTaskManager.Controllers
       roleModules.RoleId = "b48c6444-e3d5-4177-ba85-66c35796171d";
       roleModules.DateAdded = DateTime.Now;
       roleModules.Addedby = module.AddedBy;
-      roleModules.ModuleId =CountModules;
+      roleModules.Moduleid =CountModules;
       roleModules.Mainmoduleidentity = module.Mainmenuid;
       db.RoleModules.Add(roleModules);
       await db.SaveChangesAsync();
