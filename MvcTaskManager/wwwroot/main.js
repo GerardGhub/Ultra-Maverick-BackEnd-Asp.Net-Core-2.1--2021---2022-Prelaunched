@@ -11373,7 +11373,7 @@ function AppComponent_ng_container_67_ng_container_8_Template(rf, ctx) { if (rf 
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r15.NearlyExpiryApproval === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r15.WHRejection === 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r15.WHRejectionApproval === 1);
 } }
 const _c4 = function () { return ["/admin", "forlabtest"]; };
 function AppComponent_ng_container_67_ng_container_9_Template(rf, ctx) { if (rf & 1) {
@@ -11661,7 +11661,7 @@ class AppComponent {
         this.Approval = 0;
         //{ Array Approval
         this.NearlyExpiryApproval = 0;
-        this.WHRejection = 0;
+        this.WHRejectionApproval = 0;
         // }
         this.LabTest = 0;
         this.Preparation = 0;
@@ -11834,6 +11834,12 @@ class AppComponent {
                     }
                     else if (status.modulename === 'approval-route') {
                         this.Approval = 1;
+                    }
+                    else if (status.modulename === 'expiry-approval-route') {
+                        this.NearlyExpiryApproval = 1;
+                    }
+                    else if (status.modulename === 'wh-rejection-route') {
+                        this.WHRejectionApproval = 1;
                     }
                     else if (status.modulename === 'labtest-route') {
                         this.LabTest = 1;
@@ -35036,7 +35042,8 @@ class AspNetRolesComponent {
             this.userAccountService.getUserRoleByAdminId(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
                 if (response) {
                     this.RoleModule = response;
-                    const taggedData = this.RoleModule.filter(status => status.isactive === false);
+                    const taggedData = this.RoleModule.filter(status => status.isactive === false
+                        || status.isactive === true);
                     for (var i = taggedData.length - 1; i >= 0; i--) {
                         for (var j = 0; j < untaggedData.length; j++) {
                             if (taggedData[i] && (taggedData[i].moduleid === untaggedData[j].moduleid)) {
