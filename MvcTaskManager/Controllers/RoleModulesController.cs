@@ -122,8 +122,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<RoleModules>> GetByRoleAdminID(string RoleId, int MainModuleId)
     {
       var result = await (from RoleModule in db.RoleModules
-                            //join Modules in db.Modules on RoleModule.Mainmoduleidentity equals Modules.Mainmenuid
-                            ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
+      
 
                           join Modules in db.Modules on RoleModule.Moduleid equals Modules.Id
                           join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2
@@ -133,7 +132,7 @@ namespace MvcTaskManager.Controllers
                           from Role in ps.DefaultIfEmpty()
 
                           where
-                          //&& RoleModule.ModuleId  == ModuleId
+           
                           RoleModule.Mainmoduleidentity == MainModuleId
                           //&& RoleModule.Isactive.Equals(true)
                           && Modules.Isactive.Equals(true)
