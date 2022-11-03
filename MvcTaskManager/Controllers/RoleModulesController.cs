@@ -7,6 +7,7 @@ using MvcTaskManager.Identity;
 using MvcTaskManager.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -319,12 +320,15 @@ namespace MvcTaskManager.Controllers
     }
 
 
+
+
     [HttpPut]
     [Route("api/RoleModules/Deactivate")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<RoleModules> PutDeactivate([FromBody] RoleModules Role)
+    public async Task<ActionResult<RoleModules>> PutDeactivate([FromBody] RoleModules Role)
     {
 
+      //Role.Id = 0;
       RoleModules existingRoles = await db.RoleModules.Where(temp => temp.Id == Role.Id).FirstOrDefaultAsync();
       if (existingRoles != null)
       {
@@ -338,9 +342,11 @@ namespace MvcTaskManager.Controllers
         && temp.Moduleid == Role.Moduleid).FirstOrDefaultAsync();
         if (validateRoleIdAndModuleId != null)
         {
+          //return BadRequest("A");
         }
         else
         {
+       
           RoleModules roleModules = new RoleModules();
           roleModules.Isactive = false;
           roleModules.RoleId = Role.RoleId;
@@ -351,18 +357,13 @@ namespace MvcTaskManager.Controllers
           db.RoleModules.Add(roleModules);
           await db.SaveChangesAsync();
         }
-        //RoleModules roleModules = new RoleModules();
-        //roleModules.Isactive = false;
-        //roleModules.RoleId = Role.RoleId;
-        //roleModules.ModuleId = Role.ModuleId;
-        //db.RoleModules.Add(roleModules);
-        //await db.SaveChangesAsync();
+
 
         return existingRoles;
       }
       else
       {
-        return null;
+        return BadRequest("asd");
       }
     }
 

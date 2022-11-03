@@ -465,10 +465,7 @@ namespace MvcTaskManager.Controllers
                             where Parents.mrs_id == Parents.mrs_id
 
                               && Parents.user_id == user_id
-                              //|| User.First_approver_id == user_id
-                              //|| User.Second_approver_id == user_id
-                              //|| User.Third_approver_id == user_id
-                              //|| User.Fourth_approver_id == user_id
+                 
 
                               && Parents.is_active.Equals(true)
                                         && Parents.is_approved_by != null
@@ -545,7 +542,8 @@ namespace MvcTaskManager.Controllers
 
       else
       {
-        //return NoContent();
+      
+
         var result = await (from Parents in db.Material_request_master
                             join User in db.Users on Parents.user_id equals User.User_Identity
                             join Department in db.Department on Parents.department_id equals Department.department_id
@@ -553,13 +551,16 @@ namespace MvcTaskManager.Controllers
                             where Parents.mrs_id == Parents.mrs_id
                             
                               && Parents.user_id == user_id
-                              || User.First_approver_id == user_id
+                                                    && Parents.is_approved_by != null
+                                                    &&  Parents.is_active.Equals(true)
+                                                    &&
+                              ( User.First_approver_id == user_id
                               || User.Second_approver_id == user_id
                               || User.Third_approver_id == user_id
-                              || User.Fourth_approver_id == user_id
-                         
-                              && Parents.is_active.Equals(true)
-                                        && Parents.is_approved_by != null
+                              || User.Fourth_approver_id == user_id)
+
+                   
+
 
                             select new
                             {
@@ -759,10 +760,7 @@ namespace MvcTaskManager.Controllers
                             //&& Parents.is_approved_by != null
 
                             && Parents.user_id == user_idx
-                            //|| User.First_approver_id == user_idx
-                            //|| User.Second_approver_id == user_idx
-                            //|| User.Third_approver_id == user_idx
-                            //|| User.Fourth_approver_id == user_idx
+
                             && Parents.is_active.Equals(false)
 
                             select new
@@ -851,11 +849,13 @@ namespace MvcTaskManager.Controllers
                               //&& Parents.is_approved_by != null
                          
                             && Parents.user_id == user_idx
-                            || User.First_approver_id == user_idx
+                                    && Parents.is_active.Equals(false)
+                                    &&
+                           (User.First_approver_id == user_idx
                             || User.Second_approver_id == user_idx
                             || User.Third_approver_id == user_idx
-                            || User.Fourth_approver_id == user_idx
-                            && Parents.is_active.Equals(false)
+                            || User.Fourth_approver_id == user_idx)
+                    
 
                             select new
                             {
