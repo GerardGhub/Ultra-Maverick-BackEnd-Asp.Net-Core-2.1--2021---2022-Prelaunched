@@ -63,9 +63,9 @@ namespace MvcTaskManager.Controllers
     [Route("register")]
     public async Task<IActionResult> Register([FromBody] SignUpViewModel signUpViewModel)
     {
-      var EmailValidation = await db.Users.Where(temp => temp.UserName == signUpViewModel.UserName).ToListAsync();
+      var UserNameValidation = await db.Users.Where(temp => temp.UserName == signUpViewModel.UserName).ToListAsync();
 
-      if (EmailValidation.Count > 0)
+      if (UserNameValidation.Count > 0)
       {
         return BadRequest(new { message = "Username Already Taken" });
       }
@@ -424,8 +424,114 @@ namespace MvcTaskManager.Controllers
     [HttpPut]
     [Route("api/umwebusers_update")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public async Task<ApplicationUser> Put([FromBody] ApplicationUser labProc)
+    public async Task<ActionResult<ApplicationUser>> Put([FromBody] ApplicationUser labProc)
     {
+      var UserNameValidation = await db.Users.Where(temp => temp.UserName == labProc.UserName).ToListAsync();
+
+      if (UserNameValidation.Count > 0)
+      {
+        return BadRequest(new { message = "Username Already Taken" });
+      }
+
+
+
+      //2nd Boolean
+      if (labProc.Requestor == true)
+      {
+
+        if (labProc.First_approver_id == null)
+        {
+          this.checkstatistic = "0";
+
+        }
+        else
+        {
+          this.checkstatistic = "1";
+        }
+
+        if (labProc.Second_approver_id == null)
+        {
+          if (labProc.Third_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+        if (labProc.Third_approver_id == null)
+        {
+          if (labProc.Fourth_approver_id != null)
+          {
+            this.checkstatistic = "2";
+          }
+
+        }
+
+
+        if (checkstatistic == "2")
+        {
+          return BadRequest(new { message = "You must select an initial first approver" });
+        }
+
+
+        if (checkstatistic != "1")
+        {
+          return BadRequest(new { message = "You must select a approver" });
+        }
+      }
+
+
+
+
+      if (labProc.First_approver_id == labProc.Second_approver_id)
+      {
+        if (labProc.First_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 1 and 2" });
+        }
+      }
+
+      else if (labProc.First_approver_id == labProc.Third_approver_id)
+      {
+        if (labProc.First_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 1 and 3" });
+        }
+      }
+
+      else if (labProc.First_approver_id == labProc.Fourth_approver_id)
+      {
+        if (labProc.First_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 1 and 4" });
+        }
+      }
+      else if (labProc.Second_approver_id == labProc.Third_approver_id)
+      {
+        if (labProc.Second_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 2 and 3" });
+        }
+      }
+
+      else if (labProc.Second_approver_id == labProc.Fourth_approver_id)
+      {
+        if (labProc.Second_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 2 and 4" });
+        }
+      }
+
+      else if (labProc.Third_approver_id == labProc.Fourth_approver_id)
+      {
+        if (labProc.Third_approver_id != null)
+        {
+          return BadRequest(new { message = "You already tagged a approver on section 3 and 4" });
+        }
+      }
+
+
+
 
       if (labProc.First_approver_name == "")
       {
