@@ -357,13 +357,11 @@ namespace MvcTaskManager.Controllers
 
       var userlist = (from a in db.Users
                       join b in db.Department on a.Department_id equals b.department_id
-                      //join c in db.Position on a.Position_id equals c.position_name
                       join d in db.DepartmentUnit on a.Unit_id equals d.unit_id
                       where
                       a.Is_active.Equals(true)
                       && a.Approver.Equals(true)
                       && b.is_active.Equals(true)
-                      //&& c.is_active.Equals(true)
                       && d.is_active.Equals(true)
                       select new
                       {
@@ -376,11 +374,8 @@ namespace MvcTaskManager.Controllers
                         Username = a.UserName,
                         Password = a.PasswordHash,
                         EncryptPassword = a.EncryptPassword,
-                        //SecurityStamp = a.SecurityStamp,
-                        //ConcurrencyStamp = a.ConcurrencyStamp,
                         Is_active = a.Is_active,
                         Department_id = a.Department_id,
-                        //Position_id = a.Position_id,
                         Unit_id = a.Unit_id,
                         Location = a.Location,
                         Approver = a.Approver,
@@ -394,8 +389,8 @@ namespace MvcTaskManager.Controllers
                         Fourth_approver_id = a.Fourth_approver_id,
                         Fourth_approver_name = a.Fourth_approver_name,
                         Department_Name = b.department_name,
-                        //Position_Name = c.position_name,
-                        DepartmentUnit_Name = d.unit_description
+                        DepartmentUnit_Name = d.unit_description,
+                        user_identity = a.User_Identity
             
 
 

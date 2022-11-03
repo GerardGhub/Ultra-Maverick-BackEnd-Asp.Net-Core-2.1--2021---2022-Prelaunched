@@ -3424,7 +3424,7 @@ function UserAccountComponent_option_245_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const item_r51 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r51.employee_number);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r51.user_identity);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r51.firstName + " " + item_r51.lastName));
 } }
@@ -3435,7 +3435,7 @@ function UserAccountComponent_option_252_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const item_r52 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r52.employee_number);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r52.user_identity);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r52.firstName + " " + item_r52.lastName));
 } }
@@ -3446,7 +3446,7 @@ function UserAccountComponent_option_259_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const item_r53 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r53.employee_number);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r53.user_identity);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r53.firstName + " " + item_r53.lastName));
 } }
@@ -3457,7 +3457,7 @@ function UserAccountComponent_option_266_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const item_r54 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r54.employee_number);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", item_r54.user_identity);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipeBind1"](2, 2, item_r54.firstName + " " + item_r54.lastName));
 } }
@@ -3548,7 +3548,7 @@ class UserAccountComponent {
     getEmployeeList() {
         this.userAccountService.getEmployee().subscribe((data) => {
             this.employees = data;
-            console.log('data', data);
+            // console.log('data', data);
         });
     }
     getApproverList() {
@@ -3676,7 +3676,6 @@ class UserAccountComponent {
             .getListOfRole()
             .subscribe((response) => {
             this.positionList = response;
-            console.log(response);
         });
     }
     calculateNoOfPages() {
@@ -3728,7 +3727,7 @@ class UserAccountComponent {
             }
             const status = this.AspNetUsers.filter(status => status.is_active === val);
             this.AspNetUsers = status;
-            console.log(this.AspNetUsers);
+            // console.log(this.AspNetUsers);
             this.showLoading = false;
             this.calculateNoOfPages();
         }
@@ -3907,7 +3906,7 @@ class UserAccountComponent {
     }
     // edituser approver method
     getFirstApproverId(id) {
-        const result = this.approverList.filter((approver) => approver.employee_number == id);
+        const result = this.approverList.filter((approver) => approver.user_identity == id);
         this.search_approver = result;
         result.forEach((approver) => {
             this.first_approver_name = approver.firstName + ' ' + approver.lastName;
@@ -3917,7 +3916,7 @@ class UserAccountComponent {
         });
     }
     getSecondApproverId(id) {
-        const result = this.approverList.filter((approver) => approver.employee_number == id);
+        const result = this.approverList.filter((approver) => approver.user_identity == id);
         this.search_approver = result;
         result.forEach((approver) => {
             this.second_approver_name = approver.firstName + ' ' + approver.lastName;
@@ -3927,7 +3926,7 @@ class UserAccountComponent {
         });
     }
     getThirdApproverId(id) {
-        const result = this.approverList.filter((approver) => approver.employee_number == id);
+        const result = this.approverList.filter((approver) => approver.user_identity == id);
         this.search_approver = result;
         result.forEach((approver) => {
             this.third_approver_name = approver.firstName + ' ' + approver.lastName;
@@ -3937,7 +3936,7 @@ class UserAccountComponent {
         });
     }
     getFourthApproverId(id) {
-        const result = this.approverList.filter((approver) => approver.employee_number == id);
+        const result = this.approverList.filter((approver) => approver.user_identity == id);
         this.search_approver = result;
         result.forEach((approver) => {
             this.fourth_approver_name = approver.firstName + ' ' + approver.lastName;
