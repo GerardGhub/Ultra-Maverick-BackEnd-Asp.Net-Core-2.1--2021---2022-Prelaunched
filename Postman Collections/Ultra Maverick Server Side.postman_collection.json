@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "2151e2b4-3a8f-4746-926e-3650e9b9392e",
 		"name": "Ultra Maverick Server Side",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9664596"
 	},
 	"item": [
 		{
@@ -24,14 +25,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/dry_wh_orders_checklist_distinct",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"dry_wh_orders_checklist_distinct"
 							]
 						}
@@ -54,14 +52,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/store_orders",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"store_orders"
 							]
 						}
@@ -84,19 +79,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders/search/store_name/2022-07-28/FO02",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/store_orders/search/92",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"store_orders",
 								"search",
-								"store_name",
-								"2022-07-28",
-								"FO02"
+								"92"
 							]
 						}
 					},
@@ -118,19 +109,56 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/dry_wh_orders_checklist_distinct_cancelled",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct_cancelled",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"dry_wh_orders_checklist_distinct_cancelled"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Distinct Cancel Order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct_cancelled",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"dry_wh_orders_checklist_distinct_cancelled"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 08 Sep 2022 06:54:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"primary_id\": 10750,\n        \"is_approved_prepa_date\": \"2022-09-07\",\n        \"store_name\": \"MEXICO\",\n        \"route\": \"MEXICO\",\n        \"area\": \"AREA 2\",\n        \"category\": \"LFI\",\n        \"is_active\": true,\n        \"is_for_validation\": \"0\",\n        \"is_approved\": \"1\",\n        \"is_prepared\": true,\n        \"force_prepared_status\": null,\n        \"fox\": \"FO25\",\n        \"item_code\": \"9045\",\n        \"description\": \"MM ROYAL\",\n        \"uom\": \"EACH\",\n        \"total_state_repack\": \"4\",\n        \"qty\": \"5\",\n        \"prepared_allocated_qty\": \"5\",\n        \"is_wh_approved\": null,\n        \"is_wh_approved_by\": null,\n        \"is_wh_approved_date\": null,\n        \"is_wh_checker_cancel\": \"1\",\n        \"is_wh_checker_cancel_by\": \"Jilo Viray\",\n        \"is_wh_checker_cancel_date\": \"09/8/2022 1:54:58 pm\",\n        \"is_wh_checker_cancel_reason\": null,\n        \"dispossal_status\": null,\n        \"wh_checker_move_order_no\": null,\n        \"total_state_repack_cancelled_qty\": 1,\n        \"logic_return_by\": null,\n        \"logic_return_date\": null,\n        \"logic_return_reason\": null,\n        \"fK_dry_wh_orders_parent_id\": 1115\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Find Cancel Prepared RM List",
@@ -148,14 +176,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/getStoreOrderMaterialCancelled",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/getStoreOrderMaterialCancelled",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"getStoreOrderMaterialCancelled"
 							]
 						}
@@ -178,14 +203,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/dry_wh_orders_distinct_store_dispatching",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/dry_wh_orders_distinct_store_dispatching",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"dry_wh_orders_distinct_store_dispatching"
 							]
 						}
@@ -236,19 +258,57 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/dry_wh_orders_checklist_distinct_partial_cancel",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/dry_wh_orders_checklist_distinct_partial_cancel",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"dry_wh_orders_checklist_distinct_partial_cancel"
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Distinct Order With Partial Cancel",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct_partial_cancel",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"dry_wh_orders_checklist_distinct_partial_cancel"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 08 Sep 2022 07:14:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"primary_id\": 10750,\n        \"is_approved_prepa_date\": \"2022-09-07\",\n        \"store_name\": \"MEXICO\",\n        \"route\": \"MEXICO\",\n        \"area\": \"AREA 2\",\n        \"category\": \"LFI\",\n        \"is_active\": true,\n        \"is_for_validation\": \"0\",\n        \"is_approved\": \"1\",\n        \"is_prepared\": true,\n        \"force_prepared_status\": null,\n        \"fox\": \"FO25\",\n        \"item_code\": \"9045\",\n        \"description\": \"MM ROYAL\",\n        \"uom\": \"EACH\",\n        \"total_state_repack\": \"4\",\n        \"qty\": \"5\",\n        \"prepared_allocated_qty\": \"5\",\n        \"is_wh_approved\": null,\n        \"is_wh_approved_by\": null,\n        \"is_wh_approved_date\": null,\n        \"is_wh_checker_cancel\": \"1\",\n        \"is_wh_checker_cancel_by\": \"Jilo Viray\",\n        \"is_wh_checker_cancel_date\": \"09/8/2022 1:54:58 pm\",\n        \"is_wh_checker_cancel_reason\": null,\n        \"dispossal_status\": null,\n        \"wh_checker_move_order_no\": null,\n        \"total_state_repack_cancelled_qty\": 1,\n        \"logic_return_by\": null,\n        \"logic_return_date\": null,\n        \"logic_return_reason\": null,\n        \"fK_dry_wh_orders_parent_id\": 1115\n    }\n]"
+						}
+					]
 				},
 				{
 					"name": "Find Prepared RM Cancelled",
@@ -266,19 +326,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders_partial_cancel/search/store_name/2022-02-04/8878",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/store_orders_partial_cancel/search/store_name/79/FO02",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"store_orders_partial_cancel",
 								"search",
 								"store_name",
-								"2022-02-04",
-								"8878"
+								"79",
+								"FO02"
 							]
 						}
 					},
@@ -301,7 +358,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 75,\r\n    \"Is_wh_approved\": 1,\r\n    \"Is_wh_approved_by\": \"Gerard Singian\",\r\n    \"Is_wh_approved_date\": \"2022-07-28\",\r\n    \"Wh_checker_move_order_no\":59\r\n\r\n\r\n}",
+							"raw": "{\r\n    \"Id\": 97,\r\n    \"Is_wh_approved\": 1,\r\n    \"Is_wh_approved_by\": \"Gerard Singian\",\r\n    \"Is_wh_approved_date\": \"2022-08-01\",\r\n    \"Wh_checker_move_order_no\": 1\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -309,12 +366,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/store_orders",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"store_orders"
@@ -348,12 +403,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders/cancelitems",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/store_orders/cancelitems",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"store_orders",
@@ -380,7 +433,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 77,\r\n    \"primary_id\": 9655,\r\n    \"Is_wh_checker_cancel\": \"1\",\r\n    \"Is_wh_checker_cancel_by\": \"Gerard Singian\",\r\n    \"Is_wh_checker_cancel_date\": \"2022-07-28\",\r\n    \"Is_wh_checker_cancel_reason\": \"Wala na this\",\r\n    \"total_state_repack_cancelled_qty\": 56\r\n\r\n\r\n}",
+							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 97,\r\n    \"primary_id\": 9706,\r\n    \"Is_wh_checker_cancel\": \"1\",\r\n    \"Is_wh_checker_cancel_by\": \"Gerard Singian\",\r\n    \"Is_wh_checker_cancel_date\": \"2022-07-28\",\r\n    \"Is_wh_checker_cancel_reason\": \"Wala na this\",\r\n    \"total_state_repack_cancelled_qty\": 1\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -388,12 +441,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/store_orders/cancelindividualitems",
-							"protocol": "http",
+							"raw": "{{baseUrl}}/api/store_orders/cancelindividualitems",
 							"host": [
-								"localhost"
+								"{{baseUrl}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"store_orders",
@@ -420,7 +471,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 77,\r\n    \"primary_id\": 9655,\r\n\r\n    \"total_state_repack_cancelled_qty\": 0\r\n\r\n\r\n}",
+							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 97,\r\n    \"primary_id\": 9706,\r\n    \"total_state_repack_cancelled_qty\": null\r\n\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -442,6 +493,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Cancel Parent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1115,\r\n    \"is_cancel_by\": \"Gerard Masarap\",\r\n    \"is_cancelled_reason\": \"Booratrum\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}api/store_orders/CancelParentTransaction",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"store_orders",
+								"CancelParentTransaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GENUS DATE PARAMs",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -451,6 +547,47 @@
 				{
 					"name": "LOCAL",
 					"item": [
+						{
+							"name": "NEARLY EXPIRY LIST",
+							"item": [
+								{
+									"name": "UPDATE Item NearLy Expiry",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"p_nearly_expiry_desc\": \"\",\r\n    \"p_date_modified\": \"\",\r\n    \"p_modified_by\": \"\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}api/tblNearlyExpiryMgmt",
+											"host": [
+												"{{baseUrl}}api"
+											],
+											"path": [
+												"tblNearlyExpiryMgmt"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
 						{
 							"name": "Get PO QC  Receiving",
 							"request": {
@@ -476,6 +613,36 @@
 									"path": [
 										"api",
 										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get PO QC  By PO Number",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/projects/search/Po_Number/104",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"projects",
+										"search",
+										"Po_Number",
+										"104"
 									]
 								}
 							},
@@ -528,14 +695,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/ProjectsPartialPo",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/ProjectsPartialPo",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"ProjectsPartialPo"
 									]
 								}
@@ -623,14 +787,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/ProjectsPartialPo/WHReject",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/ProjectsPartialPo/WHReject",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"ProjectsPartialPo",
 										"WHReject"
 									]
@@ -654,14 +815,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/ProjectsPartialPo/ExpiryApproval",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/ProjectsPartialPo/ExpiryApproval",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"ProjectsPartialPo",
 										"ExpiryApproval"
 									]
@@ -733,13 +891,93 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "NEARLY XPIRY APPROVAL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"projectid\": 2,\r\n    \"is_approved_xp\": \"1\",\r\n    \"is_approved_by\": \"Gerard\",\r\n    \"is_approved_date\": \"2022-08-25 00:00:00.0000000\"\r\n\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/ProjectsPartialPo",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"ProjectsPartialPo"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CANCEL PARTIAL PO",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"projectid\": 1,\r\n    \"cancelled_reason\": \"Alakbak\",\r\n    \"canceled_by\": \"Gerard\",\r\n    \"cancelled_date\": \"2022-10-25 00:00:00.0000000\"\r\n\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/ProjectsPartialPoCancel",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"ProjectsPartialPoCancel"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				}
 			]
 		},
 		{
-			"name": "PO Cancelled",
+			"name": "PO Cancelled & Return",
 			"item": [
 				{
 					"name": "Cancelled PO Transaction Status",
@@ -749,7 +987,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ3MzI0MDg2LCJleHAiOjE2NDczNTI4ODYsImlhdCI6MTY0NzMyNDA4Nn0.4KSCa1LpfBiUhGEuD527L3NCuUaQGfu8pXK4b26bcVA",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -757,18 +995,45 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.10.2.6:82/api/CancelledPOTransactionStatus",
+							"raw": "http://localhost:5000/api/CancelledPOTransactionStatus",
 							"protocol": "http",
 							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
+								"localhost"
 							],
-							"port": "82",
+							"port": "5000",
 							"path": [
 								"api",
 								"CancelledPOTransactionStatus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Return PO Transaction Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/ReturnPOTransactionStatus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"ReturnPOTransactionStatus"
 							]
 						}
 					},
@@ -967,17 +1232,24 @@
 						{
 							"name": "Role",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/AspNetRoles",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/AspNetRoles",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"AspNetRoles"
 									]
 								}
@@ -992,7 +1264,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjUyMjM1NTU0LCJleHAiOjE2NTIyNjQzNTQsImlhdCI6MTY1MjIzNTU1NH0.mAEwnbp5-28gCNQgULbM7C3rVbPu6ZnlTRzQHnBhEbs",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -1000,17 +1272,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/AspNetRoles/searchbyid/0898a69a-1db0-45a3-801e-56af934639d6",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/AspNetRoles/searchbyid/b48c6444-e3d5-4177-ba85-66c35796171d",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"AspNetRoles",
 										"searchbyid",
-										"0898a69a-1db0-45a3-801e-56af934639d6"
+										"b48c6444-e3d5-4177-ba85-66c35796171d"
 									]
 								}
 							},
@@ -1019,7 +1288,563 @@
 					]
 				},
 				{
-					"name": "Users | Getting All Users",
+					"name": "Role Modules",
+					"item": [
+						{
+							"name": "Get Roles By Role Description",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules/WarehouseChecker",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules",
+										"WarehouseChecker"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles By Role ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules/RoleId/cedd3253-45ce-4f8d-ac36-c69b2302a868/1",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules",
+										"RoleId",
+										"cedd3253-45ce-4f8d-ac36-c69b2302a868",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles By Role ID Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules/RoleId/Admin/cedd3253-45ce-4f8d-ac36-c69b2302a868/1",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules",
+										"RoleId",
+										"Admin",
+										"cedd3253-45ce-4f8d-ac36-c69b2302a868",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles By Role ID NEW",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules/RoleId/Sample/cedd3253-45ce-4f8d-ac36-c69b2302a868/2",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules",
+										"RoleId",
+										"Sample",
+										"cedd3253-45ce-4f8d-ac36-c69b2302a868",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Untagged Role Modules",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"isactive\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Untagged Role Modules Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"roleId\": \"b48c6444-e3d5-4177-ba85-66c35796171d\",\r\n    \"moduleId\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Main Menus",
+					"item": [
+						{
+							"name": "GET",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/MainMenus",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"MainMenus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "INSERT",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"modulename\": \"Make Authenticated\",\r\n  \"addedby\": \"Gerard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/MainMenus",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"MainMenus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 8,\r\n  \"modulename\": \"Sample lang Hirap\",\r\n  \"modifiedby\": \"Gerard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/MainMenus",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"MainMenus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ACTIVATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 8,\r\n  \"isActive\": true,\r\n  \"modifiedby\": \"Gerard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/MainMenus/Activate",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"MainMenus",
+										"Activate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEACTIVATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Id\": 8,\r\n  \"isActive\": false,\r\n  \"modifiedby\": \"Gerard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/MainMenus/Deactivate",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"MainMenus",
+										"Deactivate"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Modules",
+					"item": [
+						{
+							"name": "GET DATA",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/Modules",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"Modules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "INSERT",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n        \"mainMenuId\": 2,\r\n        \"subMenuName\": \"Sample Sub Menu\",\r\n        \"moduleName\": \"sample-submenu-route\",\r\n        \"addedBy\": \"Gerard\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/Modules",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"Modules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n     \"mainmenuid\": 2,\r\n     \"submenuname\" : \"SampleSubMenu\",\r\n     \"modulename\" : \"ModuleNameMaster\",\r\n     \"isactive\" : false,\r\n     \"modifiedby\": \"JimmySantos\"\r\n\r\n\r\n\r\n\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/Modules",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"Modules"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User Role",
+					"item": [
+						{
+							"name": "INSERT USER ROLE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Staff\",\r\n    \"isactivereference\": \"Active\"\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/AspNetRoles",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"AspNetRoles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPDATE INFO",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"9c5d66c8-88db-40e5-8aad-4941fcf26336\",\r\n    \"name\": \"Staff\",\r\n    \"isactivereference\": \"Active\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/AspNetRoles",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"AspNetRoles"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users | GET ALL USERS",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1034,17 +1859,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.10.2.6:82/api/umwebusers",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/umwebusers",
 							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
+								"{{baseUrl}}api"
 							],
-							"port": "82",
 							"path": [
-								"api",
 								"umwebusers"
 							]
 						}
@@ -1052,7 +1871,7 @@
 					"response": []
 				},
 				{
-					"name": "Users | Sort as Approver",
+					"name": "SORT BY APPROVERS",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1067,17 +1886,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.10.2.6:82/api/umwebusers_mrs_approver",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/umwebusers_mrs_approver",
 							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
+								"{{baseUrl}}api"
 							],
-							"port": "82",
 							"path": [
-								"api",
 								"umwebusers_mrs_approver"
 							]
 						}
@@ -1085,7 +1898,7 @@
 					"response": []
 				},
 				{
-					"name": "Users | Sort as Requestor",
+					"name": "SORT BY REQUESTOR",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1100,14 +1913,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/umwebusers_mrs_requestor",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/umwebusers_mrs_requestor",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"umwebusers_mrs_requestor"
 							]
 						}
@@ -1130,14 +1940,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/umwebusers?Authorization=Bearer {{token}}",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/umwebusers?Authorization=Bearer {{token}}",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"umwebusers"
 							],
 							"query": [
@@ -1156,17 +1963,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://10.10.2.6:82/api/getUserByEmail/jilo@yahoo.com",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/getUserByEmail/jilo@yahoo.com",
 							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
+								"{{baseUrl}}api"
 							],
-							"port": "82",
 							"path": [
-								"api",
 								"getUserByEmail",
 								"jilo@yahoo.com"
 							]
@@ -1180,14 +1981,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/getUserByEmail/jilo@yahoo.com",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/getUserByEmail/jilo@yahoo.com",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"getUserByEmail",
 								"jilo@yahoo.com"
 							]
@@ -1196,7 +1994,7 @@
 					"response": []
 				},
 				{
-					"name": "Register",
+					"name": "USER REGISTRATION",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1212,7 +2010,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstname\": \"Leomord\",\r\n    \"lastname\": \"Leomord\",\r\n    \"employee_number\":84,\r\n    \"username\": \"Leomord\",\r\n    \"password\": \"Admin123#\",\r\n    \"gender\": \"male\",\r\n    \"userrole\": \"Admin\",\r\n\r\n    \"department_id\": 3,\r\n    \"unit_id\": 1,\r\n    \"location\": \"MainOffice\",\r\n    \"approver\": true,\r\n    \"requestor\": true,\r\n    \"first_approver_name\": \"JAM BARONA\",\r\n    \"first_approver_id\": 1,\r\n    \"second_approver_name\": null,\r\n    \"second_approver_id\": null,\r\n    \"third_approver_name\": null,\r\n    \"third_approver_id\": null,\r\n    \"fourth_approver_name\": null,\r\n    \"fourth_approver_id\": null\r\n}",
+							"raw": "{\r\n    \"firstname\": \"Kelly\",\r\n    \"lastname\": \"Jones\",\r\n    \"employee_number\":1997,\r\n    \"username\": \"kelly\",\r\n    \"password\": \"Admin123\",\r\n    \"gender\": \"Male\",\r\n    \"userrole\": \"Admin\",\r\n\r\n    \"department_id\": 3,\r\n    \"unit_id\": 1032,\r\n    \"location\": \"MainOffice\",\r\n    \"approver\": false,\r\n    \"requestor\": true,\r\n    \"first_approver_name\": \"JAM BARONA\",\r\n    \"first_approver_id\": 1,\r\n    \"second_approver_name\": null,\r\n    \"second_approver_id\": 2,\r\n    \"third_approver_name\": null,\r\n    \"third_approver_id\": null,\r\n    \"fourth_approver_name\": null,\r\n    \"fourth_approver_id\": null\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1220,21 +2018,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/register",
-							"protocol": "http",
+							"raw": "{{baseUrl}}register",
 							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"register"
+								"{{baseUrl}}register"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Register  Update Information",
+					"name": "UPDATE USER INFORMATION",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1250,7 +2043,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"requestor\": true,\r\n    \"approver\": false,\r\n    \"first_approver_name\": \"vios4\",\r\n    \"first_approver_id\": 1,\r\n    \"second_approver_name\": null,\r\n    \"second_approver_id\": null,\r\n    \"third_approver_name\": null,\r\n    \"third_approver_id\": null,\r\n    \"fourth_approver_name\": null,\r\n    \"fourth_approver_id\": null,\r\n    \"EncryptPassword\": \"Admin12345#\",\r\n    \"Id\": \"85fee014-7509-4cb0-809e-008588e4470c\"\r\n}",
+							"raw": "{\r\n    \"requestor\": true,\r\n    \"approver\": false,\r\n    \"first_approver_name\": \"Vincent Cancda\",\r\n    \"first_approver_id\": 7,\r\n    \"second_approver_name\": null,\r\n    \"second_approver_id\": null,\r\n    \"third_approver_name\": null,\r\n    \"third_approver_id\": null,\r\n    \"fourth_approver_name\": null,\r\n    \"fourth_approver_id\": null,\r\n    \"location\": \"Depot\",\r\n    \"userRole\": \"QC Staff\",\r\n    \"Id\": \"eb057cd4-622c-459e-8155-8cf7317525ca\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1258,14 +2051,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/umwebusers_update",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/umwebusers_update",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"umwebusers_update"
 							]
 						}
@@ -1315,7 +2105,7 @@
 					"response": []
 				},
 				{
-					"name": "User Activate 5000",
+					"name": "USER ACTIVATION",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1357,7 +2147,7 @@
 					"response": []
 				},
 				{
-					"name": "Authenticate Local 5000",
+					"name": "AUTHENTICATION OF BACKEND",
 					"event": [
 						{
 							"listen": "test",
@@ -1383,6 +2173,94 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
+							"raw": "{\r\n    \r\n  \r\n\t\"Username\": \"Admin\",\r\n\t\"Password\": \"Admin123#\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5000/authenticate",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BASE URI LOCAL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"    pm.globals.set('baseUrl', \"https://localhost:5000/\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n\t\"Username\": \"Admin\",\r\n\t\"Password\": \"Admin123#\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:5000/authenticate",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BASE URI SERVER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"    pm.globals.set('baseUrl', \"http://10.10.2.6:82/\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
 							"raw": "{\r\n  \r\n\t\"Username\": \"Admin\",\r\n\t\"Password\": \"Admin123#\"\r\n\r\n}",
 							"options": {
 								"raw": {
@@ -1402,6 +2280,27 @@
 							"port": "82",
 							"path": [
 								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cedar Employeees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://rdfsedar.com/api/data/employees",
+							"protocol": "http",
+							"host": [
+								"rdfsedar",
+								"com"
+							],
+							"path": [
+								"api",
+								"data",
+								"employees"
 							]
 						}
 					},
@@ -2313,20 +3212,20 @@
 			]
 		},
 		{
-			"name": "For Lab Test",
+			"name": "LAB TEST PROCESS",
 			"item": [
 				{
 					"name": "Local",
 					"item": [
 						{
-							"name": "Get Lab Request",
+							"name": "LIST OF FOR LAB TEST",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MjkyMTcwLCJleHAiOjE2NDkzMjA5NzAsImlhdCI6MTY0OTI5MjE3MH0.3JcBbnQJtIlfceNcdJz5N-Iu3Eid9K6W_wDfxiyABM0",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -2334,29 +3233,69 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
 										"DryWareHouseReceivingForLabTest"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Get Lab Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:5000/api/DryWareHouseReceivingForLabTest",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "5000",
+											"path": [
+												"api",
+												"DryWareHouseReceivingForLabTest"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Date",
+											"value": "Mon, 08 Aug 2022 07:30:25 GMT"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Server",
+											"value": "Kestrel"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "[\n    {\n        \"id\": 9176,\n        \"lab_access_code\": \"\",\n        \"index_id_partial\": 15265,\n        \"item_code\": \"CONDI0001\",\n        \"item_description\": \"BREAD CRUMBS 500G TIFFANY\",\n        \"category\": \"DRY\",\n        \"uom\": \"PACK\",\n        \"qty_received\": \"90\",\n        \"historical_lab_transact_count\": 0,\n        \"lab_status\": \"LAB REQUEST\",\n        \"expiry_days_aging\": 9,\n        \"client_requestor\": \"DRY\",\n        \"lab_request_date\": \"2022-08-08\",\n        \"lab_request_by\": \"LeanderBucud\",\n        \"po_number\": 105,\n        \"is_active\": \"1\",\n        \"qa_approval_status\": null,\n        \"qa_approval_by\": null,\n        \"qa_approval_date\": \"04/28/2022\",\n        \"lab_result_released_by\": null,\n        \"lab_result_released_date\": null,\n        \"lab_result_remarks\": null,\n        \"lab_sub_remarks\": null,\n        \"lab_exp_date_extension\": \"08/18/2022\",\n        \"lab_approval_aging_days\": -102,\n        \"laboratory_procedure\": null,\n        \"supplier\": \"ROBINSON'S STARMILL\",\n        \"po_date\": \"08/9/2020 12:00:00 am\",\n        \"pr_no\": 5,\n        \"pr_date\": \"03/6/2020 12:00:00 am\",\n        \"lab_cancel_by\": null,\n        \"lab_cancel_date\": null,\n        \"lab_cancel_remarks\": null,\n        \"sample_Qty\": \"5\"\n    },\n    {\n        \"id\": 9182,\n        \"lab_access_code\": \"2022-D-2\",\n        \"index_id_partial\": 15272,\n        \"item_code\": \"CONDI0001\",\n        \"item_description\": \"BREAD CRUMBS 500G TIFFANY\",\n        \"category\": \"DRY\",\n        \"uom\": \"PACK\",\n        \"qty_received\": \"60\",\n        \"historical_lab_transact_count\": 0,\n        \"lab_status\": \"LAB APPROVED\",\n        \"expiry_days_aging\": -84,\n        \"client_requestor\": \"DRY\",\n        \"lab_request_date\": \"2022-04-29\",\n        \"lab_request_by\": \"LeanderBucud\",\n        \"po_number\": 105,\n        \"is_active\": \"1\",\n        \"qa_approval_status\": \"1\",\n        \"qa_approval_by\": \"Kim Barona\",\n        \"qa_approval_date\": \"04/29/2022\",\n        \"lab_result_released_by\": null,\n        \"lab_result_released_date\": null,\n        \"lab_result_remarks\": null,\n        \"lab_sub_remarks\": null,\n        \"lab_exp_date_extension\": \"05/16/2022\",\n        \"lab_approval_aging_days\": -101,\n        \"laboratory_procedure\": null,\n        \"supplier\": \"ROBINSON'S STARMILL\",\n        \"po_date\": \"08/9/2020 12:00:00 am\",\n        \"pr_no\": 5,\n        \"pr_date\": \"03/6/2020 12:00:00 am\",\n        \"lab_cancel_by\": null,\n        \"lab_cancel_date\": null,\n        \"lab_cancel_remarks\": null,\n        \"sample_Qty\": \"0\"\n    },\n    {\n        \"id\": 9181,\n        \"lab_access_code\": \"2022-D-2\",\n        \"index_id_partial\": 15270,\n        \"item_code\": \"CONDI0001\",\n        \"item_description\": \"BREAD CRUMBS 500G TIFFANY\",\n        \"category\": \"DRY\",\n        \"uom\": \"PACK\",\n        \"qty_received\": \"45\",\n        \"historical_lab_transact_count\": 0,\n        \"lab_status\": \"LAB APPROVED\",\n        \"expiry_days_aging\": -84,\n        \"client_requestor\": \"DRY\",\n        \"lab_request_date\": \"2022-05-17\",\n        \"lab_request_by\": \"LeanderBucud\",\n        \"po_number\": 105,\n        \"is_active\": \"1\",\n        \"qa_approval_status\": \"1\",\n        \"qa_approval_by\": \"Kim Barona\",\n        \"qa_approval_date\": \"05/17/2022\",\n        \"lab_result_released_by\": null,\n        \"lab_result_released_date\": null,\n        \"lab_result_remarks\": null,\n        \"lab_sub_remarks\": null,\n        \"lab_exp_date_extension\": \"05/16/2022\",\n        \"lab_approval_aging_days\": -83,\n        \"laboratory_procedure\": null,\n        \"supplier\": \"ROBINSON'S STARMILL\",\n        \"po_date\": \"08/9/2020 12:00:00 am\",\n        \"pr_no\": 5,\n        \"pr_date\": \"03/6/2020 12:00:00 am\",\n        \"lab_cancel_by\": null,\n        \"lab_cancel_date\": null,\n        \"lab_cancel_remarks\": null,\n        \"sample_Qty\": \"0\"\n    }\n]"
+								}
+							]
 						},
 						{
-							"name": "Get Nearly Expiry Item",
+							"name": "NEARLY EXPIRY ITEMS",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MzIxMzEzLCJleHAiOjE2NDkzNTAxMTMsImlhdCI6MTY0OTMyMTMxM30.agMc7cv6gX7zUS6K9mEy3Hii4Ge8w7uumD2y8SVZyxk",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -2364,30 +3303,27 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/NearlyExpiry",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/NearlyExpiryx",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
 										"DryWareHouseReceivingForLabTest",
-										"NearlyExpiry"
+										"NearlyExpiryx"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get Lab Request Record Logs",
+							"name": "LAB REQ LOGS RESULT",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjUwNTkxODY5LCJleHAiOjE2NTA2MjA2NjksImlhdCI6MTY1MDU5MTg2OX0.CmOR8YJLaT_e6-GFSf2pkLn3Y3H8k-k0b3Ttol8VB6c",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -2395,14 +3331,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/LabResult",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/LabResult",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
 										"DryWareHouseReceivingForLabTest",
 										"LabResult"
 									]
@@ -2411,14 +3344,14 @@
 							"response": []
 						},
 						{
-							"name": "Get Lab Request Result For Approval",
+							"name": "LAB REQ LOGS RESULT WICH ACCES CODE",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5ODM1NTg4LCJleHAiOjE2NDk4NjQzODgsImlhdCI6MTY0OTgzNTU4OH0.fFvrPNhBJUr9SX-qi_PjGL8Ak7llRNXhvSJ1g0rr6WY",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -2426,14 +3359,68 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/LabResultApproval",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/LabResultWithAccessCode",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
+										"DryWareHouseReceivingForLabTest",
+										"LabResultWithAccessCode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "RESULT WICH ACCES CODE FILTER",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/SearchLabResultWithAccessCode/3130",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"SearchLabResultWithAccessCode",
+										"3130"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LAB RESULT FOR APPROVAL QA",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/LabResultApproval",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
 										"DryWareHouseReceivingForLabTest",
 										"LabResultApproval"
 									]
@@ -2442,14 +3429,14 @@
 							"response": []
 						},
 						{
-							"name": "Get Lab Request  Historical",
+							"name": "LAB REQUEST HISTORICAL",
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MjEzNjc1LCJleHAiOjE2NDkyNDI0NzUsImlhdCI6MTY0OTIxMzY3NX0.n0VpQWrFJDgzoyWgpE5AwY11_97TwHcNvidhGoIkhWM",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -2457,68 +3444,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/searchreceivedidentity/9129",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/CancelledLabTestTransactionStatus",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"searchreceivedidentity",
-										"9129"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "QA Approval",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MjEzNjc1LCJleHAiOjE2NDkyNDI0NzUsImlhdCI6MTY0OTIxMzY3NX0.n0VpQWrFJDgzoyWgpE5AwY11_97TwHcNvidhGoIkhWM",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"qa_approval_by\": \"Justine Bieber\",\r\n    \"qa_approval_status\": \"1\",\r\n    \"qa_approval_date\": \"2022-04-15\",\r\n     \"lab_status\": \"LAB APPROVED\"\r\n\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/QAApproval?labTestQAStaffApprovalParams=9129",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "54573",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"QAApproval"
-									],
-									"query": [
-										{
-											"key": "labTestQAStaffApprovalParams",
-											"value": "9129"
-										},
-										{
-											"key": "",
-											"value": null,
-											"disabled": true
-										}
+										"CancelledLabTestTransactionStatus"
 									]
 								}
 							},
@@ -2541,7 +3472,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_result_released_by\": \"Justine Bieber\",\r\n    \"lab_result_released_date\": \"2022-04-16\",\r\n    \"lab_status\": \"LAB RESULT\",\r\n     \"lab_result_remarks\": \"Condemnation\",\r\n     \"lab_sub_remarks\": \"React Developer\",\r\n     \"lab_exp_date_extension\": \"04/15/2022\",\r\n     \"laboratory_procedure\" : \"Microbial Biology\"\r\n\r\n\r\n}",
+									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_result_released_by\": \"Justine Bieber\",\r\n    \"lab_result_released_date\": \"2022-04-16\",\r\n    \"lab_status\": \"LAB RESULT\",\r\n     \"lab_result_remarks\": \"Condemnation\",\r\n     \"lab_sub_remarks\": \"React Developer\",\r\n     \"lab_exp_date_extension\": \"04/15/2022\",\r\n     \"laboratory_procedure\" : \"Microbial Biology\"\r\n\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2549,14 +3480,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/QAReleasingResult?labTestQAStaffApprovalParams=9129",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QAReleasingResult?labTestQAStaffApprovalParams=9129",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
 										"DryWareHouseReceivingForLabTest",
 										"QAReleasingResult"
 									],
@@ -2570,262 +3498,6 @@
 											"key": "labTestQAStaffApprovalParams",
 											"value": "9129"
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Cancel QA Laboratory Result",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MTI2MzUwLCJleHAiOjE2NDkxNTUxNTAsImlhdCI6MTY0OTEyNjM1MH0.DycIzHGEOTErGGOHkpwJqycMK6Ve6hMlcXw7LxdLDD0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_cancel_by\": \"Justine Bieber\",\r\n    \"lab_cancel_by_date\": \"2022-04-10 16:35:42.963\",\r\n    \"lab_cancel_remarks\": \"Item Sample is not valid\",\r\n     \"qa_approval_status\": \"3\"\r\n    \r\n\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/CancelledQAReleasingResult?labTestCancelParams=9129",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "54573",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"CancelledQAReleasingResult"
-									],
-									"query": [
-										{
-											"key": "labTestCancelParams",
-											"value": "9129"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Cancel QA Laboratory Result SuperVisor",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5NjY3NTE3LCJleHAiOjE2NDk2OTYzMTcsImlhdCI6MTY0OTY2NzUxN30.KnVTMESzXsTr0HBmqJswMCgkCOwtWZtR_p-fBV1T2f0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9129\"\r\n\r\n\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/CancelledQASupervisorReleasingLabResult?labTestCancelParams=9129",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "54573",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"CancelledQASupervisorReleasingLabResult"
-									],
-									"query": [
-										{
-											"key": "labTestCancelParams",
-											"value": "9129"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Cancel QA Laboratory Result SuperVisor  Server SIDE",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5NjY3NTE3LCJleHAiOjE2NDk2OTYzMTcsImlhdCI6MTY0OTY2NzUxN30.KnVTMESzXsTr0HBmqJswMCgkCOwtWZtR_p-fBV1T2f0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9181\"\r\n\r\n\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://10.10.2.6:82/api/DryWareHouseReceivingForLabTest/CancelledQASupervisorReleasingLabResult?labTestCancelParams=9129",
-									"protocol": "http",
-									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
-									],
-									"port": "82",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"CancelledQASupervisorReleasingLabResult"
-									],
-									"query": [
-										{
-											"key": "labTestCancelParams",
-											"value": "9129"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "QA Supervisor Approval on LAb Result",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjUwMjQzNjk5LCJleHAiOjE2NTAyNzI0OTksImlhdCI6MTY1MDI0MzY5OX0.MhVbnqEiFf3cFTsRFH-NZkE9FndmWPcm11hmzITZJi0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"lab_req_id\": \"2113\",\r\n\t\"qa_supervisor_is_approve_by\": \"Rodrigo Duterte\",\r\n    \"qa_supervisor_is_approve_date\": \"2022-04-18\",\r\n     \"qa_supervisor_is_approve_status\": 1\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/QASupervisorApproval",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "54573",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"QASupervisorApproval"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "QA Supervisor Approval on LAb Result Server Side",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjUwMjQzNjk5LCJleHAiOjE2NTAyNzI0OTksImlhdCI6MTY1MDI0MzY5OX0.MhVbnqEiFf3cFTsRFH-NZkE9FndmWPcm11hmzITZJi0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [
-									{
-										"key": "",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"lab_req_id\": \"2113\",\r\n\t\"qa_supervisor_is_approve_by\": \"Rodrigo Duterte\",\r\n    \"qa_supervisor_is_approve_date\": \"2022-04-18\",\r\n     \"qa_supervisor_is_approve_status\": 1\r\n\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/QASupervisorApproval",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "54573",
-									"path": [
-										"api",
-										"DryWareHouseReceivingForLabTest",
-										"QASupervisorApproval"
 									]
 								}
 							},
@@ -2863,14 +3535,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:54573/api/DryWareHouseReceivingForLabTest/QASupervisorCancelLabResult",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QASupervisorCancelLabResult",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "54573",
 									"path": [
-										"api",
 										"DryWareHouseReceivingForLabTest",
 										"QASupervisorCancelLabResult"
 									]
@@ -2881,135 +3550,512 @@
 					]
 				},
 				{
-					"name": "For Lab Test",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MDM0MTU1LCJleHAiOjE2NDkwNjI5NTUsImlhdCI6MTY0OTAzNDE1NX0.x4lKI-VMpTFYlmy4mm53uw2vKe7ebzkok8hM-O2fXNI",
-									"type": "string"
+					"name": "QA HEAD || SUPERVISOR",
+					"item": [
+						{
+							"name": "CANCEL LAB RESULT APPROVAL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5NjY3NTE3LCJleHAiOjE2NDk2OTYzMTcsImlhdCI6MTY0OTY2NzUxN30.KnVTMESzXsTr0HBmqJswMCgkCOwtWZtR_p-fBV1T2f0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"9176\",\r\n    \"LabTest_CancelledReason\": \"SampleReason\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/CancelledQASupervisorReleasingLabResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"CancelledQASupervisorReleasingLabResult"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://10.10.2.6:82/api/DryWareHouseReceivingForLabTest",
-							"protocol": "http",
-							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
-							],
-							"port": "82",
-							"path": [
-								"api",
-								"DryWareHouseReceivingForLabTest"
-							]
+						{
+							"name": "QA HEAD APPROVAL LAB REQ",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"lab_req_id\": \"3134\",\r\n    \"qa_supervisor_is_approve_by\": \"Rodrigo Duterte\",\r\n    \"lab_result_remarks\": \"Production\",\r\n    \"lab_sub_remarks\": \"Condemnation\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QASupervisorApproval",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"QASupervisorApproval"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "QA Approval Server",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MDM0MTU1LCJleHAiOjE2NDkwNjI5NTUsImlhdCI6MTY0OTAzNDE1NX0.x4lKI-VMpTFYlmy4mm53uw2vKe7ebzkok8hM-O2fXNI",
-									"type": "string"
+					"name": "TSQA MANAGER",
+					"item": [
+						{
+							"name": "TSQA HEAD APPROVAL LAB RESULT",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"lab_req_id\": \"3132\",\r\n\t\"tsqa_approval_by\": \"Cenon Tubil\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/TSQASupervisorApproval",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"TSQASupervisorApproval"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"id\": \"9130\",\r\n\t\"qa_approval_by\": \"Gerard Singian\",\r\n    \"qa_approval_status\": \"1\",\r\n    \"qa_approval_date\": \"Apr 6 2022 10:28AM\",\r\n     \"lab_status\": \"LAB APPROVED\"\r\n\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "CANCEL LAB RESULT APPROVAL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5NjY3NTE3LCJleHAiOjE2NDk2OTYzMTcsImlhdCI6MTY0OTY2NzUxN30.KnVTMESzXsTr0HBmqJswMCgkCOwtWZtR_p-fBV1T2f0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"id\": \"9176\",\r\n   \"LabTest_CancelledReason\": \"SampleReason\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/CancelledQASupervisorReleasingLabResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"CancelledQASupervisorReleasingLabResult"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "http://10.10.2.6:82/api/DryWareHouseReceivingForLabTest/QAApproval?labTestQAStaffApprovalParams=9130",
-							"protocol": "http",
-							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
-							],
-							"port": "82",
-							"path": [
-								"api",
-								"DryWareHouseReceivingForLabTest",
-								"QAApproval"
-							],
-							"query": [
-								{
-									"key": "labTestQAStaffApprovalParams",
-									"value": "9130"
-								}
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "QA Laboratory Result Releasing Server",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MDM0MTU1LCJleHAiOjE2NDkwNjI5NTUsImlhdCI6MTY0OTAzNDE1NX0.x4lKI-VMpTFYlmy4mm53uw2vKe7ebzkok8hM-O2fXNI",
-									"type": "string"
+					"name": "QA ANALYST",
+					"item": [
+						{
+							"name": "LAB ANALYST RECEIVING",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"id\": \"9175\",\r\n\t\"qa_approval_by\": \"KIM BARONA\",\r\n     \"lab_status\": \"LAB APPROVED\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QAApproval",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"QAApproval"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"id\": \"9130\",\r\n\t\"lab_result_released_by\": \"Justine Bieber\",\r\n    \"lab_result_released_date\": \"Apr 8 2022 10:28AM\",\r\n    \"lab_status\": \"LAB RESULT\",\r\n     \"lab_result_remarks\": \"Condemnation\",\r\n     \"lab_sub_remarks\": \"React Developer\",\r\n     \"lab_exp_date_extension\": \"04/20/2022\"\r\n\r\n\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "LAB CANCEL",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjQ5MTI2MzUwLCJleHAiOjE2NDkxNTUxNTAsImlhdCI6MTY0OTEyNjM1MH0.DycIzHGEOTErGGOHkpwJqycMK6Ve6hMlcXw7LxdLDD0",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_cancel_by\": \"Justine Bieber\",\r\n    \"lab_cancel_remarks\": \"Item Sample is not valid\",\r\n     \"qa_approval_status\": \"3\"\r\n    \r\n\r\n\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/CancelledQAReleasingResult?labTestCancelParams=9129",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"CancelledQAReleasingResult"
+									],
+									"query": [
+										{
+											"key": "labTestCancelParams",
+											"value": "9129"
+										}
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://10.10.2.6:82/api/DryWareHouseReceivingForLabTest/QAReleasingResult?labTestQAStaffApprovalParams=9130",
-							"protocol": "http",
-							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
-							],
-							"port": "82",
-							"path": [
-								"api",
-								"DryWareHouseReceivingForLabTest",
-								"QAReleasingResult"
-							],
-							"query": [
-								{
-									"key": "labTestQAStaffApprovalParams",
-									"value": "9130"
+						{
+							"name": "LAB RESULT RELEASING",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"id\": \"10205\",\r\n   \"laboratory_procedure\": \"Microbial Biology\",\r\n\t\"lab_result_released_by\": \"QA SUPERVISOR\",\r\n     \"lab_exp_date_extension\": \"08/25/2022\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QAReleasingResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"QAReleasingResult"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "LAB RESULT RELEASING Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "9172",
+											"type": "text"
+										},
+										{
+											"key": "lab_result_released_by",
+											"value": "QA SUPERVISOR",
+											"type": "text"
+										},
+										{
+											"key": "lab_exp_date_extension",
+											"value": "08/29/2022",
+											"type": "text"
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/gsingian/Pictures/MIS.jpg"
+										},
+										{
+											"key": "laboratory_procedure",
+											"value": "Microbial Evaluation",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QAReleasingResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"QAReleasingResult"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "LAB RESULT SET ACCESS CODE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"lab_req_id\": \"3132\",\r\n        \"lab_access_code\": \"1997\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/SettingLabAccessCode",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"SettingLabAccessCode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UPLOAD IMAGE",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "1",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": [
+												"/C:/Users/gsingian/Pictures/gerard.JPG",
+												"/C:/Users/gsingian/Pictures/MIS.jpg"
+											]
+										},
+										{
+											"key": "name",
+											"value": "imagename",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/AttachResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"AttachResult"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Cancelled Lab Reason MasterList",
+					"item": [
+						{
+							"name": "LAB REQUEST HISTORICAL Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/CancelledLabTestTransactionStatus",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"CancelledLabTestTransactionStatus"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -3287,7 +4333,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjFlNDYxZTc2LWQ1OWItNDE2NC1iNTBiLTMyNjM5OTY1NzU2NSIsImVtYWlsIjoiYWRtaW5AZ21haWwuY29tIiwicm9sZSI6IkFkbWluIiwibmJmIjoxNjUyMzE2Mzg3LCJleHAiOjE2NTIzNDUxODcsImlhdCI6MTY1MjMxNjM4N30.Yfpo1zsl5_sW89-10WsnH1SWSw7LeKklMk9cMdpbt-4",
+											"value": "{{token}}",
 											"type": "string"
 										}
 									]
@@ -3295,14 +4341,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/rawmaterials",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/rawmaterials",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"rawmaterials"
 									]
 								}
@@ -3333,16 +4376,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_master/7",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/material_request_master/3",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"material_request_master",
-												"7"
+												"3"
 											]
 										}
 									},
@@ -3364,14 +4404,11 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_master/approved/7",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/material_request_master/approved/7",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"material_request_master",
 												"approved",
 												"7"
@@ -3962,14 +4999,11 @@
 											}
 										},
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_master/approve",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/material_request_master/approve",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"material_request_master",
 												"approve"
 											]
@@ -4033,17 +5067,14 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_master/cancelled/6",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/material_request_master/cancelled/7",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"material_request_master",
 												"cancelled",
-												"6"
+												"7"
 											]
 										}
 									},
@@ -4065,14 +5096,11 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/material_request_logs_distinct/userlogin/approver/1e461e76-d59b-4164-b50b-326399657565/18",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/material_request_logs_distinct/userlogin/approver/1e461e76-d59b-4164-b50b-326399657565/18",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"material_request_logs_distinct",
 												"userlogin",
 												"approver",
@@ -4280,14 +5308,11 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:5000/api/employees",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/employees",
 							"host": [
-								"localhost"
+								"{{baseUrl}}api"
 							],
-							"port": "5000",
 							"path": [
-								"api",
 								"employees"
 							]
 						}
@@ -4318,14 +5343,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/child_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/child_checklist",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"child_checklist"
 									]
 								}
@@ -4348,14 +5370,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/child_checklist/search/1",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/child_checklist/search/1",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"child_checklist",
 										"search",
 										"1"
@@ -4839,14 +5858,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/checklist_paramaters",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/checklist_paramaters",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"checklist_paramaters"
 									]
 								}
@@ -5002,14 +6018,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/dynamic_checklist_logger_insert",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/dynamic_checklist_logger_insert",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"dynamic_checklist_logger_insert"
 									]
 								}
@@ -5032,14 +6045,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/parent_dynamic_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_dynamic_checklist",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"parent_dynamic_checklist"
 									]
 								}
@@ -5121,14 +6131,11 @@
 								"method": "PUT",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/parent_dynamic_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_dynamic_checklist",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"parent_dynamic_checklist"
 									]
 								}
@@ -5151,14 +6158,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/projects",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/projects",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"projects"
 									]
 								}
@@ -5181,14 +6185,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/parent_dynamic_checklist_per_identity/102",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_dynamic_checklist_per_identity/102",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"parent_dynamic_checklist_per_identity",
 										"102"
 									]
@@ -5212,8 +6213,8 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/parent_dynamic_checklist_all",
-									"protocol": "http",
+									"raw": "https://localhost:5000/api/parent_dynamic_checklist_all",
+									"protocol": "https",
 									"host": [
 										"localhost"
 									],
@@ -5315,17 +6316,38 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://10.10.2.6:82/api/parent_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_checklist",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}api"
 									],
-									"port": "82",
 									"path": [
-										"api",
+										"parent_checklist"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Parent || Getting All Data Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/parent_checklist",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
 										"parent_checklist"
 									]
 								}
@@ -5348,17 +6370,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://10.10.2.6:82/api/parent_checklist/2",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_checklist/2",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}api"
 									],
-									"port": "82",
 									"path": [
-										"api",
 										"parent_checklist",
 										"2"
 									]
@@ -5391,17 +6407,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://10.10.2.6:82/api/parent_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_checklist",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}api"
 									],
-									"port": "82",
 									"path": [
-										"api",
 										"parent_checklist"
 									]
 								}
@@ -5433,17 +6443,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://10.10.2.6:82/api/parent_checklist",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/parent_checklist",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}api"
 									],
-									"port": "82",
 									"path": [
-										"api",
 										"parent_checklist"
 									]
 								}
@@ -5475,17 +6479,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://10.10.2.6:82/parent_checklist/deactivate",
-									"protocol": "http",
+									"raw": "{{baseUrl}}parent_checklist/deactivate",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}parent_checklist"
 									],
-									"port": "82",
 									"path": [
-										"parent_checklist",
 										"deactivate"
 									]
 								}
@@ -5517,17 +6515,11 @@
 									}
 								},
 								"url": {
-									"raw": "http://10.10.2.6:82/parent_checklist/activate",
-									"protocol": "http",
+									"raw": "{{baseUrl}}parent_checklist/activate",
 									"host": [
-										"10",
-										"10",
-										"2",
-										"6"
+										"{{baseUrl}}parent_checklist"
 									],
-									"port": "82",
 									"path": [
-										"parent_checklist",
 										"activate"
 									]
 								}

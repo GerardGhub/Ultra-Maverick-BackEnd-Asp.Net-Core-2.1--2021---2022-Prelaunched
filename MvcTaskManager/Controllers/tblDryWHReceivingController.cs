@@ -898,14 +898,12 @@ namespace MvcTaskManager.Controllers
       {
         existingDataStatus.Lab_status = LabStatus;
         existingDataStatus.Lab_result_remarks = null;
-
         existingDataStatus.Lab_result_released_by = null;
         existingDataStatus.Lab_result_released_date = null;
         existingDataStatus.Lab_sub_remarks = null;
         existingDataStatus.Laboratory_procedure = null;
         existingDataStatus.Lab_exp_date_extension = Convert.ToDateTime(existingDataStatus.Lab_exp_date_request);
         existingDataStatus.LabTest_CancelledReason = labTestCancelParams.LabTest_CancelledReason;
-
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
