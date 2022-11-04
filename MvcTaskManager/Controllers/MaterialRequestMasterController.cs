@@ -850,11 +850,11 @@ namespace MvcTaskManager.Controllers
                          
                             && Parents.user_id == user_idx
                                     && Parents.is_active.Equals(false)
-                                    &&
-                           (User.First_approver_id == user_idx
+                 
+                            || User.First_approver_id == user_idx
                             || User.Second_approver_id == user_idx
                             || User.Third_approver_id == user_idx
-                            || User.Fourth_approver_id == user_idx)
+                            || User.Fourth_approver_id == user_idx
                     
 
                             select new
@@ -928,7 +928,10 @@ namespace MvcTaskManager.Controllers
           return NoContent();
         }
 
-        return Ok(result);
+
+        var FiltertheCancelData = result.Where(temp => temp.is_active.Equals(false)).ToList();
+
+        return Ok(FiltertheCancelData);
 
       }
 

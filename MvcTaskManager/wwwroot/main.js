@@ -8381,7 +8381,6 @@ class OnlineMrsService {
     returnOrderReasonList() {
         return this.httpClient.get("/api/internal_mrs_returned_reason", { responseType: "json" });
     }
-    // ITEMS
     getItemList() {
         return this.httpClient.get("/api/rawmaterials", { responseType: "json" });
     }
@@ -8391,7 +8390,6 @@ class OnlineMrsService {
     removeItemFromList(id) {
         return this.httpClient.delete("/api/material_request_logs/" + id, { responseType: "json" });
     }
-    //INSERT ORDERS
     saveOrders(data) {
         return this.httpClient.post("/api/material_request_logs_insert", data, { responseType: "json" });
     }
