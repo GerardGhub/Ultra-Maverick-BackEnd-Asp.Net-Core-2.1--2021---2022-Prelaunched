@@ -256,15 +256,17 @@ namespace MvcTaskManager.Controllers
                             join Department in db.Department on Parents.department_id equals Department.department_id
 
                             where Parents.mrs_id == Parents.mrs_id
-                       
+                               && Parents.is_active.Equals(true)
+
+                              && Parents.is_approved_by == null
+
                               && Parents.user_id == user_id
                               || User.First_approver_id == user_id
                               || User.Second_approver_id == user_id
                               || User.Third_approver_id == user_id
                               || User.Fourth_approver_id == user_id
- 
-                              && Parents.is_approved_by == null
-                              && Parents.is_active.Equals(true)
+
+
 
                             select new
                             {
@@ -320,15 +322,13 @@ namespace MvcTaskManager.Controllers
                                                  Childs.is_prepared_date,
                                                  Childs.is_prepared_by,
                                                  Childs.is_wh_checker_cancel
-
-
-
                                                }
                             })
-
                         .ToListAsync();
 
-        return Ok(result);
+        var showActivatedData = result.Where(temp => temp.is_active.Equals(true)).ToList();
+        return Ok(showActivatedData);
+        
       }
 
 

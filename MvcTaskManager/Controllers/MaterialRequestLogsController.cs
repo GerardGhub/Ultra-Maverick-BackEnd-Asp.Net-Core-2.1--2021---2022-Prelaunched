@@ -459,40 +459,6 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetDistinctMaterialRequestByTransactNo()
     {
 
-      //List<MaterialRequestLogs> StoreOrderCheckList = await db.material_request_logs.GroupBy(p => new { p.mrs_transact_no, p.mrs_requested_by })
-      //  .Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-      //  ).ToListAsync();
-
-      //List<MaterialRequestLogs> obj = new List<MaterialRequestLogs>();
-      //var results = (from p in db.material_request_logs
-      //               join b in db.Department on p.department_id equals b.department_id
-      //               where p.is_active.Equals(true)
-
-      //               group p by new
-      //               {
-      //                 p.mrs_transact_no,
-      //                 p.department_id,
-      //                 p.mrs_date_requested
-      //               } into total
-
-      //               select new MaterialRequestDistinctPerTransactions
-      //               {
-
-      //                 Mrs_transact_no = total.Key.mrs_transact_no,
-      //                 Mrs_order_qty = total.Sum(x => Convert.ToInt32(x.mrs_order_qty)),
-      //                 Department_Id = total.Key.department_id,
-      //                 Static_count = total.Count(),
-      //                 Mrs_date_requested = total.Key.mrs_date_requested
-
-      //               }
-
-
-
-      //              );
-
-
-      //return Ok(results);
-
 
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master

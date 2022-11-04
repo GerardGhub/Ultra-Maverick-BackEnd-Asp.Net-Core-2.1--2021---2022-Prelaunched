@@ -14,7 +14,7 @@ namespace MvcTaskManager.Identity
     }
 
     public DbSet<ClientLocation> ClientLocations { get; set; }
-    //public DbSet<Store_Preparation_LogsModel> Store_Preparation_Logs { get; set; }
+
 
     public DbSet<Project> Projects { get; set; }
     public DbSet<RMProjectsPartialPo> ProjectsPartialPo { get; set; }
