@@ -1000,7 +1000,7 @@ namespace MvcTaskManager.Controllers
 
           item.mrs_req_desc = MRSParams.mrs_req_desc;
           item.updated_by = MRSParams.updated_by;
-          item.mrs_date_needed = MRSParams.mrs_date_needed;
+          //item.mrs_date_needed = MRSParams.mrs_date_needed;
           item.updated_date = DateTime.Now.ToString("M/d/yyyy");
 
         }
