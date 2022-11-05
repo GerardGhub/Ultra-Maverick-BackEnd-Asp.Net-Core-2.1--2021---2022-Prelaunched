@@ -326,7 +326,7 @@ namespace MvcTaskManager.Controllers
                             })
                         .ToListAsync();
 
-        var showActivatedData = result.Where(temp => temp.is_active.Equals(true)).ToList();
+        var showActivatedData = result.Where(temp => temp.is_active.Equals(true) && temp.is_approved_by == null).ToList();
         return Ok(showActivatedData);
         
       }
@@ -553,11 +553,11 @@ namespace MvcTaskManager.Controllers
                               && Parents.user_id == user_id
                                                     && Parents.is_approved_by != null
                                                     &&  Parents.is_active.Equals(true)
-                                                    &&
-                              ( User.First_approver_id == user_id
+                                                    
+                              || User.First_approver_id == user_id
                               || User.Second_approver_id == user_id
                               || User.Third_approver_id == user_id
-                              || User.Fourth_approver_id == user_id)
+                              || User.Fourth_approver_id == user_id
 
                    
 
@@ -624,7 +624,9 @@ namespace MvcTaskManager.Controllers
 
                         .ToListAsync();
 
-        return Ok(result);
+        var getApprovedData = result.Where(temp => temp.is_approved_by != null).ToList();
+
+        return Ok(getApprovedData);
       }
 
 

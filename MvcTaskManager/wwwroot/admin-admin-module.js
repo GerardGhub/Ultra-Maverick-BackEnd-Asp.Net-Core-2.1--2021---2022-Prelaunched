@@ -7002,15 +7002,15 @@ PreparedStoreOrderComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RejectedStatusComponent", function() { return RejectedStatusComponent; });
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
-/* harmony import */ var src_app_models_rejected_status__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/models/rejected-status */ "kHQe");
-/* harmony import */ var src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/pipes/filter.pipe */ "BhhM");
+/* harmony import */ var _models_rejected_status__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../models/rejected-status */ "kHQe");
+/* harmony import */ var _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../pipes/filter.pipe */ "BhhM");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! jquery */ "EVdn");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! sweetalert2 */ "PSD3");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ "fXoL");
-/* harmony import */ var src_app_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! src/app/services/rejected-status.service */ "EVuK");
-/* harmony import */ var src_app_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! src/app/services/system-capability-status.service */ "lJP4");
+/* harmony import */ var _services_rejected_status_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../services/rejected-status.service */ "EVuK");
+/* harmony import */ var _services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../services/system-capability-status.service */ "lJP4");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ngx-toastr */ "5eHb");
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "ofXK");
 /* harmony import */ var _angular_material_button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/material/button */ "bTqV");
@@ -7075,8 +7075,9 @@ function RejectedStatusComponent_tr_41_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](8, " update");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](9, " Edit ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](9, "\u00A0 ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "\u00A0 ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -7218,7 +7219,7 @@ class RejectedStatusComponent {
         this.rmRejectedStatus = [];
         this.showLoading = true;
         //Objects for Delete
-        this.deleteRejectStatus = new src_app_models_rejected_status__WEBPACK_IMPORTED_MODULE_1__["RejectedStatus"]();
+        this.deleteRejectStatus = new _models_rejected_status__WEBPACK_IMPORTED_MODULE_1__["RejectedStatus"]();
         this.editIndex = null;
         this.deleteIndex = null;
         //Properties for Searching
@@ -7260,7 +7261,7 @@ class RejectedStatusComponent {
     }
     calculateNoOfPages() {
         //Get no. of Pages
-        let filterPipe = new src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"]();
+        let filterPipe = new _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"]();
         var noOfPages = Math.ceil(filterPipe.transform(this.rmRejectedStatus, this.searchBy, this.searchText).length / this.pageSize);
         this.pages = [];
         //Generate pages
@@ -7303,7 +7304,7 @@ class RejectedStatusComponent {
             //Invoke the REST-API call
             this.rejectedStatusService.insertRejectStatus(this.newForm.value).subscribe((response) => {
                 //Add Response to Grid
-                var p = new src_app_models_rejected_status__WEBPACK_IMPORTED_MODULE_1__["RejectedStatus"]();
+                var p = new _models_rejected_status__WEBPACK_IMPORTED_MODULE_1__["RejectedStatus"]();
                 p.id = response.id;
                 p.reject_status_name = response.reject_status_name;
                 p.is_active = response.is_active;
@@ -7399,7 +7400,7 @@ class RejectedStatusComponent {
         }
     }
 }
-RejectedStatusComponent.ɵfac = function RejectedStatusComponent_Factory(t) { return new (t || RejectedStatusComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_6__["RejectedStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](src_app_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__["SystemCapabilityStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"])); };
+RejectedStatusComponent.ɵfac = function RejectedStatusComponent_Factory(t) { return new (t || RejectedStatusComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_services_rejected_status_service__WEBPACK_IMPORTED_MODULE_6__["RejectedStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormBuilder"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](_services_system_capability_status_service__WEBPACK_IMPORTED_MODULE_7__["SystemCapabilityStatusService"]), _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdirectiveInject"](ngx_toastr__WEBPACK_IMPORTED_MODULE_8__["ToastrService"])); };
 RejectedStatusComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefineComponent"]({ type: RejectedStatusComponent, selectors: [["app-rejected-status"]], viewQuery: function RejectedStatusComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵviewQuery"](_c0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵviewQuery"](_c1, 1);
@@ -7411,7 +7412,7 @@ RejectedStatusComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.defaultTextBox_Edit = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.RejectStatusDescription = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.RejectStatusUpdate = _t.first);
-    } }, decls: 136, vars: 44, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size:24px", 4, "ngIf"], [1, "row"], [1, "col-sm-12"], [1, "d-flex"], [1, "p-2"], [1, "input-group", "searchBtnStyle"], [1, "input-group-prepend"], ["id", "basic-addon1", 1, "input-group-text"], [1, "fa", "fa-filter"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "change"], ["value", ""], ["value", "Active"], ["value", "InActive"], [1, "fa", "fa-search"], ["type", "text", "placeholder", "Find here....", "id", "txtSearchText", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "ml-auto", "p-2"], ["data-toggle", "modal", "data-target", "#newRMrejectedStatusModal", "data-backdrop", "false", "data-keyboard", "false", 1, "addbtnStyle", 3, "click"], [1, "fa", "fa-plus"], [1, "col-xl-12"], [1, "col-xl-12", "col-lg-9", "mx-auto", "scrollableTable"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-sm", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], ["class", "fa fa-sort hand-icon", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-up hand-icon text-primary", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-down hand-icon text-primary", 3, "click", 4, "ngIf"], [1, "text-center", 2, "width", "200px"], [4, "ngFor", "ngForOf"], [1, "col-12"], [1, "pagination", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1"], ["novalidate", "novalidate", 3, "formGroup"], ["role", "dialog", "id", "newRMrejectedStatusModal", 1, "modal"], [1, "modal-dialog", "modal-md"], [1, "modal-content"], [1, "modal-header", "bg-all", "text-white", "primary"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewClientLocationName", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewreject_status_name", "placeholder", "Description", "name", "reject_status_name", "formControlName", "reject_status_name", "autocomplete", "off", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", "", "RejectStatusDescription", ""], ["class", "text-danger", 4, "ngIf"], ["for", "drpEditClientLocation", 1, "col-sm-4", "col-form-label"], ["type", "text", "formControlName", "is_active", "readonly", "", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "modal-footer"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", "id", "newRMrejectedStatusCancelModal", "type", "button", 1, "mr-1"], ["mat-stroked-button", "", "color", "primary", 3, "disabled", "click"], ["role", "dialog", "id", "editRMrejectedStatusModal", 1, "modal"], [1, "modal-header", "bg-all", "text-white"], ["for", "txtEditClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtEditreject_status_name", "placeholder", "Reject Status", "name", "reject_status_name", "autocomplete", "off", "formControlName", "reject_status_name", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_Edit", "", "RejectStatusUpdate", ""], ["id", "txtNewis_active", "name", "is_active", "formControlName", "is_active", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", ""], [3, "value", 4, "ngFor", "ngForOf"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", "id", "editRMrejectedStatusCancelModal", "type", "button", 1, "mr-1"], ["role", "dialog", "id", "deleteRMrejectedStatusModal", 1, "modal"], [1, "modal-header", "bg-primary", "text-white"], ["for", "txtDeleteClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtDeleteClientLocationName", "placeholder", "Client Location Name", "name", "ClientLocationName", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "300px", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "primary", "data-dismiss", "modal", 3, "click"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "24px"], [1, "fa", "fa-sort", "hand-icon", 3, "click"], [1, "fa", "fa-sort-up", "hand-icon", "text-primary", 3, "click"], [1, "fa", "fa-sort-down", "hand-icon", "text-primary", 3, "click"], [1, "text-center"], ["mat-stroked-button", "", "color", "primary", "data-toggle", "modal", "data-target", "#editRMrejectedStatusModal", "data-backdrop", "false", "data-keyboard", "false", 1, "editbtnStyle", 3, "click"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [1, "text-danger"], [3, "value"]], template: function RejectedStatusComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 136, vars: 44, consts: [["class", "fa fa-circle-o-notch fa-spin", "style", "font-size:24px", 4, "ngIf"], [1, "row"], [1, "col-sm-12"], [1, "d-flex"], [1, "p-2"], [1, "input-group", "searchBtnStyle"], [1, "input-group-prepend"], ["id", "basic-addon1", 1, "input-group-text"], [1, "fa", "fa-filter"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "change"], ["value", ""], ["value", "Active"], ["value", "InActive"], [1, "fa", "fa-search"], ["type", "search", "autocomplete", "off", "placeholder", "Find here....", "id", "txtSearchText", "name", "SearchText", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "ml-auto", "p-2"], ["data-toggle", "modal", "data-target", "#newRMrejectedStatusModal", "data-backdrop", "false", "data-keyboard", "false", 1, "addbtnStyle", 3, "click"], [1, "fa", "fa-plus"], [1, "col-xl-12"], [1, "col-xl-12", "col-lg-9", "mx-auto", "scrollableTable"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-sm", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], ["class", "fa fa-sort hand-icon", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-up hand-icon text-primary", 3, "click", 4, "ngIf"], ["class", "fa fa-sort-down hand-icon text-primary", 3, "click", 4, "ngIf"], [1, "text-center", 2, "width", "200px"], [4, "ngFor", "ngForOf"], [1, "col-12"], [1, "pagination", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1"], ["novalidate", "novalidate", 3, "formGroup"], ["role", "dialog", "id", "newRMrejectedStatusModal", 1, "modal"], [1, "modal-dialog", "modal-md"], [1, "modal-content"], [1, "modal-header", "bg-all", "text-white", "primary"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewClientLocationName", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewreject_status_name", "placeholder", "Description", "name", "reject_status_name", "formControlName", "reject_status_name", "autocomplete", "off", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", "", "RejectStatusDescription", ""], ["class", "text-danger", 4, "ngIf"], ["for", "drpEditClientLocation", 1, "col-sm-4", "col-form-label"], ["type", "text", "formControlName", "is_active", "readonly", "", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "modal-footer"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", "id", "newRMrejectedStatusCancelModal", "type", "button", 1, "mr-1"], ["mat-stroked-button", "", "color", "primary", 3, "disabled", "click"], ["role", "dialog", "id", "editRMrejectedStatusModal", 1, "modal"], [1, "modal-header", "bg-all", "text-white"], ["for", "txtEditClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtEditreject_status_name", "placeholder", "Reject Status", "name", "reject_status_name", "autocomplete", "off", "formControlName", "reject_status_name", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_Edit", "", "RejectStatusUpdate", ""], ["id", "txtNewis_active", "name", "is_active", "formControlName", "is_active", "maxlength", "30", 1, "form-control", 3, "ngClass"], ["defaultTextBox_New", ""], [3, "value", 4, "ngFor", "ngForOf"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", "id", "editRMrejectedStatusCancelModal", "type", "button", 1, "mr-1"], ["role", "dialog", "id", "deleteRMrejectedStatusModal", 1, "modal"], [1, "modal-header", "bg-primary", "text-white"], ["for", "txtDeleteClientLocationName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtDeleteClientLocationName", "placeholder", "Client Location Name", "name", "ClientLocationName", "disabled", "disabled", 1, "form-control-plain-text", 2, "width", "300px", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "primary", "data-dismiss", "modal", 3, "click"], [1, "fa", "fa-circle-o-notch", "fa-spin", 2, "font-size", "24px"], [1, "fa", "fa-sort", "hand-icon", 3, "click"], [1, "fa", "fa-sort-up", "hand-icon", "text-primary", 3, "click"], [1, "fa", "fa-sort-down", "hand-icon", "text-primary", 3, "click"], [1, "text-center"], ["mat-stroked-button", "", "color", "primary", "data-toggle", "modal", "data-target", "#editRMrejectedStatusModal", "data-backdrop", "false", "data-keyboard", "false", 1, "editbtnStyle", 3, "click"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [1, "text-danger"], [3, "value"]], template: function RejectedStatusComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "h5");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](1, RejectedStatusComponent_i_1_Template, 1, 0, "i", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -7478,7 +7479,7 @@ RejectedStatusComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](40, "Actions");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](41, RejectedStatusComponent_tr_41_Template, 10, 2, "tr", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](41, RejectedStatusComponent_tr_41_Template, 11, 2, "tr", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](42, "paging");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](43, "sort");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](44, "filter");
@@ -7682,7 +7683,7 @@ RejectedStatusComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵ
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("disabled", !ctx.editForm.valid);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](17);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("ngModel", ctx.deleteRejectStatus.reject_status_name);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatAnchor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_11__["DefaultClassDirective"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIcon"]], pipes: [_pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_13__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_14__["SortPipe"], src_app_pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZWplY3RlZC1zdGF0dXMuY29tcG9uZW50LnNjc3MifQ== */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_9__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgSelectOption"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_z"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgModel"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgForOf"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatAnchor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["ɵangular_packages_forms_forms_ba"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormGroupDirective"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["FormControlName"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["MaxLengthValidator"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["NgClass"], _angular_flex_layout_extended__WEBPACK_IMPORTED_MODULE_11__["DefaultClassDirective"], _angular_material_button__WEBPACK_IMPORTED_MODULE_10__["MatButton"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["SelectControlValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_0__["NgForm"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_12__["MatIcon"]], pipes: [_pipes_paging_pipe__WEBPACK_IMPORTED_MODULE_13__["PagingPipe"], _pipes_sort_pipe__WEBPACK_IMPORTED_MODULE_14__["SortPipe"], _pipes_filter_pipe__WEBPACK_IMPORTED_MODULE_2__["FilterPipe"], _angular_common__WEBPACK_IMPORTED_MODULE_9__["AsyncPipe"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZWplY3RlZC1zdGF0dXMuY29tcG9uZW50LnNjc3MifQ== */"] });
 
 
 /***/ }),
@@ -14624,14 +14625,14 @@ class ProjectsComponent {
         this.cancelledPOlist = [];
         this.qcchecklist = [];
         this.showLoading = true;
-        this.allowableqty = null;
-        this.actualqty = null;
-        this.expirable_material = null;
+        this.allowableqty = 0;
+        this.actualqty = 0;
+        this.expirable_material = '';
         this.newProject = new _models_project__WEBPACK_IMPORTED_MODULE_2__["Project"]();
         this.editProject = new _models_project__WEBPACK_IMPORTED_MODULE_2__["Project"]();
-        this.editIndex = null;
+        this.editIndex = 0;
         this.deleteProject = new _models_project__WEBPACK_IMPORTED_MODULE_2__["Project"]();
-        this.deleteIndex = null;
+        this.deleteIndex = 0;
         this.searchBy = 'po_number';
         this.searchText = '';
         this.ChildForm = '';
@@ -14640,12 +14641,12 @@ class ProjectsComponent {
         this.PartialComment = '';
         this.currentPageIndex = 0;
         this.pages = [];
-        this.pageSize = 10;
+        this.pageSize = 7;
         this.dualbindingchanges = 0;
-        this.totalPoRowCount = null;
-        this.totalPartial = null;
-        this.totalCancelledPoRowCount = null;
-        this.totalPartialReceivingCancel = null;
+        this.totalPoRowCount = 0;
+        this.totalPartial = 0;
+        this.totalCancelledPoRowCount = 0;
+        this.totalPartialReceivingCancel = 0;
         this.PoNumberBinding = '';
         //sample
         this.msgrejectremarksno1 = 0;
@@ -14913,36 +14914,36 @@ class ProjectsComponent {
                 p.a_compliance = response.a_compliance;
                 p.a_remarks = response.a_remarks;
                 this.projects.push(p);
-                this.newProject.projectName = null;
-                this.newProject.dateOfStart = null;
-                this.newProject.teamSize = null;
+                this.newProject.projectName = '';
+                this.newProject.dateOfStart = '';
+                this.newProject.teamSize = 0;
                 this.newProject.active = false;
-                this.newProject.clientLocationID = null;
-                this.newProject.status = null;
-                this.newProject.is_activated = null;
-                this.newProject.supplier = null;
-                this.newProject.item_code = null;
-                this.newProject.po_number = null;
-                this.newProject.po_date = null;
-                this.newProject.pr_number = null;
-                this.newProject.pr_date = null;
-                this.newProject.qty_uom = null;
-                this.newProject.qty_order = null;
-                this.newProject.mfg_date = null;
-                this.newProject.expiration_date = null;
-                this.newProject.expected_delivery = null;
-                this.newProject.actual_delivery = null;
-                this.newProject.actual_remaining_receiving = null;
-                this.newProject.received_by_QA = null;
-                this.newProject.status_of_reject_one = null;
-                this.newProject.status_of_reject_two = null;
-                this.newProject.status_of_reject_three = null;
-                this.newProject.count_of_reject_one = null;
-                this.newProject.count_of_reject_two = null;
-                this.newProject.count_of_reject_three = null;
-                this.newProject.total_of_reject_mat = null;
-                this.newProject.a_compliance = null;
-                this.newProject.a_remarks = null;
+                this.newProject.clientLocationID = 0;
+                this.newProject.status = "";
+                this.newProject.is_activated = "";
+                this.newProject.supplier = "";
+                this.newProject.item_code = "";
+                this.newProject.po_number = "";
+                this.newProject.po_date = "";
+                this.newProject.pr_number = "";
+                this.newProject.pr_date = "";
+                this.newProject.qty_uom = "";
+                this.newProject.qty_order = "";
+                this.newProject.mfg_date = "";
+                this.newProject.expiration_date = "";
+                this.newProject.expected_delivery = "";
+                this.newProject.actual_delivery = "";
+                this.newProject.actual_remaining_receiving = 0;
+                this.newProject.received_by_QA = "";
+                this.newProject.status_of_reject_one = "";
+                this.newProject.status_of_reject_two = "";
+                this.newProject.status_of_reject_three = "";
+                this.newProject.count_of_reject_one = "";
+                this.newProject.count_of_reject_two = "";
+                this.newProject.count_of_reject_three = "";
+                this.newProject.total_of_reject_mat = "";
+                this.newProject.a_compliance = "";
+                this.newProject.a_remarks = "";
                 jquery__WEBPACK_IMPORTED_MODULE_0__('#newFormCancel').trigger('click');
                 // this.ngOnInit();
                 this.calculateNoOfPages();
@@ -14961,21 +14962,12 @@ class ProjectsComponent {
     }
     onEditClick(event, index) {
         //Additional Binding of Searching
-        if (jquery__WEBPACK_IMPORTED_MODULE_0__('#txtSearchText').is(':visible')) {
+        if (jquery__WEBPACK_IMPORTED_MODULE_0__('#txtSearchText').val().length == 0) {
             //Show Visibilit
-            this.projectsService
-                .SearchProjects('Po_number', this.searchText)
-                .subscribe((response) => {
-                this.projects = response;
-                this.showLoading = false;
-                this.calculateNoOfPages();
-                this.totalPoRowCount = response.length;
-            });
-        }
-        else {
-            this.projectsService.getAllProjects().subscribe((response) => {
-                this.projects = response;
-            });
+            //START
+            // this.projectsService.getAllProjects().subscribe((response: Project[]) => {
+            //   this.projects = response;
+            // });
             if (this.currentPageIndex == 1) {
                 if (index == 0) {
                     index = 7;
@@ -15070,7 +15062,21 @@ class ProjectsComponent {
             }
             else {
             }
+            //END
         }
+        else {
+            // this.projectsService.getAllProjects().subscribe((response: Project[]) => {
+            //   this.projects = response;
+            // });
+            this.projectsService
+                .SearchProjects('Po_number', this.searchText)
+                .subscribe((response) => {
+                this.projects = response;
+                this.showLoading = false;
+                this.calculateNoOfPages();
+                this.totalPoRowCount = response.length;
+            });
+        } ///
         this.editForm.resetForm();
         this.received_by.nativeElement.value = this.loginService.fullName;
         this.resetValueS();
@@ -15106,15 +15112,9 @@ class ProjectsComponent {
             this.editProject.qty_uom = this.projects[index].qty_uom;
             this.editProject.is_activated = this.Activator;
             this.editProject.unit_price = this.projects[index].unit_price;
-            // this.editProject.mfg_date = this.projects[index].mfg_date;
-            // this.editProject.expiration_date = this.projects[index].expiration_date;
-            // this.editProject.expected_delivery = this.projects[index].expected_delivery;
-            // this.editProject.actual_delivery = this.projects[index].actual_delivery;
-            // this.editProject.actual_remaining_receiving = this.ActualRemaining;
             this.editProject.actual_remaining_receiving =
                 this.projects[index].actual_remaining_receiving;
             this.editProject.received_by_QA = this.activeUser;
-            // this.editProject.total_of_reject_mat = this.totalofReject.nativeElement.
             this.editProject.qcReceivingDate = this.ToDay;
             this.editProject.status_of_reject_one = this.StringNone;
             this.editProject.status_of_reject_two = this.StringNone;
