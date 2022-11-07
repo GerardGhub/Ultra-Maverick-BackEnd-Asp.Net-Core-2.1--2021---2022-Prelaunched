@@ -79,7 +79,7 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_one = project.Count_of_reject_one,
           Count_of_reject_two = project.Count_of_reject_two,
           Count_of_reject_three = project.Count_of_reject_three,
-          Total_of_reject_mat = project.Total_of_reject_mat,
+          Total_of_reject_mat = Convert.ToInt32(project.Total_of_reject_mat) + Convert.ToInt32(project.Is_wh_reject).ToString(),
           //SECTION 1
           //A
  
@@ -94,7 +94,8 @@ namespace MvcTaskManager.Controllers
           Returned_by = project.Returned_by,
           Returned_reason = project.Returned_reason,
           //Date Receiving by QA
-          QCReceivingDate = project.QCReceivingDate
+          QCReceivingDate = project.QCReceivingDate,
+          Is_wh_reject = project.Is_wh_reject
 
         });
       }
