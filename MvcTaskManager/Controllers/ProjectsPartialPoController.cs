@@ -31,14 +31,19 @@ namespace MvcTaskManager.Controllers
     {
       //System.Threading.Thread.Sleep(1000);
       //List<Project> projects = db.Projects.Include("ClientLocation").ToList();
-      string ProjectIsActivated = "1";
-      string GoodRM = "0";
-      string Approve = "1";
       //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.Active.ToString().Contains((char)1)).ToList();
 
+  
+      //        .Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
+      //&& temp.Is_wh_received != "1" || temp.Is_approved_XP.Contains(Approve)).ToList();
+
       List<RMProjectsPartialPo> projects = db.ProjectsPartialPo
-        .Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
-      && temp.Is_wh_received != "1" || temp.Is_approved_XP.Contains(Approve)).ToList();
+        .Where(temp => temp.is_activated.Contains("1")
+        && temp.Is_expired.Contains("0")
+      && temp.Is_wh_received != "1"
+      || temp.Is_approved_XP.Contains("1")
+            || temp.Is_wh_reject_approval.Contains("1")
+      ).ToList();
 
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
@@ -50,8 +55,7 @@ namespace MvcTaskManager.Controllers
           ProjectName = project.ProjectName,
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
-          Active = project.Active,
-    
+          Active = project.Active,    
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,

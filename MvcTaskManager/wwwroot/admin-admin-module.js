@@ -12435,7 +12435,7 @@ class DashboardComponent {
     }
 }
 DashboardComponent.ɵfac = function DashboardComponent_Factory(t) { return new (t || DashboardComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_services_dashboard_service__WEBPACK_IMPORTED_MODULE_4__["DashboardService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_services_login_service__WEBPACK_IMPORTED_MODULE_5__["LoginService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_angular_flex_layout__WEBPACK_IMPORTED_MODULE_6__["MediaObserver"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_services_wh_checker_dashboard_service__WEBPACK_IMPORTED_MODULE_7__["WhCheckerDashboardService"]), _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdirectiveInject"](_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"])); };
-DashboardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: DashboardComponent, selectors: [["app-dashboard"]], decls: 47, vars: 23, consts: [["gutterSize", "20px", "rowHeight", "100px", 1, "dashboard-grid-list", 3, "cols"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Total PO all time", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxFlex", "1 1 25%", "fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-100"], [4, "ngIf"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Receiving available now", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Rejected raw materials based on quality", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Total cancelled Po all time", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxFlex", " 1 1 25%", "fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-100"], ["rowspan", "4", 1, "dashboard-tile", "dashboard-tile-5", "scroll", 3, "colspan"], ["fxFlex", "1 1 100%", "fxLayout", "column"], ["fxFlex", "1 1 100%", "fxLayout", "row", "fxLayoutAlign", "start stretch"], ["fxFlex", "1 1 50%", 1, "p-5", "system-name", "text-large"], ["fxFlex", "1 1 50%", 1, "text-right", "p-10"], ["matRipple", "", 1, "hand-icon"], ["value", "60", "mode", "indeterminate", 4, "ngIf"], ["fxFlex", "1 1 100%", 1, "p-5"], [4, "ngFor", "ngForOf"], ["rowspan", "4", 1, "dashboard-tile", "dashboard-tile-6", 3, "colspan"], [1, "w-100", "hideObject", 3, "chart"], ["fxFlex", "1 1 75%", "fxLayout", "column", "fxLayoutAlign", "center start", 1, "h-100", "text-right"], [1, "dashboard-tile-heading"], [1, "dashboard-tile-sub-heading"], ["fxFlex", "1 1 75%", "fxLayout", "column", "fxLayoutAlign", "center start", 1, "h-100", "text-right", 3, "routerLink"], ["value", "60", "mode", "indeterminate"], ["matRipple", ""], ["fxLayout", "row", "fxLayoutAlign", "space-between start", "fxLayout.lt-md", "column", 1, "w-100"], ["fxFlex", "1 1 60%", "fxFlex", "1 1 100%", "fxLayout", "row", "fxLayoutAlign", "start center", 1, "text-large"], [1, "text-black", "ml"], ["fxFlex", "1 1 40%", "fxFlex", "1 1 100%"], [1, "text-right", "w-100"], [1, "w-100"], [1, "w-25"], [1, "font-weight-bold", "p"], ["fxLayoutAlign", "space-between start"], ["mat-button", "", "color", "primary", 1, "mr", 3, "routerLink"]], template: function DashboardComponent_Template(rf, ctx) { if (rf & 1) {
+DashboardComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineComponent"]({ type: DashboardComponent, selectors: [["app-dashboard"]], decls: 47, vars: 23, consts: [["gutterSize", "20px", "rowHeight", "100px", 1, "dashboard-grid-list", 3, "cols"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Total PO all time", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxFlex", "1 1 25%", "fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-100"], [4, "ngIf"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Receiving available now", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Rejected raw materials based on quality", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxLayout", "row", "fxLayoutAlign", "start stretch", "matRipple", "", "matTooltip", "Total cancelled Po all time", 1, "dashboard-tile", "dashboard-tile-50", "colorful-tile"], ["fxFlex", " 1 1 25%", "fxLayout", "column", "fxLayoutAlign", "center center", 1, "h-100"], ["rowspan", "4", 1, "dashboard-tile", "dashboard-tile-5", "scroll", 3, "colspan"], ["fxFlex", "1 1 100%", "fxLayout", "column"], ["fxFlex", "1 1 100%", "fxLayout", "row", "fxLayoutAlign", "start stretch"], ["fxFlex", "1 1 50%", 1, "p-5", "system-name", "text-large"], ["fxFlex", "1 1 50%", 1, "text-right", "p-10"], ["matRipple", "", 1, "hand-icon"], ["value", "60", "mode", "indeterminate", 4, "ngIf"], ["fxFlex", "1 1 100%", 1, "p-3"], [4, "ngFor", "ngForOf"], ["rowspan", "4", 1, "dashboard-tile", "dashboard-tile-6", 3, "colspan"], [1, "w-100", "hideObject", 3, "chart"], ["fxFlex", "1 1 75%", "fxLayout", "column", "fxLayoutAlign", "center start", 1, "h-100", "text-right"], [1, "dashboard-tile-heading"], [1, "dashboard-tile-sub-heading"], ["fxFlex", "1 1 75%", "fxLayout", "column", "fxLayoutAlign", "center start", 1, "h-100", "text-right", 3, "routerLink"], ["value", "60", "mode", "indeterminate"], ["matRipple", ""], ["fxLayout", "row", "fxLayoutAlign", "space-between start", "fxLayout.lt-md", "column", 1, "w-100"], ["fxFlex", "1 1 60%", "fxFlex", "1 1 100%", "fxLayout", "row", "fxLayoutAlign", "start center", 1, "text-large"], [1, "text-black", "ml"], ["fxFlex", "1 1 40%", "fxFlex", "1 1 100%"], [1, "text-right", "w-100"], [1, "w-100"], [1, "w-25"], [1, "font-weight-bold", "p"], ["fxLayoutAlign", "space-between start"], ["mat-button", "", "color", "primary", 1, "mr", 3, "routerLink"]], template: function DashboardComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](0, "mat-grid-list", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](1, "mat-grid-tile", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵelementStart"](2, "div", 2);
@@ -15572,7 +15572,7 @@ class ProjectsComponent {
         console.log("Received Item 2 ");
         setTimeout(() => {
             this.getPOrecievingList();
-        }, 300);
+        }, 400);
     }
     InsertPartialDatainMasterTable() {
         this.editProject.is_activated = this.PartialEntry;
@@ -16056,159 +16056,7 @@ class ProjectsComponent {
                 this.projects[index].total_of_reject_mat;
             //Section 1
             //A
-            this.editProject.a_delivery_van_desc =
-                this.projects[index].a_delivery_van_desc;
-            this.editProject.a_compliance = this.projects[index].a_compliance;
-            this.editProject.a_remarks = this.projects[index].a_remarks;
-            //B
-            this.editProject.b_cooling_system_desc =
-                this.projects[index].b_cooling_system_desc;
-            this.editProject.b_compliance = this.projects[index].b_compliance;
-            this.editProject.b_remarks = this.projects[index].b_remarks;
-            //C
-            this.editProject.c_inner_walls_desc =
-                this.projects[index].c_inner_walls_desc;
-            this.editProject.c_compliance = this.projects[index].c_compliance;
-            this.editProject.c_remarks = this.projects[index].c_remarks;
-            //D
-            this.editProject.d_plastic_curtains_desc =
-                this.projects[index].d_plastic_curtains_desc;
-            this.editProject.d_compliance = this.projects[index].d_compliance;
-            this.editProject.d_remarks = this.projects[index].d_remarks;
-            //E
-            this.editProject.e_thereno_pest_desc =
-                this.projects[index].e_thereno_pest_desc;
-            this.editProject.e_compliance = this.projects[index].e_compliance;
-            this.editProject.e_remarks = this.projects[index].e_remarks;
-            //Section 2
-            //A
-            this.editProject.a_clean_company_dos =
-                this.projects[index].a_clean_company_dos;
-            this.editProject.a_compliance_dos = this.projects[index].a_compliance_dos;
-            this.editProject.a_remarks_dos = this.projects[index].a_remarks_dos;
-            //B
-            this.editProject.b_delivery_staff_symptoms_dos =
-                this.projects[index].b_delivery_staff_symptoms_dos;
-            this.editProject.b_compliance_dos = this.projects[index].b_compliance_dos;
-            this.editProject.b_remarks_dos = this.projects[index].b_remarks_dos;
-            //C
-            this.editProject.c_inner_walls_clean_dos =
-                this.projects[index].c_inner_walls_clean_dos;
-            this.editProject.c_compliance_dos = this.projects[index].c_compliance_dos;
-            this.editProject.c_remarks_dos = this.projects[index].c_remarks_dos;
-            //D
-            this.editProject.d_plastic_curtains_dos =
-                this.projects[index].d_plastic_curtains_dos;
-            this.editProject.d_compliance_dos = this.projects[index].d_compliance_dos;
-            this.editProject.d_remarks_dos = this.projects[index].d_remarks_dos;
-            //E
-            this.editProject.e_no_accessories_dos =
-                this.projects[index].e_no_accessories_dos;
-            this.editProject.e_compliance_dos = this.projects[index].e_compliance_dos;
-            this.editProject.e_remarks_dos = this.projects[index].e_remarks_dos;
-            //F
-            this.editProject.f_no_pests_sightings_dos =
-                this.projects[index].f_no_pests_sightings_dos;
-            this.editProject.f_compliance_dos = this.projects[index].f_compliance_dos;
-            this.editProject.f_remarks_dos = this.projects[index].f_remarks_dos;
-            //Section 3
-            //A
-            this.editProject.a_pallet_crates_tres =
-                this.projects[index].a_pallet_crates_tres;
-            this.editProject.a_compliance_tres =
-                this.projects[index].a_compliance_tres;
-            this.editProject.a_remarks_tres = this.projects[index].a_remarks_tres;
-            //B
-            this.editProject.b_product_contamination_tres =
-                this.projects[index].b_product_contamination_tres;
-            this.editProject.b_compliance_tres =
-                this.projects[index].b_compliance_tres;
-            this.editProject.b_remarks_tres = this.projects[index].b_remarks_tres;
-            //C
-            this.editProject.c_uncessary_items_tres =
-                this.projects[index].c_uncessary_items_tres;
-            this.editProject.c_compliance_tres =
-                this.projects[index].c_compliance_tres;
-            this.editProject.c_remarks_tres = this.projects[index].c_remarks_tres;
-            //D
-            this.editProject.d_products_cover_tres =
-                this.projects[index].d_products_cover_tres;
-            this.editProject.d_compliance_tres =
-                this.projects[index].d_compliance_tres;
-            this.editProject.d_remarks_tres = this.projects[index].d_remarks_tres;
-            //Serction 4
-            //A
-            this.editProject.a_certificate_coa_kwatro_desc =
-                this.projects[index].a_certificate_coa_kwatro_desc;
-            this.editProject.a_compliance_kwatro =
-                this.projects[index].a_compliance_kwatro;
-            this.editProject.a_remarks_kwatro = this.projects[index].a_remarks_kwatro;
-            //B
-            this.editProject.b_po_kwatro_desc = this.projects[index].b_po_kwatro_desc;
-            this.editProject.b_compliance_kwatro =
-                this.projects[index].b_compliance_kwatro;
-            this.editProject.b_remarks_kwatro = this.projects[index].b_remarks_kwatro;
-            //C
-            this.editProject.c_msds_kwatro_desc =
-                this.projects[index].c_msds_kwatro_desc;
-            this.editProject.c_compliance_kwatro =
-                this.projects[index].c_compliance_kwatro;
-            this.editProject.c_remarks_kwatro = this.projects[index].c_remarks_kwatro;
-            //D
-            this.editProject.d_food_grade_desc =
-                this.projects[index].d_food_grade_desc;
-            this.editProject.d_compliance_kwatro =
-                this.projects[index].d_compliance_kwatro;
-            this.editProject.d_remarks_kwatro = this.projects[index].d_remarks_kwatro;
-            //Section 5
-            //A
-            this.editProject.a_qty_received_singko_singko =
-                this.projects[index].a_qty_received_singko_singko;
-            this.editProject.a_compliance_singko =
-                this.projects[index].a_compliance_singko;
-            this.editProject.a_remarks_singko = this.projects[index].a_remarks_singko;
-            //B
-            this.editProject.b_mfg_date_desc_singko =
-                this.projects[index].b_mfg_date_desc_singko;
-            this.editProject.b_compliance_singko =
-                this.projects[index].b_compliance_singko;
-            this.editProject.b_remarks_singko = this.projects[index].b_remarks_singko;
-            //C
-            this.editProject.c_expirydate_desc_singko =
-                this.projects[index].c_expirydate_desc_singko;
-            this.editProject.c_compliance_singko =
-                this.projects[index].c_compliance_singko;
-            this.editProject.c_remarks_singko = this.projects[index].c_remarks_singko;
-            //D
-            this.editProject.d_packaging_desc_singko =
-                this.projects[index].d_packaging_desc_singko;
-            this.editProject.d_compliance_singko =
-                this.projects[index].d_compliance_singko;
-            this.editProject.d_remarks_singko = this.projects[index].d_remarks_singko;
-            //E
-            this.editProject.e_no_contaminants_desc_singko =
-                this.projects[index].e_no_contaminants_desc_singko;
-            this.editProject.e_compliance_singko =
-                this.projects[index].e_compliance_singko;
-            this.editProject.e_remarks_singko = this.projects[index].e_remarks_singko;
-            //F
-            this.editProject.f_qtyrejected_desc_singko =
-                this.projects[index].f_qtyrejected_desc_singko;
-            this.editProject.f_compliance_singko =
-                this.projects[index].f_compliance_singko;
-            this.editProject.f_remarks_singko = this.projects[index].f_remarks_singko;
-            //G
-            this.editProject.g_rejected_reason_desc_singko =
-                this.projects[index].g_rejected_reason_desc_singko;
-            this.editProject.g_compliance_singko =
-                this.projects[index].g_compliance_singko;
-            this.editProject.g_remarks_singko = this.projects[index].g_remarks_singko;
-            //H
-            this.editProject.h_lab_sample_desc_singko =
-                this.projects[index].h_lab_sample_desc_singko;
-            this.editProject.h_compliance_singko =
-                this.projects[index].h_compliance_singko;
-            this.editProject.h_remarks_singko = this.projects[index].h_remarks_singko;
+            //Bluk Payload Remove
             jquery__WEBPACK_IMPORTED_MODULE_0__('txtexpected_delivery').val('');
             //Addition Set Point for Validation of Partial Data
             // this.ActivePartialReceiving.nativeElement.value = "0";
@@ -16226,7 +16074,7 @@ class ProjectsComponent {
                     jquery__WEBPACK_IMPORTED_MODULE_0__('#CancelPO').show();
                 }
             }, 170);
-        }, 100);
+        }, 400);
     }
     UpdateDeactivatedTransactions() {
         this.projectsService.updateProject(this.editProject).subscribe((response) => {
