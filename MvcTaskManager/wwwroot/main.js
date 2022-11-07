@@ -11676,22 +11676,23 @@ function AppComponent_ng_container_50_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("routerLink", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpureFunction0"](8, _c14));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.QCReceiving === 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.PoReceiving === 1 || ctx_r6.CancelledPo === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.WhReceiving === 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.WHReceivingList === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.Approval === 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.NearlyExpiryApproval === 1 || ctx_r6.WHRejectionApproval === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.LabTest === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.Preparation === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.OnlineMrs === 1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.OrderList === 1 || ctx_r6.ApprovedOrders === 1 || ctx_r6.CancelledOrders === 1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r6.SetUp === 1);
 } }
 const _c15 = function () { return ["/about"]; };
 class AppComponent {
+    //End
     constructor(dashboardService, loginService, domSanitizer, routerLoggerService, router, forLabtestService, labtestForApprovalService, whCheckerDashboardService, preparedOrderService, cancelledOrderService, userAccountService, onlineMrsService) {
         this.dashboardService = dashboardService;
         this.loginService = loginService;
@@ -11732,6 +11733,11 @@ class AppComponent {
         this.totalMRSOrder = 0;
         //Parent Menu 1 for Tagged 0 else
         this.QCReceiving = 0;
+        //Array {
+        //Child of QC Receiving
+        this.PoReceiving = 0;
+        this.CancelledPo = 0;
+        //}
         this.WhReceiving = 0;
         // Array WH Receiving {
         this.WHReceivingList = 0;
@@ -11757,10 +11763,6 @@ class AppComponent {
         this.RMCancelAndReturn = 0;
         this.LabProcedureAndRemarks = 0;
         this.QcCheckList = 0;
-        //End
-        //Child of QC Receiving
-        this.PoReceiving = 0;
-        this.CancelledPo = 0;
     }
     ngOnInit() {
         this.detectAlreadyLogin();
@@ -12641,28 +12643,28 @@ class LoginComponent {
         this.loginService.Login(this.loginViewModel).subscribe((response) => {
             if (this.loginService.currentUserRoleSession == 'Admin') {
                 this.router.navigate(['/admin', 'dashboard']);
-                // this.WelcomeMessage();
             }
             else if (this.loginService.currentUserRoleSession == 'WarehouseChecker') {
                 this.router.navigate(['/admin', 'dashboard']);
-                // this.WelcomeMessage();
             }
             else if (this.loginService.currentUserRoleSession == 'QC Staff') {
                 this.router.navigate(['/admin', 'dashboard']);
-                // this.WelcomeMessage();
+            }
+            else if (this.loginService.currentUserRoleSession == 'QA Staff') {
+                this.router.navigate(['/admin', 'dashboard']);
             }
             else if (this.loginService.currentUserRoleSession == 'QCSupervisor') {
                 this.router.navigate(['/admin', 'dashboard']);
-                // this.WelcomeMessage();
             }
             else {
-                // this.router.navigate(["/admin", "dashboard"]);
-                // this.WelcomeMessage();  this.router.navigate(["/employee", "tasks"]);
+                this.router.navigate(["/admin", "dashboard"]);
             }
+            this.WelcomeMessage();
         }, (error) => {
             console.log(error);
             this.errorMessageFromResponse = 'Invalid Username or Password';
-            // this.InvalidCredentials();
+            // this.errorToaster();
+            this.InvalidCredentials();
         });
     }
     errorToaster() {
@@ -12672,7 +12674,7 @@ class LoginComponent {
         sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Invalid Username or Password!',
+            text: 'Invalid Credentials!',
         });
     }
     WelcomeMessage() {
@@ -12681,7 +12683,7 @@ class LoginComponent {
             icon: 'success',
             title: 'Welcome to Ultra Maverick',
             showConfirmButton: false,
-            timer: 100,
+            timer: 600,
         });
     }
     //returns the form control instance based on the control name
@@ -34770,8 +34772,9 @@ function AspNetRolesComponent_tr_139_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "remove_circle_outline");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, " Tag ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "\u00A0 ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, "\u00A0 ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -34896,8 +34899,9 @@ function AspNetRolesComponent_tr_165_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](9, "mat-icon");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](10, "add_circle_outline");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, " UnTag ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](11, "\u00A0 ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](12, "\u00A0 ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -35091,7 +35095,6 @@ class AspNetRolesComponent {
         this.userAccountService.getUserRoleListById(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
             if (response) {
                 this.RoleModule = response;
-                // console.error(response);
                 this.getModulesUntagged();
             }
         });
@@ -35106,12 +35109,15 @@ class AspNetRolesComponent {
         this.totalRoleModulesUntaggedNewRowCount = taggedData.length;
         this.calculateNoOfPagesTagged();
         //    if (this.totalRoleModulesTaggedRowCount == 0 && this.totalRoleModulesUntaggedNewRowCount == 0)
+        //if the Total Untagged == 0
         if (this.totalRoleModulesUntaggedNewRowCount == 0) {
             this.userAccountService.getUserRoleByAdminId(this.RoleId.nativeElement.value, Number(this.activeModuleId)).subscribe((response) => {
                 if (response) {
                     this.RoleModule = response;
-                    const taggedData = this.RoleModule.filter(status => status.isactive === false
-                        || status.isactive === true);
+                    const taggedData = this.RoleModule.filter(status => (status.isactive === false
+                        || status.isactive === true)
+                        && status.isparent != 'Parent');
+                    console.error(taggedData);
                     for (var i = taggedData.length - 1; i >= 0; i--) {
                         for (var j = 0; j < untaggedData.length; j++) {
                             if (taggedData[i] && (taggedData[i].moduleid === untaggedData[j].moduleid)) {
@@ -35127,7 +35133,7 @@ class AspNetRolesComponent {
             });
         }
     }
-    getNewFourthApproverId(roleid) {
+    getMainMenuId(roleid) {
         this.activeModuleId = roleid;
         this.getUserRoleModules();
     }
@@ -35596,7 +35602,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](116, "div", 61);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](117, "select", 62, 49);
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function AspNetRolesComponent_Template_select_change_117_listener($event) { return ctx.getNewFourthApproverId($event.target.value); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function AspNetRolesComponent_Template_select_change_117_listener($event) { return ctx.getMainMenuId($event.target.value); });
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](120, "option", 50);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](121, "Please Select");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -35626,7 +35632,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](138, "Tag");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](139, AspNetRolesComponent_tr_139_Template, 12, 3, "tr", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](139, AspNetRolesComponent_tr_139_Template, 13, 3, "tr", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](140, "paging");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](141, "div", 27);
@@ -35669,7 +35675,7 @@ AspNetRolesComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](164, "Untag");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](165, AspNetRolesComponent_tr_165_Template, 12, 3, "tr", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtemplate"](165, AspNetRolesComponent_tr_165_Template, 13, 3, "tr", 26);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpipe"](166, "paging");
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](167, "div", 27);

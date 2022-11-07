@@ -17,6 +17,7 @@ namespace MvcTaskManager.Models
     public int Mainmoduleidentity { get; set; }
     public DateTime DateAdded { get; set; } = DateTime.Now;
     public string Addedby { get; set; }
+    public string Isparent { get; set; }
 
   }
 }

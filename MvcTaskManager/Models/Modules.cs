@@ -22,5 +22,6 @@ namespace MvcTaskManager.Models
     public string AddedBy { get; set; }
     public string isactivereference { get; set; }
 
+    public string Modulestatus { get; set; }
   }
 }

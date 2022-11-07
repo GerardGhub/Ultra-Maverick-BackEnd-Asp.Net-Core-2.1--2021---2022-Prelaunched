@@ -152,7 +152,8 @@ namespace MvcTaskManager.Controllers
                             RoleModule.Id,
                             MainMenu.Mainmodulename,
                             Role.Name,
-                            RoleModule.Mainmoduleidentity
+                            RoleModule.Mainmoduleidentity,
+                            RoleModule.Isparent
 
 
                           })
@@ -191,7 +192,9 @@ namespace MvcTaskManager.Controllers
                                Modules.Modulename,
                                Modules.Id,
                                MainMenu.Mainmodulename,
-                               Role.Name
+                               Role.Name,
+                               RoleModule.Mainmoduleidentity,
+                               RoleModule.Isparent
 
 
                              })
