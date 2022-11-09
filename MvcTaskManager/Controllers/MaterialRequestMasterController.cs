@@ -33,6 +33,7 @@ namespace MvcTaskManager.Controllers
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Material_request_logs on a.mrs_id equals b.mrs_id
+                     join c in db.Department on a.department_id equals c.department_id
 
                      where
                      a.mrs_id == b.mrs_id &&
@@ -50,11 +51,13 @@ namespace MvcTaskManager.Controllers
                        a.mrs_id,
                        a.Is_wh_sup_approval_date,
                        a.department_id,
+                       c.department_name,
                        a.mrs_req_desc,
                        a.mrs_requested_date,
                        a.mrs_requested_by,
                        a.is_approved_date,
                        a.is_active,
+                       a.Is_wh_preparation_date,
                        TotalItems = b.is_active
 
                      } into total
@@ -64,8 +67,9 @@ namespace MvcTaskManager.Controllers
                      {
 
                        total.Key.mrs_id,
-                       is_approved_prepa_date = total.Key.Is_wh_sup_approval_date,
+                       is_approved_prepa_date = total.Key.Is_wh_preparation_date,
                        department_id = total.Key.department_id,
+                       department_name = total.Key.department_name,
                        mrs_req_desc = total.Key.mrs_req_desc,
                        mrs_requested_date = total.Key.mrs_requested_date,
                        mrs_requested_by = total.Key.mrs_requested_by,
