@@ -23,6 +23,110 @@ namespace MvcTaskManager.Controllers
 
 
 
+
+    [HttpGet]
+    [Route("api/material_request_master/mrs_orders")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> GetStoreOrders()
+    {
+
+      List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
+      var results = (from a in db.Material_request_master
+                     join b in db.Material_request_logs on a.mrs_id equals b.mrs_id
+
+                     where
+                     a.mrs_id == b.mrs_id &&
+                     b.is_active.Equals(true) &&
+                     a.is_for_validation.Contains("0") &&
+                     a.is_approved_by != null  &&
+                     a.is_wh_sup_approval.Equals(true) &&
+                     a.is_active.Equals(true) &&
+                     a.is_prepared.Equals(false)
+                     || a.Force_prepared_status != null
+                     || b.is_wh_checker_cancel.Contains("1")
+
+                     group a by   new
+                     {
+                       a.mrs_id,
+                       a.Is_wh_sup_approval_date,
+                       a.department_id,
+                       a.mrs_req_desc,
+                       a.mrs_requested_date,
+                       a.mrs_requested_by,
+                       a.is_approved_date,
+                       a.is_active,
+                       TotalItems = b.is_active
+
+                     } into total
+
+                     select new
+
+                     {
+
+                       total.Key.mrs_id,
+                       is_approved_prepa_date = total.Key.Is_wh_sup_approval_date,
+                       department_id = total.Key.department_id,
+                       mrs_req_desc = total.Key.mrs_req_desc,
+                       mrs_requested_date = total.Key.mrs_requested_date,
+                       mrs_requested_by = total.Key.mrs_requested_by,
+                       is_active = total.Key.is_active,
+                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
+                       TotalPreparedItems = (from Order in db.Material_request_logs
+                                             where total.Key.mrs_requested_date == Order.mrs_date_requested
+      
+                                             && total.Key.department_id == Order.department_id
+                                             && total.Key.mrs_id == Order.mrs_id
+                                             && Order.is_active.Equals(true)
+                                             && Order.is_prepared.Equals(true)
+                                             select Order).Count() - (from Order in db.Material_request_logs
+                                                                      where total.Key.mrs_id == Order.mrs_id
+                                                                      && total.Key.mrs_requested_date == Order.mrs_date_requested                                                      
+                                                                      && Order.is_active.Equals(true)
+                                                                      && Order.is_wh_checker_cancel.Contains("1")
+       
+                                                                      select Order).Count(),
+                       TotalRejectItems = (from Order in db.Material_request_logs
+                                           where total.Key.mrs_id == Order.mrs_id
+                                           && total.Key.mrs_requested_date == Order.mrs_date_requested
+                                           && Order.is_active.Equals(true)
+                                           && Order.is_wh_checker_cancel.Contains("1")
+                                           select Order).Count()
+                     }
+
+
+
+                    );
+      //return Ok(results);
+
+
+
+      var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems || x.TotalPreparedItems != 0).ToListAsync();
+
+
+
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(GetAllPreparedItems);
+      });
+
+      if (GetAllPreparedItems.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
+
+
+
+
+    }
+
+
+
+
     [HttpGet]
     [Route("api/material_request_master/{user_id}")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
