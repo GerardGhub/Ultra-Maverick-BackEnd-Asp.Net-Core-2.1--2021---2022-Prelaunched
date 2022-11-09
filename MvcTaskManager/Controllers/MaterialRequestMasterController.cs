@@ -76,9 +76,9 @@ namespace MvcTaskManager.Controllers
                        is_active = total.Key.is_active,
                        TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
                        TotalPreparedItems = (from Order in db.Material_request_logs
-                                             where total.Key.mrs_requested_date == Order.mrs_date_requested
-      
-                                             && total.Key.department_id == Order.department_id
+                                             where  Order.mrs_date_requested == total.Key.mrs_requested_date
+
+                                     
                                              && total.Key.mrs_id == Order.mrs_id
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared.Equals(true)
