@@ -123,11 +123,93 @@ namespace MvcTaskManager.Controllers
         return NoContent();
       }
 
-
-
-
     }
 
+
+    [HttpGet]
+    [Route("api/material_request_master/distinct_mrs_orders")]
+
+    public async Task<ActionResult> GetDistinctPreparedOrders()
+    {
+List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
+      var results = (from a in db.Material_request_master
+                     join b in db.Material_request_logs on a.mrs_id equals b.mrs_id
+                     join c in db.Department on a.department_id equals c.department_id
+
+                     where
+                     a.mrs_id == b.mrs_id &&
+                     b.is_active.Equals(true) &&
+                     a.is_for_validation.Contains("0") &&
+                     a.is_approved_by != null &&
+                     a.is_wh_sup_approval.Equals(true) &&
+                     a.is_active.Equals(true) &&
+                     a.is_prepared.Equals(true)
+                     || a.Force_prepared_status != null
+
+                     group a by new
+                     {
+                       a.mrs_id,
+                       a.Is_wh_sup_approval_date,
+                       a.department_id,
+                       c.department_name,
+                       a.mrs_req_desc,
+                       a.mrs_requested_date,
+                       a.mrs_requested_by,
+                       a.is_approved_date,
+                       b.is_active,
+                       a.Is_wh_preparation_date,
+                       TotalItems = b.is_active
+
+                     } into total
+
+                     select new
+
+                     {
+                       Id = total.Key.mrs_id,
+                       is_approved_prepa_date = total.Key.Is_wh_preparation_date,
+                       department_id = total.Key.department_id,
+                       department_name = total.Key.department_name,
+                       mrs_req_desc = total.Key.mrs_req_desc,
+                       mrs_requested_date = total.Key.mrs_requested_date,
+                       mrs_requested_by = total.Key.mrs_requested_by,
+                       is_active = total.Key.is_active,
+                       total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
+                       TotalPreparedItems = (from Order in db.Material_request_logs
+                                             where 
+                                             Order.mrs_date_requested == total.Key.mrs_requested_date
+                                             && total.Key.mrs_id == Order.mrs_id
+                                             && Order.is_active.Equals(true)
+                                             && Order.is_prepared.Equals(true)
+
+                                             select Order).Count() - (from Order in db.Material_request_logs
+                                                                      where total.Key.mrs_id == Order.mrs_id
+                                                                      && Order.mrs_date_requested == total.Key.mrs_requested_date                        
+                                                                      && Order.is_active.Equals(true)
+                                                                      && Order.is_wh_checker_cancel.Contains("1")
+                                                                      select Order).Count()
+       
+                     }
+
+                    );
+
+      var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems).ToListAsync();
+
+      var result = await System.Threading.Tasks.Task.Run(() =>
+      {
+        return Ok(GetAllPreparedItems);
+      });
+
+      if (GetAllPreparedItems.Count() > 0)
+      {
+        return (result);
+      }
+      else
+      {
+
+        return NoContent();
+      }
+
+    }
 
 
 
