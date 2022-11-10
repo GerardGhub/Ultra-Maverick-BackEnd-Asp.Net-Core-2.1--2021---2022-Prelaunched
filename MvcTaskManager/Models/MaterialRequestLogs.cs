@@ -48,7 +48,7 @@ namespace MvcTaskManager.Models
     public string is_prepared_date { get; set; }
     public string is_wh_checker_cancel { get; set; }
     public string is_for_validation { get; set; } = "0";
-
+    public string prepared_allocated_qty { get; set; }
 
 
   }

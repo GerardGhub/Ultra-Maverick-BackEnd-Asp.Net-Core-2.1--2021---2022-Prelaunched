@@ -24,7 +24,8 @@ namespace MvcTaskManager.Controllers
 
 
 
-    [HttpGet]
+
+      [HttpGet]
     [Route("api/material_request_master/mrs_orders")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetStoreOrders()
@@ -1136,7 +1137,33 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
 
 
-    [HttpPut]
+    [HttpGet]
+    [Route("api/material_request_master/search/{searchtext}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> SearchPerItem(int searchText)
+    {
+
+
+      List<MaterialRequestLogs> projects = null;
+
+      int MrisID = searchText;
+      //if (searchBy == "store_name")
+
+      projects = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true)
+      && temp.mrs_id == MrisID
+      && temp.is_wh_checker_cancel == null
+      && temp.prepared_allocated_qty != null
+      ).ToListAsync();
+
+
+      return Ok(projects);
+
+    }
+
+
+
+
+      [HttpPut]
     [Route("api/material_request_master/deactivate")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestMaster> PutCancelAll([FromBody] MaterialRequestMaster MRSParams)

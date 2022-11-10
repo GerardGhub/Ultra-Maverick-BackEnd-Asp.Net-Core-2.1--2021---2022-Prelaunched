@@ -140,19 +140,7 @@ namespace MvcTaskManager.Controllers
 
     }
 
-    //public async Task<List<DryWhOrder>> GetDistinctPreparedOrderPartialCancel()
-    //{
 
-    //  string DeActivated = "0";
-    //  List<DryWhOrder> StoreOrderCheckList = await db.Dry_wh_orders.GroupBy(p => new { p.is_approved_prepa_date, p.fox }).Select(g => g.First()).Where(temp => temp.is_active.Equals(true)
-    //    && temp.is_for_validation.Contains(DeActivated)
-    //    && temp.is_approved != null && temp.is_prepared.Equals(true)
-    //    && temp.is_wh_approved == null
-    //    && temp.is_wh_checker_cancel != null || temp.force_prepared_status != null).ToListAsync();
-    //  return StoreOrderCheckList;
-
-
-    //}
     [HttpGet]
     [Route("api/dry_wh_orders_checklist_distinct_partial_cancel")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
