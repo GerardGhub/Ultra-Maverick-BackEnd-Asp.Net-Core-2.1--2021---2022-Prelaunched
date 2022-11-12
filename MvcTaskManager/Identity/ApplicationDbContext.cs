@@ -20,12 +20,9 @@ namespace MvcTaskManager.Identity
     public DbSet<RMProjectsPartialPo> ProjectsPartialPo { get; set; }
 
     public DbSet<ApplicationRole> ApplicationRoles { get; set; }
-    public DbSet<Country> Countries { get; set; }
+
     public DbSet<Skill> Skills { get; set; }
-    public DbSet<TaskPriority> TaskPriorities { get; set; }
-    public DbSet<TaskStatus> TaskStatuses { get; set; }
-    public DbSet<Task> Tasks { get; set; }
-    public DbSet<TaskStatusDetail> TaskStatusDetails { get; set; }
+
     public DbSet<TblRejectedStats> TblRejectedStatus { get; set; }
     public DbSet<tblDryPartialReceivingRejectionModel> TblDryPartialReceivingRejection { get; set; }
     public DbSet<AllowablePercentageQAModel> TblAllowablePercentageQA { get; set; }
