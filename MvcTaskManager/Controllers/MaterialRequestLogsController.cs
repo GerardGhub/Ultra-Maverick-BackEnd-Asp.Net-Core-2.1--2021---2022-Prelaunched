@@ -57,7 +57,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.activated_date = null;
         existingDataStatus.deactivated_by = MRSParams.deactivated_by;
         existingDataStatus.deactivated_date = DateTime.Now.ToString("M/d/yyyy");
-
+        existingDataStatus.cancel_reason = MRSParams.cancel_reason;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -66,6 +66,9 @@ namespace MvcTaskManager.Controllers
         return null;
       }
     }
+
+
+
 
 
 
