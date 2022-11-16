@@ -32,7 +32,6 @@ namespace MvcTaskManager.Controllers
       {
         existingDataStatus.mrs_order_qty = MRSParams.mrs_order_qty;
         existingDataStatus.mrs_uom = MRSParams.mrs_uom;
-        //existingDataStatus.mrs_date_needed = MRSParams.mrs_date_needed;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
@@ -49,6 +48,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutDeactivate([FromBody] MaterialRequestLogs MRSParams)
     {
+   
       MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
@@ -58,7 +58,19 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.deactivated_by = MRSParams.deactivated_by;
         existingDataStatus.deactivated_date = DateTime.Now.ToString("M/d/yyyy");
         existingDataStatus.cancel_reason = MRSParams.cancel_reason;
+        existingDataStatus.is_wh_checker_cancel = MRSParams.is_wh_checker_cancel = "1";
+        existingDataStatus.is_prepared = false;
         await db.SaveChangesAsync();
+
+
+        MaterialRequestMaster existingParentData = await db.Material_request_master
+          .Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+        if (existingParentData != null)
+        {
+          existingParentData.is_prepared = false;
+        }
+        await db.SaveChangesAsync();
+
         return existingDataStatus;
       }
       else

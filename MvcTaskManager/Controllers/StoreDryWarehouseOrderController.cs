@@ -90,17 +90,6 @@ namespace MvcTaskManager.Controllers
                                                                       && Order.is_wh_checker_cancel.Contains("1")
                                                                      
                                                                       select Order).Count()
-                       //                                               ,
-                       //TotalRejectItems = (from Order in db.Dry_wh_orders
-                       //                    where total.Key.Fox == Order.fox
-                       //                    && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
-                       //                    && total.Key.Store_name == Order.store_name
-                       //                    && total.Key.Route == Order.route
-                       //                    && Order.is_active.Equals(true)
-                       //                    && Order.is_wh_checker_cancel.Contains("1")
-                       //                    && Order.FK_dry_wh_orders_parent_id == total.Key.Id
-                       //                    select Order).Count()
-
 
 
                      }

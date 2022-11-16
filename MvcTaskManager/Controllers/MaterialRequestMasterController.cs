@@ -75,7 +75,12 @@ namespace MvcTaskManager.Controllers
                        mrs_requested_date = total.Key.mrs_requested_date,
                        mrs_requested_by = total.Key.mrs_requested_by,
                        is_active = total.Key.is_active,
-                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
+                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)) + (from Order in db.Material_request_logs
+                                                                                             where total.Key.mrs_id == Order.mrs_id
+                                                                                             && total.Key.mrs_requested_date == Order.mrs_date_requested
+                                                                                             && Order.is_active.Equals(false)
+                                                                                             && Order.is_wh_checker_cancel.Contains("1")
+                                                                                             select Order).Count(),
                        TotalPreparedItems = (from Order in db.Material_request_logs
                                              where  Order.mrs_date_requested == total.Key.mrs_requested_date
 
@@ -93,7 +98,7 @@ namespace MvcTaskManager.Controllers
                        TotalRejectItems = (from Order in db.Material_request_logs
                                            where total.Key.mrs_id == Order.mrs_id
                                            && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                           && Order.is_active.Equals(true)
+                                           && Order.is_active.Equals(false)
                                            && Order.is_wh_checker_cancel.Contains("1")
                                            select Order).Count()
                      }
@@ -140,12 +145,14 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
                      where
                      a.mrs_id == b.mrs_id &&
                      b.is_active.Equals(true) &&
+
                      a.is_for_validation.Contains("0") &&
                      a.is_approved_by != null &&
                      a.is_wh_sup_approval.Equals(true) &&
                      a.is_active.Equals(true) &&
                      a.is_prepared.Equals(true)
                      || a.Force_prepared_status != null
+                     && a.Is_wh_checker_approval.Equals(false)
 
                      group a by new
                      {
@@ -159,7 +166,11 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
                        a.is_approved_date,
                        b.is_active,
                        a.Is_wh_preparation_date,
-                       TotalItems = b.is_active
+                       TotalItems = b.is_active,
+                       a.Is_wh_checker_approval,
+                       a.Is_wh_checker_approval_by,
+                       a.Is_wh_checker_approval_date
+
 
                      } into total
 
@@ -174,6 +185,9 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
                        mrs_requested_date = total.Key.mrs_requested_date,
                        mrs_requested_by = total.Key.mrs_requested_by,
                        is_active = total.Key.is_active,
+                       is_wh_checker_approval = total.Key.Is_wh_checker_approval,
+                       is_wh_checker_approval_by = total.Key.Is_wh_checker_approval_by,
+                       is_wh_checker_approval_date = total.Key.Is_wh_checker_approval_date,
                        total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
                        TotalPreparedItems = (from Order in db.Material_request_logs
                                              where 
@@ -182,10 +196,10 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared.Equals(true)
 
-                                             select Order).Count() - (from Order in db.Material_request_logs
+                                             select Order).Count() + (from Order in db.Material_request_logs
                                                                       where total.Key.mrs_id == Order.mrs_id
                                                                       && Order.mrs_date_requested == total.Key.mrs_requested_date                        
-                                                                      && Order.is_active.Equals(true)
+                                                                      && Order.is_active.Equals(false)
                                                                       && Order.is_wh_checker_cancel.Contains("1")
                                                                       select Order).Count()
        
@@ -1259,6 +1273,34 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.is_approved_by = MRSParams.is_approved_by;
           item.is_approved_date = DateTime.Now.ToString("M/d/yyyy");
 
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+    [HttpPut]
+    [Route("api/material_request_master/wh_checker_approval")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestMaster> PutforWhCheckerApproval([FromBody] MaterialRequestMaster MRSParams)
+    {
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.Is_wh_checker_approval_by = MRSParams.Is_wh_checker_approval_by;
+          item.Is_wh_checker_approval_date = DateTime.Now;
+          item.Is_wh_checker_approval = true;
         }
 
         await db.SaveChangesAsync();

@@ -34,6 +34,11 @@ namespace MvcTaskManager.Models
     public string Is_wh_sup_approval_date { get; set; }
     public string Is_wh_preparation_date { get; set; }
 
+
+    public bool Is_wh_checker_approval { get; set; }
+    public string Is_wh_checker_approval_by { get; set; }
+    public DateTime? Is_wh_checker_approval_date { get; set; }
+
     [Required]
     public int user_id { get; set; }
 
