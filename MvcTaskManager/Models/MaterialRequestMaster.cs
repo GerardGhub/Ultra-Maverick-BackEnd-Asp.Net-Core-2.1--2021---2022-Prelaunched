@@ -39,7 +39,10 @@ namespace MvcTaskManager.Models
     public string Is_wh_checker_approval_by { get; set; }
     public DateTime? Is_wh_checker_approval_date { get; set; }
     public int Wh_checker_move_order_no { get; set; }
-
+    public string Is_wh_checker_cancel_reason { get; set; }
+    public string Is_wh_checker_cancel_by { get; set; }
+    public string Is_wh_checker_cancel { get; set; }
+    public DateTime? Is_wh_checker_cancel_date { get; set; }
     [Required]
     public int user_id { get; set; }
 

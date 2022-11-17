@@ -1476,6 +1476,41 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
 
 
+    [HttpPut]
+    [Route("api/material_request_master/wh_checker_cancel")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<MaterialRequestMaster>> PutPreparationl([FromBody] MaterialRequestMaster MRSParams)
+    {
+
+
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.Is_wh_checker_cancel = "1";
+          item.Is_wh_checker_cancel_by = MRSParams.Is_wh_checker_cancel_by;
+          item.Is_wh_checker_cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
+          item.Is_wh_checker_cancel_date = DateTime.Now;
+
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
 
 
     [HttpPut]
