@@ -98,14 +98,40 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.deactivated_date = null;
         existingDataStatus.activated_by = MRSParams.activated_by;
         existingDataStatus.activated_date = DateTime.Now.ToString("M/d/yyyy");
-
+        existingDataStatus.cancel_reason = MRSParams.cancel_reason;
+        existingDataStatus.is_wh_checker_cancel = null;
+        existingDataStatus.is_prepared = true;
         await db.SaveChangesAsync();
+
+
+        MaterialRequestLogs checkIfYouHaveCancelledData = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id && temp.is_active.Equals(false)).FirstOrDefaultAsync();
+        if (checkIfYouHaveCancelledData != null)
+        {
+
+        }
+        else
+        {
+                  MaterialRequestMaster existingParentData = await db.Material_request_master
+                  .Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+                  if (existingParentData != null)
+                  {
+                  existingParentData.is_prepared = true;
+                  }
+                  await db.SaveChangesAsync();
+        }
+
+
         return existingDataStatus;
       }
       else
       {
         return null;
       }
+
+
+
+
+
     }
 
 
