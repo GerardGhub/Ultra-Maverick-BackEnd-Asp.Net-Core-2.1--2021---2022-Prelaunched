@@ -10495,7 +10495,7 @@ function InternalOrderComponent_tr_237_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](16, "td", 42);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](17, "button", 108);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function InternalOrderComponent_tr_237_Template_button_click_17_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r86); const item_r83 = ctx.$implicit; const ctx_r85 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r85.onApproveClick(item_r83); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("click", function InternalOrderComponent_tr_237_Template_button_click_17_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r86); const item_r83 = ctx.$implicit; const ctx_r85 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](); return ctx_r85.onViewCancelledClick(item_r83); });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelement"](18, "span", 102);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](19, " View ");
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
@@ -10933,6 +10933,27 @@ class InternalOrderComponent {
         this.onlineOrderService.searchItems(item.id).subscribe((response) => {
             this.itemList = response;
             // console.log(response);
+        });
+    }
+    onViewCancelledClick(item) {
+        this.MRSId = item.id;
+        this.getCountOrderDispatching();
+        let shortDate = moment__WEBPACK_IMPORTED_MODULE_4__(new Date(item.is_approved_prepa_date)).format('MM-DD-YYYY');
+        this.approvalForm.patchValue({
+            id: item.id,
+            prep_date: shortDate,
+            recieving_date: this.dateToday,
+            mrs_req_desc: item.mrs_req_desc,
+            department_name: item.department_name,
+            mrs_requested_date: item.mrs_requested_date,
+            mrs_requested_by: item.mrs_requested_by,
+            Is_wh_approved: 1,
+            Is_wh_checker_approval_by: this.loginService.fullName,
+            Is_wh_approved_date: this.dateToday,
+            Wh_checker_move_order_no: this.totalStoreOrderDispatching,
+        });
+        this.onlineOrderService.searchItemsInactive(item.mrs_id).subscribe((response) => {
+            this.itemList = response;
         });
     }
     CloseViewOrderRedirectToInternalOrder() {
@@ -28301,8 +28322,11 @@ class OnlineOrderService {
     }
     searchItems(id) {
         return this.httpClient.get('/api/material_request_master/search/' + id, {
-            responseType: 'json',
+            responseType: 'json'
         });
+    }
+    searchItemsInactive(id) {
+        return this.httpClient.get('/api/material_request_logs/search/partial_inactive/' + id, { responseType: 'json' });
     }
 }
 OnlineOrderService.ɵfac = function OnlineOrderService_Factory(t) { return new (t || OnlineOrderService)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"])); };

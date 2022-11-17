@@ -599,11 +599,66 @@ namespace MvcTaskManager.Controllers
 
 
     }
-  
 
 
 
-  [HttpGet]
+
+
+    [HttpGet]
+    [Route("api/material_request_logs/search/partial_inactive/{transaction_number}")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
+    public async Task<IActionResult> GetMaterialOrderPartialCancelled(string transaction_number)
+    {
+
+      string transact_no_passed_by = transaction_number;
+
+
+
+      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(false) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
+      List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
+
+      if (allmrs.Count > 0)
+      {
+
+      }
+      else
+      {
+        return NoContent();
+      }
+
+      foreach (var material in allmrs)
+      {
+
+        MaterialRequestViewModel.Add(new MaterialRequestLogsViewModel()
+        {
+          Id = material.id,
+          Mrs_transact_no = material.mrs_id.ToString(),
+          Mrs_item_code = material.mrs_item_code,
+          Mrs_item_description = material.mrs_item_description,
+          Mrs_order_qty = material.mrs_order_qty,
+          Mrs_uom = material.mrs_uom,
+          Mrs_served_qty = material.mrs_served_qty,
+          Mrs_remarks = material.mrs_remarks,
+          Mrs_date_requested = material.mrs_date_requested,
+          Mrs_approved_by = material.mrs_approved_by,
+          Mrs_approved_date = material.mrs_approved_date,
+          Mrs_issued_by = material.mrs_issued_by,
+          Mrs_issued_date = material.mrs_issued_by,
+          Mrs_requested_by = material.mrs_requested_by,
+          Is_active = material.is_active
+
+
+        });
+      }
+      return Ok(MaterialRequestViewModel);
+
+
+    }
+
+
+
+    [HttpGet]
   [Route("api/material_request_logs/search/{transaction_number}")]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 
@@ -655,6 +710,9 @@ namespace MvcTaskManager.Controllers
      
   }
 }
+
+
+
 
 
 }
