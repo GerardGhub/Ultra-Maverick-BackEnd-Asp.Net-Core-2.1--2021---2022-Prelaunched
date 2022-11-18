@@ -43,6 +43,8 @@ namespace MvcTaskManager.Models
     public string Is_wh_checker_cancel_by { get; set; }
     public string Is_wh_checker_cancel { get; set; }
     public DateTime? Is_wh_checker_cancel_date { get; set; }
+    public string Is_return_date { get; set; }
+    public string Is_return_by { get; set; }
     [Required]
     public int user_id { get; set; }
 

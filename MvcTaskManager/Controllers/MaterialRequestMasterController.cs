@@ -164,6 +164,7 @@ namespace MvcTaskManager.Controllers
                      a.is_wh_sup_approval.Equals(true) &&
                      a.is_active.Equals(true) &&
                      a.is_prepared.Equals(false)
+                     || a.Is_wh_checker_cancel != null
                      || a.Force_prepared_status != null
                      //|| b.is_wh_checker_cancel.Contains("1")
 
@@ -179,7 +180,8 @@ namespace MvcTaskManager.Controllers
                        a.is_approved_date,
                        a.is_active,
                        a.Is_wh_preparation_date,
-                       TotalItems = b.is_active
+                       TotalItems = b.is_active,
+                       a.Is_wh_checker_cancel
 
                      } into total
 
@@ -195,6 +197,7 @@ namespace MvcTaskManager.Controllers
                        mrs_requested_date = total.Key.mrs_requested_date,
                        mrs_requested_by = total.Key.mrs_requested_by,
                        is_active = total.Key.is_active,
+                       is_wh_checker_cancel = total.Key.Is_wh_checker_cancel,
                        TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)) + (from Order in db.Material_request_logs
                                                                                              where total.Key.mrs_id == Order.mrs_id
                                                                                              && total.Key.mrs_requested_date == Order.mrs_date_requested
@@ -272,7 +275,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
                      a.is_wh_sup_approval.Equals(true) &&
                      a.is_active.Equals(true) &&
                      a.is_prepared.Equals(true)
-                                          && a.Is_wh_checker_approval.Equals(false)
+                    && a.Is_wh_checker_approval.Equals(false)
+                    && a.Is_wh_checker_cancel == null
                      || a.Force_prepared_status != null
 
 
@@ -1496,6 +1500,10 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.Is_wh_checker_cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
           item.Is_wh_checker_cancel_date = DateTime.Now;
 
+
+          item.Is_return_date = null;
+          item.Is_return_by = null;
+
         }
 
         await db.SaveChangesAsync();
@@ -1508,6 +1516,42 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       }
     }
 
+
+
+
+    [HttpPut]
+    [Route("api/material_request_master/wh_checker_cancel/return")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<ActionResult<MaterialRequestMaster>> PutPreparationReturn([FromBody] MaterialRequestMaster MRSParams)
+    {
+
+
+      MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+
+      var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (existingDataStatus != null)
+      {
+        foreach (var item in allToBeUpdated)
+        {
+
+          item.Is_wh_checker_cancel = null;
+          item.Is_wh_checker_cancel_by = null;
+          item.Is_wh_checker_cancel_reason = null;
+          item.Is_wh_checker_cancel_date = null;
+
+          item.Is_return_date = DateTime.Now.ToString();
+          item.Is_return_by = MRSParams.Is_wh_checker_cancel_by;
+        }
+
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+
+      }
+      else
+      {
+        return null;
+      }
+    }
 
 
 
