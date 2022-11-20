@@ -44,6 +44,30 @@ namespace MvcTaskManager.Controllers
 
 
     [HttpPut]
+    [Route("api/material_request_logs_requestor_cancel")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<MaterialRequestLogs> PutCancelPerItem([FromBody] MaterialRequestLogs MRSParams)
+    {
+      MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.deactivated_by = MRSParams.deactivated_by;
+        existingDataStatus.deactivated_date = DateTime.Now.ToString();
+        existingDataStatus.is_active = false;
+        await db.SaveChangesAsync();
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
+
+    [HttpPut]
     [Route("api/material_request_logs_deactivate")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<MaterialRequestLogs> PutDeactivate([FromBody] MaterialRequestLogs MRSParams)
