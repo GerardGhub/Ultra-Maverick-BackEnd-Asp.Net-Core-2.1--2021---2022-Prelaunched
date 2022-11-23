@@ -1501,6 +1501,10 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.Is_wh_checker_cancel_date = DateTime.Now;
           item.Is_return_date = null;
           item.Is_return_by = null;
+          item.is_prepared = false;
+          item.is_prepared_by = null;
+
+  
 
         }
 
@@ -1516,6 +1520,9 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
             item.cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
             item.deactivated_by = MRSParams.Is_wh_checker_cancel_by;
             item.deactivated_date = DateTime.Now.ToString();
+            item.is_prepared = false;
+            item.is_prepared_date = null;
+              item.is_prepared_by = null;
           }
         }
 

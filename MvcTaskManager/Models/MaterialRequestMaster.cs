@@ -27,6 +27,7 @@ namespace MvcTaskManager.Models
     public string updated_by { get; set; }
     public string updated_date { get; set; }
     public bool is_prepared { get; set; }
+    public string  is_prepared_by { get; set; }
     public string is_for_validation { get; set; } = "0";
     public bool is_wh_sup_approval { get; set; }
 
