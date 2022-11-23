@@ -1499,14 +1499,28 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.Is_wh_checker_cancel_by = MRSParams.Is_wh_checker_cancel_by;
           item.Is_wh_checker_cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
           item.Is_wh_checker_cancel_date = DateTime.Now;
-
-
           item.Is_return_date = null;
           item.Is_return_by = null;
 
         }
 
         await db.SaveChangesAsync();
+
+        var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+        if (MaterialLogsPrepared != null)
+        {
+          foreach (var item in MaterialLogsPrepared)
+          {
+            item.is_active = false;
+            item.is_wh_checker_cancel = "1";
+            item.cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
+            item.deactivated_by = MRSParams.Is_wh_checker_cancel_by;
+            item.deactivated_date = DateTime.Now.ToString();
+          }
+        }
+
+        await db.SaveChangesAsync();
+
         return existingDataStatus;
 
       }

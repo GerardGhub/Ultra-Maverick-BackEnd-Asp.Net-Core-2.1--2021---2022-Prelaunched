@@ -87,12 +87,15 @@ namespace MvcTaskManager.Controllers
         await db.SaveChangesAsync();
 
 
+        //Update Parent MRS
         MaterialRequestMaster existingParentData = await db.Material_request_master
-          .Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
+        .Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
         if (existingParentData != null)
         {
-          existingParentData.is_prepared = false;
+        existingParentData.is_prepared = false;
         }
+
+
         await db.SaveChangesAsync();
 
         return existingDataStatus;
