@@ -14871,14 +14871,26 @@ class ProjectsComponent {
             // this.projectsService.getAllProjects().subscribe((response: Project[]) => {
             //   this.projects = response;
             // });
-            this.projectsService
-                .SearchProjects('Po_number', this.searchText)
-                .subscribe((response) => {
-                this.projects = response;
-                this.showLoading = false;
-                this.calculateNoOfPages();
-                this.totalPoRowCount = response.length;
-            });
+            if (this.searchBy == "po_number") {
+                this.projectsService
+                    .SearchProjects('Po_number', this.searchText)
+                    .subscribe((response) => {
+                    this.projects = response;
+                    this.showLoading = false;
+                    this.calculateNoOfPages();
+                    this.totalPoRowCount = response.length;
+                });
+            }
+            else {
+                this.projectsService
+                    .SearchProjects('item_code', this.searchText)
+                    .subscribe((response) => {
+                    this.projects = response;
+                    this.showLoading = false;
+                    this.calculateNoOfPages();
+                    this.totalPoRowCount = response.length;
+                });
+            }
         } ///
         this.editForm.resetForm();
         this.received_by.nativeElement.value = this.loginService.fullName;
@@ -14886,6 +14898,8 @@ class ProjectsComponent {
         //first
         this.RandomNumber = Math.floor(Math.random() * 1000000 + 1);
         setTimeout(() => {
+            var PoDate = new Date(this.projects[index].po_date).toISOString().slice(0, 10);
+            var PrDate = new Date(this.projects[index].pr_date).toISOString().slice(0, 10);
             this.editProject.projectID = this.projects[index].projectID;
             // this.editProject.projectID = Math.floor((Math.random() * 1000000) + 1);
             this.editProject.projectName = this.projects[index].projectName;
@@ -14908,9 +14922,11 @@ class ProjectsComponent {
             this.expirable_material = this.projects[index].is_expirable;
             this.editProject.item_description = this.projects[index].item_description;
             this.editProject.po_number = this.projects[index].po_number;
-            this.editProject.po_date = this.projects[index].po_date;
+            this.editProject.po_date = PoDate;
+            // this.projects[index].po_date;
             this.editProject.pr_number = this.projects[index].pr_number;
-            this.editProject.pr_date = this.projects[index].pr_date;
+            this.editProject.pr_date = PrDate;
+            //  this.projects[index].pr_date;
             this.editProject.qty_order = this.projects[index].qty_order;
             this.editProject.qty_uom = this.projects[index].qty_uom;
             this.editProject.is_activated = this.Activator;

@@ -1078,10 +1078,16 @@ namespace MvcTaskManager.Controllers
 
       string ProjectIsActivated = "1";
       List<Project> projects = null;
-    
-        //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) && temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
-      projects = db.Projects.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
 
+      //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) && temp.Actual_remaining_receiving != "0" && (Convert.ToInt32(temp.Actual_remaining_receiving) > 0)).ToList();
+      if (searchBy == "po_number")
+      {
+        projects = db.Projects.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+      }
+      if (searchBy == "item_code")
+      {
+        projects = db.Projects.Where(temp => temp.item_code.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated)).ToList();
+      }
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)

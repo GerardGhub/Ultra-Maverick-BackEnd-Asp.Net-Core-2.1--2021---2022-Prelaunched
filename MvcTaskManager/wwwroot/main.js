@@ -26625,13 +26625,13 @@ class ProjectsPartialPoComponent {
             this.showCancelledSuccess();
             this.ngOnInit();
             jquery__WEBPACK_IMPORTED_MODULE_1__('#editFormCancel').trigger('click');
+            setTimeout(() => {
+                this.getList();
+            }, 400);
         }, (error) => {
             console.log(error);
         });
         // }
-        setTimeout(() => {
-            this.getList();
-        }, 100);
     }
     //Insert as Partials
     InsertANewPartialReceiving() {
