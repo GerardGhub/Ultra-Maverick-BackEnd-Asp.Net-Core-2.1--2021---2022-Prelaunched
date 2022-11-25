@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "MvcTaskManager": {
+    "UMBackend": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
