@@ -1493,117 +1493,117 @@ namespace MvcTaskManager.Controllers
         //SECTION 1
         //A
 
-        existingProject.A_delivery_van_desc = project.A_delivery_van_desc;
-        existingProject.A_compliance = project.A_compliance;
-        existingProject.A_remarks = project.A_remarks;
-        //B
-        existingProject.B_cooling_system_desc = project.B_cooling_system_desc;
-        existingProject.B_compliance = project.B_compliance;
-        existingProject.B_remarks = project.B_remarks;
-        //C
-        existingProject.C_inner_walls_desc = project.C_inner_walls_desc;
-        existingProject.C_compliance = project.C_compliance;
-        existingProject.C_remarks = project.C_remarks;
-        //D
-        existingProject.D_plastic_curtains_desc = project.D_plastic_curtains_desc;
-        existingProject.D_compliance = project.D_compliance;
-        existingProject.D_remarks = project.D_remarks;
-        //E
-        existingProject.E_thereno_pest_desc = project.E_thereno_pest_desc;
-        existingProject.E_compliance = project.E_compliance;
-        existingProject.E_remarks = project.E_remarks;
-        //SECTION 2
-        //A
-        existingProject.A_clean_company_dos = project.A_clean_company_dos;
-        existingProject.A_compliance_dos = project.A_compliance_dos;
-        existingProject.A_remarks_dos = project.A_remarks_dos;
-        //B
-        existingProject.B_delivery_staff_symptoms_dos = project.B_delivery_staff_symptoms_dos;
-        existingProject.B_compliance_dos = project.B_compliance_dos;
-        existingProject.B_remarks_dos = project.B_remarks_dos;
-        //C
-        existingProject.C_inner_walls_clean_dos = project.C_inner_walls_clean_dos;
-        existingProject.C_compliance_dos = project.C_compliance_dos;
-        existingProject.C_remarks_dos = project.C_remarks_dos;
-        //D
-        existingProject.D_plastic_curtains_dos = project.D_plastic_curtains_dos;
-        existingProject.D_compliance_dos = project.D_compliance_dos;
-        existingProject.D_remarks_dos = project.D_remarks_dos;
-        //E
-        existingProject.E_no_accessories_dos = project.E_no_accessories_dos;
-        existingProject.E_compliance_dos = project.E_compliance_dos;
-        existingProject.E_remarks_dos = project.E_remarks_dos;
-        //F
-        existingProject.F_no_pests_sightings_dos = project.F_no_pests_sightings_dos;
-        existingProject.F_remarks_dos = project.F_remarks_dos;
-        existingProject.F_compliance_dos = project.F_compliance_dos;
-        //SECTION 3
-        //A
-        existingProject.A_pallet_crates_tres = project.A_pallet_crates_tres;
-        existingProject.A_compliance_tres = project.A_compliance_tres;
-        existingProject.A_remarks_tres = project.A_remarks_tres;
-        //B
-        existingProject.B_product_contamination_tres = project.B_product_contamination_tres;
-        existingProject.B_compliance_tres = project.B_compliance_tres;
-        existingProject.B_remarks_tres = project.B_remarks_tres;
-        //C
-        existingProject.C_uncessary_items_tres = project.C_uncessary_items_tres;
-        existingProject.C_compliance_tres = project.C_compliance_tres;
-        existingProject.C_remarks_tres = project.C_remarks_tres;
-        //D
-        existingProject.D_products_cover_tres = project.D_products_cover_tres;
-        existingProject.D_compliance_tres = project.D_compliance_tres;
-        existingProject.D_remarks_tres = project.D_remarks_tres;
-        //Section 4
-        //A
-        existingProject.A_certificate_coa_kwatro_desc = project.A_certificate_coa_kwatro_desc;
-        existingProject.A_compliance_kwatro = project.A_compliance_kwatro;
-        existingProject.A_remarks_kwatro = project.A_remarks_kwatro;
-        //B
-        existingProject.B_po_kwatro_desc = project.B_po_kwatro_desc;
-        existingProject.B_compliance_kwatro = project.B_compliance_kwatro;
-        existingProject.B_remarks_kwatro = project.B_remarks_kwatro;
-        //C
-        existingProject.C_msds_kwatro_desc = project.C_msds_kwatro_desc;
-        existingProject.C_compliance_kwatro = project.C_compliance_kwatro;
-        existingProject.C_remarks_kwatro = project.C_remarks_kwatro;
-        //D
-        existingProject.D_food_grade_desc = project.D_food_grade_desc;
-        existingProject.D_compliance_kwatro = project.D_compliance_kwatro;
-        existingProject.D_remarks_kwatro = project.D_remarks_kwatro;
-        //Section 5
-        //A
-        existingProject.A_qty_received_singko_singko = project.A_qty_received_singko_singko;
-        existingProject.A_compliance_singko = project.A_compliance_singko;
-        existingProject.A_remarks_singko = project.A_remarks_singko;
-        //B
-        existingProject.B_mfg_date_desc_singko = project.B_mfg_date_desc_singko;
-        existingProject.B_compliance_singko = project.B_compliance_singko;
-        existingProject.B_remarks_singko = project.B_remarks_singko;
-        //C
-        existingProject.C_expirydate_desc_singko = project.C_expirydate_desc_singko;
-        existingProject.C_compliance_singko = project.C_compliance_singko;
-        existingProject.C_remarks_singko = project.C_remarks_singko;
-        //D
-        existingProject.D_packaging_desc_singko = project.D_packaging_desc_singko;
-        existingProject.D_compliance_singko = project.D_compliance_singko;
-        existingProject.D_remarks_singko = project.D_remarks_singko;
-        //E
-        existingProject.E_no_contaminants_desc_singko = project.E_no_contaminants_desc_singko;
-        existingProject.E_compliance_singko = project.E_compliance_singko;
-        existingProject.E_remarks_singko = project.E_remarks_singko;
-        //F
-        existingProject.F_qtyrejected_desc_singko = project.F_qtyrejected_desc_singko;
-        existingProject.F_compliance_singko = project.F_compliance_singko;
-        existingProject.F_remarks_singko = project.F_remarks_singko;
-        //G
-        existingProject.G_rejected_reason_desc_singko = project.G_rejected_reason_desc_singko;
-        existingProject.G_compliance_singko = project.G_compliance_singko;
-        existingProject.G_remarks_singko = project.G_remarks_singko;
-        //H
-        existingProject.H_lab_sample_desc_singko = project.H_lab_sample_desc_singko;
-        existingProject.H_compliance_singko = project.H_compliance_singko;
-        existingProject.H_remarks_singko = project.H_remarks_singko;
+        //existingProject.A_delivery_van_desc = project.A_delivery_van_desc;
+        //existingProject.A_compliance = project.A_compliance;
+        //existingProject.A_remarks = project.A_remarks;
+        ////B
+        //existingProject.B_cooling_system_desc = project.B_cooling_system_desc;
+        //existingProject.B_compliance = project.B_compliance;
+        //existingProject.B_remarks = project.B_remarks;
+        ////C
+        //existingProject.C_inner_walls_desc = project.C_inner_walls_desc;
+        //existingProject.C_compliance = project.C_compliance;
+        //existingProject.C_remarks = project.C_remarks;
+        ////D
+        //existingProject.D_plastic_curtains_desc = project.D_plastic_curtains_desc;
+        //existingProject.D_compliance = project.D_compliance;
+        //existingProject.D_remarks = project.D_remarks;
+        ////E
+        //existingProject.E_thereno_pest_desc = project.E_thereno_pest_desc;
+        //existingProject.E_compliance = project.E_compliance;
+        //existingProject.E_remarks = project.E_remarks;
+        ////SECTION 2
+        ////A
+        //existingProject.A_clean_company_dos = project.A_clean_company_dos;
+        //existingProject.A_compliance_dos = project.A_compliance_dos;
+        //existingProject.A_remarks_dos = project.A_remarks_dos;
+        ////B
+        //existingProject.B_delivery_staff_symptoms_dos = project.B_delivery_staff_symptoms_dos;
+        //existingProject.B_compliance_dos = project.B_compliance_dos;
+        //existingProject.B_remarks_dos = project.B_remarks_dos;
+        ////C
+        //existingProject.C_inner_walls_clean_dos = project.C_inner_walls_clean_dos;
+        //existingProject.C_compliance_dos = project.C_compliance_dos;
+        //existingProject.C_remarks_dos = project.C_remarks_dos;
+        ////D
+        //existingProject.D_plastic_curtains_dos = project.D_plastic_curtains_dos;
+        //existingProject.D_compliance_dos = project.D_compliance_dos;
+        //existingProject.D_remarks_dos = project.D_remarks_dos;
+        ////E
+        //existingProject.E_no_accessories_dos = project.E_no_accessories_dos;
+        //existingProject.E_compliance_dos = project.E_compliance_dos;
+        //existingProject.E_remarks_dos = project.E_remarks_dos;
+        ////F
+        //existingProject.F_no_pests_sightings_dos = project.F_no_pests_sightings_dos;
+        //existingProject.F_remarks_dos = project.F_remarks_dos;
+        //existingProject.F_compliance_dos = project.F_compliance_dos;
+        ////SECTION 3
+        ////A
+        //existingProject.A_pallet_crates_tres = project.A_pallet_crates_tres;
+        //existingProject.A_compliance_tres = project.A_compliance_tres;
+        //existingProject.A_remarks_tres = project.A_remarks_tres;
+        ////B
+        //existingProject.B_product_contamination_tres = project.B_product_contamination_tres;
+        //existingProject.B_compliance_tres = project.B_compliance_tres;
+        //existingProject.B_remarks_tres = project.B_remarks_tres;
+        ////C
+        //existingProject.C_uncessary_items_tres = project.C_uncessary_items_tres;
+        //existingProject.C_compliance_tres = project.C_compliance_tres;
+        //existingProject.C_remarks_tres = project.C_remarks_tres;
+        ////D
+        //existingProject.D_products_cover_tres = project.D_products_cover_tres;
+        //existingProject.D_compliance_tres = project.D_compliance_tres;
+        //existingProject.D_remarks_tres = project.D_remarks_tres;
+        ////Section 4
+        ////A
+        //existingProject.A_certificate_coa_kwatro_desc = project.A_certificate_coa_kwatro_desc;
+        //existingProject.A_compliance_kwatro = project.A_compliance_kwatro;
+        //existingProject.A_remarks_kwatro = project.A_remarks_kwatro;
+        ////B
+        //existingProject.B_po_kwatro_desc = project.B_po_kwatro_desc;
+        //existingProject.B_compliance_kwatro = project.B_compliance_kwatro;
+        //existingProject.B_remarks_kwatro = project.B_remarks_kwatro;
+        ////C
+        //existingProject.C_msds_kwatro_desc = project.C_msds_kwatro_desc;
+        //existingProject.C_compliance_kwatro = project.C_compliance_kwatro;
+        //existingProject.C_remarks_kwatro = project.C_remarks_kwatro;
+        ////D
+        //existingProject.D_food_grade_desc = project.D_food_grade_desc;
+        //existingProject.D_compliance_kwatro = project.D_compliance_kwatro;
+        //existingProject.D_remarks_kwatro = project.D_remarks_kwatro;
+        ////Section 5
+        ////A
+        //existingProject.A_qty_received_singko_singko = project.A_qty_received_singko_singko;
+        //existingProject.A_compliance_singko = project.A_compliance_singko;
+        //existingProject.A_remarks_singko = project.A_remarks_singko;
+        ////B
+        //existingProject.B_mfg_date_desc_singko = project.B_mfg_date_desc_singko;
+        //existingProject.B_compliance_singko = project.B_compliance_singko;
+        //existingProject.B_remarks_singko = project.B_remarks_singko;
+        ////C
+        //existingProject.C_expirydate_desc_singko = project.C_expirydate_desc_singko;
+        //existingProject.C_compliance_singko = project.C_compliance_singko;
+        //existingProject.C_remarks_singko = project.C_remarks_singko;
+        ////D
+        //existingProject.D_packaging_desc_singko = project.D_packaging_desc_singko;
+        //existingProject.D_compliance_singko = project.D_compliance_singko;
+        //existingProject.D_remarks_singko = project.D_remarks_singko;
+        ////E
+        //existingProject.E_no_contaminants_desc_singko = project.E_no_contaminants_desc_singko;
+        //existingProject.E_compliance_singko = project.E_compliance_singko;
+        //existingProject.E_remarks_singko = project.E_remarks_singko;
+        ////F
+        //existingProject.F_qtyrejected_desc_singko = project.F_qtyrejected_desc_singko;
+        //existingProject.F_compliance_singko = project.F_compliance_singko;
+        //existingProject.F_remarks_singko = project.F_remarks_singko;
+        ////G
+        //existingProject.G_rejected_reason_desc_singko = project.G_rejected_reason_desc_singko;
+        //existingProject.G_compliance_singko = project.G_compliance_singko;
+        //existingProject.G_remarks_singko = project.G_remarks_singko;
+        ////H
+        //existingProject.H_lab_sample_desc_singko = project.H_lab_sample_desc_singko;
+        //existingProject.H_compliance_singko = project.H_compliance_singko;
+        //existingProject.H_remarks_singko = project.H_remarks_singko;
 
         //Cancelled PO
         existingProject.Cancelled_date = project.Cancelled_date;
@@ -1613,10 +1613,12 @@ namespace MvcTaskManager.Controllers
         existingProject.Returned_date = project.Returned_date;
         existingProject.Returned_by = project.Returned_by;
         existingProject.Returned_reason = project.Returned_reason;
-        //QC Receiving Date Angular Binding Bugok Man
+        //QC Receiving Date Angular Binding 
         existingProject.QCReceivingDate = project.QCReceivingDate;
 
-        //existingProject.ClientLocation = null;
+
+
+
         db.SaveChanges();
 
         Project existingProject2 = db.Projects.Where(temp => temp.Po_number == project.Po_number).FirstOrDefault();
@@ -1667,10 +1669,13 @@ namespace MvcTaskManager.Controllers
           Returned_reason = existingProject.Returned_reason,
 
           //QC Receiving Date
-          QCReceivingDate = existingProject.QCReceivingDate
+          QCReceivingDate = existingProject.QCReceivingDate,
 
 
-        };
+
+
+
+      };
         return Ok(projectViewModel);
       }
       else

@@ -24,6 +24,7 @@ namespace MvcTaskManager.Models
     public int? TeamSize { get; set; }
 
     public int Projects_FK { get; set; }
+    public int Is_return_in_qc { get; set; } = 0;
 
     public bool Active { get; set; }
 

@@ -10,6 +10,7 @@ namespace MvcTaskManager.ViewModels
     {
         public int ProjectID { get; set; }
     //public int PrimaryID { get; set; }
+    public string Is_return_in_qc { get; set; }
     public int Projects_FK{ get; set; }
     public string ProjectName { get; set; }
         public string DateOfStart { get; set; }
