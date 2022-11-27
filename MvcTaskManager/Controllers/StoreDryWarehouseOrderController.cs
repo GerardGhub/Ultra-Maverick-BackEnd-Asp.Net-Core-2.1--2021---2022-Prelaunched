@@ -736,6 +736,23 @@ namespace MvcTaskManager.Controllers
 
         await db.SaveChangesAsync();
 
+        //Update Preparation Per Item
+        var existingDataPrepared = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == project.FK_dry_wh_orders_parent_id).ToListAsync();
+
+        foreach (var item in existingDataPrepared)
+        {
+          var UpdatePeritem = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == project.FK_dry_wh_orders_parent_id && temp.Order_Source_Key == project.primary_id).FirstOrDefaultAsync();
+
+          if (UpdatePeritem != null)
+          {
+            UpdatePeritem.Is_Active = true;
+          }
+
+        }
+
+
+
+
         DryWhOrder checkTheDataIfIsPrepared = await db.Dry_wh_orders.Where(temp => temp.is_prepared.Equals(false) && temp.is_active.Equals(true)
         && temp.FK_dry_wh_orders_parent_id == project.FK_dry_wh_orders_parent_id).FirstOrDefaultAsync();
         if (checkTheDataIfIsPrepared != null)
@@ -878,8 +895,25 @@ namespace MvcTaskManager.Controllers
 
         }
         await db.SaveChangesAsync();
-          //Ending the Execution
+        //Ending the Execution
 
+
+
+        //Update Preparation Per Item
+        var existingDataPrepared = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == storeOrders.FK_dry_wh_orders_parent_id).ToListAsync();
+
+        foreach (var item in existingDataPrepared)
+        {
+          var UpdatePeritem = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == storeOrders.FK_dry_wh_orders_parent_id && temp.Order_Source_Key == storeOrders.primary_id).FirstOrDefaultAsync();
+
+          if (UpdatePeritem != null)
+          {
+            UpdatePeritem.Is_Active = false;
+          }
+
+        }
+
+        await db.SaveChangesAsync();
 
           DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == storeOrders.FK_dry_wh_orders_parent_id && temp.primary_id == storeOrders.primary_id).FirstOrDefaultAsync();
         DryWhOrderViewModel projectViewModel = new DryWhOrderViewModel()
