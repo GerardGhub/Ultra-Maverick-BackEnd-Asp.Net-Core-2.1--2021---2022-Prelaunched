@@ -16,6 +16,7 @@ namespace MvcTaskManager.Models
     public string Approved_preparation { get; set; }
     public string Store_name { get; set; }
     public string Route { get; set; }
+    public string Is_prepared_date { get; set; }
     public string Area { get; set; }
     public string Category { get; set; }
     public bool Is_active { get; set; }

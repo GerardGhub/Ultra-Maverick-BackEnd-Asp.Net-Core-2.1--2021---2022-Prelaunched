@@ -13,6 +13,7 @@ namespace MvcTaskManager.Models
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
     public int Prepa_Id { get; set; }
+    public int ParentIdentity { get; set; }
     public int Prepa_Source_Key { get; set; }
     public string Prepa_Approved_Prepa_Date { get; set; }
     public string Prepa_Item_Code { get; set; }
