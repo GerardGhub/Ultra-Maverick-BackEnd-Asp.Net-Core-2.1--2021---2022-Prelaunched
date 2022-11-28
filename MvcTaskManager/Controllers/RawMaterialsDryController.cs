@@ -27,26 +27,24 @@ namespace MvcTaskManager.Controllers
 
       public async Task<IActionResult> Get()
       {
-        //List<tblLocation> tblRejectedStatuses = await db.Location.ToListAsync();
-        //return Ok(tblRejectedStatuses);
-        List<RawMaterialsDry> departments = await db.Raw_Materials_Dry.Where(temp => temp.is_active.Equals(true)).ToListAsync();
+      
+        List<RawMaterialsDry> RM = await db.Raw_Materials_Dry.Where(temp => temp.is_active.Equals(true)).ToListAsync();
         List<RawMaterialsDryViewModels> rawmatsViewModel = new List<RawMaterialsDryViewModels>();
-        foreach (var dept in departments)
+        foreach (var items in RM)
         {
 
         rawmatsViewModel.Add(new RawMaterialsDryViewModels()
           {
-            Item_id = dept.item_id,
-            Item_code = dept.item_code,
-            Item_description = dept.item_description,
-            Item_class = dept.item_class,
-            Major_category = dept.major_category.ToString(),
-            Sub_category = dept.sub_category,
-            Primary_unit = dept.primary_unit,
-            Conversion = dept.conversion,
-            Item_type = dept.item_type,
-            Is_active = dept.is_active
-
+            Item_id = items.item_id,
+            Item_code = items.item_code,
+            Item_description = items.item_description,
+            Item_class = items.item_class,
+            Major_category = items.major_category.ToString(),
+            Sub_category = items.sub_category,
+            Primary_unit = items.primary_unit,
+            Conversion = items.conversion,
+            Item_type = items.item_type,
+            Is_active = items.is_active
           });
         }
         return Ok(rawmatsViewModel);
