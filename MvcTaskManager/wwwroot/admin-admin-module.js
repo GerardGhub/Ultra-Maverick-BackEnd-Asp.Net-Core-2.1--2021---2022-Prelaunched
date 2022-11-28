@@ -14893,10 +14893,19 @@ class ProjectsComponent {
         //first
         this.RandomNumber = Math.floor(Math.random() * 1000000 + 1);
         setTimeout(() => {
-            var PoDate = new Date(this.projects[index].po_date).toISOString().slice(0, 10);
-            var PrDate = new Date(this.projects[index].pr_date).toISOString().slice(0, 10);
+            //Po Date Make Resuable pag may time
+            var podate = new Date(this.projects[index].po_date);
+            var month = podate.getMonth() + 1; //months (0-11)
+            var day = podate.getDate(); //day (1-31)
+            var year = podate.getFullYear();
+            var PoDate = month + "/" + day + "/" + year;
+            //Pr Date
+            var prdate = new Date(this.projects[index].pr_date);
+            var month = prdate.getMonth() + 1; //months (0-11)
+            var day = prdate.getDate(); //day (1-31)
+            var year = prdate.getFullYear();
+            var PrDate = month + "/" + day + "/" + year;
             this.editProject.projectID = this.projects[index].projectID;
-            // this.editProject.projectID = Math.floor((Math.random() * 1000000) + 1);
             this.editProject.projectName = this.projects[index].projectName;
             this.editProject.dateOfStart = this.projects[index].dateOfStart
                 .split('/')
@@ -14937,91 +14946,6 @@ class ProjectsComponent {
             this.editProject.count_of_reject_two = this.Deactivator;
             this.editProject.count_of_reject_three = this.Deactivator;
             this.editProject.total_of_reject_mat = this.Deactivator;
-            //Section 1
-            //A
-            this.editProject.a_delivery_van_desc =
-                this.projects[index].a_delivery_van_desc;
-            //B
-            this.editProject.b_cooling_system_desc =
-                this.projects[index].b_cooling_system_desc;
-            //C
-            this.editProject.c_inner_walls_desc =
-                this.projects[index].c_inner_walls_desc;
-            //D
-            this.editProject.d_plastic_curtains_desc =
-                this.projects[index].d_plastic_curtains_desc;
-            //E
-            this.editProject.e_thereno_pest_desc =
-                this.projects[index].e_thereno_pest_desc;
-            //Section 2
-            //A
-            this.editProject.a_clean_company_dos =
-                this.projects[index].a_clean_company_dos;
-            //B
-            this.editProject.b_delivery_staff_symptoms_dos =
-                this.projects[index].b_delivery_staff_symptoms_dos;
-            //C
-            this.editProject.c_inner_walls_clean_dos =
-                this.projects[index].c_inner_walls_clean_dos;
-            //D
-            this.editProject.d_plastic_curtains_dos =
-                this.projects[index].d_plastic_curtains_dos;
-            //E
-            this.editProject.e_no_accessories_dos =
-                this.projects[index].e_no_accessories_dos;
-            //F
-            this.editProject.f_no_pests_sightings_dos =
-                this.projects[index].f_no_pests_sightings_dos;
-            //Section 3
-            //A
-            this.editProject.a_pallet_crates_tres =
-                this.projects[index].a_pallet_crates_tres;
-            //B
-            this.editProject.b_product_contamination_tres =
-                this.projects[index].b_product_contamination_tres;
-            //C
-            this.editProject.c_uncessary_items_tres =
-                this.projects[index].c_uncessary_items_tres;
-            //D
-            this.editProject.d_products_cover_tres =
-                this.projects[index].d_products_cover_tres;
-            //Serction 4
-            //A
-            this.editProject.a_certificate_coa_kwatro_desc =
-                this.projects[index].a_certificate_coa_kwatro_desc;
-            //B
-            this.editProject.b_po_kwatro_desc = this.projects[index].b_po_kwatro_desc;
-            //C
-            this.editProject.c_msds_kwatro_desc =
-                this.projects[index].c_msds_kwatro_desc;
-            //D
-            this.editProject.d_food_grade_desc =
-                this.projects[index].d_food_grade_desc;
-            //Section 5
-            //A
-            this.editProject.a_qty_received_singko_singko =
-                this.projects[index].a_qty_received_singko_singko;
-            //B
-            this.editProject.b_mfg_date_desc_singko =
-                this.projects[index].b_mfg_date_desc_singko;
-            //C
-            this.editProject.c_expirydate_desc_singko =
-                this.projects[index].c_expirydate_desc_singko;
-            //D
-            this.editProject.d_packaging_desc_singko =
-                this.projects[index].d_packaging_desc_singko;
-            //E
-            this.editProject.e_no_contaminants_desc_singko =
-                this.projects[index].e_no_contaminants_desc_singko;
-            //F
-            this.editProject.f_qtyrejected_desc_singko =
-                this.projects[index].f_qtyrejected_desc_singko;
-            //G
-            this.editProject.g_rejected_reason_desc_singko =
-                this.projects[index].g_rejected_reason_desc_singko;
-            //H
-            this.editProject.h_lab_sample_desc_singko =
-                this.projects[index].h_lab_sample_desc_singko;
             jquery__WEBPACK_IMPORTED_MODULE_0__('txtexpected_delivery').val('');
             //Validation of EXPIRATION MATERIALS
             if (this.expirable_material == '0') {

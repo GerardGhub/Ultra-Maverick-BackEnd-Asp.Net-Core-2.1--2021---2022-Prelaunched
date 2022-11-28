@@ -75,21 +75,18 @@ namespace MvcTaskManager.Controllers
                        total_state_repack = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)),
                        TotalPreparedItems = (from Order in db.Dry_wh_orders
                                              where total.Key.Fox == Order.fox
-                                             && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
-                                             && total.Key.Store_name == Order.store_name
-                                             && total.Key.Route == Order.route
+                                             && total.Key.Id == Order.FK_dry_wh_orders_parent_id
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared.Equals(true)
 
-                                             select Order).Count() - (from Order in db.Dry_wh_orders
-                                                                      where total.Key.Fox == Order.fox
-                                                                      && total.Key.Is_approved_prepa_date == Order.is_approved_prepa_date
-                                                                      && total.Key.Store_name == Order.store_name
-                                                                      && total.Key.Route == Order.route
-                                                                      && Order.is_active.Equals(true)
-                                                                      && Order.is_wh_checker_cancel.Contains("1")
-                                                                     
-                                                                      select Order).Count()
+                                             select Order).Count()
+                                             - (from Order in db.Dry_wh_orders
+                                                where total.Key.Fox == Order.fox
+                                                && total.Key.Id == Order.FK_dry_wh_orders_parent_id
+                                                && Order.is_active.Equals(true)
+                                                && Order.is_wh_checker_cancel.Contains("1")
+
+                                                select Order).Count()
 
 
                      }
@@ -99,7 +96,7 @@ namespace MvcTaskManager.Controllers
                     );
 
 
-
+      return Ok(results);
 
       //var GetAllPreparedItems = await results.Where(x => x.total_state_repack == x.TotalPreparedItems || x.TotalRejectItems > 0).ToListAsync();
 
