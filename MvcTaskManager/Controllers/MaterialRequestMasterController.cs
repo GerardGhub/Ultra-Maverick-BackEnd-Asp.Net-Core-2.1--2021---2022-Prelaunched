@@ -1722,7 +1722,7 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
         return BadRequest(new { message = "You already have a duplicate request check the data to proceed" });
       }
    
-
+;
         db.Material_request_master.Add(materialRequest);
         await db.SaveChangesAsync();
       
@@ -1741,8 +1741,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
         Mrs_requested_date = DateTime.Now.ToString(),
         Department_id = existingProject.department_id,
         Is_active = true,
-        User_id = existingProject.user_id
-
+        User_id = existingProject.user_id,
+        Is_wh_sup_approval = existingProject.is_wh_sup_approval
 
       };
 

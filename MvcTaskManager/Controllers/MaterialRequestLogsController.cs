@@ -229,6 +229,7 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] MaterialRequestLogs[] materialRequest)
     {
+      
       int incrementationofId = 0;
       var GetAllCountofMasterData = await db.Material_request_master.Where(temp => temp.is_active.Equals(true)).ToListAsync();
 

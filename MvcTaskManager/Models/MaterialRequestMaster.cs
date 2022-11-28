@@ -29,7 +29,7 @@ namespace MvcTaskManager.Models
     public bool is_prepared { get; set; }
     public string  is_prepared_by { get; set; }
     public string is_for_validation { get; set; } = "0";
-    public bool is_wh_sup_approval { get; set; }
+    public bool is_wh_sup_approval { get; set; } = false;
 
     public string Force_prepared_status { get; set;}
     public string Is_wh_sup_approval_date { get; set; }
