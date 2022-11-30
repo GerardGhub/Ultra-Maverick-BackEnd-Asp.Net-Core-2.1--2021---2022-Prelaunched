@@ -13422,7 +13422,8 @@ class AppComponent {
         this.QcCheckList = 0;
     }
     ngOnInit() {
-        if (this.loginService.currentUserName != null) {
+        if (sessionStorage.currentUser != null) {
+            // if (this.loginService.currentUserName != null) {
             this.detectAlreadyLogin();
             this.totalPreparationCount();
             this.getPreparedOrdersCount();

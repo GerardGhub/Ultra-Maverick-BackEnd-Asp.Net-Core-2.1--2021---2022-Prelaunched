@@ -897,20 +897,8 @@ namespace MvcTaskManager.Controllers
 
 
         //Update Preparation Per Item
-        var existingDataPrepared = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == storeOrders.FK_dry_wh_orders_parent_id).ToListAsync();
+        await this.PutCancelledStorePreparations(storeOrders);
 
-        foreach (var item in existingDataPrepared)
-        {
-          var UpdatePeritem = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == storeOrders.FK_dry_wh_orders_parent_id && temp.Order_Source_Key == storeOrders.primary_id).FirstOrDefaultAsync();
-
-          if (UpdatePeritem != null)
-          {
-            UpdatePeritem.Is_Active = false;
-          }
-
-        }
-
-        await db.SaveChangesAsync();
 
           DryWhOrder existingProject2 = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == storeOrders.FK_dry_wh_orders_parent_id && temp.primary_id == storeOrders.primary_id).FirstOrDefaultAsync();
         DryWhOrderViewModel projectViewModel = new DryWhOrderViewModel()
@@ -940,6 +928,25 @@ namespace MvcTaskManager.Controllers
       }
     }
 
+
+
+    public async Task PutCancelledStorePreparations(DryWhOrder storeOrders)
+    {
+ 
+      var UpdatePeritem = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == storeOrders.FK_dry_wh_orders_parent_id && temp.Order_Source_Key == storeOrders.primary_id).ToListAsync();
+
+      foreach (var item in UpdatePeritem)
+      {
+        if (UpdatePeritem != null)
+        {
+          item.Is_Active = false;
+
+        }
+
+      }
+      await db.SaveChangesAsync();
+
+    }
 
     [HttpPut]
     [Route("api/store_orders/cancelitems/readline")]
