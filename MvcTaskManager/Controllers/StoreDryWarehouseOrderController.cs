@@ -876,24 +876,13 @@ namespace MvcTaskManager.Controllers
         existingProject.is_wh_checker_cancel_date = storeOrders.is_wh_checker_cancel_date;
         existingProject.is_wh_checker_cancel_reason = storeOrders.is_wh_checker_cancel_reason;
         existingProject.total_state_repack_cancelled_qty = storeOrders.total_state_repack_cancelled_qty;
-
         existingProject.is_prepared = false;
         existingProject.Is_Prepared_Date = null;
-
         await db.SaveChangesAsync();
 
 
         //Update the Parent Data
-       DryWhOrderParent existingParentData = await db.Dry_Wh_Order_Parent.Where(temp => temp.Id == storeOrders.FK_dry_wh_orders_parent_id).FirstOrDefaultAsync();
-        if (existingParentData != null)
-        {
-          existingParentData.Is_prepared = false;
-          existingParentData.Is_prepared_date = null;
-
-        }
-        await db.SaveChangesAsync();
-        //Ending the Execution
-
+        await this.PutCancelledPreparationBulkOnParentTable(storeOrders);
 
 
         //Update Preparation Per Item
@@ -916,9 +905,6 @@ namespace MvcTaskManager.Controllers
           Is_wh_checker_cancel_by = existingProject2.is_wh_checker_cancel_by,
           Is_wh_checker_cancel_date = existingProject2.is_wh_checker_cancel_date,
           Is_wh_checker_cancel_reason = existingProject2.is_wh_checker_cancel_reason
-
-
-
         };
         return Ok(projectViewModel);
       }
@@ -928,6 +914,18 @@ namespace MvcTaskManager.Controllers
       }
     }
 
+
+    public async Task PutCancelledPreparationBulkOnParentTable(DryWhOrder storeOrders)
+    {
+      DryWhOrderParent existingParentData = await db.Dry_Wh_Order_Parent.Where(temp => temp.Id == storeOrders.FK_dry_wh_orders_parent_id).FirstOrDefaultAsync();
+      if (existingParentData != null)
+      {
+        existingParentData.Is_prepared = false;
+        existingParentData.Is_prepared_date = null;
+
+      }
+      await db.SaveChangesAsync();
+    }
 
 
     public async Task PutCancelledStorePreparations(DryWhOrder storeOrders)
