@@ -29,13 +29,7 @@ namespace MvcTaskManager.Controllers
     [Route("api/ProjectsPartialPo")]
     public IActionResult Get()
     {
-      //System.Threading.Thread.Sleep(1000);
-      //List<Project> projects = db.Projects.Include("ClientLocation").ToList();
-      //List<Project> projects = db.Projects.Include("ClientLocation").Where(temp => temp.Active.ToString().Contains((char)1)).ToList();
 
-  
-      //        .Where(temp => temp.is_activated.Contains(ProjectIsActivated) && temp.Is_expired.Contains(GoodRM)
-      //&& temp.Is_wh_received != "1" || temp.Is_approved_XP.Contains(Approve)).ToList();
 
       List<RMProjectsPartialPo> projects = db.ProjectsPartialPo
         .Where(temp => temp.is_activated.Contains("1")
@@ -53,13 +47,18 @@ namespace MvcTaskManager.Controllers
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
       {
+        if (project.Is_wh_reject == "")
+        {
+          project.Is_wh_reject = "0";
+        }
+
         projectsViewModel.Add(new ProjectViewModel()
         {
           ProjectID = project.ProjectID,
           ProjectName = project.ProjectName,
           TeamSize = project.TeamSize,
           DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"),
-          Active = project.Active,    
+          Active = project.Active,
           Status = project.Status,
           is_activated = project.is_activated,
           Supplier = project.Supplier,
@@ -83,12 +82,11 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_one = project.Count_of_reject_one,
           Count_of_reject_two = project.Count_of_reject_two,
           Count_of_reject_three = project.Count_of_reject_three,
-          Total_of_reject_mat = Convert.ToInt32(project.Total_of_reject_mat) + Convert.ToInt32(project.Is_wh_reject).ToString(),
-          //SECTION 1
-          //A
- 
 
-          //Cancelled
+
+          Total_of_reject_mat = Convert.ToInt32(project.Total_of_reject_mat) + Convert.ToInt32(project.Is_wh_reject).ToString(),
+
+         //Cancelled
 
           Cancelled_date = project.Cancelled_date,
           Canceled_by = project.Canceled_by,

@@ -308,13 +308,13 @@ namespace MvcTaskManager.Controllers
 
         if (PrimaryUnit.Count > 0)
         {
-          //items.mrs_id = incrementationofId;
+
           var checkTheIncrementingID = await db.Material_request_master.Where(temp => temp.mrs_id == incrementationofId
           ).FirstOrDefaultAsync();
-          //if (checkTheIncrementingID.Count > 0)
+
           if (checkTheIncrementingID.mrs_id == incrementationofId)
           {
-            //if(incrementationofId == )
+
             items.mrs_id = incrementationofId;
           }
           else
@@ -343,26 +343,17 @@ namespace MvcTaskManager.Controllers
         
         //5
 
-
         MaterialRequestLogs existingProject = await db.Material_request_logs.Where(temp => temp.id == items.id).FirstOrDefaultAsync();
 
         string ActualQuantity = items.mrs_order_qty.ToString();
         decimal qtyorder;
         bool isDecimal = decimal.TryParse(ActualQuantity.ToString(), out qtyorder);
-
         if (isDecimal == false)
         {
           return BadRequest(new { message = "Invalid Quantity!" });
         }
-
-
         await db.SaveChangesAsync();
-
-
       }
-
-
-
       return Ok(materialRequest);
     }
 
