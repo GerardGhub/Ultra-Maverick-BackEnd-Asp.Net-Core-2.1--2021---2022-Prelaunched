@@ -21,10 +21,6 @@ namespace MvcTaskManager.Controllers
     }
 
 
-
-
-
-
     [HttpGet]
     [Route("api/material_request_master/mrs_orders")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
@@ -138,8 +134,6 @@ namespace MvcTaskManager.Controllers
       }
 
     }
-
-
 
 
     [HttpGet]
@@ -1502,10 +1496,7 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.Is_return_date = null;
           item.Is_return_by = null;
           item.is_prepared = false;
-          item.is_prepared_by = null;
-
-  
-
+          //item.is_prepared_by = null
         }
 
         await db.SaveChangesAsync();
@@ -1521,8 +1512,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
             item.deactivated_by = MRSParams.Is_wh_checker_cancel_by;
             item.deactivated_date = DateTime.Now.ToString();
             item.is_prepared = false;
-            item.is_prepared_date = null;
-              item.is_prepared_by = null;
+            //item.is_prepared_date = null;
+            //  item.is_prepared_by = null;
           }
         }
 
@@ -1562,9 +1553,30 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
           item.Is_return_date = DateTime.Now.ToString();
           item.Is_return_by = MRSParams.Is_wh_checker_cancel_by;
+
+          item.is_prepared = true;
+
         }
 
         await db.SaveChangesAsync();
+
+
+        var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+        if (MaterialLogsPrepared != null)
+        {
+          foreach (var item in MaterialLogsPrepared)
+          {
+            item.is_active = true;
+            item.is_wh_checker_cancel = null;
+            item.cancel_reason = null;
+            item.deactivated_by = null;
+            item.deactivated_date = null;
+            item.is_prepared = true;
+          }
+        }
+
+        await db.SaveChangesAsync();
+
         return existingDataStatus;
 
       }
