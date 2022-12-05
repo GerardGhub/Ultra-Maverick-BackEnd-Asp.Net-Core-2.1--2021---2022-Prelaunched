@@ -1536,8 +1536,6 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<MaterialRequestMaster>> PutPreparationReturn([FromBody] MaterialRequestMaster MRSParams)
     {
-
-
       MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
 
       var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
@@ -1545,38 +1543,18 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       {
         foreach (var item in allToBeUpdated)
         {
-
           item.Is_wh_checker_cancel = null;
           item.Is_wh_checker_cancel_by = null;
           item.Is_wh_checker_cancel_reason = null;
           item.Is_wh_checker_cancel_date = null;
-
           item.Is_return_date = DateTime.Now.ToString();
           item.Is_return_by = MRSParams.Is_wh_checker_cancel_by;
-
           item.is_prepared = true;
 
         }
 
         await db.SaveChangesAsync();
-
-
-        var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
-        if (MaterialLogsPrepared != null)
-        {
-          foreach (var item in MaterialLogsPrepared)
-          {
-            item.is_active = true;
-            item.is_wh_checker_cancel = null;
-            item.cancel_reason = null;
-            item.deactivated_by = null;
-            item.deactivated_date = null;
-            item.is_prepared = true;
-          }
-        }
-
-        await db.SaveChangesAsync();
-
+       await this.PreparationLogsReturn(MRSParams);
         return existingDataStatus;
 
       }
@@ -1587,7 +1565,24 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
     }
 
 
+    public async Task PreparationLogsReturn(MaterialRequestMaster MRSParams)
+    {
+      var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      if (MaterialLogsPrepared != null)
+      {
+        foreach (var item in MaterialLogsPrepared)
+        {
+          item.is_active = true;
+          item.is_wh_checker_cancel = null;
+          item.cancel_reason = null;
+          item.deactivated_by = null;
+          item.deactivated_date = null;
+          item.is_prepared = true;
+        }
+      }
 
+      await db.SaveChangesAsync();
+    }
 
 
     [HttpPut]
