@@ -90,7 +90,7 @@ namespace MvcTaskManager.Controllers
       CountModules = TotalModules.Count + 1;
 
 
-
+      module.ModuleStatus = null;
       module.DateAdded = DateTime.Now;
       module.Isactive = true;
       module.isactivereference = "Active";

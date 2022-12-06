@@ -15,10 +15,13 @@ using Microsoft.AspNetCore.Hosting;
 namespace MvcTaskManager.Controllers
 {
 
+
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
+    public int LaboratoryAging { get; set; }
+    public int dayDiffExpiryDaysAging {get; set;}
 
     public tblDryWHReceivingController(ApplicationDbContext db)
     {
@@ -26,24 +29,7 @@ namespace MvcTaskManager.Controllers
   
     }
 
-    //public async Task<string> Upload([FromForm] UploadFile obj)
-    //{
-    //  if (obj.files.Length > 0)
-    //  {
 
-    //    try
-    //    {
-    //      if (!Directory.Exists(_webHost.Web))
-    //    }
-    //    catch (Exception)
-    //    {
-
-    //      throw;
-    //    }
-
-
-    //  }
-    //}
 
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest/LabResultWithAccessCode")]
@@ -468,8 +454,12 @@ namespace MvcTaskManager.Controllers
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
       foreach (var project in projects)
       {
-        int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.Lab_request_date)).Days;
-        int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.Bbd).Days;
+        if (project != null)
+        {
+          int LaboratoryAging = ((TimeSpan)(project.DryWareHouseReceiving.Qa_approval_date - project.Lab_request_date)).Days;
+          int dayDiffExpiryDaysAging = (project.DryWareHouseReceiving.Lab_exp_date_extension - project.Bbd).Days;
+        }
+
         string LabStatus = "";
         if (project.DryWareHouseReceiving.Lab_status == null)
         {
@@ -492,7 +482,7 @@ namespace MvcTaskManager.Controllers
           Remaining_qty = project.Remaining_qty,
           Days_to_expired = dayDiffExpiryDaysAging.ToString(),
           Lab_status = LabStatus,
-          Historical = project.Historical,
+          //Historical = project.Historical,
           Aging = project.Aging,
           Remarks = project.Remarks,
           Fk_receiving_id = project.Fk_receiving_id,
@@ -558,12 +548,7 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/LabResultApproval")]
     public async Task<IActionResult> GetLabResultForApproval()
     {
-
-   
-      string LaboratoryResult = "LAB RESULT";
-
-
-     
+      string LaboratoryResult = "LAB RESULT";    
       List<DryWhLabTestReqLogs> projects = null;
       projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
         .Where(temp => temp.Is_active.Equals(true)
@@ -607,7 +592,8 @@ namespace MvcTaskManager.Controllers
           Days_to_expired = dayDiffExpiryDaysAging.ToString(),
           Lab_status = LabStatus,
           Historical = project.Historical,
-          Aging = project.Aging,
+          //Aging = project.Aging,
+          Aging = LaboratoryAging.ToString(),
           Remarks = project.Remarks,
           Fk_receiving_id = project.Fk_receiving_id,
           Is_active = project.Is_active,
@@ -865,7 +851,7 @@ namespace MvcTaskManager.Controllers
 
 
 
-
+    //QA Staff Cancelled the Lab Requestor
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/CancelledQAReleasingResult")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]

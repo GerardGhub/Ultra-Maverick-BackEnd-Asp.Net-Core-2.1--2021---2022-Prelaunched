@@ -17,32 +17,27 @@ namespace MvcTaskManager.Controllers
 
   public class ProjectsPartialPoController : Controller
   {
-
     private ApplicationDbContext db;
-
     public ProjectsPartialPoController(ApplicationDbContext db)
     {
       this.db = db;
     }
-
     [HttpGet]
     [Route("api/ProjectsPartialPo")]
     public IActionResult Get()
     {
-
-
       List<RMProjectsPartialPo> projects = db.ProjectsPartialPo
         .Where(temp => temp.is_activated.Contains("1")
              
-        && temp.Is_expired.Contains("0")
+      && temp.Is_expired.Contains("0")
       && temp.Is_wh_received != "1"
-
       || temp.Is_approved_XP.Contains("1")
-            || temp.Is_wh_reject_approval.Contains("1")
-                         && temp.Cancelled_reason == null
-                         && temp.Is_wh_reject_approval == null
+      || temp.Is_wh_reject_approval.Contains("1")
+      && temp.Cancelled_reason == null
+      && temp.Is_wh_reject_approval == null
       ).ToList();
 
+      int TotalCountofReject = 0;
 
       List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
       foreach (var project in projects)
@@ -51,6 +46,8 @@ namespace MvcTaskManager.Controllers
         {
           project.Is_wh_reject = "0";
         }
+
+        TotalCountofReject = (Convert.ToInt32(project.Total_of_reject_mat)) + (Convert.ToInt32(project.Is_wh_reject));
 
         projectsViewModel.Add(new ProjectViewModel()
         {
@@ -82,9 +79,7 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_one = project.Count_of_reject_one,
           Count_of_reject_two = project.Count_of_reject_two,
           Count_of_reject_three = project.Count_of_reject_three,
-
-
-          Total_of_reject_mat = Convert.ToInt32(project.Total_of_reject_mat) + Convert.ToInt32(project.Is_wh_reject).ToString(),
+          Total_of_reject_mat = TotalCountofReject.ToString(),
 
          //Cancelled
 

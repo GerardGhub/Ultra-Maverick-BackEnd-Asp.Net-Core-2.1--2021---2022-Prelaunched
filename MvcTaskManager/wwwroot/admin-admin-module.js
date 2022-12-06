@@ -14951,8 +14951,9 @@ class ProjectsComponent {
                     }
                     else {
                         //Start
+                        //Buje
                         sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.fire({
-                            title: 'Are you sure you want to receive the item ?',
+                            title: 'Are you sure you want to receive the item?',
                             text: ItemDesc,
                             icon: 'info',
                             showCancelButton: true,
