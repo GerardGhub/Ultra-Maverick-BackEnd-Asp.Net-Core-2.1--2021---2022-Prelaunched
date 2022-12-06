@@ -34,7 +34,8 @@ namespace MvcTaskManager.Controllers
       || temp.Is_approved_XP.Contains("1")
       || temp.Is_wh_reject_approval.Contains("1")
       && temp.Cancelled_reason == null
-      && temp.Is_wh_reject_approval == null
+      && temp.Is_return_in_qc != 1
+      //&& temp.Is_wh_reject_approval == null
       ).ToList();
 
       int TotalCountofReject = 0;
