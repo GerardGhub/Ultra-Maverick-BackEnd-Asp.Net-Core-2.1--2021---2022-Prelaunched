@@ -40,7 +40,10 @@ namespace MvcTaskManager.Controllers
 
                      where
                      a.mrs_id == b.mrs_id &&
-                     b.is_active.Equals(true) &&
+                     b.is_active.Equals(true)
+                                          != a.Is_wh_checker_cancel.Contains("1")
+                     &&
+
                      a.is_for_validation.Contains("0") &&
                      a.is_approved_by != null &&
                      a.is_wh_sup_approval.Equals(true) &&
@@ -77,30 +80,25 @@ namespace MvcTaskManager.Controllers
                        mrs_requested_date = total.Key.mrs_requested_date,
                        mrs_requested_by = total.Key.mrs_requested_by,
                        is_active = total.Key.is_active,
-                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)) + (from Order in db.Material_request_logs
-                                                                                             where total.Key.mrs_id == Order.mrs_id
-                                                                                             && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                                                                             && Order.is_active.Equals(false)
-                                                                                             && Order.is_wh_checker_cancel.Contains("1")
-                                                                                             select Order).Count(),
+                       TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems))
+                       //+ (from Order in db.Material_request_logs
+                       //                                                                      where total.Key.mrs_id == Order.mrs_id
+                       //                                                                      && total.Key.mrs_requested_date == Order.mrs_date_requested
+                       //                                                                      && Order.is_active.Equals(false)
+                       //                                                                      && Order.is_wh_checker_cancel.Contains("1")
+                       //                                                                      select Order).Count(),
+                       ,
                        TotalPreparedItems = (from Order in db.Material_request_logs
                                              where Order.mrs_date_requested == total.Key.mrs_requested_date
-
-
                                              && total.Key.mrs_id == Order.mrs_id
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared.Equals(true)
-                                             select Order).Count() - (from Order in db.Material_request_logs
-                                                                      where total.Key.mrs_id == Order.mrs_id
-                                                                      && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                                                      && Order.is_active.Equals(true)
-                                                                      && Order.is_wh_checker_cancel.Contains("1")
-
-                                                                      select Order).Count(),
+                                             select Order).Count() ,
                        TotalRejectItems = (from Order in db.Material_request_logs
                                            where total.Key.mrs_id == Order.mrs_id
                                            && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                           && Order.is_active.Equals(false)
+                                           && Order.is_active.Equals(true)
+                                           && Order.is_prepared.Equals(false)
                                            && Order.is_wh_checker_cancel.Contains("1")
                                            select Order).Count()
                      }
@@ -110,11 +108,14 @@ namespace MvcTaskManager.Controllers
                     );
       //return Ok(results);
 
+      //var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems
+      //&& x.is_active.Equals(true)
+      //|| x.TotalPreparedItems != 0).ToListAsync();
 
 
       var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems
       && x.is_active.Equals(true)
-      || x.TotalPreparedItems != 0).ToListAsync();
+&&  x.TotalRejectItems == 0).ToListAsync();
 
 
 
@@ -141,10 +142,6 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> GetCancelledOrders()
     {
-
-
-
-
       List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       var results = (from a in db.Material_request_master
                      join b in db.Material_request_logs on a.mrs_id equals b.mrs_id
@@ -152,7 +149,6 @@ namespace MvcTaskManager.Controllers
 
                      where
                      a.mrs_id == b.mrs_id &&
-                     b.is_active.Equals(false) &&
                      a.is_for_validation.Contains("0") &&
                      a.is_approved_by != null &&
                      a.is_wh_sup_approval.Equals(true) &&
@@ -195,27 +191,22 @@ namespace MvcTaskManager.Controllers
                        TotalItems = total.Sum(x => Convert.ToInt32(total.Key.TotalItems)) + (from Order in db.Material_request_logs
                                                                                              where total.Key.mrs_id == Order.mrs_id
                                                                                              && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                                                                             && Order.is_active.Equals(false)
+                                                                                             && Order.is_prepared.Equals(false)
+                                                                                             && Order.is_active.Equals(true)
                                                                                              && Order.is_wh_checker_cancel.Contains("1")
                                                                                              select Order).Count(),
                        TotalPreparedItems = (from Order in db.Material_request_logs
                                              where Order.mrs_date_requested == total.Key.mrs_requested_date
-
-
                                              && total.Key.mrs_id == Order.mrs_id
                                              && Order.is_active.Equals(true)
                                              && Order.is_prepared.Equals(true)
-                                             select Order).Count() - (from Order in db.Material_request_logs
-                                                                      where total.Key.mrs_id == Order.mrs_id
-                                                                      && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                                                      && Order.is_active.Equals(true)
-                                                                      && Order.is_wh_checker_cancel.Contains("1")
-
-                                                                      select Order).Count(),
+                                             select Order).Count(),
+                   
                        TotalRejectItems = (from Order in db.Material_request_logs
                                            where total.Key.mrs_id == Order.mrs_id
-                                           && total.Key.mrs_requested_date == Order.mrs_date_requested
-                                           && Order.is_active.Equals(false)
+                          
+                                           && Order.is_prepared.Equals(false)
+                                           && Order.is_active.Equals(true)
                                            && Order.is_wh_checker_cancel.Contains("1")
                                            select Order).Count()
                      }
@@ -223,7 +214,7 @@ namespace MvcTaskManager.Controllers
 
 
                     );
-      //return Ok(results);
+      return Ok(results);
 
 
 
@@ -1503,14 +1494,12 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
         {
           foreach (var item in MaterialLogsPrepared)
           {
-            item.is_active = false;
+            //item.is_active = false;
             item.is_wh_checker_cancel = "1";
             item.cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
             item.deactivated_by = MRSParams.Is_wh_checker_cancel_by;
             item.deactivated_date = DateTime.Now.ToString();
             item.is_prepared = false;
-            //item.is_prepared_date = null;
-            //  item.is_prepared_by = null;
           }
         }
 
@@ -1536,7 +1525,6 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
           item.Is_Active = false;
         }
       }
-
       await db.SaveChangesAsync();
     }
 
@@ -1566,7 +1554,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
         }
 
         await db.SaveChangesAsync();
-       await this.PreparationLogsReturn(MRSParams);
+       await this.MaterialLogsReturn(MRSParams);
+        await this.ActivatePreparationLogs(MRSParams);
         return existingDataStatus;
 
       }
@@ -1576,8 +1565,21 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       }
     }
 
+    public async Task ActivatePreparationLogs(MaterialRequestMaster MRSParams)
+    {
+      var InternPreparationLogs = await db.Internal_Preparation_Logs.Where(temp => temp.Mrs_Id == MRSParams.mrs_id).ToListAsync();
+      if (InternPreparationLogs != null)
+      {
+        foreach (var item in InternPreparationLogs)
+        {
+          item.Is_Active = true;
+        }
+      }
+      await db.SaveChangesAsync();
+    }
 
-    public async Task PreparationLogsReturn(MaterialRequestMaster MRSParams)
+
+    public async Task MaterialLogsReturn(MaterialRequestMaster MRSParams)
     {
       var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
       if (MaterialLogsPrepared != null)

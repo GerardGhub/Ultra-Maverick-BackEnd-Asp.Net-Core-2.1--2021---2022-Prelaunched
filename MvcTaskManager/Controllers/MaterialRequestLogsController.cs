@@ -76,7 +76,7 @@ namespace MvcTaskManager.Controllers
       MaterialRequestLogs existingDataStatus = await db.Material_request_logs.Where(temp => temp.id == MRSParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
       {
-        existingDataStatus.is_active = false;
+        //existingDataStatus.is_active = false;
         existingDataStatus.activated_by = null;
         existingDataStatus.activated_date = null;
         existingDataStatus.deactivated_by = MRSParams.deactivated_by;
@@ -657,10 +657,7 @@ namespace MvcTaskManager.Controllers
     {
 
       string transact_no_passed_by = transaction_number;
-
-
-
-      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(false) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
+      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.is_prepared.Equals(false) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
       List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
 
       if (allmrs.Count > 0)
