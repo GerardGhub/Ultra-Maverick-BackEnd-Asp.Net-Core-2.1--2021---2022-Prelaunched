@@ -35,15 +35,11 @@ namespace MvcTaskManager.Controllers
                           join Role in db.ApplicationRoles on RoleModule.RoleId equals Role.Id
                           join MainMenu in db.MainMenus on Module.Mainmenuid equals MainMenu.Id
 
-
-               
-
                           where Role.Name == RoleId
 
                                                && Module.Isactive.Equals(true)
                                                && MainMenu.Isactive.Equals(true)
                                                && RoleModule.Isactive.Equals(false)
-
                           select new
                           {
                             RoleModule.Id,
@@ -58,7 +54,6 @@ namespace MvcTaskManager.Controllers
 
                       .ToListAsync();
 
-     
         return Ok(result);
 
 
@@ -71,8 +66,7 @@ namespace MvcTaskManager.Controllers
     public async Task<ActionResult<RoleModules>> GetByRoleID(string RoleId, int MainModuleId)
     {
       var result = await (from RoleModule in db.RoleModules
-                            //join Modules in db.Modules on RoleModule.Mainmoduleidentity equals Modules.Mainmenuid
-                            ////join Modules in db.Modules on RoleModule.ModuleId equals Modules.Mainmenuid
+
 
                           join Modules in db.Modules on RoleModule.Moduleid equals Modules.Id
                           join MainMenu in db.MainMenus on RoleModule.Mainmoduleidentity equals MainMenu.Id into ps2 from MainMenu in ps2.DefaultIfEmpty()

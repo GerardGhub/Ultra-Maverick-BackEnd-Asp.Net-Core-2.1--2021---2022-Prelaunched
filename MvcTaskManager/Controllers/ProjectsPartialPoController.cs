@@ -592,7 +592,9 @@ namespace MvcTaskManager.Controllers
 
 
         project.Is_approved_XP = "1";
-        //Aproval opf the 
+
+        //Aproval opf the
+        existingProject.Is_return_in_qc = 1;
         existingProject.Is_approved_XP = project.Is_approved_XP;
         existingProject.Is_approved_by = project.Is_approved_by;
         existingProject.Is_approved_date = project.Is_approved_date = DateTime.UtcNow.ToString();
@@ -672,20 +674,15 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult PutCancelData([FromBody] Project project)
     {
-
-
-
       RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
       if (existingProject != null)
       {
-
-
-
         //Aproval opf the
         existingProject.is_activated = project.is_activated;
         existingProject.Cancelled_reason = project.Cancelled_reason;
         existingProject.Canceled_by = project.Canceled_by;
         existingProject.Cancelled_date = project.Cancelled_date = DateTime.Now.ToString();
+
 
         db.SaveChanges();
 
