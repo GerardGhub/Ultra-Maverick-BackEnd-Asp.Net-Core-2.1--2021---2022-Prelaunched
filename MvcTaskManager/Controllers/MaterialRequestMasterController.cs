@@ -1479,8 +1479,6 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<ActionResult<MaterialRequestMaster>> PutPreparationl([FromBody] MaterialRequestMaster MRSParams)
     {
-
-
       MaterialRequestMaster existingDataStatus = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).FirstOrDefaultAsync();
 
       var allToBeUpdated = await db.Material_request_master.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
@@ -1488,7 +1486,6 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       {
         foreach (var item in allToBeUpdated)
         {
-
           item.Is_wh_checker_cancel = "1";
           item.Is_wh_checker_cancel_by = MRSParams.Is_wh_checker_cancel_by;
           item.Is_wh_checker_cancel_reason = MRSParams.Is_wh_checker_cancel_reason;
@@ -1519,6 +1516,7 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
         await db.SaveChangesAsync();
 
+       await  this.DeactivatePreparationLogs(MRSParams);
         return existingDataStatus;
 
       }
@@ -1526,6 +1524,20 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       {
         return null;
       }
+    }
+
+    public async Task DeactivatePreparationLogs(MaterialRequestMaster MRSParams)
+    {
+      var InternPreparationLogs = await db.Internal_Preparation_Logs.Where(temp => temp.Mrs_Id == MRSParams.mrs_id).ToListAsync();
+      if (InternPreparationLogs != null)
+      {
+        foreach (var item in InternPreparationLogs)
+        {
+          item.Is_Active = false;
+        }
+      }
+
+      await db.SaveChangesAsync();
     }
 
 
