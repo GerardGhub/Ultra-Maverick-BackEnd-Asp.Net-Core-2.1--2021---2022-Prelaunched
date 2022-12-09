@@ -98,6 +98,8 @@ namespace MvcTaskManager.Controllers
 
         await db.SaveChangesAsync();
 
+        await this.PutCancelledInternalPreparations(MRSParams);
+
         return existingDataStatus;
       }
       else
@@ -109,7 +111,22 @@ namespace MvcTaskManager.Controllers
 
 
 
+    public async Task PutCancelledInternalPreparations(MaterialRequestLogs Orders)
+    {
+      var UpdatePeritem = await db.Internal_Preparation_Logs
+        .Where(temp => temp.Mrs_Id == Orders.mrs_id &&
+      temp.Order_Source_Key == Orders.id).ToListAsync();
 
+      foreach (var item in UpdatePeritem)
+      {
+        if (UpdatePeritem != null)
+        {
+          item.Is_Active = false;
+        }
+      }
+      await db.SaveChangesAsync();
+
+    }
 
 
     [HttpPut]
@@ -147,7 +164,7 @@ namespace MvcTaskManager.Controllers
                   await db.SaveChangesAsync();
         }
 
-
+        await this.PutActivateInternalPreparations(MRSParams);
         return existingDataStatus;
       }
       else
@@ -155,9 +172,22 @@ namespace MvcTaskManager.Controllers
         return null;
       }
 
+    }
 
+    public async Task PutActivateInternalPreparations(MaterialRequestLogs Orders)
+    {
+      var UpdatePeritem = await db.Internal_Preparation_Logs
+        .Where(temp => temp.Mrs_Id == Orders.mrs_id &&
+      temp.Order_Source_Key == Orders.id).ToListAsync();
 
-
+      foreach (var item in UpdatePeritem)
+      {
+        if (UpdatePeritem != null)
+        {
+          item.Is_Active = true;
+        }
+      }
+      await db.SaveChangesAsync();
 
     }
 
@@ -657,7 +687,8 @@ namespace MvcTaskManager.Controllers
     {
 
       string transact_no_passed_by = transaction_number;
-      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true) && temp.is_prepared.Equals(false) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
+      List<MaterialRequestLogs> allmrs = await db.Material_request_logs.Where(temp => temp.is_active.Equals(true)
+      && temp.is_prepared.Equals(false) && temp.mrs_id.ToString().Contains(transact_no_passed_by)).ToListAsync();
       List<MaterialRequestLogsViewModel> MaterialRequestViewModel = new List<MaterialRequestLogsViewModel>();
 
       if (allmrs.Count > 0)
