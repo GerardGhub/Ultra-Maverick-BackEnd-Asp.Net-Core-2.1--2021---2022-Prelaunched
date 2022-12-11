@@ -65,6 +65,8 @@ namespace MvcTaskManager.Models
     public DateTime? Tsqa_Approval_Date { get; set; }
 
     public string LabTest_CancelledReason { get; set; }
+    public string FileName { get; set; }
+    public string FilePath { get; set; }
 
     [ForeignKey("is_active")]
     public virtual tblNearlyExpiryMgmtModel TblNearlyExpiryMgmtModel { get; set; }

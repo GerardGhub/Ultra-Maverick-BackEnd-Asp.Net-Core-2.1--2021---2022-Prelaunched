@@ -832,7 +832,42 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/QAReleasingResult")]
     public async Task<DryWareHouseReceiving> PutQAResults([FromBody] DryWareHouseReceiving LabTestQAStaffApprovalParams)
     {
+      try
+      {
+        var file = Request.Form.Files[0];
+        var folderName = Path.Combine("Resources", "Images");
+        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+
+        if (file.Length > 0)
+        {
+          var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+          var fullPath = Path.Combine(pathToSave, fileName);
+          var dbPath = Path.Combine(folderName, fileName);
+
+          using (var stream = new FileStream(fullPath, FileMode.Create))
+          {
+            file.CopyTo(stream);
+          }
+          //return Ok(new { dbPath });
+        }
+        else
+        {
+          //return BadRequest();
+        }
+      }
+      catch (Exception ex)
+      {
+        //return StatusCode(500, $"Internal server error: {ex}");
+      }
+
+
+
+
+
+
       LabTestQAStaffApprovalParams.Lab_status = "LAB RESULT";
+
       DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving
       .Where(temp => temp.id == LabTestQAStaffApprovalParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
@@ -842,6 +877,8 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.Lab_status = LabTestQAStaffApprovalParams.Lab_status;
         existingDataStatus.Lab_exp_date_extension = LabTestQAStaffApprovalParams.Lab_exp_date_extension;
         existingDataStatus.Laboratory_procedure = LabTestQAStaffApprovalParams.Laboratory_procedure;
+        existingDataStatus.FileName = LabTestQAStaffApprovalParams.FileName;
+        existingDataStatus.FilePath = LabTestQAStaffApprovalParams.FilePath;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }
