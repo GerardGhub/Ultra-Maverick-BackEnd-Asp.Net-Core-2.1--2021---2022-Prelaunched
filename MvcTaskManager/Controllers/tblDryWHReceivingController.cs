@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using System.Net.Http.Headers;
 
 namespace MvcTaskManager.Controllers
 {
@@ -20,13 +22,16 @@ namespace MvcTaskManager.Controllers
   public class tblDryWHReceivingController : Controller
   {
     private ApplicationDbContext db;
+    private IHostingEnvironment _hostingEnvironment;
+
+
     public int LaboratoryAging { get; set; }
     public int dayDiffExpiryDaysAging {get; set;}
 
-    public tblDryWHReceivingController(ApplicationDbContext db)
+    public tblDryWHReceivingController(ApplicationDbContext db, IHostingEnvironment hostingEnvironment)
     {
       this.db = db;
-  
+      _hostingEnvironment = hostingEnvironment;
     }
 
 
@@ -262,11 +267,7 @@ namespace MvcTaskManager.Controllers
                        a.Lab_cancel_remarks,
                        a.Sample_Qty
 
-
-
-
                      } into total
-
 
                      select new
 
@@ -296,7 +297,8 @@ namespace MvcTaskManager.Controllers
                        total.Key.Lab_result_remarks,
                        total.Key.Lab_sub_remarks,
                        total.Key.Lab_exp_date_extension,
-                       total.Key.Lab_approval_aging_days,
+                       //total.Key.Lab_approval_aging_days,
+                       Lab_approval_aging_days = (total.Key.Qa_approval_date  - DateTime.Now).Days,
                        total.Key.Laboratory_procedure,
                        total.Key.Lab_cancel_by,
                        total.Key.Lab_cancel_date,
@@ -839,7 +841,7 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.Lab_result_released_date = DateTime.Now.ToString();
         existingDataStatus.Lab_status = LabTestQAStaffApprovalParams.Lab_status;
         existingDataStatus.Lab_exp_date_extension = LabTestQAStaffApprovalParams.Lab_exp_date_extension;
-        existingDataStatus.Laboratory_procedure = LabTestQAStaffApprovalParams.Laboratory_procedure;     
+        existingDataStatus.Laboratory_procedure = LabTestQAStaffApprovalParams.Laboratory_procedure;
         await db.SaveChangesAsync();
         return existingDataStatus;
       }

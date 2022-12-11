@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace MvcTaskManager
 {
@@ -73,7 +76,13 @@ namespace MvcTaskManager
 
       });
 
-
+      //File Uploading
+      services.Configure<FormOptions>(o =>
+      {
+        o.ValueCountLimit = int.MaxValue;
+        o.MultipartBoundaryLengthLimit = int.MaxValue;
+        o.MemoryBufferThreshold = int.MaxValue;
+      });
 
             //Configure JWT Authentication
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -105,10 +114,15 @@ namespace MvcTaskManager
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseAuthentication();
-            app.UseStaticFiles();
-            app.UseMvc();
+          app.UseDeveloperExceptionPage();
+          app.UseAuthentication();
+          app.UseStaticFiles();
+          app.UseStaticFiles(new StaticFileOptions
+          {
+          FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+          RequestPath = new PathString("/Resources")
+          });
+          app.UseMvc();
 
       //start
       app.UseSwagger();
