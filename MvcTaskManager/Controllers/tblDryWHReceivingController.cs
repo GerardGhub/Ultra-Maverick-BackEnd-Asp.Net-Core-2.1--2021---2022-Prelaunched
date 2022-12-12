@@ -559,10 +559,6 @@ namespace MvcTaskManager.Controllers
 
                  && (temp.Lab_sub_remarks == null
         || temp.Tsqa_Approval_Status.Equals(false))
-
-
-
-
       ).ToListAsync();
 
    
@@ -636,7 +632,8 @@ namespace MvcTaskManager.Controllers
           Qa_supervisor_is_cancelled_status = project.Qa_supervisor_is_cancelled_status,
           Qa_supervisor_is_cancelled_by = project.Qa_supervisor_is_cancelled_by,
           Qa_supervisor_is_cancelled_date = project.Qa_supervisor_is_cancelled_date,
-          Qa_supervisor_cancelled_remarks = project.Qa_supervisor_cancelled_remarks
+          Qa_supervisor_cancelled_remarks = project.Qa_supervisor_cancelled_remarks,
+          Samples = project.Samples ="RAW MATS"
 
         });
       }

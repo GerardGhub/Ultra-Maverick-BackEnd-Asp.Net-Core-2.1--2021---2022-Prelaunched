@@ -69,6 +69,7 @@ namespace MvcTaskManager.ViewModels
     public string Tsqa_Approval_Date { get; set; }
     public int Sample_Qty { get; set; }
     public string Uom { get; set; }
+    public string Samples { get; set; }
 
   }
 }

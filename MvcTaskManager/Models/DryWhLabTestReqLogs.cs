@@ -68,6 +68,7 @@ namespace MvcTaskManager.Models
     public DateTime? Tsqa_Approval_Date { get; set; }
     public string FileName { get; set; }
     public string FilePath { get; set; }
+    public string Samples { get; set; }
 
     [ForeignKey("fk_receiving_id")]
     public virtual DryWareHouseReceiving DryWareHouseReceiving { get; set; }
