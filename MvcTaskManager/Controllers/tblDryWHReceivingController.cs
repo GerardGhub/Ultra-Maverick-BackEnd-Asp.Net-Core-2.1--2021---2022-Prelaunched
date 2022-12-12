@@ -40,9 +40,6 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/LabResultWithAccessCode")]
     public async Task<IActionResult> GetLabResultWithAccessCode()
     {
-
-
-
       var GetResultWithAccessCode = db.Dry_wh_lab_test_req_logs
         .Include(x => x.DryWareHouseReceiving).ToList()
         .GroupBy(d => new {
@@ -298,7 +295,7 @@ namespace MvcTaskManager.Controllers
                        total.Key.Lab_sub_remarks,
                        total.Key.Lab_exp_date_extension,
                        //total.Key.Lab_approval_aging_days,
-                       Lab_approval_aging_days = (total.Key.Qa_approval_date  - DateTime.Now).Days,
+                       Lab_approval_aging_days = (DateTime.Now - total.Key.Qa_approval_date).Days,
                        total.Key.Laboratory_procedure,
                        total.Key.Lab_cancel_by,
                        total.Key.Lab_cancel_date,
@@ -550,16 +547,15 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/LabResultApproval")]
     public async Task<IActionResult> GetLabResultForApproval()
     {
-      string LaboratoryResult = "LAB RESULT";    
-      List<DryWhLabTestReqLogs> projects = null;
-      projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
+        string LaboratoryResult = "LAB RESULT";    
+        List<DryWhLabTestReqLogs> projects = null;
+        projects = await db.Dry_wh_lab_test_req_logs.Include("DryWareHouseReceiving")
         .Where(temp => temp.Is_active.Equals(true)
 
         && temp.DryWareHouseReceiving.Lab_status.Contains(LaboratoryResult)
-
-                 && (temp.Lab_sub_remarks == null
+        && (temp.Lab_sub_remarks == null
         || temp.Tsqa_Approval_Status.Equals(false))
-      ).ToListAsync();
+        ).ToListAsync();
 
    
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
@@ -570,7 +566,6 @@ namespace MvcTaskManager.Controllers
         string LabStatus = "";
         if (project.DryWareHouseReceiving.Lab_status == null)
         {
-
           LabStatus = "LAB RECEIVED";
         }
         else
@@ -639,9 +634,6 @@ namespace MvcTaskManager.Controllers
       }
 
       return Ok(WarehouseReceivingContructor);
-
-
-
     }
 
 
@@ -1022,10 +1014,6 @@ namespace MvcTaskManager.Controllers
       }
     }
 
-
-
-
- 
 
 
   }

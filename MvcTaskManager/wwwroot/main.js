@@ -17797,8 +17797,10 @@ class ForLabtestComponent {
                         .subscribe((response) => {
                         //Reset the editForm
                         // this.onQARejectById();
-                        this.getForApprovalList();
-                        this.successRejectedToaster();
+                        setTimeout(() => {
+                            this.getForApprovalList();
+                            this.successRejectedToaster();
+                        }, 400);
                         this.superVisorRejectForm.reset();
                         jquery__WEBPACK_IMPORTED_MODULE_1__('#qaRejectModal').trigger('click');
                     }, (error) => {
