@@ -70,6 +70,8 @@ namespace MvcTaskManager.ViewModels
     public int Sample_Qty { get; set; }
     public string Uom { get; set; }
     public string Samples { get; set; }
+    public string Filename { get; set; }
+    public string Filepath { get; set; }
 
   }
 }
