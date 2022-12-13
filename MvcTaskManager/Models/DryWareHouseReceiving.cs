@@ -29,11 +29,12 @@ namespace MvcTaskManager.Models
     public int Po_number { get; set; }
     public int Is_active { get; set; }
 
+
     public string Qa_approval_status { get; set; }
     public string Qa_approval_by { get; set; }
 
 
-    public DateTime Qa_approval_date { get; set; }
+    public DateTime? Qa_approval_date { get; set; }
 
     public string Lab_result_released_by { get; set; }
     public string Lab_result_released_date { get; set; }

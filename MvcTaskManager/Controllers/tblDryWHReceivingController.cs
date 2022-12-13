@@ -128,7 +128,7 @@ namespace MvcTaskManager.Controllers
           Date_added = project.Date_added.ToString("MM/dd/yyyy"),
           Qa_approval_by = project.Qa_approval_by,
           Qa_approval_status = project.Qa_approval_status,
-          Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString("MM/dd/yyyy"),
+          Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString(),
 
           Lab_result_released_by = project.Lab_result_released_by,
           Lab_result_released_date = project.Lab_result_released_date,
@@ -292,7 +292,8 @@ namespace MvcTaskManager.Controllers
                        total.Key.Lab_sub_remarks,
                        total.Key.Lab_exp_date_extension,
                        //total.Key.Lab_approval_aging_days,
-                       Lab_approval_aging_days = (DateTime.Now - total.Key.Qa_approval_date).Days,
+
+                       //Lab_approval_aging_days = (DateTime.Now - total.Key.Qa_approval_date).Days,
                        total.Key.Laboratory_procedure,
                        total.Key.Lab_cancel_by,
                        total.Key.Lab_cancel_date,
@@ -451,7 +452,7 @@ namespace MvcTaskManager.Controllers
           Date_added = project.Date_added.ToString("MM/dd/yyyy"),
           Qa_approval_by = project.Qa_approval_by,
           Qa_approval_status = project.Qa_approval_status,
-          Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString("MM/dd/yyyy"),
+          Qa_approval_date = project.DryWareHouseReceiving.Qa_approval_date.ToString(),
           Lab_result_released_by = project.Lab_result_released_by,
           Lab_result_released_date = project.Lab_result_released_date,
           Lab_result_remarks = project.Lab_result_remarks,
@@ -706,7 +707,7 @@ namespace MvcTaskManager.Controllers
       try
       {
         var file = Request.Form.Files[0];
-        var folderName = Path.Combine("Resources", "Images");
+        var folderName = Path.Combine("wwwroot", "assets");
         var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
 
