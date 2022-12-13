@@ -680,12 +680,13 @@ namespace MvcTaskManager.Controllers
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
       {        
         var existingDataStatus = await db.Dry_wh_lab_test_req_logs
-          .Where(temp => temp.Fk_receiving_id == items.Fk_receiving_id).FirstOrDefaultAsync();
+          .Where(temp => temp.Lab_req_id == items.Lab_req_id).FirstOrDefaultAsync();
+                  //.Where(temp => temp.Fk_receiving_id == items.Fk_receiving_id).FirstOrDefaultAsync();
         if (existingDataStatus != null)
         {
           existingDataStatus.Lab_access_code = items.Lab_access_code;
           await db.SaveChangesAsync();
-          return Ok(existingDataStatus);
+
         }
         else
         {
