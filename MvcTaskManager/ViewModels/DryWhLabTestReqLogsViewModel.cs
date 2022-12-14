@@ -72,6 +72,7 @@ namespace MvcTaskManager.ViewModels
     public string Samples { get; set; }
     public string Filename { get; set; }
     public string Filepath { get; set; }
+    public string Add_access_code_by { get; set; }
 
   }
 }

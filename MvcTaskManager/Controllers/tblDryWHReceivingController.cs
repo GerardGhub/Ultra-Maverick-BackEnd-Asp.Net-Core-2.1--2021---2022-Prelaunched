@@ -44,8 +44,9 @@ namespace MvcTaskManager.Controllers
         .Include(x => x.DryWareHouseReceiving).ToList()
         .GroupBy(d => new {
           d.Lab_access_code,
-          d.Lab_request_by,
-          d.Lab_request_date,
+          d.Add_access_code_by,
+          //d.Lab_request_date,
+          d.add_access_code_date,
           d.Is_active,
           d.Qa_supervisor_is_approve_status,
           d.Tsqa_Approval_Status
@@ -58,8 +59,9 @@ namespace MvcTaskManager.Controllers
              .Select(g => new
              {
                Lab_access_code = g.Key.Lab_access_code,
-               Lab_request_by = g.Key.Lab_request_by,
-               Lab_request_date = g.Key.Lab_request_date,
+               Add_access_code_by = g.Key.Add_access_code_by,
+               //Lab_request_date = g.Key.Lab_request_date,
+               Add_access_code_date = g.Key.add_access_code_date,
                Is_Active = g.Key.Is_active,
                Qa_supervisor_is_approve_status = g.Key.Qa_supervisor_is_approve_status,
                Tsqa_Approval_Status = g.Key.Tsqa_Approval_Status,
@@ -409,7 +411,6 @@ namespace MvcTaskManager.Controllers
         && temp.Tsqa_Approval_Status.Equals(true)
         && temp.Lab_result_received_by == null
         && temp.Lab_access_code == String.Empty
-
       ).ToListAsync();
 
       List<DryWhLabTestReqLogsViewModel> WarehouseReceivingContructor = new List<DryWhLabTestReqLogsViewModel>();
@@ -483,12 +484,15 @@ namespace MvcTaskManager.Controllers
           Tsqa_Approval_By = project.Tsqa_Approval_By,
           Tsqa_Approval_Date = project.Tsqa_Approval_Date.ToString(),
           Tsqa_Approval_Status = project.Tsqa_Approval_Status,
-          Sample_Qty = project.DryWareHouseReceiving.Sample_Qty
+          Sample_Qty = project.DryWareHouseReceiving.Sample_Qty,
+          Add_access_code_by = project.Add_access_code_by
 
         });
       }
       return Ok(WarehouseReceivingContructor);
     }
+
+
 
 
 
@@ -676,7 +680,6 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/SettingLabAccessCode")]
     public async Task<IActionResult> PutQALabAccessCode([FromBody] DryWhLabTestReqLogs[] labTestLabAccessCodeParams)
     {
-
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
       {        
         var existingDataStatus = await db.Dry_wh_lab_test_req_logs
@@ -685,8 +688,9 @@ namespace MvcTaskManager.Controllers
         if (existingDataStatus != null)
         {
           existingDataStatus.Lab_access_code = items.Lab_access_code;
+          existingDataStatus.add_access_code_date = DateTime.Now;
+          existingDataStatus.Add_access_code_by = items.Add_access_code_by;
           await db.SaveChangesAsync();
-
         }
         else
         {
@@ -694,8 +698,6 @@ namespace MvcTaskManager.Controllers
         }
       }
       return Ok(labTestLabAccessCodeParams);
-
-
     }
 
 
