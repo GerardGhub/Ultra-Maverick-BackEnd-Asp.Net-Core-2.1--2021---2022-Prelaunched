@@ -41,6 +41,7 @@ namespace MvcTaskManager.Controllers
     public async Task<IActionResult> GetLabResultWithAccessCode()
     {
       var GetResultWithAccessCode = db.Dry_wh_lab_test_req_logs
+
         .Include(x => x.DryWareHouseReceiving).ToList()
         .GroupBy(d => new {
           d.Lab_access_code,
@@ -50,6 +51,7 @@ namespace MvcTaskManager.Controllers
           d.Qa_supervisor_is_approve_status,
           d.Tsqa_Approval_Status
         })
+
         .Where(temp => temp.Key.Is_active.Equals(true)
         && temp.Key.Qa_supervisor_is_approve_status.Equals(true)
         && temp.Key.Tsqa_Approval_Status.Equals(true)
@@ -59,7 +61,7 @@ namespace MvcTaskManager.Controllers
              {
                Lab_access_code = g.Key.Lab_access_code,
                Add_access_code_by = g.Key.Add_access_code_by,
-               Add_access_code_date = g.Key.add_access_code_date,
+               //Add_access_code_date = g.Key.add_access_code_date,
                Is_Active = g.Key.Is_active,
                Qa_supervisor_is_approve_status = g.Key.Qa_supervisor_is_approve_status,
                Tsqa_Approval_Status = g.Key.Tsqa_Approval_Status,
@@ -672,6 +674,9 @@ namespace MvcTaskManager.Controllers
     [Route("api/DryWareHouseReceivingForLabTest/SettingLabAccessCode")]
     public async Task<IActionResult> PutQALabAccessCode([FromBody] DryWhLabTestReqLogs[] labTestLabAccessCodeParams)
     {
+
+      var dateTimeNow = DateTime.Now; // Return 00/00/0000 00:00:00
+      var dateOnlyString = dateTimeNow.ToShortDateString();
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
       {        
         var existingDataStatus = await db.Dry_wh_lab_test_req_logs
@@ -680,7 +685,7 @@ namespace MvcTaskManager.Controllers
         if (existingDataStatus != null)
         {
           existingDataStatus.Lab_access_code = items.Lab_access_code;
-          existingDataStatus.add_access_code_date = DateTime.Now;
+          existingDataStatus.add_access_code_date = Convert.ToDateTime(dateOnlyString);
           existingDataStatus.Add_access_code_by = items.Add_access_code_by;
           await db.SaveChangesAsync();
         }
