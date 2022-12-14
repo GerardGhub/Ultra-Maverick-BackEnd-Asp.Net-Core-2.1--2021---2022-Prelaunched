@@ -61,7 +61,7 @@ namespace MvcTaskManager.Controllers
              {
                Lab_access_code = g.Key.Lab_access_code,
                Add_access_code_by = g.Key.Add_access_code_by,
-               //Add_access_code_date = g.Key.add_access_code_date,
+               Add_access_code_date = g.Key.add_access_code_date,
                Is_Active = g.Key.Is_active,
                Qa_supervisor_is_approve_status = g.Key.Qa_supervisor_is_approve_status,
                Tsqa_Approval_Status = g.Key.Tsqa_Approval_Status,
@@ -670,11 +670,11 @@ namespace MvcTaskManager.Controllers
       }
     }
 
+
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/SettingLabAccessCode")]
     public async Task<IActionResult> PutQALabAccessCode([FromBody] DryWhLabTestReqLogs[] labTestLabAccessCodeParams)
     {
-
       var dateTimeNow = DateTime.Now; // Return 00/00/0000 00:00:00
       var dateOnlyString = dateTimeNow.ToShortDateString();
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
@@ -696,9 +696,6 @@ namespace MvcTaskManager.Controllers
       }
       return Ok(labTestLabAccessCodeParams);
     }
-
-
-
 
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/QAReleasingResult")]
@@ -841,12 +838,8 @@ namespace MvcTaskManager.Controllers
         existingDataStatus.Qa_supervisor_is_cancelled_by = labTestQASuperVisorApprovalParams.Qa_supervisor_is_cancelled_by;
         existingDataStatus.Qa_supervisor_is_cancelled_date = labTestQASuperVisorApprovalParams.Qa_supervisor_is_cancelled_date;
         existingDataStatus.Qa_supervisor_cancelled_remarks = labTestQASuperVisorApprovalParams.Qa_supervisor_cancelled_remarks;
-
         await db.SaveChangesAsync();
         return existingDataStatus;
-
-
-
       }
       else
       {

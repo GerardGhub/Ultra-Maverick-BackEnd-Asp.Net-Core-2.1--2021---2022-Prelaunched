@@ -188,7 +188,7 @@
 					"response": []
 				},
 				{
-					"name": "StoreOrderDispatching",
+					"name": "DISPATCHING",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -265,6 +265,547 @@
 							"path": [
 								"api",
 								"dry_wh_orders_checklist_distinct_partial_cancel"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Distinct Order With Partial Cancel",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct_partial_cancel",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"dry_wh_orders_checklist_distinct_partial_cancel"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 08 Sep 2022 07:14:46 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"primary_id\": 10750,\n        \"is_approved_prepa_date\": \"2022-09-07\",\n        \"store_name\": \"MEXICO\",\n        \"route\": \"MEXICO\",\n        \"area\": \"AREA 2\",\n        \"category\": \"LFI\",\n        \"is_active\": true,\n        \"is_for_validation\": \"0\",\n        \"is_approved\": \"1\",\n        \"is_prepared\": true,\n        \"force_prepared_status\": null,\n        \"fox\": \"FO25\",\n        \"item_code\": \"9045\",\n        \"description\": \"MM ROYAL\",\n        \"uom\": \"EACH\",\n        \"total_state_repack\": \"4\",\n        \"qty\": \"5\",\n        \"prepared_allocated_qty\": \"5\",\n        \"is_wh_approved\": null,\n        \"is_wh_approved_by\": null,\n        \"is_wh_approved_date\": null,\n        \"is_wh_checker_cancel\": \"1\",\n        \"is_wh_checker_cancel_by\": \"Jilo Viray\",\n        \"is_wh_checker_cancel_date\": \"09/8/2022 1:54:58 pm\",\n        \"is_wh_checker_cancel_reason\": null,\n        \"dispossal_status\": null,\n        \"wh_checker_move_order_no\": null,\n        \"total_state_repack_cancelled_qty\": 1,\n        \"logic_return_by\": null,\n        \"logic_return_date\": null,\n        \"logic_return_reason\": null,\n        \"fK_dry_wh_orders_parent_id\": 1115\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Find Prepared RM Cancelled",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/store_orders_partial_cancel/search/store_name/79/FO02",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"store_orders_partial_cancel",
+								"search",
+								"store_name",
+								"79",
+								"FO02"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Approval of Store Orders Bulk",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 97,\r\n    \"Is_wh_approved\": 1,\r\n    \"Is_wh_approved_by\": \"Gerard Singian\",\r\n    \"Is_wh_approved_date\": \"2022-08-01\",\r\n    \"Wh_checker_move_order_no\": 1\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/store_orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"store_orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UNknown CancelItems",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 77,\r\n    \"primary_id\": 9655,\r\n    \"Is_wh_checker_cancel\": \"1\",\r\n    \"Is_wh_checker_cancel_by\": \"Gerard Singian\",\r\n    \"Is_wh_checker_cancel_date\": \"2022-07-28\",\r\n    \"Is_wh_checker_cancel_reason\": \"2022-07-28\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/store_orders/cancelitems",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"store_orders",
+								"cancelitems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Per Items Individual",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 97,\r\n    \"primary_id\": 9706,\r\n    \"Is_wh_checker_cancel\": \"1\",\r\n    \"Is_wh_checker_cancel_by\": \"Gerard Singian\",\r\n    \"Is_wh_checker_cancel_date\": \"2022-07-28\",\r\n    \"Is_wh_checker_cancel_reason\": \"Wala na this\",\r\n    \"total_state_repack_cancelled_qty\": 1\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/store_orders/cancelindividualitems",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"store_orders",
+								"cancelindividualitems"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Returned Per Items Individual",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"FK_dry_wh_orders_parent_id\": 97,\r\n    \"primary_id\": 9706,\r\n    \"total_state_repack_cancelled_qty\": null\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/store_orders/cancelreturnitemslogisticstatecount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"store_orders",
+								"cancelreturnitemslogisticstatecount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Parent",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1115,\r\n    \"is_cancel_by\": \"Gerard Masarap\",\r\n    \"is_cancelled_reason\": \"Booratrum\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}api/store_orders/CancelParentTransaction",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"store_orders",
+								"CancelParentTransaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GENUS DATE PARAMs",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WAREHOUSE CHECKER INTERNAL",
+			"item": [
+				{
+					"name": "INTERNAL ORDER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_master/mrs_orders",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_master",
+								"mrs_orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PREPARED ORDERS",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_master/distinct_mrs_orders",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_master",
+								"distinct_mrs_orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Prepared  Store Order RM List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_master/search/4166",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_master",
+								"search",
+								"4166"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CANCELLED ORDER",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_master/mrs_orders/cancelled",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_master",
+								"mrs_orders",
+								"cancelled"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Distinct Cancel Order",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/dry_wh_orders_checklist_distinct_cancelled",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"dry_wh_orders_checklist_distinct_cancelled"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Date",
+									"value": "Thu, 08 Sep 2022 06:54:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"primary_id\": 10750,\n        \"is_approved_prepa_date\": \"2022-09-07\",\n        \"store_name\": \"MEXICO\",\n        \"route\": \"MEXICO\",\n        \"area\": \"AREA 2\",\n        \"category\": \"LFI\",\n        \"is_active\": true,\n        \"is_for_validation\": \"0\",\n        \"is_approved\": \"1\",\n        \"is_prepared\": true,\n        \"force_prepared_status\": null,\n        \"fox\": \"FO25\",\n        \"item_code\": \"9045\",\n        \"description\": \"MM ROYAL\",\n        \"uom\": \"EACH\",\n        \"total_state_repack\": \"4\",\n        \"qty\": \"5\",\n        \"prepared_allocated_qty\": \"5\",\n        \"is_wh_approved\": null,\n        \"is_wh_approved_by\": null,\n        \"is_wh_approved_date\": null,\n        \"is_wh_checker_cancel\": \"1\",\n        \"is_wh_checker_cancel_by\": \"Jilo Viray\",\n        \"is_wh_checker_cancel_date\": \"09/8/2022 1:54:58 pm\",\n        \"is_wh_checker_cancel_reason\": null,\n        \"dispossal_status\": null,\n        \"wh_checker_move_order_no\": null,\n        \"total_state_repack_cancelled_qty\": 1,\n        \"logic_return_by\": null,\n        \"logic_return_date\": null,\n        \"logic_return_reason\": null,\n        \"fK_dry_wh_orders_parent_id\": 1115\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Find Cancel Prepared RM List",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/getStoreOrderMaterialCancelled",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"getStoreOrderMaterialCancelled"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DISPATCHING",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_master/dispatching",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_master",
+								"dispatching"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Genus Request Dry Order",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://genus.rdfmis.ph/StoreAPI/api/orders.php?token=8AFASbzK5OH0E9OuZF5LlI9qZo8fqr1X",
+							"protocol": "https",
+							"host": [
+								"genus",
+								"rdfmis",
+								"ph"
+							],
+							"path": [
+								"StoreAPI",
+								"api",
+								"orders.php"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "8AFASbzK5OH0E9OuZF5LlI9qZo8fqr1X"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PARTIAL ITEM CANCEL",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}api/material_request_logs/search/partial_inactive/4212",
+							"host": [
+								"{{baseUrl}}api"
+							],
+							"path": [
+								"material_request_logs",
+								"search",
+								"partial_inactive",
+								"4212"
 							]
 						}
 					},
@@ -1319,7 +1860,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Roles By Role ID",
+							"name": "Get Roles By Role ID and Session ID",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1334,15 +1875,43 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}api/RoleModules/RoleId/cedd3253-45ce-4f8d-ac36-c69b2302a868/1",
+									"raw": "{{baseUrl}}api/RoleModules/RoleId/ff50b7a4-2b48-4287-8aef-325649495ff9/5",
 									"host": [
 										"{{baseUrl}}api"
 									],
 									"path": [
 										"RoleModules",
 										"RoleId",
-										"cedd3253-45ce-4f8d-ac36-c69b2302a868",
-										"1"
+										"ff50b7a4-2b48-4287-8aef-325649495ff9",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles By Role Name",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}api/RoleModules/WarehouseChecker",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"RoleModules",
+										"WarehouseChecker"
 									]
 								}
 							},
@@ -1364,7 +1933,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}api/RoleModules/RoleId/Admin/cedd3253-45ce-4f8d-ac36-c69b2302a868/1",
+									"raw": "{{baseUrl}}api/RoleModules/RoleId/Admin/b48c6444-e3d5-4177-ba85-66c35796171d/1",
 									"host": [
 										"{{baseUrl}}api"
 									],
@@ -1372,7 +1941,7 @@
 										"RoleModules",
 										"RoleId",
 										"Admin",
-										"cedd3253-45ce-4f8d-ac36-c69b2302a868",
+										"b48c6444-e3d5-4177-ba85-66c35796171d",
 										"1"
 									]
 								}
@@ -2173,7 +2742,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n  \r\n\t\"Username\": \"Admin\",\r\n\t\"Password\": \"Admin123#\"\r\n\r\n}",
+							"raw": "{\r\n    \r\n  \r\n\t\"Username\": \"admin\",\r\n\t\"Password\": \"Admin123#\"\r\n\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2500,14 +3069,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/LaboratoryProcedure",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/LaboratoryProcedure",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"LaboratoryProcedure"
 									]
 								}
@@ -2530,14 +3096,11 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/LaboratoryProcedure/searchbyid/55",
-									"protocol": "http",
+									"raw": "{{baseUrl}}api/LaboratoryProcedure/searchbyid/55",
 									"host": [
-										"localhost"
+										"{{baseUrl}}api"
 									],
-									"port": "5000",
 									"path": [
-										"api",
 										"LaboratoryProcedure",
 										"searchbyid",
 										"55"
@@ -2606,17 +3169,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://10.10.2.6:82/api/LaboratoryProcedure",
-							"protocol": "http",
+							"raw": "{{baseUrl}}api/LaboratoryProcedure",
 							"host": [
-								"10",
-								"10",
-								"2",
-								"6"
+								"{{baseUrl}}api"
 							],
-							"port": "82",
 							"path": [
-								"api",
 								"LaboratoryProcedure"
 							]
 						}
@@ -3303,13 +3860,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/NearlyExpiryx",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/NearlyExpiry",
 									"host": [
 										"{{baseUrl}}api"
 									],
 									"path": [
 										"DryWareHouseReceivingForLabTest",
-										"NearlyExpiryx"
+										"NearlyExpiry"
 									]
 								}
 							},
@@ -3387,14 +3944,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/SearchLabResultWithAccessCode/3130",
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/SearchLabResultWithAccessCode/4574",
 									"host": [
 										"{{baseUrl}}api"
 									],
 									"path": [
 										"DryWareHouseReceivingForLabTest",
 										"SearchLabResultWithAccessCode",
-										"3130"
+										"4574"
 									]
 								}
 							},
@@ -3806,7 +4363,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_cancel_by\": \"Justine Bieber\",\r\n    \"lab_cancel_remarks\": \"Item Sample is not valid\",\r\n     \"qa_approval_status\": \"3\"\r\n    \r\n\r\n\r\n}",
+									"raw": "{\r\n   \"id\": \"9129\",\r\n\t\"lab_cancel_by\": \"Justine Bieber\",\r\n    \"lab_cancel_remarks\": \"Item Sample is not valid\",\r\n     \"qa_approval_status\": \"3\"\r\n    \r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3928,6 +4485,64 @@
 							"response": []
 						},
 						{
+							"name": "LAB RESULT RELEASING 3rd Sample with File",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "9172",
+											"type": "text"
+										},
+										{
+											"key": "lab_result_released_by",
+											"value": "QA SUPERVISOR",
+											"type": "text"
+										},
+										{
+											"key": "lab_exp_date_extension",
+											"value": "08/29/2022",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/gsingian/Pictures/MIS.jpg"
+										},
+										{
+											"key": "laboratory_procedure",
+											"value": "Microbial Evaluation",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}api/DryWareHouseReceivingForLabTest/QAReleasingResult",
+									"host": [
+										"{{baseUrl}}api"
+									],
+									"path": [
+										"DryWareHouseReceivingForLabTest",
+										"QAReleasingResult"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "LAB RESULT SET ACCESS CODE",
 							"request": {
 								"auth": {
@@ -3944,7 +4559,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "[\r\n    {\r\n        \"lab_req_id\": \"3132\",\r\n        \"lab_access_code\": \"1997\"\r\n    }\r\n]",
+									"raw": "[\r\n    {\r\n        \"lab_req_id\": \"3144\",\r\n        \"lab_access_code\": \"1997\"\r\n    },\r\n    {\r\n        \"lab_req_id\": \"3147\",\r\n        \"lab_access_code\": \"1997\"\r\n    }\r\n    \r\n]",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4376,13 +4991,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{baseUrl}}api/material_request_master/3",
+											"raw": "{{baseUrl}}api/material_request_master/7",
 											"host": [
 												"{{baseUrl}}api"
 											],
 											"path": [
 												"material_request_master",
-												"3"
+												"7"
 											]
 										}
 									},
@@ -5119,17 +5734,24 @@
 								{
 									"name": "Get All Cancelled Reason",
 									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:5000/api/internal_mrs_cancelled_reason",
-											"protocol": "http",
+											"raw": "{{baseUrl}}api/internal_mrs_cancelled_reason",
 											"host": [
-												"localhost"
+												"{{baseUrl}}api"
 											],
-											"port": "5000",
 											"path": [
-												"api",
 												"internal_mrs_cancelled_reason"
 											]
 										}
