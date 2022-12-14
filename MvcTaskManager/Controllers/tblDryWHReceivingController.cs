@@ -45,7 +45,6 @@ namespace MvcTaskManager.Controllers
         .GroupBy(d => new {
           d.Lab_access_code,
           d.Add_access_code_by,
-          //d.Lab_request_date,
           d.add_access_code_date,
           d.Is_active,
           d.Qa_supervisor_is_approve_status,
@@ -53,27 +52,20 @@ namespace MvcTaskManager.Controllers
         })
         .Where(temp => temp.Key.Is_active.Equals(true)
         && temp.Key.Qa_supervisor_is_approve_status.Equals(true)
-        && temp.Key.Tsqa_Approval_Status.Equals(true))
-
+        && temp.Key.Tsqa_Approval_Status.Equals(true)
+        && temp.Key.Lab_access_code != String.Empty)
 
              .Select(g => new
              {
                Lab_access_code = g.Key.Lab_access_code,
                Add_access_code_by = g.Key.Add_access_code_by,
-               //Lab_request_date = g.Key.Lab_request_date,
                Add_access_code_date = g.Key.add_access_code_date,
                Is_Active = g.Key.Is_active,
                Qa_supervisor_is_approve_status = g.Key.Qa_supervisor_is_approve_status,
                Tsqa_Approval_Status = g.Key.Tsqa_Approval_Status,
                TotalItems = g.Sum(a => Convert.ToInt32(a.Is_active.Equals(true)))
-
              }).ToList();
-
-
       return Ok(GetResultWithAccessCode);
-
-
-
     }
 
 
