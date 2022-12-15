@@ -72,6 +72,7 @@ namespace MvcTaskManager.Models
     public string Add_access_code_by { get; set; }
     public DateTime? add_access_code_date { get; set; }
 
+
     [ForeignKey("fk_receiving_id")]
     public virtual DryWareHouseReceiving DryWareHouseReceiving { get; set; }
   }

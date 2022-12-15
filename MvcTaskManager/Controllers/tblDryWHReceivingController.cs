@@ -490,8 +490,6 @@ namespace MvcTaskManager.Controllers
 
 
 
-
-
     [HttpGet]
     [Route("api/DryWareHouseReceivingForLabTest/LabResultApproval")]
     public async Task<IActionResult> GetLabResultForApproval()
@@ -628,7 +626,9 @@ namespace MvcTaskManager.Controllers
           Lab_result_received_by = project.Lab_result_received_by,
           Lab_result_received_date = project.Lab_result_received_date,
           Lab_request_by = project.Lab_request_by,
-          Is_received_status = project.Is_received_status
+          Is_received_status = project.Is_received_status,
+          Bbd = project.Bbd.ToString("MM/dd/yyyy"),
+          Sample_Qty = project.Sample_Qty
         }); ;
       }
 
