@@ -16,8 +16,6 @@ using System.Net.Http.Headers;
 
 namespace MvcTaskManager.Controllers
 {
-
-
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class tblDryWHReceivingController : Controller
   {
