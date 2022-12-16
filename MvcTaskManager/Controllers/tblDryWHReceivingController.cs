@@ -21,8 +21,6 @@ namespace MvcTaskManager.Controllers
   {
     private ApplicationDbContext db;
     private IHostingEnvironment _hostingEnvironment;
-
-
     public int LaboratoryAging { get; set; }
     public int dayDiffExpiryDaysAging {get; set;}
 

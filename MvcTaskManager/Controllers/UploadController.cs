@@ -16,7 +16,8 @@ namespace MvcTaskManager.Controllers
       try
       {
         var file = Request.Form.Files[0];
-        var folderName = Path.Combine("Resources", "Images");
+        //var folderName = Path.Combine("Resources", "Imagesx");
+        var folderName = Path.Combine("wwwroot", "assets");
         var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
 
   
