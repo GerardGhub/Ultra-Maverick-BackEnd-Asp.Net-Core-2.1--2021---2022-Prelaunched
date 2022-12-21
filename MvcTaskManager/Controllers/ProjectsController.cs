@@ -93,10 +93,6 @@ namespace MvcTaskManager.Controllers
         });
       }
       return Ok(projectsViewModel);
-
-
-
-
     }
 
 
@@ -107,11 +103,8 @@ namespace MvcTaskManager.Controllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> Post([FromBody] DynamicChecklistLogger[] QcChecklistForm)
     {
-
       var TotalPartialReceiving = await db.ProjectsPartialPo.Where(temp => temp.Active.Equals(true)).ToListAsync();
-
       //return BadRequest(TotalPartialReceiving);
-
        int FirstSummary = TotalPartialReceiving.Count + 1;
 
       foreach (var item in QcChecklistForm)
@@ -172,7 +165,6 @@ namespace MvcTaskManager.Controllers
 
                 foreach (DynamicChecklistLogger items in ListLogger)// QCChecklistForm
                 {
-                  //New Lang Sample
                   var DynamicChecklist_cp_description = await db.Checklist_paramaters.Where(temp => temp.Is_active.Equals(true) &&
                   temp.Cp_params_id == items.cp_params_id).ToListAsync();
                   foreach (var list in DynamicChecklist_cp_description)
@@ -184,7 +176,6 @@ namespace MvcTaskManager.Controllers
                   db.Dynamic_checklist_logger.Add(items);
                 }
                
-
               }
               else
               {
@@ -192,7 +183,6 @@ namespace MvcTaskManager.Controllers
                 return BadRequest(new { message = "Your data submitted is " + GrandChildParametersnum + " the target is " + GrandChildKeyParameter.Count + " " + item.parent_chck_details + "" });
               }
 
- 
             }
      
    
@@ -1502,12 +1492,10 @@ namespace MvcTaskManager.Controllers
           ProjectID = existingProject2.ProjectID,
           ProjectName = existingProject2.ProjectName,
           TeamSize = existingProject2.TeamSize,
-          //ClientLocationID = existingProject2.ClientLocationID,
           DateOfStart = existingProject2.DateOfStart.ToString("dd/MM/yyyy"),
           Active = existingProject2.Active,
           is_activated = existingProject2.is_activated,
           Status = existingProject2.Status,
-          //ClientLocation = existingProject2.ClientLocation,
           Supplier = existingProject.Supplier,
           item_code = existingProject.item_code,
           Po_number = existingProject.Po_number,

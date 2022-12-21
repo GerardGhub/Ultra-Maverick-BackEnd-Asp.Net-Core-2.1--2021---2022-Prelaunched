@@ -13,8 +13,6 @@ using System.Threading.Tasks;
 namespace MvcTaskManager.Controllers
 {
 
-
-
   public class ProjectsPartialPoController : Controller
   {
     private ApplicationDbContext db;
@@ -545,8 +543,7 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_two = existingProject.Count_of_reject_two,
           Count_of_reject_three = existingProject.Count_of_reject_three,
           Total_of_reject_mat = existingProject.Total_of_reject_mat,
-          //SECTION 1
-          //A
+     
 
           //Cancelled Po Summary
           Cancelled_date = existingProject.Cancelled_date,
@@ -589,12 +586,10 @@ namespace MvcTaskManager.Controllers
       RMProjectsPartialPo existingProject = db.ProjectsPartialPo.Where(temp => temp.ProjectID == project.ProjectID).FirstOrDefault();
       if (existingProject != null)
       {
-
-
         project.Is_approved_XP = "1";
 
         //Aproval opf the
-        existingProject.Is_return_in_qc = 1;
+        //existingProject.Is_return_in_qc = 1; remove muna 12.21/2022
         existingProject.Is_approved_XP = project.Is_approved_XP;
         existingProject.Is_approved_by = project.Is_approved_by;
         existingProject.Is_approved_date = project.Is_approved_date = DateTime.UtcNow.ToString();
@@ -634,21 +629,15 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_two = existingProject.Count_of_reject_two,
           Count_of_reject_three = existingProject.Count_of_reject_three,
           Total_of_reject_mat = existingProject.Total_of_reject_mat,
-          //SECTION 1
-          //A
-
           //Cancelled Po Summary
           Cancelled_date = existingProject.Cancelled_date,
           Canceled_by = existingProject.Canceled_by,
           Cancelled_reason = existingProject.Cancelled_reason,
-
           //Returned PO Summary
           Returned_date = existingProject.Returned_date,
           Returned_by = existingProject.Returned_by,
           Returned_reason = existingProject.Returned_reason,
-
           //QC Receiving Date
-          //QCReceivingDate = existingProject.QCReceivingDate
           Is_approved_XP = existingProject.Is_approved_XP,
           Is_approved_by = existingProject.Is_approved_by,
           Is_approved_date = existingProject.Is_approved_date,
@@ -719,8 +708,7 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_two = existingProject.Count_of_reject_two,
           Count_of_reject_three = existingProject.Count_of_reject_three,
           Total_of_reject_mat = existingProject.Total_of_reject_mat,
-          //SECTION 1
-          //A
+
 
           //Cancelled Po Summary
           Cancelled_date = existingProject.Cancelled_date,
@@ -733,7 +721,6 @@ namespace MvcTaskManager.Controllers
           Returned_reason = existingProject.Returned_reason,
 
           //QC Receiving Date
-          //QCReceivingDate = existingProject.QCReceivingDate
           Is_approved_XP = existingProject.Is_approved_XP,
           Is_approved_by = existingProject.Is_approved_by,
           Is_approved_date = existingProject.Is_approved_date,
