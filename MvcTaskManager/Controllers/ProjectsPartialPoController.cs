@@ -102,7 +102,7 @@ namespace MvcTaskManager.Controllers
 
     }
 
-    //Warehouse Rejection Fetching Data
+
 
     [HttpGet]
     [Route("api/ProjectsPartialPo/WHReject")]
@@ -265,38 +265,35 @@ namespace MvcTaskManager.Controllers
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public IActionResult Search(string searchBy, string searchText)
     {
-      string ProjectIsActivated = "1";
-      List<RMProjectsPartialPo> projects = null;
-      if (searchBy == "ProjectID")
+        string ProjectIsActivated = "1";
+        List<RMProjectsPartialPo> projects = null;
+        if (searchBy == "ProjectID")
         projects = db.ProjectsPartialPo.Where(temp => temp.ProjectID.ToString().Contains(searchText)).ToList();
-      else if (searchBy == "ProjectName")
+        else if (searchBy == "ProjectName")
         projects = db.ProjectsPartialPo.Where(temp => temp.ProjectName.Contains(searchText)).ToList();
-      else if (searchBy == "Po_number")
+        else if (searchBy == "Po_number")
            
-      projects = db.ProjectsPartialPo.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) != temp.Is_wh_received.Contains(ProjectIsActivated)).ToList();
+        projects = db.ProjectsPartialPo.Where(temp => temp.Po_number.Contains(searchText) && temp.is_activated.Contains(ProjectIsActivated) != temp.Is_wh_received.Contains(ProjectIsActivated)).ToList();
 
-
-
-      //projects = db.Projects.Include("ClientLocation").Where(temp => temp.Po_number.Contains(searchText)).ToList();
-          else if (searchBy == "item_code")
+        else if (searchBy == "item_code")
         projects = db.ProjectsPartialPo.Where(temp => temp.item_code.Contains(searchText)).ToList();
-      else if (searchBy == "item_description")
+        else if (searchBy == "item_description")
         projects = db.ProjectsPartialPo.Where(temp => temp.item_description.Contains(searchText)).ToList();
-      if (searchBy == "DateOfStart")
+        if (searchBy == "DateOfStart")
         projects = db.ProjectsPartialPo.Where(temp => temp.DateOfStart.ToString().Contains(searchText)).ToList();
-      if (searchBy == "TeamSize")
+        if (searchBy == "TeamSize")
         projects = db.ProjectsPartialPo.Where(temp => temp.TeamSize.ToString().Contains(searchText)).ToList();
 
-      List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
-      foreach (var project in projects)
-      {
+        List<ProjectViewModel> projectsViewModel = new List<ProjectViewModel>();
+        foreach (var project in projects)
+        {
         projectsViewModel.Add(new ProjectViewModel() { ProjectID = project.ProjectID, Po_number = project.Po_number, ProjectName = project.ProjectName, TeamSize = project.TeamSize, DateOfStart = project.DateOfStart.ToString("dd/MM/yyyy"), Active = project.Active,
 
-          Status = project.Status, Actual_delivery = project.Actual_delivery});
-      }
+        Status = project.Status, Actual_delivery = project.Actual_delivery});
+        }
 
-      return Ok(projectsViewModel);
-    }
+        return Ok(projectsViewModel);
+        }
 
 
 
