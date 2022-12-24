@@ -667,17 +667,17 @@ namespace MvcTaskManager.Controllers
     }
 
 
+    
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/SettingLabAccessCode")]
     public async Task<IActionResult> PutQALabAccessCode([FromBody] DryWhLabTestReqLogs[] labTestLabAccessCodeParams)
     {
-      var dateTimeNow = DateTime.Now; // Return 00/00/0000 00:00:00
+      var dateTimeNow = DateTime.Now; 
       var dateOnlyString = dateTimeNow.ToShortDateString();
       foreach (DryWhLabTestReqLogs items in labTestLabAccessCodeParams)
       {        
         var existingDataStatus = await db.Dry_wh_lab_test_req_logs
           .Where(temp => temp.Lab_req_id == items.Lab_req_id).FirstOrDefaultAsync();
-                  //.Where(temp => temp.Fk_receiving_id == items.Fk_receiving_id).FirstOrDefaultAsync();
         if (existingDataStatus != null)
         {
           existingDataStatus.Lab_access_code = items.Lab_access_code;

@@ -232,9 +232,6 @@ namespace MvcTaskManager.Controllers
           Count_of_reject_two = project.Count_of_reject_two,
           Count_of_reject_three = project.Count_of_reject_three,
           Total_of_reject_mat = project.Total_of_reject_mat,
-
-          //Cancelled
-
           Cancelled_date = project.Cancelled_date,
           Canceled_by = project.Canceled_by,
           Cancelled_reason = project.Cancelled_reason,

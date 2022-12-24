@@ -10188,15 +10188,6 @@ class ProjectsCancelledPoComponent {
     CancelledPoDetails() {
         var Item = this.ItemDescription.nativeElement.value;
         var PoNumero = this.PONumber.nativeElement.value;
-        // var Reason = this.ReasonSelected.nativeElement.value;
-        // if(Reason != "")
-        // {
-        //   alert("Wala");
-        // }
-        // else
-        // {
-        //   alert("Meron");
-        // }
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
             title: 'Are you sure you want to return the PO Number ' + PoNumero + '?',
             text: Item,
@@ -10220,7 +10211,6 @@ class ProjectsCancelledPoComponent {
             p.teamSize = response.teamSize;
             p.clientLocation = response.clientLocation;
             p.active = response.active;
-            // p.is_activated = response.is_activated;
             p.clientLocationID = response.clientLocationID;
             p.status = response.status;
             p.supplier = response.supplier;
@@ -10238,8 +10228,6 @@ class ProjectsCancelledPoComponent {
             p.actual_delivery = response.actual_delivery;
             p.expected_delivery = response.expected_delivery;
             p.actual_remaining_receiving = response.actual_remaining_receiving;
-            // p.received_by_QA = response.received_by_QA;
-            // // this.activeUser = response.received_by_QA;
             p.status_of_reject_one = response.status_of_reject_one;
             p.status_of_reject_two = response.status_of_reject_two;
             p.status_of_reject_three = response.status_of_reject_three;
@@ -10247,8 +10235,6 @@ class ProjectsCancelledPoComponent {
             p.count_of_reject_two = response.count_of_reject_two;
             p.count_of_reject_three = response.count_of_reject_three;
             p.total_of_reject_mat = response.total_of_reject_mat;
-            //Section 1
-            // this.received_by.nativeElement.value = this.loginService.currentUserName;
             this.projects[this.editIndex] = p;
             this.editProject.projectID = 0;
             this.editProject.projectName = "";
@@ -10326,7 +10312,6 @@ class ProjectsCancelledPoComponent {
             this.editProject.expected_delivery = this.projects[index].expected_delivery;
             this.editProject.actual_delivery = this.projects[index].actual_delivery;
             this.editProject.actual_remaining_receiving = this.projects[index].actual_remaining_receiving;
-            // this.editProject.received_by_QA = this.activeUser;
             this.editProject.is_activated = this.Activator;
             this.editProject.returned_date = this.ToDay;
             this.editProject.returned_by = this.activeUser;
@@ -10341,120 +10326,6 @@ class ProjectsCancelledPoComponent {
             this.editProject.count_of_reject_two = this.projects[index].count_of_reject_two;
             this.editProject.count_of_reject_three = this.projects[index].count_of_reject_three;
             this.editProject.total_of_reject_mat = this.projects[index].total_of_reject_mat;
-            //Section 1
-            //A
-            this.editProject.a_delivery_van_desc = this.projects[index].a_delivery_van_desc;
-            this.editProject.a_compliance = this.projects[index].a_compliance;
-            this.editProject.a_remarks = this.projects[index].a_remarks;
-            //B
-            this.editProject.b_cooling_system_desc = this.projects[index].b_cooling_system_desc;
-            this.editProject.b_compliance = this.projects[index].b_compliance;
-            this.editProject.b_remarks = this.projects[index].b_remarks;
-            //C
-            this.editProject.c_inner_walls_desc = this.projects[index].c_inner_walls_desc;
-            this.editProject.c_compliance = this.projects[index].c_compliance;
-            this.editProject.c_remarks = this.projects[index].c_remarks;
-            //D
-            this.editProject.d_plastic_curtains_desc = this.projects[index].d_plastic_curtains_desc;
-            this.editProject.d_compliance = this.projects[index].d_compliance;
-            this.editProject.d_remarks = this.projects[index].d_remarks;
-            //E
-            this.editProject.e_thereno_pest_desc = this.projects[index].e_thereno_pest_desc;
-            this.editProject.e_compliance = this.projects[index].e_compliance;
-            this.editProject.e_remarks = this.projects[index].e_remarks;
-            //Section 2
-            //A
-            this.editProject.a_clean_company_dos = this.projects[index].a_clean_company_dos;
-            this.editProject.a_compliance_dos = this.projects[index].a_compliance_dos;
-            this.editProject.a_remarks_dos = this.projects[index].a_remarks_dos;
-            //B
-            this.editProject.b_delivery_staff_symptoms_dos = this.projects[index].b_delivery_staff_symptoms_dos;
-            this.editProject.b_compliance_dos = this.projects[index].b_compliance_dos;
-            this.editProject.b_remarks_dos = this.projects[index].b_remarks_dos;
-            //C
-            this.editProject.c_inner_walls_clean_dos = this.projects[index].c_inner_walls_clean_dos;
-            this.editProject.c_compliance_dos = this.projects[index].c_compliance_dos;
-            this.editProject.c_remarks_dos = this.projects[index].c_remarks_dos;
-            //D
-            this.editProject.d_plastic_curtains_dos = this.projects[index].d_plastic_curtains_dos;
-            this.editProject.d_compliance_dos = this.projects[index].d_compliance_dos;
-            this.editProject.d_remarks_dos = this.projects[index].d_remarks_dos;
-            //E
-            this.editProject.e_no_accessories_dos = this.projects[index].e_no_accessories_dos;
-            this.editProject.e_compliance_dos = this.projects[index].e_compliance_dos;
-            this.editProject.e_remarks_dos = this.projects[index].e_remarks_dos;
-            //F
-            this.editProject.f_no_pests_sightings_dos = this.projects[index].f_no_pests_sightings_dos;
-            this.editProject.f_compliance_dos = this.projects[index].f_compliance_dos;
-            this.editProject.f_remarks_dos = this.projects[index].f_remarks_dos;
-            //Section 3
-            //A
-            this.editProject.a_pallet_crates_tres = this.projects[index].a_pallet_crates_tres;
-            this.editProject.a_compliance_tres = this.projects[index].a_compliance_tres;
-            this.editProject.a_remarks_tres = this.projects[index].a_remarks_tres;
-            //B
-            this.editProject.b_product_contamination_tres = this.projects[index].b_product_contamination_tres;
-            this.editProject.b_compliance_tres = this.projects[index].b_compliance_tres;
-            this.editProject.b_remarks_tres = this.projects[index].b_remarks_tres;
-            //C
-            this.editProject.c_uncessary_items_tres = this.projects[index].c_uncessary_items_tres;
-            this.editProject.c_compliance_tres = this.projects[index].c_compliance_tres;
-            this.editProject.c_remarks_tres = this.projects[index].c_remarks_tres;
-            //D
-            this.editProject.d_products_cover_tres = this.projects[index].d_products_cover_tres;
-            this.editProject.d_compliance_tres = this.projects[index].d_compliance_tres;
-            this.editProject.d_remarks_tres = this.projects[index].d_remarks_tres;
-            //Serction 4
-            //A
-            this.editProject.a_certificate_coa_kwatro_desc = this.projects[index].a_certificate_coa_kwatro_desc;
-            this.editProject.a_compliance_kwatro = this.projects[index].a_compliance_kwatro;
-            this.editProject.a_remarks_kwatro = this.projects[index].a_remarks_kwatro;
-            //B
-            this.editProject.b_po_kwatro_desc = this.projects[index].b_po_kwatro_desc;
-            this.editProject.b_compliance_kwatro = this.projects[index].b_compliance_kwatro;
-            this.editProject.b_remarks_kwatro = this.projects[index].b_remarks_kwatro;
-            //C
-            this.editProject.c_msds_kwatro_desc = this.projects[index].c_msds_kwatro_desc;
-            this.editProject.c_compliance_kwatro = this.projects[index].c_compliance_kwatro;
-            this.editProject.c_remarks_kwatro = this.projects[index].c_remarks_kwatro;
-            //D
-            this.editProject.d_food_grade_desc = this.projects[index].d_food_grade_desc;
-            this.editProject.d_compliance_kwatro = this.projects[index].d_compliance_kwatro;
-            this.editProject.d_remarks_kwatro = this.projects[index].d_remarks_kwatro;
-            //Section 5
-            //A
-            this.editProject.a_qty_received_singko_singko = this.projects[index].a_qty_received_singko_singko;
-            this.editProject.a_compliance_singko = this.projects[index].a_compliance_singko;
-            this.editProject.a_remarks_singko = this.projects[index].a_remarks_singko;
-            //B
-            this.editProject.b_mfg_date_desc_singko = this.projects[index].b_mfg_date_desc_singko;
-            this.editProject.b_compliance_singko = this.projects[index].b_compliance_singko;
-            this.editProject.b_remarks_singko = this.projects[index].b_remarks_singko;
-            //C
-            this.editProject.c_expirydate_desc_singko = this.projects[index].c_expirydate_desc_singko;
-            this.editProject.c_compliance_singko = this.projects[index].c_compliance_singko;
-            this.editProject.c_remarks_singko = this.projects[index].c_remarks_singko;
-            //D
-            this.editProject.d_packaging_desc_singko = this.projects[index].d_packaging_desc_singko;
-            this.editProject.d_compliance_singko = this.projects[index].d_compliance_singko;
-            this.editProject.d_remarks_singko = this.projects[index].d_remarks_singko;
-            //E
-            this.editProject.e_no_contaminants_desc_singko = this.projects[index].e_no_contaminants_desc_singko;
-            this.editProject.e_compliance_singko = this.projects[index].e_compliance_singko;
-            this.editProject.e_remarks_singko = this.projects[index].e_remarks_singko;
-            //F
-            this.editProject.f_qtyrejected_desc_singko = this.projects[index].f_qtyrejected_desc_singko;
-            this.editProject.f_compliance_singko = this.projects[index].f_compliance_singko;
-            this.editProject.f_remarks_singko = this.projects[index].f_remarks_singko;
-            //G
-            this.editProject.g_rejected_reason_desc_singko = this.projects[index].g_rejected_reason_desc_singko;
-            this.editProject.g_compliance_singko = this.projects[index].g_compliance_singko;
-            this.editProject.g_remarks_singko = this.projects[index].g_remarks_singko;
-            //H
-            this.editProject.h_lab_sample_desc_singko = this.projects[index].h_lab_sample_desc_singko;
-            this.editProject.h_compliance_singko = this.projects[index].h_compliance_singko;
-            this.editProject.h_remarks_singko = this.projects[index].h_remarks_singko;
-            // $("txtexpected_delivery").val("");
             this.editIndex = index;
         }, 100);
     }
@@ -10639,7 +10510,6 @@ class ProjectsCancelledPoComponent {
         else {
             if (this.totalofReject.nativeElement.value == this.confirmReject.nativeElement.value) {
                 // this.rejectNo3.nativeElement.value="0";
-                // console.warn("Empty Quantity in the textInput! ")
                 // this.rejectIsnotMactchSpanTag.nativeElement.innerHTML = "Pexa Marian";
                 this.rejectIsnotMactchSpanTag.nativeElement.innerHTML = "";
             }
@@ -10652,9 +10522,6 @@ class ProjectsCancelledPoComponent {
         // Allowable Percentage Computation
         const ExpectedDelivery = this.ExpectedDeliveryActual.nativeElement.value;
         const ActivatedAllowablePercentage = this.ActiveAllowablePercentage.nativeElement.value;
-        // const TotalAllowablePercentage = this.TotalAllowablePercentage.nativeElement.value;
-        // const summary = ExpectedDelivery * ActivatedAllowablePercentage;
-        // console.log(summary);
         if (this.ActiveAllowablePercentage.nativeElement.value == "10") {
             const summary = ExpectedDelivery * 1.10;
             this.TotalAllowablePercentage.nativeElement.value = summary;
@@ -10682,25 +10549,15 @@ class ProjectsCancelledPoComponent {
         // Allowable Percentage Computation
         const TotalAllowablePercentage = this.TotalAllowablePercentage.nativeElement.value;
         const ActualDelivered = this.ActualDeliveryChild.nativeElement.value;
-        // const TotalAllowablePercentage = this.TotalAllowablePercentage.nativeElement.value;
-        // const summary = ExpectedDelivery * ActivatedAllowablePercentage;
-        // console.log(summary);
-        // const summary = ExpectedDelivery * 1.10;
-        // this.TotalAllowablePercentage.nativeElement.value = summary;
         if (ActualDelivered > TotalAllowablePercentage) {
             this.AllowablePercentageExceed();
-        }
-        else {
-            // alert("FEMALE");
         }
     }
     onChangeEventReject1(event) {
         if (this.rejectNo1.nativeElement.value == "") {
             this.rejectNo1.nativeElement.value = "0";
-            // console.warn("Empty Quantity in the textInput! ")
         }
-        console.log(event.target.value);
-        // this.totalofReject.nativeElement.value = this.rejectNo1.nativeElement.value;
+        // console.log(event.target.value);
         const a = this.rejectNo1.nativeElement.value;
         const b = this.rejectNo2.nativeElement.value;
         const c = this.rejectNo3.nativeElement.value;
@@ -10724,7 +10581,6 @@ class ProjectsCancelledPoComponent {
             console.warn("Empty Quantity in the textInput! ");
         }
         console.log(event.target.value);
-        // this.totalofReject.nativeElement.value = this.rejectNo2.nativeElement.value + this.totalofReject.nativeElement.value;
         const a = this.rejectNo1.nativeElement.value;
         const b = this.rejectNo2.nativeElement.value;
         const c = this.rejectNo3.nativeElement.value;
@@ -10741,15 +10597,6 @@ class ProjectsCancelledPoComponent {
         else {
             this.RejectionGreaterThanReceiving();
         }
-    }
-    validateRejectedStatus(event) {
-        // const Reject1 = this.RejectedStatus1.nativeElement.value;
-        // const Reject2 = this.RejectedStatus2.nativeElement.value;
-        // const Reject3 = this.RejectedStatus3.nativeElement.value;
-        // if(Reject1 == Reject2)
-        // {
-        //   this.MultipleSelectionOfRejectionStatus();
-        // }
     }
     Alerto() {
         sweetalert2__WEBPACK_IMPORTED_MODULE_4___default.a.fire({
@@ -14148,7 +13995,7 @@ function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_1_Template(rf,
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerStart"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 232);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "textarea", 233);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_1_Template_textarea_ngModelChange_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r158); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.manual_description = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("change", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_1_Template_textarea_change_2_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r158); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; const ctx_r156 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](4); return ctx_r156.ParameterYes1(param_r150.cp_params_id, param_r150.cp_status); })("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_1_Template_textarea_ngModelChange_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r158); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.manual_description = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerEnd"]();
@@ -14160,13 +14007,13 @@ function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_1_Template(rf,
 } }
 const _c55 = function () { return { standalone: true }; };
 function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_2_Template(rf, ctx) { if (rf & 1) {
-    const _r162 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    const _r164 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerStart"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 231);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "div", 234);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "div", 235);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](4, "input", 236);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_2_Template_input_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r162); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_2_Template_input_ngModelChange_4_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r164); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "label", 237);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](6);
@@ -14184,11 +14031,11 @@ function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_2_Template(rf,
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate"](param_r150.cp_description);
 } }
 function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template(rf, ctx) { if (rf & 1) {
-    const _r166 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
+    const _r168 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementContainerStart"](0);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 39);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "input", 238);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_ngModelChange_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r166); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; })("change", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_change_2_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r166); const ctx_r167 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](5); return ctx_r167.ParameterYes1(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_ngModelChange_2_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r168); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; })("change", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_change_2_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r168); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; const ctx_r169 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](4); return ctx_r169.ParameterYes1(param_r150.cp_params_id, param_r150.cp_status); });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](3, "label", 239);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](4, "Yes");
@@ -14196,7 +14043,7 @@ function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template(rf,
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](5, "div", 39);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](6, "input", 240);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_ngModelChange_6_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r166); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; })("change", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_change_6_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r166); const ctx_r170 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](5); return ctx_r170.ParameterNo1(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵlistener"]("ngModelChange", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_ngModelChange_6_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r168); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; return param_r150.cp_status = $event; })("change", function ProjectsComponent_div_419_div_8_tr_10_div_4_ng_container_3_Template_input_change_6_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵrestoreView"](_r168); const param_r150 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"]().$implicit; const ctx_r173 = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵnextContext"](4); return ctx_r173.ParameterNo1(param_r150.cp_params_id, param_r150.cp_status); });
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](7, "label", 241);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](8, "No");
@@ -14318,10 +14165,10 @@ function ProjectsComponent_mat_option_494_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const status_r174 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", status_r174.status_name);
+    const status_r178 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", status_r178.status_name);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", status_r174.status_name, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵtextInterpolate1"](" ", status_r178.status_name, " ");
 } }
 function ProjectsComponent_p_496_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "p", 210);
@@ -14340,10 +14187,10 @@ function ProjectsComponent_p_496_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const status_r175 = ctx.$implicit;
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", status_r175.actual_delivery);
+    const status_r179 = ctx.$implicit;
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵproperty"]("value", status_r179.actual_delivery);
     _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpropertyInterpolate"]("value", status_r175.actual_delivery);
+    _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵpropertyInterpolate"]("value", status_r179.actual_delivery);
 } }
 const _c56 = function () { return ["/admin", "dashboard"]; };
 const _c57 = function (a0, a1) { return { "is-invalid": a0, "is-valid": a1 }; };
@@ -14364,6 +14211,7 @@ class ProjectsComponent {
         this.projects = [];
         this.cancelledPOlist = [];
         this.qcchecklist = [];
+        this.selectedNumber = [];
         this.showLoading = true;
         this.allowableqty = 0;
         this.actualqty = 0;
@@ -14470,14 +14318,19 @@ class ProjectsComponent {
         });
     }
     getChecklist() {
-        alert("hahaha");
         this.qcService.getQcChecklist().subscribe((response) => {
             this.qcchecklist = response;
-            console.warn(response);
-            console.warn(response[1].childCheckLists[2].grandChildCheckLists.length);
-            this.TotalParamaterCount1 = response[0].childCheckLists[0].grandChildCheckLists.length
-                + response[1].childCheckLists[0].grandChildCheckLists[6].checkListParameters.length
-                + response[0].childCheckLists[0].grandChildCheckLists.length;
+            //Array drilling
+            this.TotalParamaterCount1 =
+                response[0].childCheckLists[0].grandChildCheckLists.length //10
+                    + response[1].childCheckLists[0].grandChildCheckLists[6].checkListParameters.length // 1
+                    + response[1].childCheckLists[2].grandChildCheckLists.length //11
+                    + response[2].childCheckLists[0].grandChildCheckLists.length //6
+                    + response[3].childCheckLists[0].grandChildCheckLists.length // 7
+                    + response[4].childCheckLists[0].grandChildCheckLists.length // 1
+                    + response[5].childCheckLists[0].grandChildCheckLists.length // 10
+                    + response[1].childCheckLists[1].grandChildCheckLists.length; //7
+            console.log(this.TotalParamaterCount1);
         });
     }
     isAllCheckedChange(event) {
@@ -14659,8 +14512,6 @@ class ProjectsComponent {
                 p.count_of_reject_two = response.count_of_reject_two;
                 p.count_of_reject_three = response.count_of_reject_three;
                 p.total_of_reject_mat = response.total_of_reject_mat;
-                p.a_compliance = response.a_compliance;
-                p.a_remarks = response.a_remarks;
                 this.projects.push(p);
                 this.newProject.projectName = '';
                 this.newProject.dateOfStart = '';
@@ -14690,10 +14541,7 @@ class ProjectsComponent {
                 this.newProject.count_of_reject_two = "";
                 this.newProject.count_of_reject_three = "";
                 this.newProject.total_of_reject_mat = "";
-                this.newProject.a_compliance = "";
-                this.newProject.a_remarks = "";
                 jquery__WEBPACK_IMPORTED_MODULE_0__('#newFormCancel').trigger('click');
-                // this.ngOnInit();
                 this.calculateNoOfPages();
             }, (error) => {
                 console.log(error);
@@ -15339,13 +15187,21 @@ class ProjectsComponent {
             }
         });
     }
-    ParameterNo1() {
-        this.ParameterRealtimeCount = this.ParameterRealtimeCount + 1;
-        alert(this.ParameterRealtimeCount);
+    ParameterNo1(paramsId, paramsStatus) {
+        if (this.selectedNumber.includes(paramsId)) {
+        }
+        else {
+            this.ParameterRealtimeCount = this.ParameterRealtimeCount + 1;
+            this.selectedNumber.push(paramsId);
+        }
     }
-    ParameterYes1() {
-        this.ParameterRealtimeCount = this.ParameterRealtimeCount + 1;
-        alert(this.ParameterRealtimeCount);
+    ParameterYes1(paramsId, paramsStatus) {
+        if (this.selectedNumber.includes(paramsId)) {
+        }
+        else {
+            this.ParameterRealtimeCount = this.ParameterRealtimeCount + 1;
+            this.selectedNumber.push(paramsId);
+        }
     }
     CancelledPoDetails() {
         var Item = this.ItemDescription.nativeElement.value;
@@ -15979,7 +15835,7 @@ ProjectsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.remarksSectionE7 = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.remarksSectionE8 = _t.first);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵloadQuery"]()) && (ctx.projs = _t);
-    } }, inputs: { parent_id: "parent_id" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵNgOnChangesFeature"]], decls: 501, vars: 202, consts: [[1, "row"], [1, "col-xl-12", "col-lg-9", "mx-auto", "divForModuleTable"], ["aria-label", "breadcrumb textStyle"], [1, "breadcrumb"], [1, "breadcrumb-item"], [3, "routerLink"], [1, "dashboardStyle"], ["aria-hidden", "true", 1, "fa", "fa-home"], ["aria-current", "page", 1, "breadcrumb-item", "dashboardActive"], ["mat-align-tabs", "start", 3, "selectedTabChange"], [3, "ngIf"], ["novalidate", "novalidate", "appClientLocationStatusValidator", ""], ["newForm", "ngForm"], ["role", "dialog", "id", "newModal", 1, "modal"], [1, "modal-dialog"], [1, "modal-content", 2, "width", "auto"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewProjectID", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewProjectID", "placeholder", "Project ID", "name", "ProjectID", "required", "required", "pattern", "^[0-9]*$", "appProjectIDUniqueValidator", "", 1, "form-control", 2, "width", "130px", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectID", "ngModel", "prjID", ""], ["class", "text-danger", 4, "ngIf"], ["type", "text", "name", "is_activated", "value", "1", 1, "form-control", 2, "width", "auto", 3, "ngModel", "ngModelChange"], ["newis_activated", "ngModel", "IsActivated", ""], ["for", "txtNewProjectName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtNewProjectName", "placeholder", "Project Name", "name", "ProjectName", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectName", "ngModel"], ["for", "txtNewDateOfStart", 1, "col-sm-4", "col-form-label"], ["type", "date", "id", "txtNewDateOfStart", "placeholder", "Date of Start", "name", "DateOfStart", "required", "required", 1, "form-control", 2, "width", "180px", 3, "ngModel", "ngClass", "ngModelChange"], ["newDateOfStart", "ngModel"], ["for", "col-sm-4 col-form-label"], [1, "form-check"], ["type", "checkbox", "id", "chkNewActive", "value", "true", "name", "active", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkNewActive", 1, "form-check-label"], ["for", "rbNewStatusInForce", 1, "col-sm-4"], [1, "form-check", "form-check-inline"], ["type", "radio", "id", "rbNewStatusInForce", "value", "In Force", "name", "Status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusInForce", "ngModel"], ["for", "rbNewStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbNewStatusSupport", "value", "Support", "name", "Status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusSupport", "ngModel"], ["for", "rbNewStatusSupport", 1, "form-check-label"], ["for", "drpNewClientLocation", 1, "col-sm-4", "col-form-label"], ["id", "drpNewClientLocation", "name", "ClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newClientLocationID", "ngModel"], ["value", "null"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["data-dismiss", "modal", "id", "newFormCancel", 1, "btn", "btn-warning"], [1, "btn", "btn-success", 3, "click"], ["editForm", "ngForm"], ["role", "dialog", "id", "editModal", "data-backdrop", "static", "data-keyboard", "false", 1, "modal"], [1, "modal-dialog", "modal-xl"], [1, "modal-header", "bg-all"], [1, "modal-title", "white-color"], [1, "partition-div"], [1, "col-lg-12"], [1, "form-row"], [1, "form-group", "col-md-3"], ["floatLabel", "auto", "appearance", "outline", "color", "primary"], ["type", "text", "matInput", "", "id", "txtEditProjectID", "placeholder", "Checklist ID", "name", "ProjectID", "disabled", "disabled", "required", "required", "pattern", "^[0-9]*$", "appProjectIDUniqueValidator", "", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectID", "ngModel"], ["matPrefix", ""], ["type", "text", "matInput", "", "id", "txtEdititem_code", "placeholder", "Item Code", "name", "item_code", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["edititem_code", "ngModel"], ["type", "text", "matInput", "", "id", "txtEdititem_class", "placeholder", "Item Class", "disabled", "disabled", "name", "item_class", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["edititem_class", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditmajor_category", "placeholder", "Major Category", "disabled", "disabled", "name", "major_category", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editmajor_category", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditReceivingDate", "disabled", "disabled", "placeholder", "Receiving Date", 1, "text-green", 3, "value"], [1, "material-icons-outlined"], ["type", "text", "matInput", "", "id", "txtitem_description", "placeholder", "Description", "name", "item_descriptuion", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["edititem_description", "ngModel", "ItemDescription", ""], ["type", "text", "matInput", "", "id", "txtEdititem_type", "placeholder", "Item Type", "disabled", "disabled", "name", "item_type", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["edititem_type", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditsub_category", "placeholder", "Sub Category", "disabled", "disabled", "name", "sub_category", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editsub_category", "ngModel"], ["floatLabel", "auto", "appearance", "outline", "color", "primary", 1, "w-100"], ["type", "text", "matInput", "", "id", "txtEditSupplier", "placeholder", "supplier", "name", "supplier", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editSupplier", "ngModel"], ["type", "text", "matInput", "", "id", "txtUnitPrice", "placeholder", "Unit Price", "name", "unit_price", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editunit_price", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditpo_number", "placeholder", "PO Number", "name", "po_number", "minlength", "3", "maxlength", "30", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpo_number", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditpr_number", "placeholder", "PR Number", "name", "pr_number", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpr_number", "ngModel"], ["type", "text", "matInput", "", "id", "txtqty_order", "placeholder", "Quantity Ordered", "name", "qty_order", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editqty_order", "ngModel", "QtyOrdered", ""], ["type", "text", "matInput", "", "id", "txtactual_remaining_receiving", "name", "actual_remaining_receiving", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editactual_remaining_receiving", "ngModel", "ActualRemainingReceiving", ""], ["type", "text", "matInput", "", "id", "txtEditqty_uom", "placeholder", "Unit Of Measure", "name", "qty_uom", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editqty_uom", "ngModel"], ["type", "text", "matInput", "", "id", "txtpo_date", "placeholder", "PO Date", "name", "po_date", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpo_date", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditipr_date", "placeholder", "PR Date", "name", "pr_date", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpr_date", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditreceived_by_QA", "disabled", "disabled", 1, "text-green"], ["received_by", ""], ["type", "text", "matInput", "", "id", "txtEditmfg_date", "readonly", "", "name", "mfg_date", "readonly", "readonly", 1, "text-green", 3, "matDatepicker", "max", "ngModel", "ngClass", "ngModelChange"], ["editmfg_date", "ngModel"], ["align", "end"], ["matSuffix", "", 3, "for"], ["matDatepickerToggleIcon", ""], ["startView", "month"], ["dobDatepicker_mfg", ""], ["type", "text", "matInput", "", "id", "txtEditexpiration_date", "readonly", "", "Placeholder", "N/A", "name", "expiration_date", 1, "text-green", 3, "matDatepicker", "min", "ngModel", "ngClass", "ngModelChange", "dateChange"], ["editexpiration_date", "ngModel", "ExpiryDateChild", ""], ["align", "end", 3, "value", 4, "ngFor", "ngForOf"], ["matDatepickerToggleIcon", "", "id", "select_expiry"], ["dobDatepicker", ""], ["type", "text", "matInput", "", "autocomplete", "off", "id", "txtexpected_delivery", "placeholder", "Expected Delivery", "name", "expected_delivery", "required", "required", "maxlength", "9", "c", "", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange", "keypress", "keyup"], ["editexpected_delivery", "ngModel", "ExpectedDeliveryActual", ""], ["type", "text", "matInput", "", "id", "actual_delivery_output", "placeholder", "Quantity Actual Delivered", "required", "required", "name", "actual_delivery", "maxlength", "9", "autocomplete", "off", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange", "keypress", "keyup"], ["editactual_delivery", "ngModel", "ActualDeliveryChild", ""], [1, "hideObject"], ["type", "text", "id", "Allowable_Percentage_id"], ["TotalAllowablePercentage", ""], [1, "form-group", "row", "hideObject"], ["for", "txtEditDateOfStart", 1, "col-sm-4", "col-form-label"], ["type", "date", "id", "txtEditDateOfStart", "placeholder", "Date of Start", "name", "DateOfStart", "required", "required", 1, "form-control", 2, "width", "180px", 3, "ngModel", "ngClass", "ngModelChange"], ["editDateOfStart", "ngModel"], [1, "col-sm-4"], ["type", "checkbox", "id", "chkEditActive", "value", "true", "name", "active", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkEditActive", 1, "form-check-label"], [1, "rejection-buttons"], [1, "btn-add", "btn", "btn-danger", "btn-sm", "mr-3", 3, "click"], ["id", "remove-remarks-button", 1, "btn", "btn-info", "btn-sm", 3, "click"], [1, "flex"], [1, "box-1"], ["id", "rejectionrow1", 1, "form-group", "row"], ["appearance", "fill"], ["name", "status_of_reject_one", "id", "drpEditRejectStatusOne", 3, "ngModel", "selectionChange", "ngModelChange"], ["id", "rejectionrow2", 1, "form-group", "row"], ["name", "status_of_reject_two", "id", "drpEditRejectStatusTwo", 3, "ngModel", "ngModelChange", "selectionChange"], ["RejectedStatus2", ""], ["id", "rejectionrow32", 1, "form-group", "row"], ["rejectedStatusElementNo3", ""], ["name", "status_of_reject_three", "id", "drpEditRejectStatusThree", 3, "ngModel", "ngModelChange", "selectionChange"], ["id", "total-reject", 1, "form-group", "row"], ["floatLabel", "auto", "appearance", "standard", "color", "primary"], ["type", "text", "matInput", "", "name", "total_of_reject_mat", "readonly", "readonly", 3, "ngModel", "ngModelChange"], ["totalofReject", ""], [1, "box-2"], ["id", "rejectionrow12", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_one", "matInput", "", "maxlength", "9", "id", "rejectRow1", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo1", "", "editcount_of_reject_one", "ngModel"], ["id", "rejectionrow22", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_two", "matInput", "", "maxlength", "9", "id", "rejectRow2", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo2", "", "editcount_of_reject_two", "ngModel"], ["id", "rejectionrow3", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_three", "matInput", "", "maxlength", "9", "id", "rejectRow3", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo3", "", "editcount_of_reject_three", "ngModel"], ["id", "total-confirm-reject", 1, "form-group", "row"], ["type", "text", "matInput", "", "name", "total_of_reject_mat", 3, "ngModel", "ngModelChange", "keyup", "keypress"], ["confirmReject", ""], [1, "text-danger", "rejectIsnotMactchSpanTagclass"], ["rejectIsnotMactchSpanTag", ""], ["class", "accordion", "id", "accordionExample", 4, "ngFor", "ngForOf"], ["mat-stroked-button", "", "color", "primary", 1, "mr-2", 3, "disabled", "click"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", "id", "editFormCancel", 3, "hidden"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["floatLabel", "auto", "appearance", "standard", "color", "primary", 1, "w-100"], ["type", "text", "matInput", "", "id", "txtDeleteProjectID", "placeholder", "Project ID", "name", "ProjectID", "disabled", "disabled", 3, "ngModel", "ngModelChange"], ["type", "text", "matInput", "", "id", "txtDeleteProjectName", "placeholder", "Description", "name", "item_description", "disabled", "disabled", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", 1, "mr-2"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", 3, "click"], ["role", "dialog", "id", "CancelledTransactionModal", 1, "modal"], ["PONumber", ""], ["appearance", "fill", 1, "w-100"], ["name", "cancelled_reason", "required", "", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", 3, "disabled", "click"], ["mat-tab-label", ""], [1, "col-sm-12", 2, "padding-top", "2em"], [1, "d-flex"], [1, "p-2"], [1, "input-group", "searchBtnStyle"], [1, "input-group-prepend"], ["id", "basic-addon1", 1, "input-group-text"], [1, "fa", "fa-filter"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "ngModel", "ngModelChange", "selectionChange"], ["value", "po_number"], ["value", "item_code"], [1, "fa", "fa-search"], ["type", "search", "placeholder", "Find here....", "id", "txtSearchText", "name", "SearchText", "autocomplete", "off", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "col-xl-12", "col-lg-9", "mx-auto", "scrollableTableMain", "tbl-text"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-sm", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], [1, "text-center"], [4, "ngFor", "ngForOf"], [1, "col-sm-12"], [1, "pagination", "paginationStyle", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1", "font-color-black"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1", "font-color-black"], [1, "td-text-left"], ["mat-stroked-button", "", "color", "primary", "data-toggle", "modal", "data-target", "#editModal", "data-backdrop", "false", "title", "For Checklist", "data-keyboard", "false", 1, "editbtnStyle", 3, "click"], [1, "fa", "fa-check-circle"], ["mat-stroked-button", "", "color", "warn", "data-toggle", "modal", "data-target", "#CancelledTransactionModal", "data-backdrop", "false", "data-keyboard", "false", "title", "Cancel PO", 1, "editbtnStyle", 3, "click"], [1, "fa", "fa-ban"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [3, "child_id", "uploaded"], [1, "text-danger"], [3, "value"], ["align", "end", 3, "value"], ["type", "text", 3, "value"], ["ActiveAllowablePercentage", ""], ["ActiveNearlyExpirySetpoint", ""], ["RejectedStatus1", ""], ["RejectedStatus3", ""], ["id", "accordionExample", 1, "accordion"], [1, "card"], ["id", "headingOne", 1, "card-header"], [1, "mb-0"], ["type", "button", "data-toggle", "collapse", "aria-expanded", "true", 1, "btn", "btn-link", "btn-block", "text-left"], [1, "checklist-text-color"], ["aria-labelledby", "", "data-parent", "#accordionExample", 1, "collapse", "show"], ["class", "card-body", 4, "ngFor", "ngForOf"], [1, "card-body"], [1, "flex", "tbl-text"], [1, "table"], [1, "th-color", 2, "width", "60%"], [1, "th-color", 2, "width", "40%"], ["class", "form-group col-md-12", 4, "ngFor", "ngForOf"], [1, "form-group", "col-md-12"], [1, "form-group", "col-md-12", "manual-text"], ["type", "text", 1, "form-control", 3, "ngModel", "name", "ngModelChange"], [1, "chx-main"], [1, "chk-element"], ["type", "checkbox", 1, "form-check-input", 3, "value", "name", "ngModel", "ngModelOptions", "ngModelChange"], ["for", ""], ["type", "radio", 1, "form-check-input", 3, "value", "name", "ngModel", "ngModelOptions", "ngModelChange", "change"], ["for", "inlineRadio1", 1, "form-check-label"], ["type", "radio", 1, "form-check-input", 3, "value", "ngModel", "name", "ngModelChange", "change"], ["for", "inlineRadio2", 1, "form-check-label"], ["type", "text", "matInput", "", "id", "ActivePartialReceiving", "disabled", "disabled", 3, "value"], ["ActivePartialReceiving", ""]], template: function ProjectsComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, inputs: { parent_id: "parent_id" }, features: [_angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵNgOnChangesFeature"]], decls: 501, vars: 202, consts: [[1, "row"], [1, "col-xl-12", "col-lg-9", "mx-auto", "divForModuleTable"], ["aria-label", "breadcrumb textStyle"], [1, "breadcrumb"], [1, "breadcrumb-item"], [3, "routerLink"], [1, "dashboardStyle"], ["aria-hidden", "true", 1, "fa", "fa-home"], ["aria-current", "page", 1, "breadcrumb-item", "dashboardActive"], ["mat-align-tabs", "start", 3, "selectedTabChange"], [3, "ngIf"], ["novalidate", "novalidate", "appClientLocationStatusValidator", ""], ["newForm", "ngForm"], ["role", "dialog", "id", "newModal", 1, "modal"], [1, "modal-dialog"], [1, "modal-content", 2, "width", "auto"], [1, "modal-header", "bg-primary", "text-white"], [1, "modal-title"], ["type", "button", "data-dismiss", "modal", 1, "close"], [1, "modal-body"], [1, "form-group", "row"], ["for", "txtNewProjectID", 1, "col-sm-4", "col-form-label"], [1, "col-sm-8"], ["type", "text", "id", "txtNewProjectID", "placeholder", "Project ID", "name", "ProjectID", "required", "required", "pattern", "^[0-9]*$", "appProjectIDUniqueValidator", "", 1, "form-control", 2, "width", "130px", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectID", "ngModel", "prjID", ""], ["class", "text-danger", 4, "ngIf"], ["type", "text", "name", "is_activated", "value", "1", 1, "form-control", 2, "width", "auto", 3, "ngModel", "ngModelChange"], ["newis_activated", "ngModel", "IsActivated", ""], ["for", "txtNewProjectName", 1, "col-sm-4", "col-form-label"], ["type", "text", "id", "txtNewProjectName", "placeholder", "Project Name", "name", "ProjectName", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newProjectName", "ngModel"], ["for", "txtNewDateOfStart", 1, "col-sm-4", "col-form-label"], ["type", "date", "id", "txtNewDateOfStart", "placeholder", "Date of Start", "name", "DateOfStart", "required", "required", 1, "form-control", 2, "width", "180px", 3, "ngModel", "ngClass", "ngModelChange"], ["newDateOfStart", "ngModel"], ["for", "col-sm-4 col-form-label"], [1, "form-check"], ["type", "checkbox", "id", "chkNewActive", "value", "true", "name", "active", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkNewActive", 1, "form-check-label"], ["for", "rbNewStatusInForce", 1, "col-sm-4"], [1, "form-check", "form-check-inline"], ["type", "radio", "id", "rbNewStatusInForce", "value", "In Force", "name", "Status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusInForce", "ngModel"], ["for", "rbNewStatusInForce", 1, "form-check-label"], ["type", "radio", "id", "rbNewStatusSupport", "value", "Support", "name", "Status", "required", "required", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["newStatusSupport", "ngModel"], ["for", "rbNewStatusSupport", 1, "form-check-label"], ["for", "drpNewClientLocation", 1, "col-sm-4", "col-form-label"], ["id", "drpNewClientLocation", "name", "ClientLocation", "required", "required", 1, "form-control", 3, "ngModel", "ngClass", "ngModelChange"], ["newClientLocationID", "ngModel"], ["value", "null"], [3, "value", 4, "ngFor", "ngForOf"], [1, "modal-footer"], ["data-dismiss", "modal", "id", "newFormCancel", 1, "btn", "btn-warning"], [1, "btn", "btn-success", 3, "click"], ["editForm", "ngForm"], ["role", "dialog", "id", "editModal", "data-backdrop", "static", "data-keyboard", "false", 1, "modal"], [1, "modal-dialog", "modal-xl"], [1, "modal-header", "bg-all"], [1, "modal-title", "white-color"], [1, "partition-div"], [1, "col-lg-12"], [1, "form-row"], [1, "form-group", "col-md-3"], ["floatLabel", "auto", "appearance", "outline", "color", "primary"], ["type", "text", "matInput", "", "id", "txtEditProjectID", "placeholder", "Checklist ID", "name", "ProjectID", "disabled", "disabled", "required", "required", "pattern", "^[0-9]*$", "appProjectIDUniqueValidator", "", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editProjectID", "ngModel"], ["matPrefix", ""], ["type", "text", "matInput", "", "id", "txtEdititem_code", "placeholder", "Item Code", "name", "item_code", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["edititem_code", "ngModel"], ["type", "text", "matInput", "", "id", "txtEdititem_class", "placeholder", "Item Class", "disabled", "disabled", "name", "item_class", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["edititem_class", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditmajor_category", "placeholder", "Major Category", "disabled", "disabled", "name", "major_category", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editmajor_category", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditReceivingDate", "disabled", "disabled", "placeholder", "Receiving Date", 1, "text-green", 3, "value"], [1, "material-icons-outlined"], ["type", "text", "matInput", "", "id", "txtitem_description", "placeholder", "Description", "name", "item_descriptuion", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["edititem_description", "ngModel", "ItemDescription", ""], ["type", "text", "matInput", "", "id", "txtEdititem_type", "placeholder", "Item Type", "disabled", "disabled", "name", "item_type", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["edititem_type", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditsub_category", "placeholder", "Sub Category", "disabled", "disabled", "name", "sub_category", "minlength", "3", "maxlength", "30", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editsub_category", "ngModel"], ["floatLabel", "auto", "appearance", "outline", "color", "primary", 1, "w-100"], ["type", "text", "matInput", "", "id", "txtEditSupplier", "placeholder", "supplier", "name", "supplier", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editSupplier", "ngModel"], ["type", "text", "matInput", "", "id", "txtUnitPrice", "placeholder", "Unit Price", "name", "unit_price", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editunit_price", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditpo_number", "placeholder", "PO Number", "name", "po_number", "minlength", "3", "maxlength", "30", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpo_number", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditpr_number", "placeholder", "PR Number", "name", "pr_number", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpr_number", "ngModel"], ["type", "text", "matInput", "", "id", "txtqty_order", "placeholder", "Quantity Ordered", "name", "qty_order", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editqty_order", "ngModel", "QtyOrdered", ""], ["type", "text", "matInput", "", "id", "txtactual_remaining_receiving", "name", "actual_remaining_receiving", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editactual_remaining_receiving", "ngModel", "ActualRemainingReceiving", ""], ["type", "text", "matInput", "", "id", "txtEditqty_uom", "placeholder", "Unit Of Measure", "name", "qty_uom", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange"], ["editqty_uom", "ngModel"], ["type", "text", "matInput", "", "id", "txtpo_date", "placeholder", "PO Date", "name", "po_date", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpo_date", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditipr_date", "placeholder", "PR Date", "name", "pr_date", "required", "required", "minlength", "3", "maxlength", "30", "pattern", "^[A-Za-z0-9 /-]*$", "disabled", "disabled", 1, "text-green", 3, "ngModel", "ngModelChange"], ["editpr_date", "ngModel"], ["type", "text", "matInput", "", "id", "txtEditreceived_by_QA", "disabled", "disabled", 1, "text-green"], ["received_by", ""], ["type", "text", "matInput", "", "id", "txtEditmfg_date", "readonly", "", "name", "mfg_date", "readonly", "readonly", 1, "text-green", 3, "matDatepicker", "max", "ngModel", "ngClass", "ngModelChange"], ["editmfg_date", "ngModel"], ["align", "end"], ["matSuffix", "", 3, "for"], ["matDatepickerToggleIcon", ""], ["startView", "month"], ["dobDatepicker_mfg", ""], ["type", "text", "matInput", "", "id", "txtEditexpiration_date", "readonly", "", "Placeholder", "N/A", "name", "expiration_date", 1, "text-green", 3, "matDatepicker", "min", "ngModel", "ngClass", "ngModelChange", "dateChange"], ["editexpiration_date", "ngModel", "ExpiryDateChild", ""], ["align", "end", 3, "value", 4, "ngFor", "ngForOf"], ["matDatepickerToggleIcon", "", "id", "select_expiry"], ["dobDatepicker", ""], ["type", "text", "matInput", "", "autocomplete", "off", "id", "txtexpected_delivery", "placeholder", "Expected Delivery", "name", "expected_delivery", "required", "required", "maxlength", "9", "c", "", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange", "keypress", "keyup"], ["editexpected_delivery", "ngModel", "ExpectedDeliveryActual", ""], ["type", "text", "matInput", "", "id", "actual_delivery_output", "placeholder", "Quantity Actual Delivered", "required", "required", "name", "actual_delivery", "maxlength", "9", "autocomplete", "off", 1, "text-green", 3, "ngModel", "ngClass", "ngModelChange", "keypress", "keyup"], ["editactual_delivery", "ngModel", "ActualDeliveryChild", ""], [1, "hideObject"], ["type", "text", "id", "Allowable_Percentage_id"], ["TotalAllowablePercentage", ""], [1, "form-group", "row", "hideObject"], ["for", "txtEditDateOfStart", 1, "col-sm-4", "col-form-label"], ["type", "date", "id", "txtEditDateOfStart", "placeholder", "Date of Start", "name", "DateOfStart", "required", "required", 1, "form-control", 2, "width", "180px", 3, "ngModel", "ngClass", "ngModelChange"], ["editDateOfStart", "ngModel"], [1, "col-sm-4"], ["type", "checkbox", "id", "chkEditActive", "value", "true", "name", "active", 1, "form-check-input", 3, "ngModel", "ngModelChange"], ["for", "chkEditActive", 1, "form-check-label"], [1, "rejection-buttons"], [1, "btn-add", "btn", "btn-danger", "btn-sm", "mr-3", 3, "click"], ["id", "remove-remarks-button", 1, "btn", "btn-info", "btn-sm", 3, "click"], [1, "flex"], [1, "box-1"], ["id", "rejectionrow1", 1, "form-group", "row"], ["appearance", "fill"], ["name", "status_of_reject_one", "id", "drpEditRejectStatusOne", 3, "ngModel", "selectionChange", "ngModelChange"], ["id", "rejectionrow2", 1, "form-group", "row"], ["name", "status_of_reject_two", "id", "drpEditRejectStatusTwo", 3, "ngModel", "ngModelChange", "selectionChange"], ["RejectedStatus2", ""], ["id", "rejectionrow32", 1, "form-group", "row"], ["rejectedStatusElementNo3", ""], ["name", "status_of_reject_three", "id", "drpEditRejectStatusThree", 3, "ngModel", "ngModelChange", "selectionChange"], ["id", "total-reject", 1, "form-group", "row"], ["floatLabel", "auto", "appearance", "standard", "color", "primary"], ["type", "text", "matInput", "", "name", "total_of_reject_mat", "readonly", "readonly", 3, "ngModel", "ngModelChange"], ["totalofReject", ""], [1, "box-2"], ["id", "rejectionrow12", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_one", "matInput", "", "maxlength", "9", "id", "rejectRow1", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo1", "", "editcount_of_reject_one", "ngModel"], ["id", "rejectionrow22", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_two", "matInput", "", "maxlength", "9", "id", "rejectRow2", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo2", "", "editcount_of_reject_two", "ngModel"], ["id", "rejectionrow3", 1, "form-group", "row"], ["type", "text", "name", "count_of_reject_three", "matInput", "", "maxlength", "9", "id", "rejectRow3", 3, "ngModel", "ngClass", "keyup", "ngModelChange", "keypress"], ["rejectNo3", "", "editcount_of_reject_three", "ngModel"], ["id", "total-confirm-reject", 1, "form-group", "row"], ["type", "text", "matInput", "", "name", "total_of_reject_mat", 3, "ngModel", "ngModelChange", "keyup", "keypress"], ["confirmReject", ""], [1, "text-danger", "rejectIsnotMactchSpanTagclass"], ["rejectIsnotMactchSpanTag", ""], ["class", "accordion", "id", "accordionExample", 4, "ngFor", "ngForOf"], ["mat-stroked-button", "", "color", "primary", 1, "mr-2", 3, "disabled", "click"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", "id", "editFormCancel", 3, "hidden"], ["role", "dialog", "id", "deleteModal", 1, "modal"], ["floatLabel", "auto", "appearance", "standard", "color", "primary", 1, "w-100"], ["type", "text", "matInput", "", "id", "txtDeleteProjectID", "placeholder", "Project ID", "name", "ProjectID", "disabled", "disabled", 3, "ngModel", "ngModelChange"], ["type", "text", "matInput", "", "id", "txtDeleteProjectName", "placeholder", "Description", "name", "item_description", "disabled", "disabled", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "accent", "data-dismiss", "modal", 1, "mr-2"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", 3, "click"], ["role", "dialog", "id", "CancelledTransactionModal", 1, "modal"], ["PONumber", ""], ["appearance", "fill", 1, "w-100"], ["name", "cancelled_reason", "required", "", 3, "ngModel", "ngModelChange"], ["mat-stroked-button", "", "color", "warn", "data-dismiss", "modal", 3, "disabled", "click"], ["mat-tab-label", ""], [1, "col-sm-12", 2, "padding-top", "2em"], [1, "d-flex"], [1, "p-2"], [1, "input-group", "searchBtnStyle"], [1, "input-group-prepend"], ["id", "basic-addon1", 1, "input-group-text"], [1, "fa", "fa-filter"], ["id", "drpSearchBy", "name", "SearchBy", 1, "form-control", 3, "ngModel", "ngModelChange", "selectionChange"], ["value", "po_number"], ["value", "item_code"], [1, "fa", "fa-search"], ["type", "search", "placeholder", "Find here....", "id", "txtSearchText", "name", "SearchText", "autocomplete", "off", 1, "form-control", 3, "ngModel", "ngModelChange", "keyup"], [1, "col-xl-12", "col-lg-9", "mx-auto", "scrollableTableMain", "tbl-text"], [1, "table", "table-striped", "table-bordered", "nowrap", "table-responsive-sm", 2, "width", "100%"], [1, "text-light", "header-bg-color-um", "system-name"], [1, "text-center"], [4, "ngFor", "ngForOf"], [1, "col-sm-12"], [1, "pagination", "paginationStyle", "justify-content-center", "mt-1"], [1, "page-item", 3, "click"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "mr-1", "font-color-black"], [4, "ngIf"], ["mat-stroked-button", "", "color", "primary", "href", "#", "onclick", "return false", 1, "ml-1", "font-color-black"], [1, "td-text-left"], ["mat-stroked-button", "", "color", "primary", "data-toggle", "modal", "data-target", "#editModal", "data-backdrop", "false", "title", "For Checklist", "data-keyboard", "false", 1, "editbtnStyle", 3, "click"], [1, "fa", "fa-check-circle"], ["mat-stroked-button", "", "color", "warn", "data-toggle", "modal", "data-target", "#CancelledTransactionModal", "data-backdrop", "false", "data-keyboard", "false", "title", "Cancel PO", 1, "editbtnStyle", 3, "click"], [1, "fa", "fa-ban"], ["class", "page-item", 3, "ngClass", "click", 4, "ngFor", "ngForOf"], [1, "page-item", 3, "ngClass", "click"], ["href", "#", "onclick", "return false", 1, "page-link"], ["class", "page-item", 3, "ngClass", "click", 4, "ngIf"], [3, "child_id", "uploaded"], [1, "text-danger"], [3, "value"], ["align", "end", 3, "value"], ["type", "text", 3, "value"], ["ActiveAllowablePercentage", ""], ["ActiveNearlyExpirySetpoint", ""], ["RejectedStatus1", ""], ["RejectedStatus3", ""], ["id", "accordionExample", 1, "accordion"], [1, "card"], ["id", "headingOne", 1, "card-header"], [1, "mb-0"], ["type", "button", "data-toggle", "collapse", "aria-expanded", "true", 1, "btn", "btn-link", "btn-block", "text-left"], [1, "checklist-text-color"], ["aria-labelledby", "", "data-parent", "#accordionExample", 1, "collapse", "show"], ["class", "card-body", 4, "ngFor", "ngForOf"], [1, "card-body"], [1, "flex", "tbl-text"], [1, "table"], [1, "th-color", 2, "width", "60%"], [1, "th-color", 2, "width", "40%"], ["class", "form-group col-md-12", 4, "ngFor", "ngForOf"], [1, "form-group", "col-md-12"], [1, "form-group", "col-md-12", "manual-text"], ["type", "text", 1, "form-control", 3, "ngModel", "name", "change", "ngModelChange"], [1, "chx-main"], [1, "chk-element"], ["type", "checkbox", 1, "form-check-input", 3, "value", "name", "ngModel", "ngModelOptions", "ngModelChange"], ["for", ""], ["type", "radio", 1, "form-check-input", 3, "value", "name", "ngModel", "ngModelOptions", "ngModelChange", "change"], ["for", "inlineRadio1", 1, "form-check-label"], ["type", "radio", 1, "form-check-input", 3, "value", "ngModel", "name", "ngModelChange", "change"], ["for", "inlineRadio2", 1, "form-check-label"], ["type", "text", "matInput", "", "id", "ActivePartialReceiving", "disabled", "disabled", 3, "value"], ["ActivePartialReceiving", ""]], template: function ProjectsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_5__["ɵɵelementStart"](2, "nav", 2);
