@@ -208,7 +208,7 @@ namespace MvcTaskManager.Controllers
                      from c in  pc.DefaultIfEmpty()
 
                      where
-                     (b.Is_Active.Equals(true) ||
+                     (b.Is_active.Equals(true) ||
                      c.Tsqa_Approval_Status.Equals(false)) &&
                      a.Is_active == 1 &&
                      a.Lab_request_by != null

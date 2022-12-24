@@ -742,7 +742,7 @@ namespace MvcTaskManager.Controllers
 
           if (UpdatePeritem != null)
           {
-            UpdatePeritem.Is_Active = true;
+            UpdatePeritem.Is_active = true;
           }
 
         }
@@ -801,31 +801,18 @@ namespace MvcTaskManager.Controllers
         parentData.Is_prepared_date = null;
       }
       await db.SaveChangesAsync();
+      await UpdatePreparationLogs(ParentSource);
+      await UpdateDryWhOrders(ParentSource);
+      return Ok(ParentSource);
+    }
 
-
-      var preparationLogs = await db.Store_Preparation_Logs .Where(temp => temp.ParentIdentity== ParentSource.Id).ToListAsync();
-      foreach (var items in preparationLogs)
-      {
-        var existingdata = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == ParentSource.Id).FirstOrDefaultAsync();
-        if (existingdata != null)
-        {
-          existingdata.Is_Active = false;
-        }
-      }
-      await db.SaveChangesAsync();
-
+    public async Task UpdateDryWhOrders(DryWhOrderParent ParentSource)
+    {
       var data = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == ParentSource.Id).ToListAsync();
-
-
-
-      //return Ok(data);
-      //items.Is_cancel_date = DateTime.Now;
 
       foreach (var items in data)
       {
-
-   
-       var existingProject = await db.Dry_wh_orders.Where(temp => temp.primary_id == items.primary_id).FirstOrDefaultAsync();
+        var existingProject = await db.Dry_wh_orders.Where(temp => temp.primary_id == items.primary_id).FirstOrDefaultAsync();
         if (existingProject != null)
         {
           existingProject.is_wh_checker_cancel = "1";
@@ -833,36 +820,33 @@ namespace MvcTaskManager.Controllers
           existingProject.is_wh_checker_cancel_date = DateTime.Now.ToString();
           existingProject.is_wh_checker_cancel_reason = ParentSource.Is_cancelled_reason;
           existingProject.total_state_repack_cancelled_qty = 1;
-          //existingProject.is_prepared = false;
-          //existingProject.Is_Prepared_Date = null;
-          //existingProject.Is_Prepared_By = null;
-          //existingProject.Start_Time_Stamp = null;
-          //existingProject.Start_By_User_Id = null;
-          //existingProject.End_Time_Stamp_Per_Items = null;
-          //existingProject.total_state_repack = "0";
-
           existingProject.is_prepared = false;
           existingProject.Is_Prepared_Date = null;
-
           await db.SaveChangesAsync();
 
         }
-        else
-        {
-          return null;
-        }
-
-     
-
+   
       }
-      return Ok(ParentSource);
+    }
 
-
+    public async Task UpdatePreparationLogs(DryWhOrderParent ParentSource)
+    {
+      var preparationLogs = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == ParentSource.Id
+      && temp.Is_active.Equals(true)).ToListAsync();
+      foreach (var items in preparationLogs)
+      {
+        var existingdata = await db.Store_Preparation_Logs.Where(temp => temp.ParentIdentity == ParentSource.Id && temp.Is_active.Equals(true)).FirstOrDefaultAsync();
+        if (existingdata != null)
+        {
+          existingdata.Is_active = false;
+        }
+        await db.SaveChangesAsync();
+      }
 
     }
 
 
-      [HttpPut]
+    [HttpPut]
     [Route("api/store_orders/cancelindividualitems")]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public async Task<IActionResult> PutCancelPreparedCancelledCountItem([FromBody] DryWhOrder storeOrders)
@@ -937,7 +921,7 @@ namespace MvcTaskManager.Controllers
       {
         if (UpdatePeritem != null)
         {
-          item.Is_Active = false;
+          item.Is_active = false;
 
         }
 
@@ -955,7 +939,7 @@ namespace MvcTaskManager.Controllers
       List<Store_Preparation_Logs> existingProject = await db.Store_Preparation_Logs.Where(temp => temp.Order_Source_Key == storePreparation.Order_Source_Key ).ToListAsync();
       if (existingProject != null)
       {
-        storePreparation.Is_Active = storePreparation.Is_Active;
+        storePreparation.Is_active = storePreparation.Is_active;
 
 
 
@@ -964,7 +948,7 @@ namespace MvcTaskManager.Controllers
         List<Store_Preparation_Logs> existingProject2 = await db.Store_Preparation_Logs.Where(temp => temp.Order_Source_Key == storePreparation.Order_Source_Key).ToListAsync();
         Store_Preparation_Logs_View_Model projectViewModel = new Store_Preparation_Logs_View_Model()
         {
-          Is_Active = storePreparation.Is_Active.ToString()
+          Is_Active = storePreparation.Is_active.ToString()
 
 
 

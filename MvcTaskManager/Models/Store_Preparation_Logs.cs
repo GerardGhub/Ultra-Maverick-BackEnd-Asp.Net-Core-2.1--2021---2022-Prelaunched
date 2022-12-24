@@ -22,7 +22,7 @@ namespace MvcTaskManager.Models
     public string Prepa_Allocated_Qty { get; set; }
     public string Prepa_Date_Added { get; set; }
     public string Prepa_Added_By { get; set; }
-    public bool Is_Active { get; set; }
+    public bool Is_active { get; set; }
     public int Order_Source_Key { get; set; }
     public bool Data_Refactoring_Status { get; set; }
     public string Category { get; set; }
