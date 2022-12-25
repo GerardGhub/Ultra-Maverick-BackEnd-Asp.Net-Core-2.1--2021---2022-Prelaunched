@@ -844,11 +844,54 @@ namespace MvcTaskManager.Controllers
  
     }
 
+
+    [HttpPut]
+    [Route("api/DryWareHouseReceivingForLabTest/CancelledManagerReleasingLabResult")]
+    public async Task<DryWareHouseReceiving> PutCancelManagerResults([FromBody] DryWareHouseReceiving labTestCancelParams)
+    {
+      //LAB APPROVED
+      string LabStatus = "LAB RESULT";
+      DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving
+      .Where(temp => temp.id == labTestCancelParams.id).FirstOrDefaultAsync();
+      if (existingDataStatus != null)
+      {
+        existingDataStatus.Lab_status = LabStatus;
+        existingDataStatus.Lab_result_remarks = null;
+
+        existingDataStatus.Lab_sub_remarks = null;
+
+        existingDataStatus.LabTest_CancelledReason = labTestCancelParams.LabTest_CancelledReason;
+
+        await db.SaveChangesAsync();
+
+        DryWhLabTestReqLogs existingDataStatus2 = await db.Dry_wh_lab_test_req_logs.Where(temp => temp.Fk_receiving_id == labTestCancelParams.id && temp.Is_active.Equals(true) && temp.Tsqa_Approval_Status.Equals(false)).FirstOrDefaultAsync();
+        if (existingDataStatus2 != null)
+        {
+          existingDataStatus2.Qa_supervisor_is_approve_status = false;
+          existingDataStatus2.Qa_supervisor_is_approve_by = null;
+          existingDataStatus2.Qa_supervisor_is_approve_date = null;
+          existingDataStatus2.Lab_sub_remarks = null;
+          existingDataStatus2.Lab_result_remarks = null;
+          await db.SaveChangesAsync();
+        }
+
+        return existingDataStatus;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
+
+
+
     [HttpPut]
     [Route("api/DryWareHouseReceivingForLabTest/CancelledQASupervisorReleasingLabResult")]
     public async Task<DryWareHouseReceiving> PutCancelQASupervisorResults([FromBody] DryWareHouseReceiving labTestCancelParams)
     {
-      string LabStatus="LAB APPROVED";
+      //LAB APPROVED
+      string LabStatus= "LAB APPROVED";
       DryWareHouseReceiving existingDataStatus = await db.TblDryWHReceiving
       .Where(temp => temp.id == labTestCancelParams.id).FirstOrDefaultAsync();
       if (existingDataStatus != null)
