@@ -218,11 +218,12 @@ namespace MvcTaskManager.Controllers
 
 
 
+
       var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems
-      && x.is_active.Equals(true)
+      && x.is_active.Equals(true) && x.is_wh_checker_cancel != null
       || x.TotalPreparedItems != 0).ToListAsync();
 
-
+      return Ok(GetAllPreparedItems);
 
       var result = await System.Threading.Tasks.Task.Run(() =>
       {
@@ -235,7 +236,6 @@ namespace MvcTaskManager.Controllers
       }
       else
       {
-
         return NoContent();
       }
 
