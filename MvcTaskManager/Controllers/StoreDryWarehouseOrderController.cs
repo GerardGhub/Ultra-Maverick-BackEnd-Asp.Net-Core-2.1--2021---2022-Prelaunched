@@ -808,7 +808,8 @@ namespace MvcTaskManager.Controllers
 
     public async Task UpdateDryWhOrders(DryWhOrderParent ParentSource)
     {
-      var data = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == ParentSource.Id).ToListAsync();
+      var data = await db.Dry_wh_orders.Where(temp => temp.FK_dry_wh_orders_parent_id == ParentSource.Id
+      && temp.Is_allocation_stats_desc == null).ToListAsync();
 
       foreach (var items in data)
       {

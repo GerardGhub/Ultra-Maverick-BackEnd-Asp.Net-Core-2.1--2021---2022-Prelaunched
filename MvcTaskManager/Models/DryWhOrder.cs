@@ -55,6 +55,6 @@ namespace MvcTaskManager.Models
     public string End_Time_Stamp_Per_Items { get; set; }
 
     public int FK_dry_wh_orders_parent_id { get; set; }
-
+    public string Is_allocation_stats_desc { get; set; }
   }
 }
