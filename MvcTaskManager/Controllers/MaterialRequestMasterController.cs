@@ -216,23 +216,23 @@ namespace MvcTaskManager.Controllers
                     );
       //return Ok(results);
 
-
-
-
       var GetAllPreparedItems = await results.Where(x => x.TotalItems != x.TotalPreparedItems
-      && x.is_active.Equals(true) && x.is_wh_checker_cancel != null
-      || x.TotalPreparedItems != 0).ToListAsync();
+      && x.is_active.Equals(true) && x.is_wh_checker_cancel != null 
+      || x.TotalPreparedItems != 0
+      && x.TotalRejectItems != 0).ToListAsync();
 
-      return Ok(GetAllPreparedItems);
 
-      var result = await System.Threading.Tasks.Task.Run(() =>
-      {
-        return Ok(GetAllPreparedItems);
-      });
+
+      //var result = await System.Threading.Tasks.Task.Run(() =>
+      //{
+      //    return Ok(GetAllPreparedItems);
+      //});
+
+
 
       if (GetAllPreparedItems.Count() > 0)
       {
-        return (result);
+        return Ok(GetAllPreparedItems);
       }
       else
       {
@@ -1770,14 +1770,6 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
       return Ok(MRISViewModel);
 
     }
-
-
-
-
   }
-
-
-
-
 
 }
