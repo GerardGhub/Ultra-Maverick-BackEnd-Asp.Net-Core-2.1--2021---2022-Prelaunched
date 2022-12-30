@@ -18460,10 +18460,10 @@ class ForLabtestComponent {
         }
         // console.warn(this.forLabAccessCodeList);
         if (this.forLabAccessCodeList.length == 0) {
-            this.isGenerate = false;
+            this.isGenerate = true;
         }
         else {
-            this.isGenerate = true;
+            this.isGenerate = false;
         }
     }
     generateLabAcessCode() {
