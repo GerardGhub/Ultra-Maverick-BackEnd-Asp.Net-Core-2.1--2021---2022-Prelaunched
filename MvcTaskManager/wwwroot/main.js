@@ -11992,7 +11992,7 @@ class InternalOrderComponent {
     CancelOrderClick() {
         if (this.cancelOrderForm.valid) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
-                title: 'Are you sure you want to cancel?',
+                title: 'Are you sure you want to cancel s?',
                 text: '',
                 icon: 'info',
                 showCancelButton: true,
@@ -18460,10 +18460,10 @@ class ForLabtestComponent {
         }
         // console.warn(this.forLabAccessCodeList);
         if (this.forLabAccessCodeList.length == 0) {
-            this.isGenerate = true;
+            this.isGenerate = false;
         }
         else {
-            this.isGenerate = false;
+            this.isGenerate = true;
         }
     }
     generateLabAcessCode() {

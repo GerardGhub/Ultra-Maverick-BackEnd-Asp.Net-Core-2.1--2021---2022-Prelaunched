@@ -1489,7 +1489,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
         await db.SaveChangesAsync();
 
-        var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+        var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id
+        && temp.Is_allocation_stats_desc == null).ToListAsync();
         if (MaterialLogsPrepared != null)
         {
           foreach (var item in MaterialLogsPrepared)
@@ -1581,7 +1582,8 @@ List<MaterialRequestMaster> obj = new List<MaterialRequestMaster>();
 
     public async Task MaterialLogsReturn(MaterialRequestMaster MRSParams)
     {
-      var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id).ToListAsync();
+      var MaterialLogsPrepared = await db.Material_request_logs.Where(temp => temp.mrs_id == MRSParams.mrs_id
+      && temp.Is_allocation_stats_desc == null).ToListAsync();
       if (MaterialLogsPrepared != null)
       {
         foreach (var item in MaterialLogsPrepared)

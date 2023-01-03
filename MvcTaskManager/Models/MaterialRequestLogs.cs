@@ -50,6 +50,7 @@ namespace MvcTaskManager.Models
     public string is_for_validation { get; set; } = "0";
     public string prepared_allocated_qty { get; set; }
     public string cancel_reason { get; set; }
+    public string Is_allocation_stats_desc { get; set; }
 
   }
 }
